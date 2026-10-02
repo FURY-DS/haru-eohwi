@@ -287,7 +287,14 @@ dialog::backdrop { background: rgba(10, 16, 12, .45); }
   .story-title { font-size: 20px; }
 }
 
-.voice-box { padding: 10px 12px; border: 1px solid var(--line); border-radius: 12px; background: var(--soft-2); font-size: 14px; }
+.voice-box { padding: 6px 12px; border: 1px solid var(--line); border-radius: 12px; background: var(--soft-2); font-size: 14px; }
 .voice-box .vs.ok { color: var(--green); font-weight: 600; }
 .voice-box .vs.bad { color: var(--warn); font-weight: 600; }
 .voice-box small { color: var(--ink-2); }
+
+.voice-box { display: grid; gap: 8px; }
+.vrow { display: grid; grid-template-columns: 56px 1fr auto; align-items: center; gap: 8px; padding: 8px 0; border-top: 1px solid var(--line); }
+.vrow:first-child { border-top: 0; }
+.vlang { font-weight: 600; font-size: 13px; }
+.vinfo { font-size: 13px; line-height: 1.4; word-break: break-all; }
+.vrow .btn { min-height: 38px; padding: 6px 12px; flex: none; }

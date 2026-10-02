@@ -248,6 +248,33 @@ const canSpeak = () => 'speechSynthesis' in window;
 let speechToken = 0;   // 새 재생·정지가 있을 때마다 올려서, 이전 재생의 종료 이벤트를 무시한다
 
 const voiceLang = (v) => v.lang.replace('_', '-').toLowerCase();
+
+/* 언어별로 앱이 음성을 직접 골라 지정한다 (기기 기본 선택에 맡기면 iOS 등에서 엉뚱한 음성이 쓰임).
+ * 점수: 언어·지역 일치, 기기 기본 음성, 선호 이름 가산 / 효과음·특이 음성 감점 */
+const VOICE_PREF = {
+  en: /\b(samantha|ava|allison|susan|nicky|karen)\b|google us english|microsoft (aria|jenny|guy)|english \(united states\)/i,
+  zh: /tingting|ting-ting|婷婷|google 普通话|xiaoxiao|yunxi|huihui|mandarin/i,
+};
+const VOICE_AVOID = /^(albert|bad news|bahh|bells|boing|bubbles|cellos|good news|jester|organ|superstar|trinoids|whisper|wobble|zarvox|fred|junior|ralph|kathy|princess|grandma|grandpa|eddy|flo|reed|rocko|sandy|shelley)\b/i;
+
+function scoreVoice(v, lang) {
+  const l = voiceLang(v);
+  let sc = 0;
+  if (lang === 'en') {
+    if (!l.startsWith('en')) return -1;
+    if (l === 'en-us') sc += 3; else if (l === 'en-gb') sc += 1;
+  } else if (lang === 'zh') {
+    // 표준중국어: 홍콩·대만·광둥어 음성은 제외
+    if (!(l.startsWith('zh') || l.startsWith('cmn')) || /^zh-(hk|tw)|^zh-hant|^yue/.test(l) || /cantonese|粵|粤|廣東|广东|台灣|台湾/i.test(v.name)) return -1;
+    if (l === 'zh-cn' || l === 'cmn-cn' || l === 'zh-hans-cn' || l === 'zh') sc += 3; else sc += 1;
+  }
+  if (v.default) sc += 2;
+  if (VOICE_PREF[lang] && VOICE_PREF[lang].test(v.name)) sc += 4;
+  if (VOICE_AVOID.test(v.name)) sc -= 5;
+  if (v.localService) sc += 1;
+  return sc;
+}
+
 /** 광둥어 음성 찾기: yue-* 우선, 그다음 zh-HK(홍콩 중국어). 없으면 null */
 function findYueVoice() {
   if (!canSpeak()) return null;
@@ -258,29 +285,44 @@ function findYueVoice() {
     || null;
 }
 
+/** 언어별 사용할 음성 (없으면 null → 기기가 언어 코드로 고르게 둠) */
+const IS_IOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+function pickVoice(lang) {
+  if (!canSpeak()) return null;
+  if (lang === 'yue') return findYueVoice();
+  // iOS 만 앱이 직접 고른다. PC·안드로이드는 기존처럼 언어 코드가 일치하는 첫 음성 (이미 잘 동작)
+  if (!IS_IOS) return speechSynthesis.getVoices().find((v) => voiceLang(v) === LANG[lang].speech.toLowerCase()) || null;
+  let best = null, bestScore = -1;
+  for (const v of speechSynthesis.getVoices()) {
+    const sc = scoreVoice(v, lang);
+    if (sc > bestScore) { best = v; bestScore = sc; }
+  }
+  return best;
+}
+
 function makeUtterance(text, lang) {
   const u = new SpeechSynthesisUtterance(text);
   u.lang = LANG[lang].speech; u.rate = .9;
-  if (lang === 'yue') {
-    const v = findYueVoice();
-    if (v) { u.voice = v; u.lang = v.lang; }
-    else if (speechSynthesis.getVoices().length) toast('이 기기에 광둥어 음성이 없어 표준 중국어로 읽힐 수 있어요 (설정 → 음성 점검)');
-    return u;
-  }
-  const v = speechSynthesis.getVoices().find((x) => voiceLang(x) === u.lang.toLowerCase());
-  if (v) u.voice = v;
+  const v = pickVoice(lang);
+  if (v) { u.voice = v; u.lang = v.lang; }
+  else if (lang === 'yue' && speechSynthesis.getVoices().length) toast('이 기기에 광둥어 음성이 없어 표준 중국어로 읽힐 수 있어요 (설정 → 음성 점검)');
   return u;
 }
 
-/** 설정 화면의 '광둥어 음성 점검' 표시 */
+/** 설정 화면의 '음성 점검': 언어별로 앱이 고른 음성과 테스트 듣기 */
+const VOICE_TEST = { yue: '早晨', en: 'Good morning. How are you today?', zh: '早上好，今天过得怎么样？' };
 function voiceStatusHTML() {
-  if (!canSpeak()) return '<span class="vs bad">이 브라우저는 음성 읽기를 지원하지 않아요.</span>';
-  const total = speechSynthesis.getVoices().length;
-  if (!total) return '<span class="vs">음성 목록을 불러오는 중이에요… 잠시 후 다시 열어보세요.</span>';
-  const v = findYueVoice();
-  if (v) return `<span class="vs ok">✓ 광둥어 음성 사용 가능</span><br><small>${esc(v.name)} (${esc(v.lang)})</small>`;
-  const zh = speechSynthesis.getVoices().filter((x) => /^zh|^cmn/.test(voiceLang(x))).map((x) => `${x.name} (${x.lang})`);
-  return `<span class="vs bad">⚠ 광둥어 음성이 없어요 — 표준 중국어 음성으로 읽혀요</span>${zh.length ? `<br><small>있는 중국어 음성: ${esc(zh.slice(0, 4).join(', '))}</small>` : ''}`;
+  if (!canSpeak()) return '<div class="vs bad">이 브라우저는 음성 읽기를 지원하지 않아요.</div>';
+  if (!speechSynthesis.getVoices().length) return '<div class="vs">음성 목록을 불러오는 중이에요… 설정을 닫았다가 다시 열어보세요.</div>';
+  return LANGS.map((l) => {
+    const v = pickVoice(l.key);
+    let info;
+    if (v) info = `<span class="vs ok">✓ ${esc(v.name)}</span> <small>(${esc(v.lang)})</small>`;
+    else if (l.key === 'yue') info = '<span class="vs bad">⚠ 광둥어 음성이 없어요 — 표준 중국어로 읽혀요</span>';
+    else info = '<span class="vs">기기 기본 음성을 써요</span>';
+    return `<div class="vrow"><div class="vlang">${l.label}</div><div class="vinfo">${info}</div>
+      <button class="btn" data-act="voice-test" data-vlang="${l.key}" aria-label="${l.label} 테스트 듣기">${ICON.speaker}<span>듣기</span></button></div>`;
+  }).join('');
 }
 if (canSpeak()) speechSynthesis.addEventListener?.('voiceschanged', () => { const el = document.getElementById('s-voice'); if (el) el.innerHTML = voiceStatusHTML(); });
 
@@ -580,10 +622,9 @@ function openSettings() {
     <div class="field"><label>학습 수준 (언어별)</label>
       <dl class="kv lv-list"><dt>광둥어</dt><dd>${esc(lv.yue.label)}</dd><dt>영어</dt><dd>${esc(lv.en.label)}</dd><dt>중국어</dt><dd>${esc(lv.zh.label)}${lv.zh.standard ? `<br><small>${esc(lv.zh.standard)}</small>` : ''}</dd></dl>
       <small>수준은 자료 생성 지침과 함께 관리돼요. 바꾸려면 <b>data/config.json</b>의 levels 를 수정하세요.</small></div>
-    <div class="field"><label>광둥어 음성 점검</label>
+    <div class="field"><label>음성 점검 (언어별로 앱이 고른 음성)</label>
       <div id="s-voice" class="voice-box">${voiceStatusHTML()}</div>
-      <div class="row-btns"><button class="btn" data-act="voice-test">${ICON.speaker}<span>광둥어 테스트 듣기 (早晨)</span></button></div>
-      <small>광둥어 음성이 없으면 폰의 'Google 음성 설정'에서 중국어(홍콩)/광둥어 음성을 설치하세요.</small></div>
+      <small>광둥어 음성이 없으면 폰의 음성 설정에서 중국어(홍콩)/광둥어 음성을 설치하세요. 소리가 이상하면 이 화면의 음성 이름을 알려주세요.</small></div>
     <div class="field"><label for="s-topic">선호 주제·장면</label><input id="s-topic" list="topics" value="${esc(setting('topic'))}" placeholder="예: 실생활, 여행, 음식, 직장">
       <datalist id="topics">${['실생활', '여행', '음식', '직장', '쇼핑', '감정 표현', '교통'].map((o) => `<option value="${o}">`).join('')}</datalist>
       <small>생성에 적용하려면 <b>data/config.json</b>에 반영해야 해요. 아래 버튼으로 내용을 복사하세요.</small></div>
@@ -649,7 +690,7 @@ document.addEventListener('click', async (ev) => {
     }
     case 'read': { if (!pas) break; toggleRead(pas.dataset.date, pas.dataset.lang); break; }
     case 'install': if (deferredInstall) { deferredInstall.prompt(); deferredInstall = null; t.hidden = true; } break;
-    case 'voice-test': speak('早晨', 'yue'); break;
+    case 'voice-test': { const vl = t.dataset.vlang || 'yue'; speak(VOICE_TEST[vl], vl); break; }
     case 'copy-config': {
       try { await navigator.clipboard.writeText($('#cfg-json').textContent); toast('복사했어요'); } catch { toast('복사에 실패했어요'); }
       break;

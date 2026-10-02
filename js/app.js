@@ -247,13 +247,42 @@ function toggleReview(date, lang, w) {
 const canSpeak = () => 'speechSynthesis' in window;
 let speechToken = 0;   // 새 재생·정지가 있을 때마다 올려서, 이전 재생의 종료 이벤트를 무시한다
 
+const voiceLang = (v) => v.lang.replace('_', '-').toLowerCase();
+/** 광둥어 음성 찾기: yue-* 우선, 그다음 zh-HK(홍콩 중국어). 없으면 null */
+function findYueVoice() {
+  if (!canSpeak()) return null;
+  const vs = speechSynthesis.getVoices();
+  return vs.find((v) => /^yue(-|$)/.test(voiceLang(v)))
+    || vs.find((v) => voiceLang(v) === 'zh-hk')
+    || vs.find((v) => /cantonese|粵|粤|廣東|广东/i.test(v.name))
+    || null;
+}
+
 function makeUtterance(text, lang) {
   const u = new SpeechSynthesisUtterance(text);
   u.lang = LANG[lang].speech; u.rate = .9;
-  const v = speechSynthesis.getVoices().find((x) => x.lang.replace('_', '-').toLowerCase() === u.lang.toLowerCase());
-  if (v) u.voice = v; else if (lang === 'yue') toast('광둥어 음성이 없어 표준 중국어 음성으로 읽을 수 있어요');
+  if (lang === 'yue') {
+    const v = findYueVoice();
+    if (v) { u.voice = v; u.lang = v.lang; }
+    else if (speechSynthesis.getVoices().length) toast('이 기기에 광둥어 음성이 없어 표준 중국어로 읽힐 수 있어요 (설정 → 음성 점검)');
+    return u;
+  }
+  const v = speechSynthesis.getVoices().find((x) => voiceLang(x) === u.lang.toLowerCase());
+  if (v) u.voice = v;
   return u;
 }
+
+/** 설정 화면의 '광둥어 음성 점검' 표시 */
+function voiceStatusHTML() {
+  if (!canSpeak()) return '<span class="vs bad">이 브라우저는 음성 읽기를 지원하지 않아요.</span>';
+  const total = speechSynthesis.getVoices().length;
+  if (!total) return '<span class="vs">음성 목록을 불러오는 중이에요… 잠시 후 다시 열어보세요.</span>';
+  const v = findYueVoice();
+  if (v) return `<span class="vs ok">✓ 광둥어 음성 사용 가능</span><br><small>${esc(v.name)} (${esc(v.lang)})</small>`;
+  const zh = speechSynthesis.getVoices().filter((x) => /^zh|^cmn/.test(voiceLang(x))).map((x) => `${x.name} (${x.lang})`);
+  return `<span class="vs bad">⚠ 광둥어 음성이 없어요 — 표준 중국어 음성으로 읽혀요</span>${zh.length ? `<br><small>있는 중국어 음성: ${esc(zh.slice(0, 4).join(', '))}</small>` : ''}`;
+}
+if (canSpeak()) speechSynthesis.addEventListener?.('voiceschanged', () => { const el = document.getElementById('s-voice'); if (el) el.innerHTML = voiceStatusHTML(); });
 
 /** 재생 중인 음성을 모두 멈춘다. 글 재생 표시도 해제 */
 function stopSpeech() {
@@ -551,6 +580,10 @@ function openSettings() {
     <div class="field"><label>학습 수준 (언어별)</label>
       <dl class="kv lv-list"><dt>광둥어</dt><dd>${esc(lv.yue.label)}</dd><dt>영어</dt><dd>${esc(lv.en.label)}</dd><dt>중국어</dt><dd>${esc(lv.zh.label)}${lv.zh.standard ? `<br><small>${esc(lv.zh.standard)}</small>` : ''}</dd></dl>
       <small>수준은 자료 생성 지침과 함께 관리돼요. 바꾸려면 <b>data/config.json</b>의 levels 를 수정하세요.</small></div>
+    <div class="field"><label>광둥어 음성 점검</label>
+      <div id="s-voice" class="voice-box">${voiceStatusHTML()}</div>
+      <div class="row-btns"><button class="btn" data-act="voice-test">${ICON.speaker}<span>광둥어 테스트 듣기 (早晨)</span></button></div>
+      <small>광둥어 음성이 없으면 폰의 'Google 음성 설정'에서 중국어(홍콩)/광둥어 음성을 설치하세요.</small></div>
     <div class="field"><label for="s-topic">선호 주제·장면</label><input id="s-topic" list="topics" value="${esc(setting('topic'))}" placeholder="예: 실생활, 여행, 음식, 직장">
       <datalist id="topics">${['실생활', '여행', '음식', '직장', '쇼핑', '감정 표현', '교통'].map((o) => `<option value="${o}">`).join('')}</datalist>
       <small>생성에 적용하려면 <b>data/config.json</b>에 반영해야 해요. 아래 버튼으로 내용을 복사하세요.</small></div>
@@ -616,6 +649,7 @@ document.addEventListener('click', async (ev) => {
     }
     case 'read': { if (!pas) break; toggleRead(pas.dataset.date, pas.dataset.lang); break; }
     case 'install': if (deferredInstall) { deferredInstall.prompt(); deferredInstall = null; t.hidden = true; } break;
+    case 'voice-test': speak('早晨', 'yue'); break;
     case 'copy-config': {
       try { await navigator.clipboard.writeText($('#cfg-json').textContent); toast('복사했어요'); } catch { toast('복사에 실패했어요'); }
       break;

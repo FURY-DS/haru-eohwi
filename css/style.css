@@ -286,3 +286,8 @@ dialog::backdrop { background: rgba(10, 16, 12, .45); }
   .story-body, .sent .src { font-size: 17px; }
   .story-title { font-size: 20px; }
 }
+
+.voice-box { padding: 10px 12px; border: 1px solid var(--line); border-radius: 12px; background: var(--soft-2); font-size: 14px; }
+.voice-box .vs.ok { color: var(--green); font-weight: 600; }
+.voice-box .vs.bad { color: var(--warn); font-weight: 600; }
+.voice-box small { color: var(--ink-2); }

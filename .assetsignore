@@ -1,0 +1,11 @@
+wrangler.jsonc
+.assetsignore
+.gitignore
+.git
+.claude
+node_modules
+tools
+docs
+examples
+README.md
+data/days/.gitkeep

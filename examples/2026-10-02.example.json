@@ -1,0 +1,40 @@
+{
+  "date": "2026-10-02",
+  "status": "ready",
+  "generatedAt": "2026-10-02T08:45:00+09:00",
+  "level": "초급~중급",
+  "topic": "실생활",
+  "languages": {
+    "yue": [
+      { "id": "yue-1", "word": "早晨", "reading": "zou2 san4", "meaning": "좋은 아침 (아침 인사)", "example": "早晨，你好！", "exampleReading": "zou2 san4, nei5 hou2!", "exampleKo": "좋은 아침, 안녕하세요!" },
+      { "id": "yue-2", "word": "唔該", "reading": "m4 goi1", "meaning": "고맙습니다 / 부탁합니다 / 실례합니다", "example": "唔該，畀杯水我。", "exampleReading": "m4 goi1, bei2 bui1 seoi2 ngo5.", "exampleKo": "죄송하지만 물 한 잔 주세요." },
+      { "id": "yue-3", "word": "飲茶", "reading": "jam2 caa4", "meaning": "차를 마시다 (딤섬 식사)", "example": "我哋去飲茶。", "exampleReading": "ngo5 dei6 heoi3 jam2 caa4.", "exampleKo": "우리 딤섬 먹으러 가요." },
+      { "id": "yue-4", "word": "幾多錢", "reading": "gei2 do1 cin2", "meaning": "얼마예요", "example": "呢個幾多錢呀？", "exampleReading": "ni1 go3 gei2 do1 cin2 aa3?", "exampleKo": "이거 얼마예요?" },
+      { "id": "yue-5", "word": "好食", "reading": "hou2 sik6", "meaning": "맛있다", "example": "呢間餐廳啲嘢好好食。", "exampleReading": "ni1 gaan1 caan1 teng1 di1 je5 hou2 hou2 sik6.", "exampleKo": "이 식당 음식이 정말 맛있어요." }
+    ],
+    "en": [
+      { "id": "en-1", "word": "breakfast", "reading": "/ˈbrɛkfəst/", "pos": "명사", "meaning": "아침 식사", "example": "I usually have breakfast at eight.", "exampleKo": "나는 보통 8시에 아침을 먹어요." },
+      { "id": "en-2", "word": "commute", "reading": "/kəˈmjuːt/", "pos": "동사", "meaning": "통근하다", "example": "I commute to work by subway.", "exampleKo": "나는 지하철로 출근해요." },
+      { "id": "en-3", "word": "schedule", "reading": "/ˈskɛdʒuːl/", "pos": "명사", "meaning": "일정", "example": "What is your schedule today?", "exampleKo": "오늘 일정이 어떻게 되세요?" },
+      { "id": "en-4", "word": "grocery", "reading": "/ˈɡroʊsəri/", "pos": "명사", "meaning": "식료품", "example": "I need to buy some groceries.", "exampleKo": "식료품을 좀 사야 해요." },
+      { "id": "en-5", "word": "appointment", "reading": "/əˈpɔɪntmənt/", "pos": "명사", "meaning": "약속, 예약", "example": "I have a doctor's appointment at three.", "exampleKo": "3시에 병원 예약이 있어요." },
+      { "id": "en-6", "word": "receipt", "reading": "/rɪˈsiːt/", "pos": "명사", "meaning": "영수증", "example": "Can I have the receipt, please?", "exampleKo": "영수증 주시겠어요?" },
+      { "id": "en-7", "word": "neighbor", "reading": "/ˈneɪbər/", "pos": "명사", "meaning": "이웃", "example": "My neighbor is very friendly.", "exampleKo": "우리 이웃은 아주 친절해요." },
+      { "id": "en-8", "word": "recommend", "reading": "/ˌrɛkəˈmɛnd/", "pos": "동사", "meaning": "추천하다", "example": "Can you recommend a good restaurant?", "exampleKo": "좋은 식당 하나 추천해 주실래요?" },
+      { "id": "en-9", "word": "forecast", "reading": "/ˈfɔːrkæst/", "pos": "명사", "meaning": "예보", "example": "The forecast says it will rain tomorrow.", "exampleKo": "예보에 따르면 내일 비가 와요." },
+      { "id": "en-10", "word": "delay", "reading": "/dɪˈleɪ/", "pos": "명사", "meaning": "지연", "example": "The train had a long delay.", "exampleKo": "기차가 오랫동안 지연됐어요." }
+    ],
+    "zh": [
+      { "id": "zh-1", "word": "早餐", "reading": "zǎocān", "pos": "명사", "meaning": "아침 식사", "example": "我每天早上七点吃早餐。", "exampleReading": "Wǒ měitiān zǎoshang qī diǎn chī zǎocān.", "exampleKo": "나는 매일 아침 7시에 아침을 먹어요." },
+      { "id": "zh-2", "word": "地铁", "reading": "dìtiě", "pos": "명사", "meaning": "지하철", "example": "我坐地铁去上班。", "exampleReading": "Wǒ zuò dìtiě qù shàngbān.", "exampleKo": "나는 지하철을 타고 출근해요." },
+      { "id": "zh-3", "word": "天气", "reading": "tiānqì", "pos": "명사", "meaning": "날씨", "example": "今天天气很好。", "exampleReading": "Jīntiān tiānqì hěn hǎo.", "exampleKo": "오늘 날씨가 아주 좋아요." },
+      { "id": "zh-4", "word": "手机", "reading": "shǒujī", "pos": "명사", "meaning": "휴대폰", "example": "我的手机没电了。", "exampleReading": "Wǒ de shǒujī méi diàn le.", "exampleKo": "내 휴대폰 배터리가 다 됐어요." },
+      { "id": "zh-5", "word": "便宜", "reading": "piányi", "pos": "형용사", "meaning": "싸다", "example": "这件衣服很便宜。", "exampleReading": "Zhè jiàn yīfu hěn piányi.", "exampleKo": "이 옷은 아주 싸요." },
+      { "id": "zh-6", "word": "附近", "reading": "fùjìn", "pos": "명사", "meaning": "근처", "example": "这附近有咖啡店吗？", "exampleReading": "Zhè fùjìn yǒu kāfēidiàn ma?", "exampleKo": "이 근처에 카페가 있나요?" },
+      { "id": "zh-7", "word": "预约", "reading": "yùyuē", "pos": "동사", "meaning": "예약하다", "example": "我想预约明天的位子。", "exampleReading": "Wǒ xiǎng yùyuē míngtiān de wèizi.", "exampleKo": "내일 자리를 예약하고 싶어요." },
+      { "id": "zh-8", "word": "迟到", "reading": "chídào", "pos": "동사", "meaning": "지각하다", "example": "对不起，我迟到了。", "exampleReading": "Duìbuqǐ, wǒ chídào le.", "exampleKo": "죄송해요, 제가 늦었어요." },
+      { "id": "zh-9", "word": "帮忙", "reading": "bāngmáng", "pos": "동사", "meaning": "돕다", "example": "你能帮我一个忙吗？", "exampleReading": "Nǐ néng bāng wǒ yí ge máng ma?", "exampleKo": "저를 좀 도와주실 수 있나요?" },
+      { "id": "zh-10", "word": "休息", "reading": "xiūxi", "pos": "동사", "meaning": "쉬다", "example": "你累了，先休息一下吧。", "exampleReading": "Nǐ lèi le, xiān xiūxi yíxià ba.", "exampleKo": "피곤하죠, 먼저 좀 쉬세요." }
+    ]
+  }
+}

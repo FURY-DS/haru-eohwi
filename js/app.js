@@ -1,16 +1,25 @@
 'use strict';
 /* 하루어휘 · Morning Words
- * 데이터: data/index.json (날짜별 상태) + data/days/YYYY-MM-DD.json (그날의 단어)
+ * 데이터(스키마 v2): data/index.json (날짜별 상태) + data/days/YYYY-MM-DD.json
+ *   하루 = 언어별 학습 세트 3개(광둥어·영어·중국어), 각 세트 = 단어 목록 + 그 단어를 모두 쓴 통합 글 1편
  * 학습 기록: 이 기기의 localStorage (개인용, 서버 없음)
  */
 
 const LANGS = [
-  { key: 'yue', label: '광둥어', htmlLang: 'yue-Hant-HK', speech: 'zh-HK', readingLabel: 'Jyutping' },
-  { key: 'en',  label: '영어',   htmlLang: 'en',          speech: 'en-US', readingLabel: 'IPA' },
-  { key: 'zh',  label: '중국어', htmlLang: 'zh-Hans',     speech: 'zh-CN', readingLabel: '병음' },
+  { key: 'yue', label: '광둥어', htmlLang: 'yue-Hant-HK', speech: 'zh-HK', rdLabel: 'Jyutping' },
+  { key: 'en',  label: '영어',   htmlLang: 'en',          speech: 'en-US', rdLabel: '' },
+  { key: 'zh',  label: '중국어', htmlLang: 'zh-Hans',     speech: 'zh-CN', rdLabel: '병음' },
 ];
 const LANG = Object.fromEntries(LANGS.map((l) => [l.key, l]));
-const DEFAULT_CONFIG = { generateAt: '08:45', counts: { yue: 5, en: 10, zh: 10 } };
+const DEFAULT_CONFIG = {
+  generateAt: '08:45',
+  counts: { yue: 5, en: 10, zh: 10 },
+  levels: {
+    yue: { label: '완전 초급' },
+    en: { label: '토익스피킹 대비' },
+    zh: { label: 'HSK 4~6급', standard: 'HSK 2.0 (6급제) 기준 4~6급 어휘' },
+  },
+};
 const DOW = ['일', '월', '화', '수', '목', '금', '토'];
 const STATE_LABEL = {
   none: '자료 없음', generating: '생성 중', failed: '생성 실패',
@@ -44,8 +53,8 @@ const ICON = {
 
 /* ---------- 저장소 (학습 기록) ---------- */
 const KEY = 'haru-eohwi.v1';
-const DEFAULT_SETTINGS = { theme: 'auto', level: '초급~중급', topic: '실생활', hideMeaning: false };
-function emptyStore() { return { done: {}, review: {}, days: {}, settings: {}, lastSync: null }; }
+const DEFAULT_SETTINGS = { theme: 'auto', topic: '실생활', hideMeaning: false };
+function emptyStore() { return { done: {}, read: {}, review: {}, days: {}, settings: {}, lastSync: null }; }
 function loadStore() {
   try {
     const o = JSON.parse(localStorage.getItem(KEY));
@@ -66,7 +75,9 @@ const st = {
   indexOk: false,
   config: DEFAULT_CONFIG,
   days: {},             // date -> {state, data, message}
-  revealed: new Set(),  // 뜻 가리기에서 개별로 연 카드
+  revealed: new Set(),  // 뜻 가리기에서 개별로 연 단어
+  ui: {},               // `${date}|${lang}` -> {ko, rd}  (글 번역/발음 보기)
+  pop: null,            // 강조 단어 팝업 { date, lang, wordId }
 };
 
 /* ---------- 데이터 로딩 ---------- */
@@ -86,7 +97,11 @@ async function loadMeta() {
   } catch { st.index = null; st.indexOk = false; }
   try {
     const r = await getJSON('data/config.json');
-    if (r.json) st.config = { ...DEFAULT_CONFIG, ...r.json, counts: { ...DEFAULT_CONFIG.counts, ...(r.json.counts || {}) } };
+    if (r.json) st.config = {
+      ...DEFAULT_CONFIG, ...r.json,
+      counts: { ...DEFAULT_CONFIG.counts, ...(r.json.counts || {}) },
+      levels: { ...DEFAULT_CONFIG.levels, ...(r.json.levels || {}) },
+    };
   } catch { /* 기본값 */ }
 }
 
@@ -111,34 +126,58 @@ async function loadDay(date, force = false) {
     const data = normalizeDay(r.json, date);
     if (data.status === 'generating') { st.days[date] = { state: 'generating', message: data.message }; return; }
     if (data.status === 'failed') { st.days[date] = { state: 'failed', message: data.message }; return; }
-    if (!data.total) { st.days[date] = { state: 'none' }; return; }
+    if (!data.totalWords) { st.days[date] = { state: 'none' }; return; }
     st.days[date] = { state: 'ready', data };
-    const totals = { total: data.total, yue: data.words.yue.length, en: data.words.en.length, zh: data.words.zh.length };
-    S.days[date] = { ...(S.days[date] || {}), totals }; save();
+    const totals = { total: data.totalWords, passages: data.passageCount, yue: data.sets.yue.words.length, en: data.sets.en.words.length, zh: data.sets.zh.words.length };
+    S.days[date] = { ...(S.days[date] || {}), totals };
+    updateCompletion(date); save();
   } catch (e) {
-    st.days[date] = { state: 'failed', message: navigator.onLine ? '자료를 불러오지 못했어요.' : '오프라인이라 아직 받지 않은 날짜는 볼 수 없어요.' };
+    const legacy = e && e.legacy;
+    st.days[date] = { state: 'failed', message: legacy ? '이전 형식의 자료라 표시할 수 없어요.' : (navigator.onLine ? '자료를 불러오지 못했어요.' : '오프라인이라 아직 받지 않은 날짜는 볼 수 없어요.') };
   }
 }
 
+/** 자료 JSON → 화면용 구조. 단어 연결 정보(uses)는 원문과 일치하는 것만 사용한다. */
 function normalizeDay(j, date) {
-  const words = { yue: [], en: [], zh: [] };
-  const langs = (j && j.languages) || {};
+  const status = j?.status || 'ready';
+  const base = { date: j?.date || date, status, message: j?.message || '', generatedAt: j?.generatedAt || null };
+  if (status !== 'ready') return { ...base, sets: {}, totalWords: 0, passageCount: 0 };
+  if (j?.schemaVersion !== 2 || !j.sets) { const e = new Error('legacy'); e.legacy = true; throw e; }
+  const sets = {};
+  let totalWords = 0, passageCount = 0;
   for (const l of LANGS) {
-    const arr = Array.isArray(langs[l.key]) ? langs[l.key] : [];
-    words[l.key] = arr.filter((w) => w && w.word).map((w, i) => ({
-      id: w.id || `${l.key}-${i + 1}`,
-      word: String(w.word), meaning: w.meaning || '', reading: w.reading || '', pos: w.pos || '',
-      example: w.example || '', exampleReading: w.exampleReading || '', exampleKo: w.exampleKo || '',
+    const s = j.sets[l.key] || {};
+    const words = (Array.isArray(s.words) ? s.words : []).filter((w) => w && w.id && w.word).map((w) => ({
+      id: String(w.id), word: String(w.word), reading: w.reading || '', meaning: w.meaning || '', pos: w.pos || '',
     }));
+    let passage = null;
+    const p = s.passage;
+    if (p && Array.isArray(p.sentences) && p.sentences.length) {
+      passage = {
+        title: p.title || '', titleKo: p.titleKo || '', situation: p.situation || '',
+        sentences: p.sentences.filter((x) => x && x.text).map((x) => ({
+          text: String(x.text), ko: x.ko || '', reading: x.reading || '',
+          uses: (Array.isArray(x.uses) ? x.uses : [])
+            .filter((u) => u && Number.isInteger(u.start) && Number.isInteger(u.end) && String(x.text).slice(u.start, u.end) === u.text && words.some((w) => w.id === u.wordId))
+            .sort((a, b) => a.start - b.start)
+            .filter((u, i, arr) => i === 0 || u.start >= arr[i - 1].end),
+        })),
+      };
+    }
+    sets[l.key] = { level: s.level || '', hskStandard: s.hskStandard || '', words, passage };
+    totalWords += words.length;
+    if (passage) passageCount++;
   }
-  const total = words.yue.length + words.en.length + words.zh.length;
-  return { date: j?.date || date, status: j?.status || 'ready', message: j?.message || '', words, total, generatedAt: j?.generatedAt || null };
+  return { ...base, sets, totalWords, passageCount };
 }
 
 /* ---------- 진행 집계 ---------- */
 const doneKey = (date, id) => `${date}|${id}`;
+const readKey = (date, lang) => `${date}|${lang}`;
 const isDone = (date, id) => !!S.done[doneKey(date, id)];
+const isRead = (date, lang) => !!S.read[readKey(date, lang)];
 
+/** 날짜별 집계: 단어 완료(언어별/전체) + 글 읽기 완료(언어별/전체) */
 function counts(date) {
   const t = S.days[date]?.totals;
   const done = { yue: 0, en: 0, zh: 0 };
@@ -148,10 +187,14 @@ function counts(date) {
     const l = k.slice(prefix.length).split('-')[0];
     if (l in done) done[l]++;
   }
+  const read = { yue: false, en: false, zh: false };
+  for (const l of LANGS) read[l.key] = isRead(date, l.key);
   if (t) for (const l of LANGS) done[l.key] = Math.min(done[l.key], t[l.key] ?? done[l.key]);
-  const total = t ? t.total : 0;
   const sum = done.yue + done.en + done.zh;
-  return { done, sum, total, byLangTotal: t || { yue: 0, en: 0, zh: 0 } };
+  const reads = LANGS.filter((l) => read[l.key]).length;
+  const total = t ? t.total : 0;
+  const passages = t ? (t.passages ?? 3) : 0;
+  return { done, read, sum, reads, total, passages, byLangTotal: t || { yue: 0, en: 0, zh: 0 } };
 }
 
 function dayState(date) {
@@ -165,21 +208,30 @@ function dayState(date) {
   if (!st.index && !S.days[date]?.totals) return cached?.state === 'ready' ? learnState(date) : 'none';
   return learnState(date);
 }
+/** 하루 완료 = 단어 전부 + 세 언어의 글 읽기 전부 */
 function learnState(date) {
   const c = counts(date);
-  if (c.total && c.sum >= c.total) return 'complete';
-  if (c.sum > 0) return 'progress';
+  if (c.total && c.sum >= c.total && c.reads >= c.passages) return 'complete';
+  if (c.sum > 0 || c.reads > 0) return 'progress';
   return 'before';
+}
+
+function updateCompletion(date) {
+  const d = (S.days[date] = S.days[date] || {});
+  if (learnState(date) === 'complete') { if (!d.completedAt) d.completedAt = Date.now(); } else delete d.completedAt;
 }
 
 /* ---------- 액션 ---------- */
 function toggleDone(date, id) {
   const k = doneKey(date, id);
   if (S.done[k]) delete S.done[k]; else S.done[k] = Date.now();
-  const c = counts(date);
-  const d = (S.days[date] = S.days[date] || {});
-  if (c.total && c.sum >= c.total) { if (!d.completedAt) d.completedAt = Date.now(); } else delete d.completedAt;
-  save(); render();
+  updateCompletion(date); save(); render();
+}
+
+function toggleRead(date, lang) {
+  const k = readKey(date, lang);
+  if (S.read[k]) delete S.read[k]; else S.read[k] = Date.now();
+  updateCompletion(date); save(); render();
 }
 
 function toggleReview(date, lang, w) {
@@ -219,7 +271,7 @@ function renderNav() {
   const c = st.config.counts;
   $('#nav').innerHTML = items.map(([k, l, i]) =>
     `<button class="nav-btn" data-view="${k}" ${st.view === k ? 'aria-current="page"' : ''}>${i}<span>${l}</span></button>`).join('') +
-    `<div class="routine"><h4>Daily Routine</h4>광둥어 ${c.yue}개<br>영어 ${c.en}개<br>중국어 ${c.zh}개<p>하루 ${c.yue + c.en + c.zh}개, 조금씩 꾸준히.</p></div>`;
+    `<div class="routine"><h4>Daily Routine</h4>광둥어 ${c.yue}개<br>영어 ${c.en}개<br>중국어 ${c.zh}개<br>+ 언어별 통합 글 3편<p>하루 ${c.yue + c.en + c.zh}개, 조금씩 꾸준히.</p></div>`;
 }
 
 function applyTheme() {
@@ -273,13 +325,16 @@ function viewDaily() {
 
 function progressCard(date, state) {
   const c = counts(date);
-  const total = c.total || (state === 'none' || state === 'future' ? 0 : st.config.counts.yue + st.config.counts.en + st.config.counts.zh);
-  const pct = total ? Math.round((c.sum / total) * 100) : 0;
+  const known = state !== 'none' && state !== 'future';
+  const total = c.total || (known ? st.config.counts.yue + st.config.counts.en + st.config.counts.zh : 0);
+  const passages = c.total ? c.passages : (known ? 3 : 0);
+  const units = total + passages, doneUnits = c.sum + c.reads;
+  const pct = units ? Math.round((doneUnits / units) * 100) : 0;
   const cls = state === 'complete' ? 'complete' : state === 'progress' ? 'progress' : state === 'failed' ? 'failed' : state === 'generating' ? 'generating' : '';
   const heading = date === todayStr() ? '오늘의 작은 성취' : `${dotted(date)}의 성취`;
   return `<div class="progress"><div class="row"><span>${heading} <span class="badge ${cls}">${STATE_LABEL[state]}</span></span>
-    <b>${c.sum} / ${total}개 완료</b></div>
-    <div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="${total}" aria-valuenow="${c.sum}"><i style="width:${pct}%"></i></div></div>`;
+    <b>단어 ${c.sum}/${total} · 글 ${c.reads}/${passages}</b></div>
+    <div class="bar" role="progressbar" aria-label="오늘의 학습 진행률" aria-valuemin="0" aria-valuemax="${units}" aria-valuenow="${doneUnits}"><i style="width:${pct}%"></i></div></div>`;
 }
 
 function emptyState(date, ds) {
@@ -294,33 +349,87 @@ function emptyState(date, ds) {
 
 function dailyReady(date, data) {
   const c = counts(date);
-  const tabs = LANGS.map((l) => `<button class="tab" role="tab" data-lang="${l.key}" aria-selected="${st.lang === l.key}">${l.label}<span class="n">${c.done[l.key]}/${data.words[l.key].length}</span></button>`).join('');
-  const list = data.words[st.lang];
-  const cards = list.length ? list.map((w, i) => card(date, st.lang, w, i + 1, false)).join('') :
-    `<div class="empty"><h3>${LANG[st.lang].label} 자료가 없어요</h3><p>이 날짜 파일에 ${LANG[st.lang].label} 단어가 들어 있지 않아요.</p></div>`;
+  const tabs = LANGS.map((l) => {
+    const n = data.sets[l.key].words.length;
+    return `<button class="tab" role="tab" data-lang="${l.key}" aria-selected="${st.lang === l.key}">${l.label}<span class="n">${c.done[l.key]}/${n}${c.read[l.key] ? ' · 글 ✓' : ''}</span></button>`;
+  }).join('');
+  const set = data.sets[st.lang];
+  const L = LANG[st.lang];
+  const cards = set.words.length ? set.words.map((w, i) => card(date, st.lang, w, i + 1, false)).join('') :
+    `<div class="empty"><h3>${L.label} 단어가 없어요</h3><p>이 날짜 파일에 ${L.label} 단어가 들어 있지 않아요.</p></div>`;
+  const levelLine = [set.level, st.lang === 'zh' ? set.hskStandard : ''].filter(Boolean).join(' · ');
   return `<div class="tools"><div class="tabs" role="tablist">${tabs}</div>
     <button class="tool-btn" data-act="mask" aria-pressed="${!!setting('hideMeaning')}">뜻 가리기</button></div>
-    <div class="cards">${cards}</div>`;
+    <section class="sec" aria-labelledby="sec-words">
+      <div class="sec-head"><h2 id="sec-words"><span class="no">①</span> 오늘의 단어</h2>${levelLine ? `<span class="lvl">${esc(levelLine)}</span>` : ''}</div>
+      <div class="cards">${cards}</div>
+    </section>
+    ${passageSection(date, st.lang, set)}`;
 }
 
 function card(date, lang, w, no, showOrigin) {
   const L = LANG[lang], done = isDone(date, w.id), rev = !!S.review[doneKey(date, w.id)];
-  const r = (k) => st.revealed.has(doneKey(date, w.id) + k) ? ' revealed' : '';
   const key = esc(doneKey(date, w.id));
+  const r = st.revealed.has(doneKey(date, w.id) + 'm') ? ' revealed' : '';
   return `<article class="card${done ? ' done' : ''}" data-date="${date}" data-id="${esc(w.id)}" data-lang="${lang}">
     ${no ? `<span class="no">${pad(no)}</span>` : ''}
     <div class="head"><span class="word" lang="${L.htmlLang}">${esc(w.word)}</span>
-      <span class="meaning mask${r('m')}" data-reveal="${key}m">${esc(w.meaning)}</span></div>
+      <span class="meaning mask${r}" data-reveal="${key}m">${esc(w.meaning)}</span></div>
     <div class="reading">${esc(w.reading)}${w.pos ? `<span class="pos">${esc(w.pos)}</span>` : ''}</div>
-    <div class="ex"><div class="src" lang="${L.htmlLang}">${esc(w.example)}</div>
-      ${w.exampleReading ? `<div class="rd">${esc(w.exampleReading)}</div>` : ''}
-      <div class="ko mask${r('e')}" data-reveal="${key}e">${esc(w.exampleKo)}</div></div>
     ${showOrigin ? `<div class="origin">${dotted(date)}에 받은 단어 · <button data-act="goto" data-date="${date}" data-lang="${lang}">그날 보기</button></div>` : ''}
     <div class="actions">
       <button class="btn speak" data-act="speak" aria-label="단어 발음 듣기">${ICON.speaker}<span>듣기</span></button>
       <button class="btn${rev ? ' on' : ''}" data-act="review" aria-pressed="${rev}">${rev ? '★ 복습 제거' : '☆ 다시 복습'}</button>
       <button class="btn primary${done ? ' on' : ''}" data-act="done" aria-pressed="${done}">${done ? '✓ 완료 취소' : '학습 완료하기'}</button>
     </div></article>`;
+}
+
+/* --- 통합 글 --- */
+function sentenceHTML(sent) {
+  let out = '', cur = 0;
+  for (const u of sent.uses) {
+    out += esc(sent.text.slice(cur, u.start));
+    out += `<button class="hl" data-act="hl" data-word="${esc(u.wordId)}" aria-label="목표 단어 ${esc(u.text)}">${esc(u.text)}</button>`;
+    cur = u.end;
+  }
+  return out + esc(sent.text.slice(cur));
+}
+
+function passageSection(date, lang, set) {
+  const p = set.passage;
+  if (!p) return `<section class="sec"><div class="sec-head"><h2><span class="no">②</span> 오늘의 통합 글</h2></div>
+    <div class="empty"><p>이 날짜에는 ${LANG[lang].label} 통합 글이 없어요.</p></div></section>`;
+  const L = LANG[lang], key = readKey(date, lang);
+  const ui = st.ui[key] || { ko: false, rd: false };
+  const hasRd = lang !== 'en' && p.sentences.some((s) => s.reading);
+  const read = isRead(date, lang);
+  const sentences = ui.rd && hasRd
+    ? p.sentences.map((s) => `<div class="sent"><div class="src" lang="${L.htmlLang}">${sentenceHTML(s)}</div><div class="rd">${esc(s.reading)}</div></div>`).join('')
+    : `<p class="flow" lang="${L.htmlLang}">${p.sentences.map(sentenceHTML).join(lang === 'en' ? ' ' : '')}</p>`;
+  const ko = ui.ko ? `<div class="ko-block"><div class="ko-ttl">한국어 번역</div><p>${p.sentences.map((s) => esc(s.ko)).join(' ')}</p></div>` : '';
+  let pop = '';
+  if (st.pop && st.pop.date === date && st.pop.lang === lang) {
+    const w = set.words.find((x) => x.id === st.pop.wordId);
+    if (w) pop = `<div class="pop" role="status"><div><span class="word sm" lang="${L.htmlLang}">${esc(w.word)}</span>
+      <span class="pop-rd">${esc(w.reading)}</span></div><div class="pop-ko">${esc(w.meaning)}${w.pos ? ` <span class="pos">${esc(w.pos)}</span>` : ''}</div>
+      <div class="pop-act"><button class="btn" data-act="speak-word" data-word="${esc(w.id)}">${ICON.speaker}<span>듣기</span></button><button class="btn" data-act="close-pop">닫기</button></div></div>`;
+  }
+  return `<section class="sec passage" data-date="${date}" data-lang="${lang}" aria-labelledby="sec-passage">
+    <div class="sec-head"><h2 id="sec-passage"><span class="no">②</span> 오늘의 통합 글</h2></div>
+    <article class="story${read ? ' done' : ''}">
+      <h3 class="story-title" lang="${L.htmlLang}">${esc(p.title)}</h3>
+      ${p.titleKo || p.situation ? `<div class="story-sub">${esc([p.titleKo, p.situation].filter(Boolean).join(' · '))}</div>` : ''}
+      <div class="story-body">${sentences}</div>
+      ${pop}
+      ${ko}
+      <div class="story-tools">
+        <button class="chip-btn" data-act="toggle-ko" aria-pressed="${ui.ko}">한국어 번역 ${ui.ko ? '숨기기' : '보기'}</button>
+        ${hasRd ? `<button class="chip-btn" data-act="toggle-rd" aria-pressed="${ui.rd}">${L.rdLabel} ${ui.rd ? '숨기기' : '보기'}</button>` : ''}
+        <button class="chip-btn" data-act="speak-passage">${ICON.speaker}<span>전체 듣기</span></button>
+      </div>
+      <div class="hint">밑줄 친 목표 단어를 누르면 뜻과 발음을 볼 수 있어요.</div>
+      <div class="actions"><button class="btn primary${read ? ' on' : ''}" data-act="read" aria-pressed="${read}">${read ? '✓ 읽기 완료 취소' : '글 읽기 완료'}</button></div>
+    </article></section>`;
 }
 
 /* --- 다시 복습 --- */
@@ -348,17 +457,20 @@ function viewSchedule() {
   const rows = recent.map((d) => {
     const s = dayState(d), e = indexEntry(d), cn = counts(d), wd = DOW[parseDate(d).getDay()];
     const note = e?.message ? `<div class="msg">${esc(e.message)}</div>` : '';
-    const prog = cn.total ? ` · ${cn.sum}/${cn.total}` : '';
+    const prog = cn.total ? ` · 단어 ${cn.sum}/${cn.total}, 글 ${cn.reads}/${cn.passages}` : '';
     return `<li><div><button class="lnk" data-act="goto" data-date="${d}">${dotted(d)} (${wd})</button>${note}</div><span class="badge ${s === 'complete' ? 'complete' : s === 'progress' ? 'progress' : s}">${STATE_LABEL[s]}${prog}</span></li>`;
   }).join('');
   const sync = S.lastSync ? new Date(S.lastSync).toLocaleString('ko-KR') : '아직 없음';
+  const lv = cfg.levels;
   return `<div class="wrap"><div class="eyebrow">SCHEDULE</div>
     <div class="hero"><div><h1>스케줄</h1><p class="sub">자료는 자동으로 만들어져 이 앱에 올라와요</p></div></div>
     <div class="panel"><h3>매일 자료 생성</h3><dl class="kv">
       <dt>생성 시각</dt><dd>매일 ${esc(cfg.generateAt)}</dd>
       <dt>다음 생성</dt><dd>${next.getMonth() + 1}월 ${next.getDate()}일 ${esc(cfg.generateAt)}</dd>
-      <dt>구성</dt><dd>광둥어 ${c.yue} · 영어 ${c.en} · 중국어 ${c.zh} (하루 ${total}개)</dd>
-      <dt>수준 / 주제</dt><dd>${esc(setting('level'))} / ${esc(setting('topic'))}</dd>
+      <dt>구성</dt><dd>단어 ${total}개 (광둥어 ${c.yue} · 영어 ${c.en} · 중국어 ${c.zh}) + 언어별 통합 글 3편</dd>
+      <dt>광둥어 수준</dt><dd>${esc(lv.yue.label)}</dd>
+      <dt>영어 수준</dt><dd>${esc(lv.en.label)}</dd>
+      <dt>중국어 수준</dt><dd>${esc(lv.zh.label)}${lv.zh.standard ? ` <span class="msg">(${esc(lv.zh.standard)})</span>` : ''}</dd>
       <dt>마지막 확인</dt><dd>${esc(sync)}</dd></dl>
       <div class="row-btns" style="margin-top:14px"><button class="btn" data-act="refresh">자료 새로고침</button>
       <button class="btn" data-act="install" id="btn-install" hidden>홈 화면에 설치</button></div></div>
@@ -391,21 +503,26 @@ function drawCalendar() {
     <div class="row-btns" style="margin-top:14px;justify-content:space-between"><button class="btn" data-act="today-close">오늘</button><button class="btn" data-act="close">닫기</button></div></div>`;
 }
 
+function configJson() {
+  return JSON.stringify({ ...st.config, topic: setting('topic') }, null, 2);
+}
 function openSettings() {
-  const cfgJson = JSON.stringify({ generateAt: st.config.generateAt, counts: st.config.counts, level: setting('level'), topic: setting('topic') }, null, 2);
+  const lv = st.config.levels;
   $('#dlg-settings').innerHTML = `<div class="dlg"><div class="dlg-head"><h2>설정</h2><button class="icon-btn" data-act="close" aria-label="닫기">✕</button></div>
     <div class="field"><label for="s-theme">화면 모드</label><select id="s-theme"><option value="auto">시스템 설정 따르기</option><option value="light">라이트</option><option value="dark">다크</option></select></div>
-    <div class="field"><label for="s-level">학습 수준</label><select id="s-level">${['입문', '초급', '초급~중급', '중급', '중급~고급'].map((o) => `<option>${o}</option>`).join('')}</select></div>
-    <div class="field"><label for="s-topic">주제</label><input id="s-topic" list="topics" value="${esc(setting('topic'))}" placeholder="예: 실생활, 여행, 음식, 직장">
+    <div class="field"><label>학습 수준 (언어별)</label>
+      <dl class="kv lv-list"><dt>광둥어</dt><dd>${esc(lv.yue.label)}</dd><dt>영어</dt><dd>${esc(lv.en.label)}</dd><dt>중국어</dt><dd>${esc(lv.zh.label)}${lv.zh.standard ? `<br><small>${esc(lv.zh.standard)}</small>` : ''}</dd></dl>
+      <small>수준은 자료 생성 지침과 함께 관리돼요. 바꾸려면 <b>data/config.json</b>의 levels 를 수정하세요.</small></div>
+    <div class="field"><label for="s-topic">선호 주제·장면</label><input id="s-topic" list="topics" value="${esc(setting('topic'))}" placeholder="예: 실생활, 여행, 음식, 직장">
       <datalist id="topics">${['실생활', '여행', '음식', '직장', '쇼핑', '감정 표현', '교통'].map((o) => `<option value="${o}">`).join('')}</datalist>
-      <small>수준과 주제는 자료 생성 시 쓰이는 <b>data/config.json</b>에 반영해야 적용돼요. 아래 버튼으로 내용을 복사하세요.</small></div>
+      <small>생성에 적용하려면 <b>data/config.json</b>에 반영해야 해요. 아래 버튼으로 내용을 복사하세요.</small></div>
     <div class="row-btns"><button class="btn" data-act="copy-config">config.json 내용 복사</button></div>
     <hr style="border:0;border-top:1px solid var(--line);margin:18px 0">
     <div class="field"><label>학습 기록 백업 (이 기기에만 저장돼요)</label>
       <div class="row-btns"><button class="btn" data-act="export">내보내기</button><button class="btn" data-act="import">가져오기</button></div>
       <input type="file" id="s-file" accept="application/json" hidden></div>
-    <pre hidden id="cfg-json">${esc(cfgJson)}</pre></div>`;
-  $('#s-theme').value = setting('theme'); $('#s-level').value = setting('level');
+    <pre hidden id="cfg-json">${esc(configJson())}</pre></div>`;
+  $('#s-theme').value = setting('theme');
   $('#dlg-settings').showModal();
 }
 
@@ -422,12 +539,13 @@ document.addEventListener('click', async (ev) => {
   if (t.id === 'btn-settings') { openSettings(); return; }
   if (t.dataset.cal) { calMonth = (() => { const [y, m] = calMonth.split('-').map(Number); const d = new Date(y, m - 1 + Number(t.dataset.cal), 1); return `${d.getFullYear()}-${pad(d.getMonth() + 1)}`; })(); drawCalendar(); return; }
   if (t.dataset.cdate) { $('#dlg-cal').close(); await selectDate(t.dataset.cdate); return; }
-  if (t.dataset.lang && !t.dataset.act) { st.lang = t.dataset.lang; render(); return; }
+  if (t.dataset.lang && !t.dataset.act) { st.lang = t.dataset.lang; st.pop = null; render(); return; }
   if (t.dataset.rlang) { st.reviewLang = t.dataset.rlang; render(); return; }
   if (t.dataset.date && !t.dataset.act) { await selectDate(t.dataset.date); return; }
   if (t.dataset.reveal) { if (!setting('hideMeaning')) return; const k = t.dataset.reveal; st.revealed.has(k) ? st.revealed.delete(k) : st.revealed.add(k); t.classList.toggle('revealed'); return; }
 
   const cardEl = t.closest('.card');
+  const pas = t.closest('.passage');
   switch (t.dataset.act) {
     case 'week': await selectDate(addDays(st.date, Number(t.dataset.n))); break;
     case 'today': await selectDate(todayStr()); break;
@@ -440,6 +558,18 @@ document.addEventListener('click', async (ev) => {
     case 'speak': { const w = findWord(cardEl); if (w) speak(w.word, cardEl.dataset.lang); break; }
     case 'done': { const { date, id } = cardEl.dataset; toggleDone(date, id); break; }
     case 'review': { const w = findWord(cardEl); if (w) toggleReview(cardEl.dataset.date, cardEl.dataset.lang, w); break; }
+    // 통합 글
+    case 'hl': { if (!pas) break; const cur = st.pop; const next = { date: pas.dataset.date, lang: pas.dataset.lang, wordId: t.dataset.word };
+      st.pop = cur && cur.date === next.date && cur.lang === next.lang && cur.wordId === next.wordId ? null : next; render(); break; }
+    case 'close-pop': st.pop = null; render(); break;
+    case 'speak-word': { if (!pas) break; const w = passageWord(pas.dataset.date, pas.dataset.lang, t.dataset.word); if (w) speak(w.word, pas.dataset.lang); break; }
+    case 'toggle-ko': case 'toggle-rd': {
+      if (!pas) break; const k = readKey(pas.dataset.date, pas.dataset.lang);
+      const ui = (st.ui[k] = st.ui[k] || { ko: false, rd: false });
+      ui[t.dataset.act === 'toggle-ko' ? 'ko' : 'rd'] = !ui[t.dataset.act === 'toggle-ko' ? 'ko' : 'rd']; render(); break;
+    }
+    case 'speak-passage': { if (!pas) break; const p = st.days[pas.dataset.date]?.data?.sets[pas.dataset.lang]?.passage; if (p) speak(p.sentences.map((s) => s.text).join(pas.dataset.lang === 'en' ? ' ' : ''), pas.dataset.lang); break; }
+    case 'read': { if (!pas) break; toggleRead(pas.dataset.date, pas.dataset.lang); break; }
     case 'install': if (deferredInstall) { deferredInstall.prompt(); deferredInstall = null; t.hidden = true; } break;
     case 'copy-config': {
       try { await navigator.clipboard.writeText($('#cfg-json').textContent); toast('복사했어요'); } catch { toast('복사에 실패했어요'); }
@@ -453,26 +583,25 @@ document.addEventListener('click', async (ev) => {
 document.addEventListener('change', (ev) => {
   const t = ev.target;
   if (t.id === 's-theme') { S.settings.theme = t.value; save(); applyTheme(); }
-  if (t.id === 's-level') { S.settings.level = t.value; save(); }
-  if (t.id === 's-topic') { S.settings.topic = t.value.trim() || DEFAULT_SETTINGS.topic; save(); openSettingsKeep(); }
+  if (t.id === 's-topic') { S.settings.topic = t.value.trim() || DEFAULT_SETTINGS.topic; save(); refreshCfgJson(); }
   if (t.id === 's-file' && t.files[0]) importData(t.files[0]);
 });
-function openSettingsKeep() { const cfg = $('#cfg-json'); if (cfg) cfg.textContent = JSON.stringify({ generateAt: st.config.generateAt, counts: st.config.counts, level: setting('level'), topic: setting('topic') }, null, 2); }
-$('#dlg-settings').addEventListener('input', (ev) => { if (ev.target.id === 's-topic') { S.settings.topic = ev.target.value.trim() || DEFAULT_SETTINGS.topic; save(); openSettingsKeep(); } });
+function refreshCfgJson() { const el = $('#cfg-json'); if (el) el.textContent = configJson(); }
+$('#dlg-settings').addEventListener('input', (ev) => { if (ev.target.id === 's-topic') { S.settings.topic = ev.target.value.trim() || DEFAULT_SETTINGS.topic; save(); refreshCfgJson(); } });
 for (const id of ['#dlg-cal', '#dlg-settings']) $(id).addEventListener('click', (ev) => { if (ev.target === ev.currentTarget) ev.currentTarget.close(); });
 
+function passageWord(date, lang, id) { return st.days[date]?.data?.sets[lang]?.words.find((w) => w.id === id) || null; }
 function findWord(cardEl) {
   if (!cardEl) return null;
   const { date, id, lang } = cardEl.dataset;
-  const fromDay = st.days[date]?.data?.words[lang]?.find((w) => w.id === id);
-  return fromDay || S.review[doneKey(date, id)]?.card || null;
+  return passageWord(date, lang, id) || S.review[doneKey(date, id)]?.card || null;
 }
 
 async function selectDate(date) {
   if (!isDate(date)) return;
   const today = todayStr();
   if (date > today) date = today;
-  st.view = 'daily'; st.date = date;
+  st.view = 'daily'; st.date = date; st.pop = null;
   await loadDay(date); render();
 }
 
@@ -484,7 +613,7 @@ async function refreshAll() {
 }
 
 function exportData() {
-  const blob = new Blob([JSON.stringify({ app: 'haru-eohwi', version: 1, exportedAt: new Date().toISOString(), data: S }, null, 2)], { type: 'application/json' });
+  const blob = new Blob([JSON.stringify({ app: 'haru-eohwi', version: 2, exportedAt: new Date().toISOString(), data: S }, null, 2)], { type: 'application/json' });
   const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `haru-eohwi-backup-${todayStr()}.json`; a.click();
   setTimeout(() => URL.revokeObjectURL(a.href), 1000);
 }
@@ -494,7 +623,7 @@ async function importData(file) {
     const d = j?.data;
     if (j?.app !== 'haru-eohwi' || !d || typeof d.done !== 'object') throw new Error('형식이 달라요');
     if (!confirm('현재 기록에 백업 내용을 합칠까요? (같은 항목은 백업 값으로 덮어써요)')) return;
-    S = { ...S, done: { ...S.done, ...d.done }, review: { ...S.review, ...(d.review || {}) }, days: { ...S.days, ...(d.days || {}) } };
+    S = { ...S, done: { ...S.done, ...d.done }, read: { ...S.read, ...(d.read || {}) }, review: { ...S.review, ...(d.review || {}) }, days: { ...S.days, ...(d.days || {}) } };
     save(); render(); toast('가져왔어요');
   } catch (e) { toast('가져오지 못했어요: ' + e.message); }
 }

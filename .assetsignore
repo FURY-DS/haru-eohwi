@@ -9,3 +9,4 @@ docs
 examples
 README.md
 data/days/.gitkeep
+package.json

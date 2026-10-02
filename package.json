@@ -1,0 +1,11 @@
+{
+  "name": "haru-eohwi",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "validate": "node tools/validate.mjs",
+    "finalize": "node tools/finalize.mjs",
+    "index": "node tools/build-index.mjs",
+    "test": "node --test tools/validate.test.mjs"
+  }
+}

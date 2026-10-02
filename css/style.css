@@ -235,3 +235,52 @@ dialog::backdrop { background: rgba(10, 16, 12, .45); }
   .hero svg { width: 34px; height: 34px; }
 }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+
+/* ===== 오늘의 단어 / 통합 글 ===== */
+.sec { margin-top: 8px; }
+.sec + .sec { margin-top: 26px; }
+.sec-head { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; flex-wrap: wrap; margin: 4px 2px 12px; }
+.sec-head h2 { margin: 0; font-size: 17px; letter-spacing: -.01em; }
+.sec-head .no { color: var(--accent); margin-right: 2px; }
+.lvl { font-size: 12px; color: var(--green); background: var(--soft); padding: 3px 10px; border-radius: 99px; }
+
+.story { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 22px 22px 16px; }
+.story.done { border-color: var(--accent); }
+.story-title { margin: 0; font-size: 22px; line-height: 1.35; letter-spacing: -.01em; }
+.story-title[lang="yue-Hant-HK"] { font-family: var(--font-han); }
+.story-title[lang="zh-Hans"] { font-family: var(--font-sc); }
+.story-sub { margin-top: 2px; font-size: 13px; color: var(--ink-2); }
+.story-body { margin-top: 16px; font-size: 18px; line-height: 2; }
+.story-body .flow { margin: 0; }
+.story-body [lang="yue-Hant-HK"] { font-family: var(--font-han); }
+.story-body [lang="zh-Hans"] { font-family: var(--font-sc); }
+.story-body [lang="en"] { line-height: 1.85; font-size: 17.5px; }
+.sent { padding: 6px 0; border-top: 1px dashed var(--line); }
+.sent:first-child { border-top: 0; padding-top: 0; }
+.sent .src { font-size: 18px; line-height: 1.8; }
+.sent .rd { font-size: 13px; color: var(--ink-2); line-height: 1.5; letter-spacing: .01em; }
+.hl {
+  font: inherit; color: var(--green); background: var(--soft); border: 0; border-bottom: 2px solid var(--accent);
+  border-radius: 6px 6px 2px 2px; padding: 0 3px; margin: 0 1px; cursor: pointer; line-height: inherit;
+}
+.hl:hover { filter: brightness(.97); }
+.pop { margin-top: 12px; padding: 12px 14px; background: var(--soft); border-radius: 14px; display: grid; gap: 4px; }
+.word.sm { font-size: 20px; }
+.pop-rd { margin-left: 10px; color: var(--ink-2); font-size: 14px; }
+.pop-ko { font-size: 15px; }
+.pop-act { display: flex; gap: 8px; margin-top: 6px; }
+.pop-act .btn { min-height: 38px; padding: 6px 12px; flex: none; }
+.ko-block { margin-top: 12px; padding: 12px 14px; background: var(--soft-2); border-radius: 14px; }
+.ko-ttl { font-size: 12px; color: var(--ink-3); margin-bottom: 2px; }
+.ko-block p { margin: 0; color: var(--ink-2); font-size: 15px; line-height: 1.75; }
+.story-tools { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+.story-tools .chip-btn { display: inline-flex; align-items: center; gap: 6px; }
+.story-tools .chip-btn svg { width: 15px; height: 15px; }
+.chip-btn[aria-pressed="true"] { background: var(--soft); color: var(--green); border-color: var(--accent); }
+.hint { margin-top: 10px; font-size: 12px; color: var(--ink-3); }
+.lv-list { margin: 0; }
+@media (max-width: 760px) {
+  .story { padding: 18px 16px 14px; }
+  .story-body, .sent .src { font-size: 17px; }
+  .story-title { font-size: 20px; }
+}

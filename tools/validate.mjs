@@ -8,13 +8,14 @@ import { fileURLToPath } from 'node:url';
 import { join, dirname, resolve } from 'node:path';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
-export const LANG_KEYS = ['yue', 'en', 'zh'];
+export const LANG_KEYS = ['yue', 'en', 'zh', 'ja'];
 export const DEFAULT_CONFIG = {
-  counts: { yue: 5, en: 10, zh: 10 },
+  counts: { yue: 5, en: 10, zh: 10, ja: 5 },
   levels: {
     yue: { label: '완전 초급' },
     en: { label: '토익스피킹 대비' },
     zh: { label: 'HSK 4~6급' },
+    ja: { label: '완전 초급 (JLPT N5 이하)' },
   },
 };
 
@@ -33,6 +34,38 @@ const MAND_IN_YUE = ['是', '不', '没有', '什么', '甚么', '他们', '我�
 const PINYIN_CHARS = /^[a-züāáǎàēéěèīíǐìōóǒòūúǔùǖǘǚǜ\s'’.,!?;:\-“”"「」，。！？、；：]+$/i;
 const TONE_MARK = /[āáǎàēéěèīíǐìōóǒòūúǔùǖǘǚǜ]/;
 const JYUTPING = /^[a-z]+[1-6]$/;
+
+// --- 일본어 ---
+const JA_CHARS = /^[\p{Script=Han}\p{Script=Hiragana}\p{Script=Katakana}ー・々、。！？「」『』（）…〜\s]+$/u;
+const KANA_ONLY = /^[\p{Script=Hiragana}\p{Script=Katakana}ー]+$/u;
+const KANA_OR_PUNCT = /^[\p{Script=Hiragana}\p{Script=Katakana}ー・、。！？「」『』（）…〜\s]+$/u;
+// JLPT N5 한자(약 100자). 이 밖의 한자가 나오면 '완전 초급'에 어려울 수 있어 경고 (공식 목록이 아니라 휴리스틱)
+const N5_KANJI = new Set([...'日一国人年大十二本中長出三同時政事自行社見月分議後前民生連五発間対上部東者党地合市業内相方四定今回新場金員九入学高円子外八六下来気小七山話女北午百書先名川千水半男西電校語土木聞食車何南万毎白天母火右読友左休父雨']);
+
+/** 후리가나 구조 검사: ruby = [{t, r?}] — 한자가 든 조각에만 r(가나)이 있고, t 를 이은 값 = base, (r ?? t) 를 이은 값 = reading */
+function checkRuby(ruby, base, reading, at, E) {
+  if (!Array.isArray(ruby) || !ruby.length) { E(`${at}: 한자가 있으므로 후리가나 구조(ruby 배열)가 필요함`); return false; }
+  let ok = true, t = '', r = '';
+  ruby.forEach((seg, i) => {
+    if (!seg || typeof seg.t !== 'string' || !seg.t) { E(`${at}: ruby[${i}].t 누락`); ok = false; return; }
+    const hasKanji = hasHan(seg.t);
+    if (hasKanji && !(typeof seg.r === 'string' && KANA_ONLY.test(seg.r))) { E(`${at}: 한자 "${seg.t}" 에 가나로 된 후리가나(r)가 필요함`); ok = false; }
+    if (!hasKanji && seg.r !== undefined) { E(`${at}: 한자가 없는 조각 "${seg.t}" 에는 후리가나(r)를 쓰지 않음`); ok = false; }
+    t += seg.t; r += hasKanji && typeof seg.r === 'string' ? seg.r : seg.t;
+  });
+  if (t !== base) { E(`${at}: ruby 조각을 이은 글 "${t}" 가 원문 "${base}" 와 다름`); ok = false; }
+  if (ok && r !== reading) { E(`${at}: 후리가나를 반영한 읽기 "${r}" 가 reading "${reading}" 와 다름`); ok = false; }
+  return ok;
+}
+/** 단어 강조(uses)는 후리가나가 붙은 한자 덩어리 한가운데를 자를 수 없음 → 허용되는 경계 위치 집합 */
+function rubyBoundaries(ruby) {
+  const b = new Set([0]); let pos = 0;
+  for (const seg of ruby) {
+    if (seg.r === undefined) { for (const _ of seg.t) { pos += 1; b.add(pos); } }   // 한자 없는 조각: 글자마다 경계
+    else { pos += seg.t.length; b.add(pos); }
+  }
+  return b;
+}
 
 /** 문장 안에서 uses 의 위치(start/end)를 계산해 채워 넣는다 (이미 있으면 유지). 실패 시 오류 메시지 배열 반환 */
 export function resolveUses(sentence) {
@@ -62,7 +95,7 @@ export function validateDay(d, config = {}) {
   if (d.schemaVersion !== 2) { E('schemaVersion 은 2 여야 함 (구 형식 languages 는 지원하지 않음)'); return { errors, warns }; }
   const sets = d.sets || {};
 
-  for (const key of LANG_KEYS) {
+  for (const key of LANG_KEYS.filter((k) => counts[k] !== undefined)) {
     const s = sets[key];
     const L = `[${key}]`;
     if (!s || typeof s !== 'object') { E(`${L} sets.${key} 학습 세트가 없음`); continue; }
@@ -101,9 +134,18 @@ export function validateDay(d, config = {}) {
         if (/\d/.test(r)) E(`${at}: 병음은 성조 숫자가 아니라 성조 부호로 — "${r}"`);
         else if (!PINYIN_CHARS.test(r)) E(`${at}: 병음 형식 오류 — "${r}"`);
         else if (!TONE_MARK.test(r)) W(`${at}: 성조 부호가 하나도 없음 — "${r}"`);
-      } else {
+      } else if (key === 'en') {
         if (!/^[A-Za-z][A-Za-z\s'’-]*$/.test(w.word || '')) E(`${at}: 영어 단어는 알파벳이어야 함`);
         if (!/^\/.+\/$/.test(r)) E(`${at}: 발음기호는 /…/ 형식 — "${r}"`);
+      } else if (key === 'ja') {
+        const word = w.word || '';
+        if (!JA_CHARS.test(word)) E(`${at}: 일본어 단어는 한자·히라가나·가타카나만 써야 함`);
+        if (!KANA_ONLY.test(r)) E(`${at}: reading 은 가나(히라가나/가타카나)만 써야 함 (로마자·한자 금지) — "${r}"`);
+        if (hasHan(word)) {
+          checkRuby(w.ruby, word, r, at, E);
+          const odd = [...new Set(han(word).filter((c) => !N5_KANJI.has(c)))];
+          if (odd.length) W(`${at}: N5 한자 목록에 없는 한자 (${odd.join('')}) — '완전 초급'에 어려울 수 있음`);
+        } else if (r !== word) E(`${at}: 한자가 없는 단어는 reading 이 단어와 같아야 함 ("${word}" ≠ "${r}")`);
       }
     });
 
@@ -150,9 +192,21 @@ export function validateDay(d, config = {}) {
         else if (/\d/.test(r)) E(`${at}: 병음은 성조 숫자가 아니라 성조 부호로`);
         else if (!PINYIN_CHARS.test(r)) E(`${at}: 병음 형식 오류 — "${r}"`);
         else if (!TONE_MARK.test(r)) W(`${at}: 성조 부호가 하나도 없음`);
-      } else {
+      } else if (key === 'en') {
         if (hasHan(text) || hasHangul(text)) E(`${at}: 영어 글에 한자/한글이 섞임`);
         if (text.trim().split(/\s+/).length > 28) W(`${at}: 문장이 길어 말하기 답변으로 쓰기 어려움 (${text.trim().split(/\s+/).length}단어)`);
+      } else if (key === 'ja') {
+        if (hasHangul(text) || /[A-Za-z]/.test(text)) E(`${at}: 일본어 글에 한글/알파벳이 섞임`);
+        else if (!JA_CHARS.test(text)) E(`${at}: 일본어 글에 허용되지 않는 문자가 있음`);
+        if ([...text].length > 24) W(`${at}: 문장이 길어 '완전 초급'에 어려울 수 있음 (${[...text].length}자)`);
+        if (han(text).length > 4) W(`${at}: 한자가 많음 (${han(text).length}자) — 가능하면 히라가나로`);
+        const odd = [...new Set(han(text).filter((c) => !N5_KANJI.has(c)))];
+        if (odd.length) W(`${at}: N5 한자 목록에 없는 한자 (${odd.join('')})`);
+        const r = String(st.reading || '');
+        if (!r) E(`${at}: 가나 읽기(reading) 누락`);
+        else if (!KANA_OR_PUNCT.test(r)) E(`${at}: reading 은 가나와 문장부호만 써야 함 — "${r}"`);
+        if (hasHan(text)) checkRuby(st.ruby, text, r, at, E);
+        else if (r && r !== text) E(`${at}: 한자가 없는 문장은 reading 이 원문과 같아야 함`);
       }
 
       // 단어 연결 정보(uses)
@@ -167,7 +221,15 @@ export function validateDay(d, config = {}) {
         if (text.slice(u.start, u.end) !== u.text) { E(`${ua}: 원문과 불일치 — 원문[${u.start},${u.end})="${text.slice(u.start, u.end)}" ≠ "${u.text}"`); return; }
         if (u.start < last) E(`${ua}: 앞 표현과 겹치거나 순서가 뒤바뀜`);
         last = u.end;
-        if (key === 'en') {
+        if (key === 'ja' && Array.isArray(st.ruby) && st.ruby.every((g) => g && typeof g.t === 'string')) {
+          const bd = rubyBoundaries(st.ruby);
+          if (!bd.has(u.start) || !bd.has(u.end)) E(`${ua}: "${u.text}" 가 후리가나가 붙은 한자 덩어리 중간을 자름 — 한자 덩어리는 통째로 연결해야 함`);
+        }
+        if (key === 'ja') {
+          const stem = w.word.slice(0, Math.max(1, w.word.length - 1));   // 활용(食べる→食べます)을 허용하는 어간
+          if (!u.text.includes(stem)) E(`${ua}: "${u.text}" 가 목표 단어 "${w.word}" 를 담고 있지 않음`);
+          else if (!u.text.includes(w.word)) W(`${ua}: "${u.text}" 는 "${w.word}" 의 활용형 — 맞는지 확인`);
+        } else if (key === 'en') {
           if (!u.text.toLowerCase().includes(enStem(w.word))) W(`${ua}: "${u.text}" 가 목표 단어 "${w.word}" 의 활용형인지 확인`);
         } else {
           const chars = han(w.word);
@@ -193,7 +255,9 @@ export function validateDay(d, config = {}) {
       if (!used.get(w.id)) E(`${L} 목표 단어 "${w.word}"(${w.id}) 가 글에 연결되어 사용되지 않음`);
       const inText = key === 'en'
         ? new RegExp(`\\b${enStem(w.word)}`, 'i').test(fullText)
-        : han(w.word).every((c) => fullText.includes(c));
+        : key === 'ja'
+          ? fullText.includes(w.word.slice(0, Math.max(1, w.word.length - 1)))
+          : han(w.word).every((c) => fullText.includes(c));
       if (!inText) E(`${L} 목표 단어 "${w.word}" 가 글 원문에 나타나지 않음`);
     }
 

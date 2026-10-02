@@ -101,3 +101,60 @@ test('resolveUses: 같은 표현이 반복돼도 순서대로 서로 다른 위�
   const bad = { text: 'abc', uses: [{ wordId: 'a', text: 'zzz' }] };
   assert.equal(resolveUses(bad).length, 1);
 });
+
+/* ---------- 일본어 (완전 초급 + 후리가나) ---------- */
+test('일본어: 예시 자료 통과, 단어 개수', () => {
+  const r = validateDay(base(), cfg);
+  assert.deepEqual(r.errors, []);
+  has(run((d) => d.sets.ja.words.pop()), /\[ja\] 단어는 5개여야/);
+  has(run((d) => delete d.sets.ja), /sets\.ja 학습 세트가 없음/);
+});
+
+test('일본어: 한자에는 후리가나 구조가 필요하고 읽기와 일치해야 함', () => {
+  const mutW = (f) => run((d) => f(d.sets.ja.words[2]));          // 水 (みず)
+  has(mutW((w) => delete w.ruby), /후리가나 구조\(ruby 배열\)가 필요/);
+  has(mutW((w) => (w.ruby = [{ t: '水', r: 'みづ' }])), /reading .* 와 다름/);
+  has(mutW((w) => (w.ruby = [{ t: '水' }])), /후리가나\(r\)가 필요/);
+  has(mutW((w) => (w.ruby = [{ t: '火', r: 'みず' }])), /원문 .* 와 다름/);
+  has(mutW((w) => (w.reading = 'mizu')), /가나.*만 써야/);
+  const mutS = (f) => run((d) => f(d.sets.ja.passage.sentences[3]));   // 水もください。
+  has(mutS((s) => delete s.ruby), /후리가나 구조\(ruby 배열\)가 필요/);
+  has(mutS((s) => (s.ruby = [{ t: '水', r: 'うみ' }, { t: 'もください。' }])), /reading .* 와 다름/);
+  has(mutS((s) => (s.ruby = [{ t: '水', r: 'みず' }, { t: 'もください。', r: 'x' }])), /후리가나\(r\)를 쓰지 않음/);
+});
+
+test('일본어: 한자 없는 단어·문장은 reading 이 원문과 같아야 함', () => {
+  has(run((d) => (d.sets.ja.words[1].reading = 'こーひー')), /reading 이 단어와 같아야/);
+  has(run((d) => (d.sets.ja.passage.sentences[2].reading = 'こーひーをください。')), /reading 이 원문과 같아야/);
+});
+
+test('일본어: 문자 종류·목표 단어 사용·강조 경계', () => {
+  has(run((d) => (d.sets.ja.passage.sentences[2].text = 'Coffee をください。')), /한글\/알파벳이 섞임/);
+  has(run((d) => { const s = d.sets.ja.passage.sentences[4]; s.text = 'おいくらですか。'; s.reading = 'おいくらですか。'; s.uses = []; }), /いくら.*사용되지 않/);
+  has(run((d) => { d.sets.ja.passage.sentences[0].uses = [{ wordId: 'ja-3', text: '今', start: 0, end: 1 }]; }), /담고 있지 않음|중간을 자름/);
+  // 한자 덩어리(今日) 한가운데를 자르는 강조 → 오류
+  has(run((d) => {
+    d.sets.ja.words[0] = { id: 'ja-1', word: '今', reading: 'こん', meaning: '지금', ruby: [{ t: '今', r: 'こん' }] };
+    d.sets.ja.passage.sentences[0].uses = [{ wordId: 'ja-1', text: '今', start: 0, end: 1 }];
+  }), /중간을 자름/);
+});
+
+test('일본어: 활용형은 허용(경고), 수준 휴리스틱 경고', () => {
+  // 食べる → 食べます : 어간(食べ)이 포함되면 오류가 아니라 경고
+  const r = run((d) => {
+    d.sets.ja.words[3] = { id: 'ja-4', word: '食べる', reading: 'たべる', meaning: '먹다', ruby: [{ t: '食', r: 'た' }, { t: 'べる' }] };
+    const s = d.sets.ja.passage.sentences[4];
+    s.text = '食べます。'; s.reading = 'たべます。'; s.ruby = [{ t: '食', r: 'た' }, { t: 'べます。' }]; s.uses = [{ wordId: 'ja-4', text: '食べ' }]; resolveUses(s);
+  });
+  assert.deepEqual(r.errors, [], r.errors.join(' | '));
+  assert.ok(r.warns.some((w) => /활용형/.test(w)));
+  // N5 밖의 한자 → 경고
+  const r2 = run((d) => {
+    const w = d.sets.ja.words[2]; w.word = '朝'; w.reading = 'あさ'; w.ruby = [{ t: '朝', r: 'あさ' }];
+  });
+  assert.ok(r2.warns.some((x) => /N5 한자 목록에 없는 한자 \(朝\)/.test(x)), r2.warns.join(' | '));
+});
+
+test('일본어: 수준(label) 표기', () => {
+  has(run((d) => (d.sets.ja.level = '중급')), /level 은 "완전 초급 \(JLPT N5 이하\)"/);
+});

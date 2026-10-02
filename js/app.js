@@ -9,15 +9,17 @@ const LANGS = [
   { key: 'yue', label: '광둥어', htmlLang: 'yue-Hans', speech: 'zh-HK', rdLabel: 'Jyutping' },
   { key: 'en',  label: '영어',   htmlLang: 'en',          speech: 'en-US', rdLabel: '' },
   { key: 'zh',  label: '중국어', htmlLang: 'zh-Hans',     speech: 'zh-CN', rdLabel: '병음' },
+  { key: 'ja',  label: '일본어', htmlLang: 'ja',          speech: 'ja-JP', rdLabel: '후리가나' },
 ];
 const LANG = Object.fromEntries(LANGS.map((l) => [l.key, l]));
 const DEFAULT_CONFIG = {
   generateAt: '08:45',
-  counts: { yue: 5, en: 10, zh: 10 },
+  counts: { yue: 5, en: 10, zh: 10, ja: 5 },
   levels: {
     yue: { label: '완전 초급' },
     en: { label: '토익스피킹 대비' },
     zh: { label: 'HSK 4~6급', standard: 'HSK 2.0 (6급제) 기준 4~6급 어휘' },
+    ja: { label: '완전 초급 (JLPT N5 이하)' },
   },
 };
 const DOW = ['일', '월', '화', '수', '목', '금', '토'];
@@ -130,13 +132,20 @@ async function loadDay(date, force = false) {
     if (data.status === 'failed') { st.days[date] = { state: 'failed', message: data.message }; return; }
     if (!data.totalWords) { st.days[date] = { state: 'none' }; return; }
     st.days[date] = { state: 'ready', data };
-    const totals = { total: data.totalWords, passages: data.passageCount, yue: data.sets.yue.words.length, en: data.sets.en.words.length, zh: data.sets.zh.words.length };
+    const totals = { total: data.totalWords, passages: data.passageCount, ...Object.fromEntries(LANGS.map((l) => [l.key, data.sets[l.key].words.length])) };
     S.days[date] = { ...(S.days[date] || {}), totals };
     updateCompletion(date); save();
   } catch (e) {
     const legacy = e && e.legacy;
     st.days[date] = { state: 'failed', message: legacy ? '이전 형식의 자료라 표시할 수 없어요.' : (navigator.onLine ? '자료를 불러오지 못했어요.' : '오프라인이라 아직 받지 않은 날짜는 볼 수 없어요.') };
   }
+}
+
+/** 후리가나 조각 [{t, r?}] 이 원문과 일치할 때만 사용 (아니면 null → 후리가나 없이 표시) */
+function validRuby(ruby, base) {
+  if (!Array.isArray(ruby) || !ruby.length) return null;
+  if (!ruby.every((g) => g && typeof g.t === 'string' && g.t && (g.r === undefined || typeof g.r === 'string'))) return null;
+  return ruby.map((g) => g.t).join('') === base ? ruby.map((g) => (g.r === undefined ? { t: g.t } : { t: g.t, r: g.r })) : null;
 }
 
 /** 자료 JSON → 화면용 구조. 단어 연결 정보(uses)는 원문과 일치하는 것만 사용한다. */
@@ -151,6 +160,7 @@ function normalizeDay(j, date) {
     const s = j.sets[l.key] || {};
     const words = (Array.isArray(s.words) ? s.words : []).filter((w) => w && w.id && w.word).map((w) => ({
       id: String(w.id), word: String(w.word), reading: w.reading || '', meaning: w.meaning || '', pos: w.pos || '',
+      ruby: validRuby(w.ruby, String(w.word)),
     }));
     let passage = null;
     const p = s.passage;
@@ -158,7 +168,7 @@ function normalizeDay(j, date) {
       passage = {
         title: p.title || '', titleKo: p.titleKo || '', situation: p.situation || '',
         sentences: p.sentences.filter((x) => x && x.text).map((x) => ({
-          text: String(x.text), ko: x.ko || '', reading: x.reading || '',
+          text: String(x.text), ko: x.ko || '', reading: x.reading || '', ruby: validRuby(x.ruby, String(x.text)),
           uses: (Array.isArray(x.uses) ? x.uses : [])
             .filter((u) => u && Number.isInteger(u.start) && Number.isInteger(u.end) && String(x.text).slice(u.start, u.end) === u.text && words.some((w) => w.id === u.wordId))
             .sort((a, b) => a.start - b.start)
@@ -182,21 +192,21 @@ const isRead = (date, lang) => !!S.read[readKey(date, lang)];
 /** 날짜별 집계: 단어 완료(언어별/전체) + 글 읽기 완료(언어별/전체) */
 function counts(date) {
   const t = S.days[date]?.totals;
-  const done = { yue: 0, en: 0, zh: 0 };
+  const done = Object.fromEntries(LANGS.map((l) => [l.key, 0]));
   const prefix = date + '|';
   for (const k in S.done) {
     if (!k.startsWith(prefix)) continue;
     const l = k.slice(prefix.length).split('-')[0];
     if (l in done) done[l]++;
   }
-  const read = { yue: false, en: false, zh: false };
+  const read = Object.fromEntries(LANGS.map((l) => [l.key, false]));
   for (const l of LANGS) read[l.key] = isRead(date, l.key);
   if (t) for (const l of LANGS) done[l.key] = Math.min(done[l.key], t[l.key] ?? done[l.key]);
-  const sum = done.yue + done.en + done.zh;
+  const sum = Object.values(done).reduce((n, v) => n + v, 0);
   const reads = LANGS.filter((l) => read[l.key]).length;
   const total = t ? t.total : 0;
   const passages = t ? (t.passages ?? 3) : 0;
-  return { done, read, sum, reads, total, passages, byLangTotal: t || { yue: 0, en: 0, zh: 0 } };
+  return { done, read, sum, reads, total, passages, byLangTotal: t || Object.fromEntries(LANGS.map((l) => [l.key, 0])) };
 }
 
 function dayState(date) {
@@ -254,6 +264,7 @@ const voiceLang = (v) => v.lang.replace('_', '-').toLowerCase();
 const VOICE_PREF = {
   en: /\b(samantha|ava|allison|susan|nicky|karen)\b|google us english|microsoft (aria|jenny|guy)|english \(united states\)/i,
   zh: /tingting|ting-ting|婷婷|google 普通话|xiaoxiao|yunxi|huihui|mandarin/i,
+  ja: /kyoko|o-ren|otoya|ayumi|haruka|sayaka|nanami|google 日本語|japanese/i,
 };
 const VOICE_AVOID = /^(albert|bad news|bahh|bells|boing|bubbles|cellos|good news|jester|organ|superstar|trinoids|whisper|wobble|zarvox|fred|junior|ralph|kathy|princess|grandma|grandpa|eddy|flo|reed|rocko|sandy|shelley)\b/i;
 
@@ -263,6 +274,9 @@ function scoreVoice(v, lang) {
   if (lang === 'en') {
     if (!l.startsWith('en')) return -1;
     if (l === 'en-us') sc += 3; else if (l === 'en-gb') sc += 1;
+  } else if (lang === 'ja') {
+    if (!l.startsWith('ja')) return -1;
+    if (l === 'ja-jp') sc += 3; else sc += 1;
   } else if (lang === 'zh') {
     // 표준중국어: 홍콩·대만·광둥어 음성은 제외
     if (!(l.startsWith('zh') || l.startsWith('cmn')) || /^zh-(hk|tw)|^zh-hant|^yue/.test(l) || /cantonese|粵|粤|廣東|广东|台灣|台湾/i.test(v.name)) return -1;
@@ -311,7 +325,7 @@ function makeUtterance(text, lang) {
 }
 
 /** 설정 화면의 '음성 점검': 언어별로 앱이 고른 음성과 테스트 듣기 */
-const VOICE_TEST = { yue: '早晨', en: 'Good morning. How are you today?', zh: '早上好，今天过得怎么样？' };
+const VOICE_TEST = { yue: '早晨', en: 'Good morning. How are you today?', zh: '早上好，今天过得怎么样？', ja: 'おはようございます。' };
 function voiceStatusHTML() {
   if (!canSpeak()) return '<div class="vs bad">이 브라우저는 음성 읽기를 지원하지 않아요.</div>';
   if (!speechSynthesis.getVoices().length) return '<div class="vs">음성 목록을 불러오는 중이에요… 설정을 닫았다가 다시 열어보세요.</div>';
@@ -387,7 +401,7 @@ function renderNav() {
   const c = st.config.counts;
   $('#nav').innerHTML = items.map(([k, l, i]) =>
     `<button class="nav-btn" data-view="${k}" ${st.view === k ? 'aria-current="page"' : ''}>${i}<span>${l}</span></button>`).join('') +
-    `<div class="routine"><h4>Daily Routine</h4>광둥어 ${c.yue}개<br>영어 ${c.en}개<br>중국어 ${c.zh}개<br>+ 언어별 통합 글 3편<p>하루 ${c.yue + c.en + c.zh}개, 조금씩 꾸준히.</p></div>`;
+    `<div class="routine"><h4>Daily Routine</h4>광둥어 ${c.yue}개<br>영어 ${c.en}개<br>중국어 ${c.zh}개<br>일본어 ${c.ja}개<br>+ 언어별 통합 글 ${LANGS.length}편<p>하루 ${c.yue + c.en + c.zh + c.ja}개, 조금씩 꾸준히.</p></div>`;
 }
 
 function applyTheme() {
@@ -442,8 +456,8 @@ function viewDaily() {
 function progressCard(date, state) {
   const c = counts(date);
   const known = state !== 'none' && state !== 'future';
-  const total = c.total || (known ? st.config.counts.yue + st.config.counts.en + st.config.counts.zh : 0);
-  const passages = c.total ? c.passages : (known ? 3 : 0);
+  const total = c.total || (known ? LANGS.reduce((n, l) => n + (st.config.counts[l.key] || 0), 0) : 0);
+  const passages = c.total ? c.passages : (known ? LANGS.length : 0);
   const units = total + passages, doneUnits = c.sum + c.reads;
   const pct = units ? Math.round((doneUnits / units) * 100) : 0;
   const cls = state === 'complete' ? 'complete' : state === 'progress' ? 'progress' : state === 'failed' ? 'failed' : state === 'generating' ? 'generating' : '';
@@ -465,7 +479,8 @@ function emptyState(date, ds) {
 
 function dailyReady(date, data) {
   const c = counts(date);
-  const tabs = LANGS.map((l) => {
+  if (!data.sets[st.lang]?.words.length) st.lang = LANGS.find((l) => data.sets[l.key]?.words.length)?.key || st.lang;
+  const tabs = LANGS.filter((l) => data.sets[l.key]?.words.length).map((l) => {
     const n = data.sets[l.key].words.length;
     return `<button class="tab" role="tab" data-lang="${l.key}" aria-selected="${st.lang === l.key}">${l.label}<span class="n">${c.done[l.key]}/${n}${c.read[l.key] ? ' · 글 ✓' : ''}</span></button>`;
   }).join('');
@@ -489,9 +504,9 @@ function card(date, lang, w, no, showOrigin) {
   const r = st.revealed.has(doneKey(date, w.id) + 'm') ? ' revealed' : '';
   return `<article class="card${done ? ' done' : ''}" data-date="${date}" data-id="${esc(w.id)}" data-lang="${lang}">
     ${no ? `<span class="no">${pad(no)}</span>` : ''}
-    <div class="head"><span class="word" lang="${L.htmlLang}">${esc(w.word)}</span>
+    <div class="head"><span class="word" lang="${L.htmlLang}">${wordHTML(lang, w)}</span>
       <span class="meaning mask${r}" data-reveal="${key}m">${esc(w.meaning)}</span></div>
-    <div class="reading">${esc(w.reading)}${w.pos ? `<span class="pos">${esc(w.pos)}</span>` : ''}</div>
+    <div class="reading">${lang === 'ja' ? '' : esc(w.reading)}${w.pos ? `<span class="pos">${esc(w.pos)}</span>` : ''}</div>
     ${showOrigin ? `<div class="origin">${dotted(date)}에 받은 단어 · <button data-act="goto" data-date="${date}" data-lang="${lang}">그날 보기</button></div>` : ''}
     <div class="actions">
       <button class="btn speak" data-act="speak" aria-label="단어 발음 듣기">${ICON.speaker}<span>듣기</span></button>
@@ -500,15 +515,42 @@ function card(date, lang, w, no, showOrigin) {
     </div></article>`;
 }
 
+/* --- 후리가나(ruby) --- */
+const rubyTag = (g, show) => (g.r !== undefined && show ? `<ruby>${esc(g.t)}<rt>${esc(g.r)}</rt></ruby>` : esc(g.t));
+/** 일본어 단어 표시: 한자 위에 후리가나 (단어 카드는 항상 표시) */
+function wordHTML(lang, w) {
+  return lang === 'ja' && w.ruby ? w.ruby.map((g) => rubyTag(g, true)).join('') : esc(w.word);
+}
+
 /* --- 통합 글 --- */
-function sentenceHTML(sent) {
-  let out = '', cur = 0;
-  for (const u of sent.uses) {
-    out += esc(sent.text.slice(cur, u.start));
-    out += `<button class="hl" data-act="hl" data-word="${esc(u.wordId)}" aria-label="목표 단어 ${esc(u.text)}">${esc(u.text)}</button>`;
-    cur = u.end;
+/** 문장 → HTML. 목표 단어(uses)는 눌러서 뜻을 볼 수 있는 강조 버튼. 후리가나(ruby)가 있으면 한자 위에 표시 */
+function sentenceHTML(sent, showFurigana = true) {
+  const hl = (u, inner) => `<button class="hl" data-act="hl" data-word="${esc(u.wordId)}" aria-label="목표 단어 ${esc(u.text)}">${inner}</button>`;
+  if (!sent.ruby) {
+    let out = '', cur = 0;
+    for (const u of sent.uses) {
+      out += esc(sent.text.slice(cur, u.start));
+      out += hl(u, esc(u.text));
+      cur = u.end;
+    }
+    return out + esc(sent.text.slice(cur));
   }
-  return out + esc(sent.text.slice(cur));
+  // 후리가나 조각을 '원자'로 나눈다: 한자 덩어리는 하나, 그 밖의 글자는 한 글자씩. 강조는 원자 경계에서만 시작/끝난다.
+  const atoms = []; let pos = 0;
+  for (const g of sent.ruby) {
+    if (g.r === undefined) for (const ch of g.t) { atoms.push({ g: { t: ch }, start: pos, end: pos + ch.length }); pos += ch.length; }
+    else { atoms.push({ g, start: pos, end: pos + g.t.length }); pos += g.t.length; }
+  }
+  let out = '', i = 0;
+  while (i < atoms.length) {
+    const u = sent.uses.find((x) => x.start === atoms[i].start);
+    if (u) {
+      let inner = '';
+      while (i < atoms.length && atoms[i].end <= u.end) { inner += rubyTag(atoms[i].g, showFurigana); i++; }
+      out += hl(u, inner || esc(u.text));
+    } else { out += rubyTag(atoms[i].g, showFurigana); i++; }
+  }
+  return out;
 }
 
 function passageSection(date, lang, set) {
@@ -516,18 +558,21 @@ function passageSection(date, lang, set) {
   if (!p) return `<section class="sec"><div class="sec-head"><h2><span class="no">②</span> 오늘의 통합 글</h2></div>
     <div class="empty"><p>이 날짜에는 ${LANG[lang].label} 통합 글이 없어요.</p></div></section>`;
   const L = LANG[lang], key = readKey(date, lang);
-  const ui = st.ui[key] || { ko: false, rd: false };
-  const hasRd = lang !== 'en' && p.sentences.some((s) => s.reading);
+  const ui = st.ui[key] || { ko: false, rd: false, fg: true };
+  const isJa = lang === 'ja';
+  const showFg = ui.fg !== false;
+  const hasRd = !isJa && lang !== 'en' && p.sentences.some((s) => s.reading);
+  const hasFg = isJa && p.sentences.some((s) => s.ruby);
   const read = isRead(date, lang);
   const sentences = ui.rd && hasRd
-    ? p.sentences.map((s) => `<div class="sent"><div class="src" lang="${L.htmlLang}">${sentenceHTML(s)}</div><div class="rd">${esc(s.reading)}</div></div>`).join('')
-    : `<p class="flow" lang="${L.htmlLang}">${p.sentences.map(sentenceHTML).join(lang === 'en' ? ' ' : '')}</p>`;
+    ? p.sentences.map((s) => `<div class="sent"><div class="src" lang="${L.htmlLang}">${sentenceHTML(s, showFg)}</div><div class="rd">${esc(s.reading)}</div></div>`).join('')
+    : `<p class="flow" lang="${L.htmlLang}">${p.sentences.map((x) => sentenceHTML(x, showFg)).join(lang === 'en' ? ' ' : '')}</p>`;
   const ko = ui.ko ? `<div class="ko-block"><div class="ko-ttl">한국어 번역</div><p>${p.sentences.map((s) => esc(s.ko)).join(' ')}</p></div>` : '';
   let pop = '';
   if (st.pop && st.pop.date === date && st.pop.lang === lang) {
     const w = set.words.find((x) => x.id === st.pop.wordId);
-    if (w) pop = `<div class="pop" role="status"><div><span class="word sm" lang="${L.htmlLang}">${esc(w.word)}</span>
-      <span class="pop-rd">${esc(w.reading)}</span></div><div class="pop-ko">${esc(w.meaning)}${w.pos ? ` <span class="pos">${esc(w.pos)}</span>` : ''}</div>
+    if (w) pop = `<div class="pop" role="status"><div><span class="word sm" lang="${L.htmlLang}">${wordHTML(lang, w)}</span>
+      <span class="pop-rd">${lang === 'ja' ? '' : esc(w.reading)}</span></div><div class="pop-ko">${esc(w.meaning)}${w.pos ? ` <span class="pos">${esc(w.pos)}</span>` : ''}</div>
       <div class="pop-act"><button class="btn" data-act="speak-word" data-word="${esc(w.id)}">${ICON.speaker}<span>듣기</span></button><button class="btn" data-act="close-pop">닫기</button></div></div>`;
   }
   return `<section class="sec passage" data-date="${date}" data-lang="${lang}" aria-labelledby="sec-passage">
@@ -541,6 +586,7 @@ function passageSection(date, lang, set) {
       <div class="story-tools">
         <button class="chip-btn" data-act="toggle-ko" aria-pressed="${ui.ko}">한국어 번역 ${ui.ko ? '숨기기' : '보기'}</button>
         ${hasRd ? `<button class="chip-btn" data-act="toggle-rd" aria-pressed="${ui.rd}">${L.rdLabel} ${ui.rd ? '숨기기' : '보기'}</button>` : ''}
+        ${hasFg ? `<button class="chip-btn" data-act="toggle-fg" aria-pressed="${showFg}">후리가나 ${showFg ? '숨기기' : '보기'}</button>` : ''}
         ${st.speaking === key
           ? `<button class="chip-btn playing" data-act="speak-passage" aria-pressed="true" aria-label="전체 듣기 정지">${ICON.stop}<span>정지</span></button>`
           : `<button class="chip-btn" data-act="speak-passage">${ICON.speaker}<span>전체 듣기</span></button>`}
@@ -567,7 +613,7 @@ function viewReview() {
 
 /* --- 스케줄 --- */
 function viewSchedule() {
-  const cfg = st.config, c = cfg.counts, total = c.yue + c.en + c.zh;
+  const cfg = st.config, c = cfg.counts, total = LANGS.reduce((n, l) => n + (c[l.key] || 0), 0);
   const now = new Date(), [hh, mm] = cfg.generateAt.split(':').map(Number);
   const next = new Date(now); next.setHours(hh, mm, 0, 0); if (next <= now) next.setDate(next.getDate() + 1);
   const today = todayStr();
@@ -585,10 +631,11 @@ function viewSchedule() {
     <div class="panel"><h3>매일 자료 생성</h3><dl class="kv">
       <dt>생성 시각</dt><dd>매일 ${esc(cfg.generateAt)}</dd>
       <dt>다음 생성</dt><dd>${next.getMonth() + 1}월 ${next.getDate()}일 ${esc(cfg.generateAt)}</dd>
-      <dt>구성</dt><dd>단어 ${total}개 (광둥어 ${c.yue} · 영어 ${c.en} · 중국어 ${c.zh}) + 언어별 통합 글 3편</dd>
+      <dt>구성</dt><dd>단어 ${total}개 (광둥어 ${c.yue} · 영어 ${c.en} · 중국어 ${c.zh} · 일본어 ${c.ja}) + 언어별 통합 글 ${LANGS.length}편</dd>
       <dt>광둥어 수준</dt><dd>${esc(lv.yue.label)}</dd>
       <dt>영어 수준</dt><dd>${esc(lv.en.label)}</dd>
       <dt>중국어 수준</dt><dd>${esc(lv.zh.label)}${lv.zh.standard ? ` <span class="msg">(${esc(lv.zh.standard)})</span>` : ''}</dd>
+      <dt>일본어 수준</dt><dd>${esc(lv.ja.label)}</dd>
       <dt>마지막 확인</dt><dd>${esc(sync)}</dd></dl>
       <div class="row-btns" style="margin-top:14px"><button class="btn" data-act="refresh">자료 새로고침</button>
       <button class="btn" data-act="install" id="btn-install" hidden>홈 화면에 설치</button></div></div>
@@ -629,7 +676,7 @@ function openSettings() {
   $('#dlg-settings').innerHTML = `<div class="dlg"><div class="dlg-head"><h2>설정</h2><button class="icon-btn" data-act="close" aria-label="닫기">✕</button></div>
     <div class="field"><label for="s-theme">화면 모드</label><select id="s-theme"><option value="auto">시스템 설정 따르기</option><option value="light">라이트</option><option value="dark">다크</option></select></div>
     <div class="field"><label>학습 수준 (언어별)</label>
-      <dl class="kv lv-list"><dt>광둥어</dt><dd>${esc(lv.yue.label)}</dd><dt>영어</dt><dd>${esc(lv.en.label)}</dd><dt>중국어</dt><dd>${esc(lv.zh.label)}${lv.zh.standard ? `<br><small>${esc(lv.zh.standard)}</small>` : ''}</dd></dl>
+      <dl class="kv lv-list"><dt>광둥어</dt><dd>${esc(lv.yue.label)}</dd><dt>영어</dt><dd>${esc(lv.en.label)}</dd><dt>중국어</dt><dd>${esc(lv.zh.label)}${lv.zh.standard ? `<br><small>${esc(lv.zh.standard)}</small>` : ''}</dd><dt>일본어</dt><dd>${esc(lv.ja.label)}</dd></dl>
       <small>수준은 자료 생성 지침과 함께 관리돼요. 바꾸려면 <b>data/config.json</b>의 levels 를 수정하세요.</small></div>
     <div class="field"><label>음성 점검 (언어별로 앱이 고른 음성)</label>
       <div id="s-voice" class="voice-box">${voiceStatusHTML()}</div>
@@ -685,6 +732,11 @@ document.addEventListener('click', async (ev) => {
       st.pop = cur && cur.date === next.date && cur.lang === next.lang && cur.wordId === next.wordId ? null : next; render(); break; }
     case 'close-pop': st.pop = null; render(); break;
     case 'speak-word': { if (!pas) break; const w = passageWord(pas.dataset.date, pas.dataset.lang, t.dataset.word); if (w) speak(w.word, pas.dataset.lang); break; }
+    case 'toggle-fg': {
+      if (!pas) break; const k = readKey(pas.dataset.date, pas.dataset.lang);
+      const ui = (st.ui[k] = st.ui[k] || { ko: false, rd: false, fg: true });
+      ui.fg = ui.fg === false; render(); break;
+    }
     case 'toggle-ko': case 'toggle-rd': {
       if (!pas) break; const k = readKey(pas.dataset.date, pas.dataset.lang);
       const ui = (st.ui[k] = st.ui[k] || { ko: false, rd: false });

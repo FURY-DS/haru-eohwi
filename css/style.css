@@ -300,3 +300,13 @@ dialog::backdrop { background: rgba(10, 16, 12, .45); }
 .vrow .btn { min-height: 38px; padding: 6px 12px; flex: none; }
 
 .warn-note { display: block; margin-top: 8px; padding: 8px 10px; border-radius: 10px; background: var(--warn-bg); color: var(--warn) !important; font-size: 12.5px; line-height: 1.5; }
+
+/* ===== 일본어 / 후리가나 ===== */
+:root { --font-ja: "Noto Sans JP", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic UI", "Yu Gothic", "Meiryo", var(--font); }
+.word[lang="ja"], .story-title[lang="ja"], .story-body [lang="ja"], .ex .src[lang="ja"] { font-family: var(--font-ja); }
+ruby { ruby-position: over; }
+ruby rt { font-size: .55em; font-weight: 400; letter-spacing: 0; color: var(--ink-2); line-height: 1; }
+.word ruby rt { font-size: .5em; }
+.story-body [lang="ja"] { line-height: 2.5; }
+.word[lang="ja"] { line-height: 1.7; }
+.hl ruby rt { color: var(--green); }

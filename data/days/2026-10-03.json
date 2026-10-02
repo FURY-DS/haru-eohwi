@@ -1,0 +1,677 @@
+{
+  "schemaVersion": 2,
+  "date": "2026-10-03",
+  "status": "ready",
+  "generatedAt": "2026-10-03T08:47:11+09:00",
+  "sets": {
+    "yue": {
+      "lang": "yue",
+      "level": "완전 초급",
+      "words": [
+        {
+          "id": "yue-1",
+          "word": "去",
+          "reading": "heoi3",
+          "meaning": "가다",
+          "pos": "동사"
+        },
+        {
+          "id": "yue-2",
+          "word": "朋友",
+          "reading": "pang4 jau5",
+          "meaning": "친구",
+          "pos": "명사"
+        },
+        {
+          "id": "yue-3",
+          "word": "地铁",
+          "reading": "dei6 tit3",
+          "meaning": "지하철",
+          "pos": "명사"
+        },
+        {
+          "id": "yue-4",
+          "word": "几点",
+          "reading": "gei2 dim2",
+          "meaning": "몇 시",
+          "pos": "표현"
+        },
+        {
+          "id": "yue-5",
+          "word": "多谢",
+          "reading": "do1 ze6",
+          "meaning": "고마워요",
+          "pos": "표현"
+        }
+      ],
+      "passage": {
+        "title": "去睇朋友",
+        "titleKo": "친구 만나러 가요",
+        "situation": "지하철을 타고 친구를 만나러 가기",
+        "sentences": [
+          {
+            "text": "我今日去睇朋友。",
+            "reading": "ngo5 gam1 jat6 heoi3 tai2 pang4 jau5.",
+            "ko": "저는 오늘 친구를 만나러 가요.",
+            "uses": [
+              {
+                "wordId": "yue-1",
+                "text": "去",
+                "start": 3,
+                "end": 4
+              },
+              {
+                "wordId": "yue-2",
+                "text": "朋友",
+                "start": 5,
+                "end": 7
+              }
+            ]
+          },
+          {
+            "text": "我坐地铁去。",
+            "reading": "ngo5 co5 dei6 tit3 heoi3.",
+            "ko": "저는 지하철을 타고 가요.",
+            "uses": [
+              {
+                "wordId": "yue-3",
+                "text": "地铁",
+                "start": 2,
+                "end": 4
+              },
+              {
+                "wordId": "yue-1",
+                "text": "去",
+                "start": 4,
+                "end": 5
+              }
+            ]
+          },
+          {
+            "text": "佢问：「你几点到呀？」",
+            "reading": "keoi5 man6: \"nei5 gei2 dim2 dou3 aa3?\"",
+            "ko": "친구가 물어요: \"너 몇 시에 도착해?\"",
+            "uses": [
+              {
+                "wordId": "yue-4",
+                "text": "几点",
+                "start": 5,
+                "end": 7
+              }
+            ]
+          },
+          {
+            "text": "我话：「六点。」",
+            "reading": "ngo5 waa6: \"luk6 dim2.\"",
+            "ko": "저는 말해요: \"6시.\"",
+            "uses": []
+          },
+          {
+            "text": "朋友好开心。",
+            "reading": "pang4 jau5 hou2 hoi1 sam1.",
+            "ko": "친구가 아주 기뻐해요.",
+            "uses": [
+              {
+                "wordId": "yue-2",
+                "text": "朋友",
+                "start": 0,
+                "end": 2
+              }
+            ]
+          },
+          {
+            "text": "我话：「多谢你！」",
+            "reading": "ngo5 waa6: \"do1 ze6 nei5!\"",
+            "ko": "저는 말해요: \"고마워!\"",
+            "uses": [
+              {
+                "wordId": "yue-5",
+                "text": "多谢",
+                "start": 4,
+                "end": 6
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "en": {
+      "lang": "en",
+      "level": "토익스피킹 대비",
+      "words": [
+        {
+          "id": "en-1",
+          "word": "purchase",
+          "reading": "/ˈpɜːrtʃəs/",
+          "meaning": "구매, 구입하다",
+          "pos": "명사/동사"
+        },
+        {
+          "id": "en-2",
+          "word": "receipt",
+          "reading": "/rɪˈsiːt/",
+          "meaning": "영수증",
+          "pos": "명사"
+        },
+        {
+          "id": "en-3",
+          "word": "defective",
+          "reading": "/dɪˈfɛktɪv/",
+          "meaning": "결함이 있는",
+          "pos": "형용사"
+        },
+        {
+          "id": "en-4",
+          "word": "refund",
+          "reading": "/ˈriːfʌnd/",
+          "meaning": "환불",
+          "pos": "명사"
+        },
+        {
+          "id": "en-5",
+          "word": "apologize",
+          "reading": "/əˈpɑːləˌdʒaɪz/",
+          "meaning": "사과하다",
+          "pos": "동사"
+        },
+        {
+          "id": "en-6",
+          "word": "representative",
+          "reading": "/ˌrɛprɪˈzɛntətɪv/",
+          "meaning": "담당 직원, 대표",
+          "pos": "명사"
+        },
+        {
+          "id": "en-7",
+          "word": "replacement",
+          "reading": "/rɪˈpleɪsmənt/",
+          "meaning": "교체품, 교환",
+          "pos": "명사"
+        },
+        {
+          "id": "en-8",
+          "word": "inconvenience",
+          "reading": "/ˌɪnkənˈviːniəns/",
+          "meaning": "불편",
+          "pos": "명사"
+        },
+        {
+          "id": "en-9",
+          "word": "assist",
+          "reading": "/əˈsɪst/",
+          "meaning": "도와주다",
+          "pos": "동사"
+        },
+        {
+          "id": "en-10",
+          "word": "satisfied",
+          "reading": "/ˈsætɪsˌfaɪd/",
+          "meaning": "만족한",
+          "pos": "형용사"
+        }
+      ],
+      "passage": {
+        "title": "Returning a Defective Product",
+        "titleKo": "불량품 교환하기",
+        "situation": "토익스피킹 상황 설명 — 가게에서 불량 제품을 교환한 경험",
+        "sentences": [
+          {
+            "text": "Last week, I made a purchase at an electronics store, but the headphones were defective.",
+            "ko": "지난주에 전자제품 매장에서 물건을 샀는데, 헤드폰에 결함이 있었어요.",
+            "uses": [
+              {
+                "wordId": "en-1",
+                "text": "purchase",
+                "start": 20,
+                "end": 28
+              },
+              {
+                "wordId": "en-3",
+                "text": "defective",
+                "start": 78,
+                "end": 87
+              }
+            ]
+          },
+          {
+            "text": "I kept the receipt, so I went back to the store yesterday.",
+            "ko": "영수증을 갖고 있어서 어제 그 매장에 다시 갔어요.",
+            "uses": [
+              {
+                "wordId": "en-2",
+                "text": "receipt",
+                "start": 11,
+                "end": 18
+              }
+            ]
+          },
+          {
+            "text": "A friendly representative listened carefully and apologized for the inconvenience.",
+            "ko": "친절한 직원이 주의 깊게 듣고 불편을 드려 죄송하다고 사과했어요.",
+            "uses": [
+              {
+                "wordId": "en-6",
+                "text": "representative",
+                "start": 11,
+                "end": 25
+              },
+              {
+                "wordId": "en-5",
+                "text": "apologized",
+                "start": 49,
+                "end": 59
+              },
+              {
+                "wordId": "en-8",
+                "text": "inconvenience",
+                "start": 68,
+                "end": 81
+              }
+            ]
+          },
+          {
+            "text": "She asked if I wanted a refund or a replacement.",
+            "ko": "그녀는 제가 환불을 원하는지 교환을 원하는지 물었어요.",
+            "uses": [
+              {
+                "wordId": "en-4",
+                "text": "refund",
+                "start": 24,
+                "end": 30
+              },
+              {
+                "wordId": "en-7",
+                "text": "replacement",
+                "start": 36,
+                "end": 47
+              }
+            ]
+          },
+          {
+            "text": "I chose a replacement, and she was glad to assist me right away.",
+            "ko": "저는 교환을 선택했고, 그녀는 바로 기꺼이 저를 도와줬어요.",
+            "uses": [
+              {
+                "wordId": "en-7",
+                "text": "replacement",
+                "start": 10,
+                "end": 21
+              },
+              {
+                "wordId": "en-9",
+                "text": "assist",
+                "start": 43,
+                "end": 49
+              }
+            ]
+          },
+          {
+            "text": "In the end, I was very satisfied with their service.",
+            "ko": "결국 저는 그 매장의 서비스에 매우 만족했어요.",
+            "uses": [
+              {
+                "wordId": "en-10",
+                "text": "satisfied",
+                "start": 23,
+                "end": 32
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "zh": {
+      "lang": "zh",
+      "level": "HSK 4~6급",
+      "hskStandard": "HSK 2.0 (6급제) 기준 4~6급 어휘",
+      "words": [
+        {
+          "id": "zh-1",
+          "word": "搬家",
+          "reading": "bānjiā",
+          "meaning": "이사하다",
+          "pos": "동사"
+        },
+        {
+          "id": "zh-2",
+          "word": "整理",
+          "reading": "zhěnglǐ",
+          "meaning": "정리하다",
+          "pos": "동사"
+        },
+        {
+          "id": "zh-3",
+          "word": "安排",
+          "reading": "ānpái",
+          "meaning": "배치하다, 계획하다",
+          "pos": "동사"
+        },
+        {
+          "id": "zh-4",
+          "word": "邻居",
+          "reading": "línjū",
+          "meaning": "이웃",
+          "pos": "명사"
+        },
+        {
+          "id": "zh-5",
+          "word": "热情",
+          "reading": "rèqíng",
+          "meaning": "친절하다, 열정적이다",
+          "pos": "형용사"
+        },
+        {
+          "id": "zh-6",
+          "word": "麻烦",
+          "reading": "máfan",
+          "meaning": "폐를 끼치다, 번거롭다",
+          "pos": "동사"
+        },
+        {
+          "id": "zh-7",
+          "word": "熟悉",
+          "reading": "shúxī",
+          "meaning": "잘 알다, 익숙하다",
+          "pos": "동사"
+        },
+        {
+          "id": "zh-8",
+          "word": "打扰",
+          "reading": "dǎrǎo",
+          "meaning": "방해하다, 폐를 끼치다",
+          "pos": "동사"
+        },
+        {
+          "id": "zh-9",
+          "word": "交流",
+          "reading": "jiāoliú",
+          "meaning": "교류하다",
+          "pos": "동사"
+        },
+        {
+          "id": "zh-10",
+          "word": "温暖",
+          "reading": "wēnnuǎn",
+          "meaning": "따뜻하다",
+          "pos": "형용사"
+        }
+      ],
+      "passage": {
+        "title": "新家的邻居",
+        "titleKo": "새집의 이웃",
+        "situation": "이사 후 이웃과 가까워진 이야기",
+        "sentences": [
+          {
+            "text": "上个月我搬家了，新家离公司很近。",
+            "reading": "Shàng gè yuè wǒ bānjiā le, xīn jiā lí gōngsī hěn jìn.",
+            "ko": "지난달에 저는 이사를 했고, 새집은 회사에서 아주 가까워요.",
+            "uses": [
+              {
+                "wordId": "zh-1",
+                "text": "搬家",
+                "start": 4,
+                "end": 6
+              }
+            ]
+          },
+          {
+            "text": "我花了两天时间整理房间，还重新安排了家具的位置。",
+            "reading": "Wǒ huā le liǎng tiān shíjiān zhěnglǐ fángjiān, hái chóngxīn ānpái le jiājù de wèizhì.",
+            "ko": "저는 이틀 동안 방을 정리했고, 가구 위치도 새로 배치했어요.",
+            "uses": [
+              {
+                "wordId": "zh-2",
+                "text": "整理",
+                "start": 7,
+                "end": 9
+              },
+              {
+                "wordId": "zh-3",
+                "text": "安排",
+                "start": 15,
+                "end": 17
+              }
+            ]
+          },
+          {
+            "text": "第一天晚上，邻居热情地来敲门，问我需不需要帮忙。",
+            "reading": "Dì yī tiān wǎnshang, línjū rèqíng de lái qiāo mén, wèn wǒ xū bù xūyào bāngmáng.",
+            "ko": "첫날 저녁에 이웃이 친절하게 문을 두드리며 도움이 필요한지 물었어요.",
+            "uses": [
+              {
+                "wordId": "zh-4",
+                "text": "邻居",
+                "start": 6,
+                "end": 8
+              },
+              {
+                "wordId": "zh-5",
+                "text": "热情",
+                "start": 8,
+                "end": 10
+              }
+            ]
+          },
+          {
+            "text": "我说不想太麻烦他们，他却笑着说这是应该的。",
+            "reading": "Wǒ shuō bù xiǎng tài máfan tāmen, tā què xiàozhe shuō zhè shì yīnggāi de.",
+            "ko": "저는 너무 폐를 끼치고 싶지 않다고 했지만, 그는 웃으며 당연한 일이라고 했어요.",
+            "uses": [
+              {
+                "wordId": "zh-6",
+                "text": "麻烦",
+                "start": 5,
+                "end": 7
+              }
+            ]
+          },
+          {
+            "text": "因为刚搬来，我对这里还不太熟悉，所以常常打扰他们。",
+            "reading": "Yīnwèi gāng bān lái, wǒ duì zhèlǐ hái bú tài shúxī, suǒyǐ chángcháng dǎrǎo tāmen.",
+            "ko": "막 이사 와서 이곳이 아직 낯설어 자주 그들에게 폐를 끼쳤어요.",
+            "uses": [
+              {
+                "wordId": "zh-7",
+                "text": "熟悉",
+                "start": 13,
+                "end": 15
+              },
+              {
+                "wordId": "zh-8",
+                "text": "打扰",
+                "start": 20,
+                "end": 22
+              }
+            ]
+          },
+          {
+            "text": "慢慢地，我们经常交流，我觉得这个新家很温暖。",
+            "reading": "Mànmàn de, wǒmen jīngcháng jiāoliú, wǒ juéde zhège xīn jiā hěn wēnnuǎn.",
+            "ko": "점점 우리는 자주 교류했고, 저는 이 새집이 아주 따뜻하다고 느꼈어요.",
+            "uses": [
+              {
+                "wordId": "zh-9",
+                "text": "交流",
+                "start": 8,
+                "end": 10
+              },
+              {
+                "wordId": "zh-10",
+                "text": "温暖",
+                "start": 19,
+                "end": 21
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "ja": {
+      "lang": "ja",
+      "level": "완전 초급 (JLPT N5 이하)",
+      "words": [
+        {
+          "id": "ja-1",
+          "word": "電車",
+          "reading": "でんしゃ",
+          "meaning": "전철",
+          "pos": "명사",
+          "ruby": [
+            {
+              "t": "電車",
+              "r": "でんしゃ"
+            }
+          ]
+        },
+        {
+          "id": "ja-2",
+          "word": "きっぷ",
+          "reading": "きっぷ",
+          "meaning": "표, 승차권",
+          "pos": "명사"
+        },
+        {
+          "id": "ja-3",
+          "word": "どこ",
+          "reading": "どこ",
+          "meaning": "어디",
+          "pos": "의문사"
+        },
+        {
+          "id": "ja-4",
+          "word": "すみません",
+          "reading": "すみません",
+          "meaning": "실례합니다 / 죄송합니다",
+          "pos": "인사"
+        },
+        {
+          "id": "ja-5",
+          "word": "行く",
+          "reading": "いく",
+          "meaning": "가다",
+          "pos": "동사",
+          "ruby": [
+            {
+              "t": "行",
+              "r": "い"
+            },
+            {
+              "t": "く"
+            }
+          ]
+        }
+      ],
+      "passage": {
+        "title": "えきで",
+        "titleKo": "역에서",
+        "situation": "역에서 길을 묻고 표를 사기",
+        "sentences": [
+          {
+            "text": "きょうは電車で行きます。",
+            "reading": "きょうはでんしゃでいきます。",
+            "ko": "오늘은 전철로 가요.",
+            "ruby": [
+              {
+                "t": "きょうは"
+              },
+              {
+                "t": "電車",
+                "r": "でんしゃ"
+              },
+              {
+                "t": "で"
+              },
+              {
+                "t": "行",
+                "r": "い"
+              },
+              {
+                "t": "きます。"
+              }
+            ],
+            "uses": [
+              {
+                "wordId": "ja-1",
+                "text": "電車",
+                "start": 4,
+                "end": 6
+              },
+              {
+                "wordId": "ja-5",
+                "text": "行",
+                "start": 7,
+                "end": 8
+              }
+            ]
+          },
+          {
+            "text": "すみません、えきはどこですか。",
+            "reading": "すみません、えきはどこですか。",
+            "ko": "실례합니다, 역은 어디예요?",
+            "uses": [
+              {
+                "wordId": "ja-4",
+                "text": "すみません",
+                "start": 0,
+                "end": 5
+              },
+              {
+                "wordId": "ja-3",
+                "text": "どこ",
+                "start": 9,
+                "end": 11
+              }
+            ]
+          },
+          {
+            "text": "あそこですよ。",
+            "reading": "あそこですよ。",
+            "ko": "저기예요.",
+            "uses": []
+          },
+          {
+            "text": "ありがとうございます。",
+            "reading": "ありがとうございます。",
+            "ko": "감사합니다.",
+            "uses": []
+          },
+          {
+            "text": "きっぷをいちまいください。",
+            "reading": "きっぷをいちまいください。",
+            "ko": "표를 한 장 주세요.",
+            "uses": [
+              {
+                "wordId": "ja-2",
+                "text": "きっぷ",
+                "start": 0,
+                "end": 3
+              }
+            ]
+          },
+          {
+            "text": "電車がきました。",
+            "reading": "でんしゃがきました。",
+            "ko": "전철이 왔어요.",
+            "ruby": [
+              {
+                "t": "電車",
+                "r": "でんしゃ"
+              },
+              {
+                "t": "がきました。"
+              }
+            ],
+            "uses": [
+              {
+                "wordId": "ja-1",
+                "text": "電車",
+                "start": 0,
+                "end": 2
+              }
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

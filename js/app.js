@@ -268,6 +268,7 @@ function scoreVoice(v, lang) {
     if (!(l.startsWith('zh') || l.startsWith('cmn')) || /^zh-(hk|tw)|^zh-hant|^yue/.test(l) || /cantonese|粵|粤|廣東|广东|台灣|台湾/i.test(v.name)) return -1;
     if (l === 'zh-cn' || l === 'cmn-cn' || l === 'zh-hans-cn' || l === 'zh') sc += 3; else sc += 1;
   }
+  if (/enhanced|premium|siri|향상|增强|優化|优化/i.test(v.name)) sc += 3;   // iOS 고품질 음성
   if (v.default) sc += 2;
   if (VOICE_PREF[lang] && VOICE_PREF[lang].test(v.name)) sc += 4;
   if (VOICE_AVOID.test(v.name)) sc -= 5;
@@ -333,12 +334,20 @@ function stopSpeech() {
   if (st.speaking) { st.speaking = null; render(); }
 }
 
+/** 새 재생을 시작한다. 재생 중이던 음성이 있으면 cancel 하고 잠시 뒤에 시작 (iOS: cancel 직후 speak 하면 이전 음성이 그대로 쓰이는 문제 방지).
+ *  아무것도 재생 중이 아니면 즉시 시작 (iOS 는 사용자 터치 직후에 시작해야 소리가 남) */
+function startSpeech(token, utterances) {
+  const busy = speechSynthesis.speaking || speechSynthesis.pending;
+  if (busy) speechSynthesis.cancel();
+  const go = () => { if (token === speechToken) utterances.forEach((u) => speechSynthesis.speak(u)); };
+  if (busy && IS_IOS) setTimeout(go, 200); else go();
+}
+
 function speak(text, lang) {
   if (!canSpeak()) { toast('이 기기에서는 발음 듣기를 지원하지 않아요'); return; }
   const was = st.speaking;
-  speechToken++; st.speaking = null;
-  speechSynthesis.cancel();
-  speechSynthesis.speak(makeUtterance(text, lang));
+  const token = ++speechToken; st.speaking = null;
+  startSpeech(token, [makeUtterance(text, lang)]);
   if (was) render();
 }
 
@@ -346,15 +355,15 @@ function speak(text, lang) {
 function speakPassage(sentences, lang, key) {
   if (!canSpeak()) { toast('이 기기에서는 발음 듣기를 지원하지 않아요'); return; }
   const token = ++speechToken;
-  speechSynthesis.cancel();
   st.speaking = key;
   const finish = () => { if (token === speechToken && st.speaking === key) { st.speaking = null; render(); } };
-  sentences.forEach((text, i) => {
+  const utts = sentences.map((text, i) => {
     const u = makeUtterance(text, lang);
     if (i === sentences.length - 1) u.onend = finish;
     u.onerror = finish;
-    speechSynthesis.speak(u);
+    return u;
   });
+  startSpeech(token, utts);
   render();
 }
 
@@ -690,7 +699,7 @@ document.addEventListener('click', async (ev) => {
     }
     case 'read': { if (!pas) break; toggleRead(pas.dataset.date, pas.dataset.lang); break; }
     case 'install': if (deferredInstall) { deferredInstall.prompt(); deferredInstall = null; t.hidden = true; } break;
-    case 'voice-test': { const vl = t.dataset.vlang || 'yue'; speak(VOICE_TEST[vl], vl); break; }
+    case 'voice-test': { const vl = t.dataset.vlang || 'yue'; const pv = pickVoice(vl); toast(pv ? `▶ ${pv.name} (${pv.lang})` : '▶ 기기 기본 음성'); speak(VOICE_TEST[vl], vl); break; }
     case 'copy-config': {
       try { await navigator.clipboard.writeText($('#cfg-json').textContent); toast('복사했어요'); } catch { toast('복사에 실패했어요'); }
       break;

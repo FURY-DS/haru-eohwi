@@ -633,7 +633,8 @@ function openSettings() {
       <small>수준은 자료 생성 지침과 함께 관리돼요. 바꾸려면 <b>data/config.json</b>의 levels 를 수정하세요.</small></div>
     <div class="field"><label>음성 점검 (언어별로 앱이 고른 음성)</label>
       <div id="s-voice" class="voice-box">${voiceStatusHTML()}</div>
-      <small>광둥어 음성이 없으면 폰의 음성 설정에서 중국어(홍콩)/광둥어 음성을 설치하세요. 소리가 이상하면 이 화면의 음성 이름을 알려주세요.</small></div>
+      <small>광둥어 음성이 없으면 폰의 음성 설정에서 중국어(홍콩)/광둥어 음성을 설치하세요.</small>
+      ${IS_IOS ? '<small class="warn-note">아이폰: iOS 가 중국어 방언을 시스템 설정 하나로 고정해 읽는 경우가 있어요. 광둥어와 표준 중국어가 같은 방언으로 들리면 설정 → 손쉬운 사용 → 말하기 콘텐츠 → 음성 → 중국어 → 「口說語言」에서 학습하는 쪽(粵語 / 國語)으로 바꿔 보세요. 웹 앱에서는 이 설정을 바꿀 수 없어요.</small>' : ''}</div>
     <div class="field"><label for="s-topic">선호 주제·장면</label><input id="s-topic" list="topics" value="${esc(setting('topic'))}" placeholder="예: 실생활, 여행, 음식, 직장">
       <datalist id="topics">${['실생활', '여행', '음식', '직장', '쇼핑', '감정 표현', '교통'].map((o) => `<option value="${o}">`).join('')}</datalist>
       <small>생성에 적용하려면 <b>data/config.json</b>에 반영해야 해요. 아래 버튼으로 내용을 복사하세요.</small></div>

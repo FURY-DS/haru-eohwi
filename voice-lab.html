@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>음성 진단 · 하루어휘</title>
+  <style>
+    :root { color-scheme: light dark; --line: #8884; --g: #2f5d46; }
+    body { font: 15px/1.5 -apple-system, "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif; margin: 0; padding: 16px; max-width: 720px; margin-inline: auto; }
+    h1 { font-size: 20px; margin: 0 0 4px; }
+    h2 { font-size: 15px; margin: 22px 0 8px; }
+    small, .mut { color: #888; }
+    fieldset { border: 1px solid var(--line); border-radius: 12px; margin: 10px 0; padding: 10px 12px; }
+    label { display: block; padding: 6px 0; }
+    textarea, select { width: 100%; font: inherit; padding: 10px; border-radius: 10px; border: 1px solid var(--line); box-sizing: border-box; }
+    button { font: inherit; padding: 10px 14px; border-radius: 12px; border: 1px solid var(--line); background: transparent; color: inherit; min-height: 44px; }
+    button.go { background: var(--g); color: #fff; border-color: var(--g); }
+    .row { display: grid; grid-template-columns: 1fr auto; gap: 8px; align-items: center; padding: 8px 0; border-top: 1px solid var(--line); }
+    .row:first-child { border-top: 0; }
+    .nm { font-weight: 600; word-break: break-all; }
+    .meta { font-size: 12px; color: #888; word-break: break-all; }
+    pre { background: #8882; padding: 10px; border-radius: 10px; white-space: pre-wrap; word-break: break-all; font-size: 12px; max-height: 260px; overflow: auto; }
+    .tabs { display: flex; gap: 6px; flex-wrap: wrap; margin: 6px 0; }
+    .tabs button[aria-pressed="true"] { background: var(--g); color: #fff; border-color: var(--g); }
+  </style>
+</head>
+<body>
+  <h1>음성 진단</h1>
+  <p class="mut">기기가 어떤 음성을 갖고 있고, 방식에 따라 어떻게 읽는지 확인하는 임시 페이지예요. 결과(소리가 어땠는지)를 알려주세요.</p>
+  <pre id="env"></pre>
+
+  <h2>1. 읽을 문장</h2>
+  <div class="tabs" id="presets"></div>
+  <textarea id="text" rows="2"></textarea>
+
+  <h2>2. 읽기 방식</h2>
+  <fieldset>
+    <label><input type="radio" name="mode" value="A" checked> <b>A</b>. 음성 + 언어 모두 지정 <small>(앱이 지금 쓰는 방식)</small></label>
+    <label><input type="radio" name="mode" value="B"> <b>B</b>. 음성만 지정 <small>(언어 코드 없음)</small></label>
+    <label><input type="radio" name="mode" value="C"> <b>C</b>. 언어 코드만 지정 <small>(음성은 기기가 고름)</small></label>
+  </fieldset>
+
+  <h2>3. 음성 목록 <small id="count"></small></h2>
+  <div class="tabs" id="filters"></div>
+  <div id="list"></div>
+
+  <h2>4. 기록</h2>
+  <button id="stop">■ 정지</button>
+  <pre id="log">(여기에 재생 기록이 쌓여요)</pre>
+
+<script>
+(() => {
+  const $ = (s) => document.querySelector(s);
+  const PRESETS = {
+    '중국어(표준)': { text: '早上好，今天过得怎么样？', filter: 'zh' },
+    '광둥어': { text: '早晨，你食咗饭未呀？', filter: 'yue' },
+    '영어': { text: 'Good morning. How are you today?', filter: 'en' },
+  };
+  let filter = 'zh';
+  const log = (m) => { const t = new Date().toLocaleTimeString(); $('#log').textContent = `[${t}] ${m}\n` + $('#log').textContent; };
+  const norm = (v) => v.lang.replace('_', '-').toLowerCase();
+  const kind = (v) => { const l = norm(v); if (/^yue/.test(l) || l === 'zh-hk') return 'yue'; if (/^zh|^cmn/.test(l)) return 'zh'; if (/^en/.test(l)) return 'en'; return 'etc'; };
+
+  $('#env').textContent = [
+    'UA: ' + navigator.userAgent,
+    'speechSynthesis: ' + ('speechSynthesis' in window),
+    'standalone(홈화면 앱): ' + (navigator.standalone === true || matchMedia('(display-mode: standalone)').matches),
+  ].join('\n');
+
+  Object.entries(PRESETS).forEach(([name, p], i) => {
+    const b = document.createElement('button');
+    b.textContent = name; b.onclick = () => { $('#text').value = p.text; setFilter(p.filter); };
+    $('#presets').append(b);
+    if (i === 0) $('#text').value = p.text;
+  });
+
+  function setFilter(f) {
+    filter = f;
+    [...$('#filters').children].forEach((b) => b.setAttribute('aria-pressed', b.dataset.f === f));
+    draw();
+  }
+  [['zh', '중국어 음성'], ['yue', '광둥어 음성'], ['en', '영어 음성'], ['all', '전체']].forEach(([f, label]) => {
+    const b = document.createElement('button'); b.textContent = label; b.dataset.f = f; b.onclick = () => setFilter(f);
+    $('#filters').append(b);
+  });
+
+  function speak(v) {
+    const mode = document.querySelector('input[name=mode]:checked').value;
+    const u = new SpeechSynthesisUtterance($('#text').value);
+    if (mode === 'A') { u.voice = v; u.lang = v.lang; }
+    if (mode === 'B') { u.voice = v; }
+    if (mode === 'C') { u.lang = v.lang; }
+    u.rate = 0.9;
+    const tag = `방식 ${mode} | ${v.name} | ${v.lang}`;
+    u.onstart = () => log('▶ 시작 ' + tag);
+    u.onend = () => log('■ 끝 ' + tag);
+    u.onerror = (e) => log('✕ 오류 ' + tag + ' : ' + (e.error || ''));
+    if (speechSynthesis.speaking || speechSynthesis.pending) speechSynthesis.cancel();
+    speechSynthesis.speak(u);
+    log('요청 ' + tag + ` | 실제 지정된 voice=${u.voice ? u.voice.name : '(없음)'}, lang=${u.lang || '(없음)'}`);
+  }
+
+  function draw() {
+    const vs = speechSynthesis.getVoices();
+    const shown = vs.filter((v) => filter === 'all' || kind(v) === filter);
+    $('#count').textContent = `(전체 ${vs.length}개 중 ${shown.length}개 표시)`;
+    $('#list').innerHTML = '';
+    if (!vs.length) { $('#list').textContent = '음성 목록이 비어 있어요. 잠시 후 이 페이지를 새로고침해 보세요.'; return; }
+    shown.forEach((v) => {
+      const row = document.createElement('div'); row.className = 'row';
+      const info = document.createElement('div');
+      info.innerHTML = '<div class="nm"></div><div class="meta"></div>';
+      info.children[0].textContent = v.name;
+      info.children[1].textContent = `${v.lang} · ${v.localService ? '기기 내장' : '온라인'}${v.default ? ' · 기본' : ''} · ${v.voiceURI}`;
+      const b = document.createElement('button'); b.className = 'go'; b.textContent = '읽기'; b.onclick = () => speak(v);
+      row.append(info, b); $('#list').append(row);
+    });
+  }
+
+  $('#stop').onclick = () => { speechSynthesis.cancel(); log('정지'); };
+  if ('speechSynthesis' in window) {
+    speechSynthesis.addEventListener('voiceschanged', draw);
+    setFilter('zh');
+  } else { $('#list').textContent = '이 브라우저는 음성 읽기를 지원하지 않아요.'; }
+})();
+</script>
+</body>
+</html>

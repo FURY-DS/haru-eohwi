@@ -1,0 +1,250 @@
+{
+  "date": "2026-10-02",
+  "status": "ready",
+  "generatedAt": "2026-10-02T08:45:00+09:00",
+  "level": "초급~중급",
+  "topic": "실생활",
+  "languages": {
+    "yue": [
+      {
+        "id": "yue-1",
+        "word": "唔緊要",
+        "reading": "m4 gan2 jiu3",
+        "meaning": "괜찮아요, 상관없어요",
+        "example": "唔緊要，我自己嚟得啦。",
+        "exampleReading": "m4 gan2 jiu3, ngo5 zi6 gei2 lai4 dak1 laa3.",
+        "exampleKo": "괜찮아요, 제가 알아서 할게요."
+      },
+      {
+        "id": "yue-2",
+        "word": "搭車",
+        "reading": "daap3 ce1",
+        "meaning": "차를 타다",
+        "example": "我每日搭車返工。",
+        "exampleReading": "ngo5 mui5 jat6 daap3 ce1 faan1 gung1.",
+        "exampleKo": "나는 매일 차를 타고 출근해요."
+      },
+      {
+        "id": "yue-3",
+        "word": "買嘢",
+        "reading": "maai5 je5",
+        "meaning": "물건을 사다, 장을 보다",
+        "example": "我哋去街市買嘢。",
+        "exampleReading": "ngo5 dei6 heoi3 gaai1 si5 maai5 je5.",
+        "exampleKo": "우리 시장에 장 보러 가요."
+      },
+      {
+        "id": "yue-4",
+        "word": "肚餓",
+        "reading": "tou5 ngo6",
+        "meaning": "배고프다",
+        "example": "我肚餓喇，你食咗飯未呀？",
+        "exampleReading": "ngo5 tou5 ngo6 laa3, nei5 sik6 zo2 faan6 mei6 aa3?",
+        "exampleKo": "나 배고파요, 밥 먹었어요?"
+      },
+      {
+        "id": "yue-5",
+        "word": "睇醫生",
+        "reading": "tai2 ji1 sang1",
+        "meaning": "진찰받다, 병원에 가다",
+        "example": "我今日要去睇醫生。",
+        "exampleReading": "ngo5 gam1 jat6 jiu3 heoi3 tai2 ji1 sang1.",
+        "exampleKo": "나는 오늘 병원에 가야 해요."
+      }
+    ],
+    "en": [
+      {
+        "id": "en-1",
+        "word": "pharmacy",
+        "reading": "/ˈfɑːrməsi/",
+        "pos": "명사",
+        "meaning": "약국",
+        "example": "Is there a pharmacy near here?",
+        "exampleKo": "이 근처에 약국 있어요?"
+      },
+      {
+        "id": "en-2",
+        "word": "luggage",
+        "reading": "/ˈlʌɡɪdʒ/",
+        "pos": "명사",
+        "meaning": "짐, 수하물",
+        "example": "Where can I pick up my luggage?",
+        "exampleKo": "제 짐은 어디서 찾나요?"
+      },
+      {
+        "id": "en-3",
+        "word": "refund",
+        "reading": "/ˈriːfʌnd/",
+        "pos": "명사",
+        "meaning": "환불",
+        "example": "I'd like a refund for this shirt.",
+        "exampleKo": "이 셔츠를 환불받고 싶어요."
+      },
+      {
+        "id": "en-4",
+        "word": "directions",
+        "reading": "/dəˈrɛkʃənz/",
+        "pos": "명사",
+        "meaning": "길 안내, 방향 안내",
+        "example": "Could you give me directions to the station?",
+        "exampleKo": "역까지 가는 길 좀 알려 주시겠어요?"
+      },
+      {
+        "id": "en-5",
+        "word": "crowded",
+        "reading": "/ˈkraʊdɪd/",
+        "pos": "형용사",
+        "meaning": "붐비는",
+        "example": "The bus was so crowded this morning.",
+        "exampleKo": "오늘 아침 버스가 너무 붐볐어요."
+      },
+      {
+        "id": "en-6",
+        "word": "invite",
+        "reading": "/ɪnˈvaɪt/",
+        "pos": "동사",
+        "meaning": "초대하다",
+        "example": "I want to invite you to dinner.",
+        "exampleKo": "저녁 식사에 초대하고 싶어요."
+      },
+      {
+        "id": "en-7",
+        "word": "leftover",
+        "reading": "/ˈlɛftˌoʊvər/",
+        "pos": "명사",
+        "meaning": "남은 음식",
+        "example": "We have leftovers from last night.",
+        "exampleKo": "어젯밤에 남은 음식이 있어요."
+      },
+      {
+        "id": "en-8",
+        "word": "deadline",
+        "reading": "/ˈdɛdlaɪn/",
+        "pos": "명사",
+        "meaning": "마감 기한",
+        "example": "The deadline is this Friday.",
+        "exampleKo": "마감은 이번 주 금요일이에요."
+      },
+      {
+        "id": "en-9",
+        "word": "borrow",
+        "reading": "/ˈbɑːroʊ/",
+        "pos": "동사",
+        "meaning": "빌리다",
+        "example": "Can I borrow your umbrella?",
+        "exampleKo": "우산 좀 빌려도 될까요?"
+      },
+      {
+        "id": "en-10",
+        "word": "available",
+        "reading": "/əˈveɪləbəl/",
+        "pos": "형용사",
+        "meaning": "시간이 되는, 이용 가능한",
+        "example": "Is this table available?",
+        "exampleKo": "이 자리 비어 있나요?"
+      }
+    ],
+    "zh": [
+      {
+        "id": "zh-1",
+        "word": "超市",
+        "reading": "chāoshì",
+        "pos": "명사",
+        "meaning": "슈퍼마켓",
+        "example": "我下班后去超市买菜。",
+        "exampleReading": "Wǒ xiàbān hòu qù chāoshì mǎi cài.",
+        "exampleKo": "퇴근 후에 마트에 가서 장을 봐요."
+      },
+      {
+        "id": "zh-2",
+        "word": "排队",
+        "reading": "páiduì",
+        "pos": "동사",
+        "meaning": "줄을 서다",
+        "example": "请大家排队，不要挤。",
+        "exampleReading": "Qǐng dàjiā páiduì, búyào jǐ.",
+        "exampleKo": "모두 줄을 서 주세요, 밀지 마세요."
+      },
+      {
+        "id": "zh-3",
+        "word": "外卖",
+        "reading": "wàimài",
+        "pos": "명사",
+        "meaning": "배달 음식",
+        "example": "今晚我们点外卖吧。",
+        "exampleReading": "Jīnwǎn wǒmen diǎn wàimài ba.",
+        "exampleKo": "오늘 저녁은 배달 음식 시켜 먹어요."
+      },
+      {
+        "id": "zh-4",
+        "word": "堵车",
+        "reading": "dǔchē",
+        "pos": "동사",
+        "meaning": "차가 막히다",
+        "example": "路上堵车，我可能会晚到。",
+        "exampleReading": "Lùshang dǔchē, wǒ kěnéng huì wǎn dào.",
+        "exampleKo": "길이 막혀서 조금 늦을 수도 있어요."
+      },
+      {
+        "id": "zh-5",
+        "word": "退货",
+        "reading": "tuìhuò",
+        "pos": "동사",
+        "meaning": "반품하다",
+        "example": "这件衣服太小了，我想退货。",
+        "exampleReading": "Zhè jiàn yīfu tài xiǎo le, wǒ xiǎng tuìhuò.",
+        "exampleKo": "이 옷이 너무 작아서 반품하고 싶어요."
+      },
+      {
+        "id": "zh-6",
+        "word": "医院",
+        "reading": "yīyuàn",
+        "pos": "명사",
+        "meaning": "병원",
+        "example": "他爸爸住在医院里。",
+        "exampleReading": "Tā bàba zhù zài yīyuàn lǐ.",
+        "exampleKo": "그의 아버지는 병원에 입원해 계세요."
+      },
+      {
+        "id": "zh-7",
+        "word": "邻居",
+        "reading": "línjū",
+        "pos": "명사",
+        "meaning": "이웃",
+        "example": "我的邻居是一位老师。",
+        "exampleReading": "Wǒ de línjū shì yí wèi lǎoshī.",
+        "exampleKo": "우리 이웃은 선생님이에요."
+      },
+      {
+        "id": "zh-8",
+        "word": "租房",
+        "reading": "zūfáng",
+        "pos": "동사",
+        "meaning": "집을 세내다",
+        "example": "在这个城市租房很贵。",
+        "exampleReading": "Zài zhège chéngshì zūfáng hěn guì.",
+        "exampleKo": "이 도시에서 집을 구해 세 들어 사는 건 비싸요."
+      },
+      {
+        "id": "zh-9",
+        "word": "迷路",
+        "reading": "mílù",
+        "pos": "동사",
+        "meaning": "길을 잃다",
+        "example": "我在地铁站附近迷路了。",
+        "exampleReading": "Wǒ zài dìtiězhàn fùjìn mílù le.",
+        "exampleKo": "나는 지하철역 근처에서 길을 잃었어요."
+      },
+      {
+        "id": "zh-10",
+        "word": "付款",
+        "reading": "fùkuǎn",
+        "pos": "동사",
+        "meaning": "결제하다",
+        "example": "请问可以用手机付款吗？",
+        "exampleReading": "Qǐngwèn kěyǐ yòng shǒujī fùkuǎn ma?",
+        "exampleKo": "휴대폰으로 결제해도 되나요?"
+      }
+    ]
+  }
+}

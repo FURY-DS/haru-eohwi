@@ -34,7 +34,7 @@ test('목표 단어가 글에서 사용되지 않으면 실패', () => {
   has(run((d) => {
     // 광둥어 唔該 문장을 단어 없는 문장으로 교체 (uses 도 비움)
     const s = d.sets.yue.passage.sentences[4]; s.text = '我返屋企。'; s.reading = 'ngo5 faan1 uk1 kei2.'; s.ko = '저는 집에 가요.'; s.uses = [];
-  }), /唔該.*사용되지 않|唔該.*나타나지 않/);
+  }), /唔该.*사용되지 않|唔该.*나타나지 않/);
 });
 
 test('uses 와 원문 불일치', () => {
@@ -53,9 +53,22 @@ test('발음·번역 누락', () => {
 
 test('광둥어/중국어 혼용·표기', () => {
   has(run((d) => { const s = d.sets.zh.passage.sentences[5]; s.text = '我哋一定會成功。'; }), /광둥어 표현이 섞임/);
-  has(run((d) => { d.sets.yue.passage.sentences[1].text = '我要一杯奶茶。'.replace('杯', '杯').replace('我要', '我对'); }), /간체/);
   has(run((d) => (d.sets.zh.words[0].reading = 'shi4ying4')), /성조 숫자/);
   has(run((d) => (d.sets.yue.words[0].reading = 'ni hao')), /Jyutping/);
+});
+
+test('광둥어도 간체로: 번체는 오류, 광둥어 고유 글자는 허용', () => {
+  // 번체 단어/문장 → 오류
+  has(run((d) => (d.sets.yue.words[3].word = '幾多錢')), /광둥어도 간체로/);
+  has(run((d) => (d.sets.yue.passage.sentences[1].text = '我要一杯奶茶，講。')), /광둥어도 간체로/);
+  // 광둥어 고유 글자(嘅 係 唔 畀 喺 啲 …)가 번체 그대로 있어도 간체 오류가 나면 안 됨
+  const r = run((d) => { const s = d.sets.yue.passage.sentences[3]; s.text = '老板話：「我係喺嘅啲畀唔冇。」'.replace('話', '话'); s.uses = []; });
+  assert.ok(!r.errors.some((e) => /광둥어도 간체로/.test(e)), `광둥어 고유 글자가 잘못 걸림: ${r.errors.join(' | ')}`);
+});
+
+test('중국어는 간체 (번체 오류)', () => {
+  has(run((d) => (d.sets.zh.words[0].word = '適應')), /간체여야/);
+  has(run((d) => (d.sets.zh.passage.sentences[0].text = '畢業以後，我進了一家公司實習。')), /간체여야/);
 });
 
 test('수준 표기', () => {

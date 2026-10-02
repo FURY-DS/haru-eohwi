@@ -1,7 +1,7 @@
 // 하루어휘 자료 검증기 (스키마 v2: 언어별 "단어 목록 + 통합 글" 학습 세트)
 // 사용: node tools/validate.mjs [파일 ...]      (생략하면 data/days/*.json 전체)
 // 코드로 검증하는 것: 개수·필수 필드·ID·단어 연결 정보(uses)와 원문 일치·모든 목표 단어 사용·
-//   발음/번역 누락·간체/번체·광둥어/중국어 혼입·지정 수준 표기·연결된 글 형태(휴리스틱)
+//   발음/번역 누락·간체 표기(광둥어는 고유 글자만 번체 유지)·광둥어/중국어 혼입·지정 수준 표기·연결된 글 형태(휴리스틱)
 // 코드로 검증할 수 없는 것(자연스러움·실제 수준·글의 일관성)은 docs/GENERATION.md 의 별도 품질 점검 단계가 담당합니다.
 import { readFileSync, readdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
@@ -23,13 +23,13 @@ const hasHan = (s) => /\p{Script=Han}/u.test(s);
 const han = (s) => [...s].filter((c) => /\p{Script=Han}/u.test(c));
 const PUNCT = /[\s.,!?;:'"’“”‘「」『』（）()、，。！？；：…—\-]/g;
 
-// 간체에만 있는 글자 / 번체에만 있는 글자 (대표적인 것들만 — 휴리스틱)
-const SIMP = [...'这个们来说时间为样东门问见话对谁听觉岁饭车马鱼鸟电视学习还没会点发开关飞书买卖热经过边带层从国图块儿园终组织场远么难楼爱鸡鸭'];
-const TRAD = [...'這個們來說時間為樣東門問見話對誰聽覺歲飯車馬魚鳥電視學習還沒會點發開關飛書買賣熱經過邊帶層從國圖塊兒園終組織場遠麼難樓愛雞鴨'];
-// 광둥어 전용 글자·표현 (표준중국어 자료에 나오면 안 됨)
+// 번체에만 있는 글자 (표준 간체가 따로 있는 글자만 — 휴리스틱). 광둥어·중국어 모두 간체로 쓰므로 이 글자가 나오면 오류.
+// 광둥어 고유 글자(嘅 啲 嘢 咗 冇 哋 佢 喺 畀 嚟 …)와, 간체로 바꾸면 다른 글자와 혼동되는 係 는 번체 그대로 쓰므로 목록에 없다.
+const TRAD = [...'愛罷備筆畢邊變賓並補參倉層長車陳稱遲齒蟲醜處傳創從達帶單當黨導燈點電調東動鬥獨讀對頓爾發範飯婦復該幹趕個給鞏溝構購顧關觀館貫廣歸國過還漢號賀紅後護華畫話環換黃會繪貨獲機積際極幾濟記繼價堅間艱檢見薦獎講醬將節緊盡進經驚競舊覺開課壘類離禮歷麗連聯臉練涼兩療獵臨嶺領龍樓錄陸綠亂馬賣滿貿們夢廟滅鳴謀難腦鬧擬釀鳥牽錢強橋親輕傾請區趨權勸確讓熱認榮劇軟灑賽傘殺釋審聲勝師濕時識實適勢書屬樹雙誰說絲歲孫損縮臺態談湯糖體條鐵聽廳頭圖團圍衛為問無務習細鮮顯縣現線鄉響項學尋訊壓亞嚴驗陽樣業葉醫議億藝陰飲應營優郵遊語預園員遠願約雲運雜災贊責則賊張漲這鄭證職紙質終種眾週豬註專轉莊裝狀準資組']
+// 광둥어 전용 글자·표현 (표준중국어 자료에 나오면 안 됨; 광둥어 자료에서는 번체 그대로 허용)
 const YUE_ONLY = ['嘅', '唔', '係', '咗', '冇', '佢', '啲', '嘢', '哋', '咁', '嚟', '睇', '喺', '畀', '乜', '噉', '嗰', '冧', '攞', '嘥', '啱', '靚'];
 // 표준중국어식 표현 (광둥어 글에 나오면 의심)
-const MAND_IN_YUE = ['是', '不', '沒有', '什麼', '甚麼', '他們', '我們', '你們', '這', '那裡', '嗎', '了', '很', '的'];
+const MAND_IN_YUE = ['是', '不', '没有', '什么', '甚么', '他们', '我们', '你们', '这', '那里', '吗', '了', '很', '的'];
 const PINYIN_CHARS = /^[a-züāáǎàēéěèīíǐìōóǒòūúǔùǖǘǚǜ\s'’.,!?;:\-“”"「」，。！？、；：]+$/i;
 const TONE_MARK = /[āáǎàēéěèīíǐìōóǒòūúǔùǖǘǚǜ]/;
 const JYUTPING = /^[a-z]+[1-6]$/;
@@ -87,9 +87,9 @@ export function validateDay(d, config = {}) {
       if ('example' in w || 'exampleKo' in w) W(`${at}: 단어별 예문(example)은 더 이상 사용하지 않음 — 통합 글 사용`);
       const r = String(w.reading || '');
       if (key === 'yue') {
-        if (han(w.word || '').length !== (w.word || '').length) E(`${at}: 광둥어 단어는 한자만 (번체)`);
-        const bad = [...(w.word || '')].filter((c) => SIMP.includes(c));
-        if (bad.length) E(`${at}: 광둥어는 번체여야 함 (간체 의심: ${bad.join('')})`);
+        if (han(w.word || '').length !== (w.word || '').length) E(`${at}: 광둥어 단어는 한자만 써야 함`);
+        const bad = [...(w.word || '')].filter((c) => TRAD.includes(c));
+        if (bad.length) E(`${at}: 광둥어도 간체로 써야 함 — 광둥어 고유 글자만 그대로 둠 (번체 의심: ${bad.join('')})`);
         const syl = r.trim().split(/\s+/);
         if (!syl.every((x) => JYUTPING.test(x))) E(`${at}: reading 은 Jyutping + 성조 숫자 — "${r}"`);
         else if (syl.length !== han(w.word).length) W(`${at}: 한자 ${han(w.word).length}자 vs Jyutping ${syl.length}음절`);
@@ -128,8 +128,8 @@ export function validateDay(d, config = {}) {
 
       // 언어별 원문·발음
       if (key === 'yue') {
-        const bad = [...text].filter((c) => SIMP.includes(c));
-        if (bad.length) E(`${at}: 광둥어는 번체여야 함 (간체 의심: ${[...new Set(bad)].join('')})`);
+        const bad = [...text].filter((c) => TRAD.includes(c));
+        if (bad.length) E(`${at}: 광둥어도 간체로 써야 함 — 광둥어 고유 글자만 그대로 둠 (번체 의심: ${[...new Set(bad)].join('')})`);
         const m = MAND_IN_YUE.filter((x) => text.includes(x));
         if (m.length) W(`${at}: 표준중국어식 표현 의심 (${m.join(' ')}) — 광둥어 구어인지 확인`);
         if (/[A-Za-z]/.test(text)) W(`${at}: 광둥어 글에 알파벳이 섞임`);

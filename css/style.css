@@ -20,6 +20,8 @@
   --font: "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-han: "Noto Sans HK", "PingFang HK", "Microsoft JhengHei", "Noto Sans TC", var(--font);
   --font-sc: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", var(--font);
+  /* 간체 + 광둥어 고유 글자(嘅 啲 嘢 咗 …): 간체 글꼴에 없는 글자는 홍콩 글꼴로 글자 단위 대체 */
+  --font-yue: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", "Noto Sans HK", "PingFang HK", "Microsoft JhengHei", var(--font);
   color-scheme: light;
 }
 :root[data-theme="dark"] {
@@ -145,14 +147,14 @@ h1 { margin: 2px 0 4px; font-size: 28px; letter-spacing: -.03em; line-height: 1.
 .card .no { position: absolute; top: 16px; right: 20px; font-size: 12px; color: var(--ink-2); }
 .card .head { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; padding-right: 32px; }
 .word { font-size: 25px; font-weight: 700; letter-spacing: -.01em; line-height: 1.3; }
-.word[lang="yue-Hant-HK"] { font-family: var(--font-han); }
+.word[lang="yue-Hans"] { font-family: var(--font-yue); }
 .word[lang="zh-Hans"] { font-family: var(--font-sc); }
 .meaning { font-size: 14px; color: var(--ink-2); }
 .reading { margin-top: 4px; font-size: 14px; color: var(--ink-2); display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
 .pos { font-size: 11px; color: var(--ink-3); border: 1px solid var(--line); border-radius: 6px; padding: 0 6px; }
 .ex { margin-top: 14px; background: var(--soft-2); border-radius: 12px; padding: 12px 14px; }
 .ex .src { font-weight: 600; font-size: 15px; }
-.ex .src[lang="yue-Hant-HK"] { font-family: var(--font-han); }
+.ex .src[lang="yue-Hans"] { font-family: var(--font-yue); }
 .ex .src[lang="zh-Hans"] { font-family: var(--font-sc); }
 .ex .ko { margin-top: 2px; color: var(--ink-2); font-size: 14px; }
 .ex .rd { color: var(--ink-3); font-size: 12.5px; margin-top: 2px; }
@@ -247,12 +249,12 @@ dialog::backdrop { background: rgba(10, 16, 12, .45); }
 .story { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 22px 22px 16px; }
 .story.done { border-color: var(--accent); }
 .story-title { margin: 0; font-size: 22px; line-height: 1.35; letter-spacing: -.01em; }
-.story-title[lang="yue-Hant-HK"] { font-family: var(--font-han); }
+.story-title[lang="yue-Hans"] { font-family: var(--font-yue); }
 .story-title[lang="zh-Hans"] { font-family: var(--font-sc); }
 .story-sub { margin-top: 2px; font-size: 13px; color: var(--ink-2); }
 .story-body { margin-top: 16px; font-size: 18px; line-height: 2; }
 .story-body .flow { margin: 0; }
-.story-body [lang="yue-Hant-HK"] { font-family: var(--font-han); }
+.story-body [lang="yue-Hans"] { font-family: var(--font-yue); }
 .story-body [lang="zh-Hans"] { font-family: var(--font-sc); }
 .story-body [lang="en"] { line-height: 1.85; font-size: 17.5px; }
 .sent { padding: 6px 0; border-top: 1px dashed var(--line); }

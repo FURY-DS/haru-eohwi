@@ -6,7 +6,7 @@
  */
 
 const LANGS = [
-  { key: 'yue', label: '광둥어', htmlLang: 'yue-Hant-HK', speech: 'zh-HK', rdLabel: 'Jyutping' },
+  { key: 'yue', label: '광둥어', htmlLang: 'yue-Hans', speech: 'zh-HK', rdLabel: 'Jyutping' },
   { key: 'en',  label: '영어',   htmlLang: 'en',          speech: 'en-US', rdLabel: '' },
   { key: 'zh',  label: '중국어', htmlLang: 'zh-Hans',     speech: 'zh-CN', rdLabel: '병음' },
 ];

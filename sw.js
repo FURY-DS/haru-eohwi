@@ -34,8 +34,8 @@ self.addEventListener('fetch', (e) => {
   e.respondWith(
     fetch(req, { cache: 'no-cache' })
       .then((res) => {
-        // 404 는 캐시하지 않음 (자료 없는 날짜가 영구히 "없음"으로 굳는 것을 방지)
-        if (res.ok) {
+        // 404 는 캐시하지 않음 (자료 없는 날짜가 영구히 "없음"으로 굳는 것을 방지). 206(부분 응답)도 캐시하지 않음
+        if (res.status === 200) {
           const copy = res.clone();
           caches.open(CACHE).then((c) => c.put(req, copy));
         }

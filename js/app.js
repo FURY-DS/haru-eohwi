@@ -80,6 +80,7 @@ const st = {
   ui: {},               // `${date}|${lang}` -> {ko, rd}  (글 번역/발음 보기)
   pop: null,            // 강조 단어 팝업 { date, lang, wordId }
   speaking: null,       // 글 전체 듣기 재생 중인 `${date}|${lang}`
+  audio: {},            // date -> 광둥어 음성 매니페스트 | null(없음)
 };
 
 /* ---------- 데이터 로딩 ---------- */
@@ -259,6 +260,7 @@ function makeUtterance(text, lang) {
 function stopSpeech() {
   speechToken++;
   if (canSpeak()) speechSynthesis.cancel();
+  stopClip();
   if (st.speaking) { st.speaking = null; render(); }
 }
 
@@ -266,7 +268,7 @@ function speak(text, lang) {
   if (!canSpeak()) { toast('이 기기에서는 발음 듣기를 지원하지 않아요'); return; }
   const was = st.speaking;
   speechToken++; st.speaking = null;
-  speechSynthesis.cancel();
+  speechSynthesis.cancel(); stopClip();
   speechSynthesis.speak(makeUtterance(text, lang));
   if (was) render();
 }
@@ -316,6 +318,68 @@ function applyTheme() {
   const dark = t === 'dark' || (t === 'auto' && matchMedia('(prefers-color-scheme: dark)').matches);
   $('#btn-theme').innerHTML = dark ? ICON.moon : ICON.sun;
   $('#btn-settings').innerHTML = ICON.gear;
+}
+
+/* --- 광둥어 음성 파일 (audio/날짜/yue.json 이 있으면 canto-tts 로 미리 만든 음성을 재생, 없으면 기기 음성) --- */
+let clipEl = null, clipUrl = null;
+function stopClip() {
+  if (clipEl) { clipEl.onended = clipEl.onerror = null; clipEl.pause(); clipEl = null; }
+  if (clipUrl) { URL.revokeObjectURL(clipUrl); clipUrl = null; }
+}
+
+async function audioManifest(date) {
+  if (date in st.audio) return st.audio[date];
+  let m = null;
+  try {
+    const r = await getJSON(`audio/${date}/yue.json`);
+    if (r.json && r.json.version === 1) m = r.json;
+  } catch { /* 오프라인 등 → 기기 음성으로 대체 */ }
+  st.audio[date] = m;
+  return m;
+}
+
+/** mp3 한 개 재생. key 가 있으면 그 키로 '재생 중' 표시(정지 버튼). 파일을 못 읽으면 false */
+async function playClip(url, key) {
+  const token = ++speechToken;
+  if (canSpeak()) speechSynthesis.cancel();
+  stopClip();
+  const was = st.speaking;
+  st.speaking = key || null;
+  if (key || was) render();
+  const done = () => { if (token === speechToken) { stopClip(); if (st.speaking) { st.speaking = null; render(); } } };
+  try {
+    const res = await fetch(url);   // 전체를 한 번에 받아 재생 (서비스 워커가 캐시 → 오프라인 재생 가능)
+    if (!res.ok) throw new Error('audio ' + res.status);
+    const blob = await res.blob();
+    if (token !== speechToken) return true;   // 기다리는 사이 정지/다른 재생이 있었음
+    clipUrl = URL.createObjectURL(blob);
+    clipEl = new Audio(clipUrl);
+    clipEl.onended = done; clipEl.onerror = done;
+    await clipEl.play();
+    return true;
+  } catch {
+    if (token === speechToken) { stopClip(); if (st.speaking === key && key) { st.speaking = null; render(); } }
+    return false;
+  }
+}
+
+/** 단어 듣기: 광둥어는 미리 만든 음성이 있으면 그걸, 없으면 기기 음성 */
+async function playWord(date, lang, w) {
+  if (lang === 'yue') {
+    const m = await audioManifest(date);
+    const f = m?.words?.[w.id];
+    if (f && await playClip(`audio/${date}/${f}`, null)) return;
+  }
+  speak(w.word, lang);
+}
+
+/** 통합 글 전체 듣기 */
+async function playPassage(date, lang, p, key) {
+  if (lang === 'yue') {
+    const m = await audioManifest(date);
+    if (m?.passage && await playClip(`audio/${date}/${m.passage}`, key)) return;
+  }
+  speakPassage(p.sentences.map((x) => x.text), lang, key);
 }
 
 /* --- 매일 학습 --- */
@@ -593,14 +657,14 @@ document.addEventListener('click', async (ev) => {
     case 'mask': S.settings.hideMeaning = !setting('hideMeaning'); st.revealed.clear(); save(); render(); break;
     case 'refresh': await refreshAll(); break;
     case 'goto': st.view = 'daily'; st.lang = t.dataset.lang || st.lang; await selectDate(t.dataset.date); break;
-    case 'speak': { const w = findWord(cardEl); if (w) speak(w.word, cardEl.dataset.lang); break; }
+    case 'speak': { const w = findWord(cardEl); if (w) playWord(cardEl.dataset.date, cardEl.dataset.lang, w); break; }
     case 'done': { const { date, id } = cardEl.dataset; toggleDone(date, id); break; }
     case 'review': { const w = findWord(cardEl); if (w) toggleReview(cardEl.dataset.date, cardEl.dataset.lang, w); break; }
     // 통합 글
     case 'hl': { if (!pas) break; const cur = st.pop; const next = { date: pas.dataset.date, lang: pas.dataset.lang, wordId: t.dataset.word };
       st.pop = cur && cur.date === next.date && cur.lang === next.lang && cur.wordId === next.wordId ? null : next; render(); break; }
     case 'close-pop': st.pop = null; render(); break;
-    case 'speak-word': { if (!pas) break; const w = passageWord(pas.dataset.date, pas.dataset.lang, t.dataset.word); if (w) speak(w.word, pas.dataset.lang); break; }
+    case 'speak-word': { if (!pas) break; const w = passageWord(pas.dataset.date, pas.dataset.lang, t.dataset.word); if (w) playWord(pas.dataset.date, pas.dataset.lang, w); break; }
     case 'toggle-ko': case 'toggle-rd': {
       if (!pas) break; const k = readKey(pas.dataset.date, pas.dataset.lang);
       const ui = (st.ui[k] = st.ui[k] || { ko: false, rd: false });
@@ -611,7 +675,7 @@ document.addEventListener('click', async (ev) => {
       const key = readKey(pas.dataset.date, pas.dataset.lang);
       if (st.speaking === key) { stopSpeech(); break; }
       const p = st.days[pas.dataset.date]?.data?.sets[pas.dataset.lang]?.passage;
-      if (p) speakPassage(p.sentences.map((s) => s.text), pas.dataset.lang, key);
+      if (p) playPassage(pas.dataset.date, pas.dataset.lang, p, key);
       break;
     }
     case 'read': { if (!pas) break; toggleRead(pas.dataset.date, pas.dataset.lang); break; }
@@ -653,7 +717,7 @@ async function selectDate(date) {
 
 async function refreshAll() {
   toast('새로 불러오는 중…');
-  await loadMeta(); st.days = {};
+  await loadMeta(); st.days = {}; st.audio = {};
   await loadDay(st.date, true); render();
   toast(st.index ? '최신 상태예요' : '자료 목록을 불러오지 못했어요');
 }
@@ -678,7 +742,7 @@ async function importData(file) {
 let deferredInstall = null;
 addEventListener('beforeinstallprompt', (e) => { e.preventDefault(); deferredInstall = e; const b = $('#btn-install'); if (b) b.hidden = false; });
 matchMedia('(prefers-color-scheme: dark)').addEventListener('change', applyTheme);
-addEventListener('pagehide', () => { if (canSpeak()) speechSynthesis.cancel(); });
+addEventListener('pagehide', () => { if (canSpeak()) speechSynthesis.cancel(); stopClip(); });
 
 // 자정을 넘겨 앱을 계속 켜두었거나 백그라운드에서 돌아왔을 때 갱신
 let lastDay = todayStr();

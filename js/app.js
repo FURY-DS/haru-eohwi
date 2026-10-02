@@ -49,6 +49,7 @@ const ICON = {
   moon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>',
   gear: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.9.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.9l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.9.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.9-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.9V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>',
   speaker: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H3v6h3l5 4zM15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></svg>',
+  stop: '<svg viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="6" width="12" height="12" rx="2"/></svg>',
 };
 
 /* ---------- 저장소 (학습 기록) ---------- */
@@ -78,6 +79,7 @@ const st = {
   revealed: new Set(),  // 뜻 가리기에서 개별로 연 단어
   ui: {},               // `${date}|${lang}` -> {ko, rd}  (글 번역/발음 보기)
   pop: null,            // 강조 단어 팝업 { date, lang, wordId }
+  speaking: null,       // 글 전체 듣기 재생 중인 `${date}|${lang}`
 };
 
 /* ---------- 데이터 로딩 ---------- */
@@ -241,14 +243,48 @@ function toggleReview(date, lang, w) {
   save(); render();
 }
 
-function speak(text, lang) {
-  if (!('speechSynthesis' in window)) { toast('이 기기에서는 발음 듣기를 지원하지 않아요'); return; }
-  speechSynthesis.cancel();
+/* --- 음성: 단어 듣기 / 통합 글 전체 듣기(정지 가능) --- */
+const canSpeak = () => 'speechSynthesis' in window;
+let speechToken = 0;   // 새 재생·정지가 있을 때마다 올려서, 이전 재생의 종료 이벤트를 무시한다
+
+function makeUtterance(text, lang) {
   const u = new SpeechSynthesisUtterance(text);
   u.lang = LANG[lang].speech; u.rate = .9;
   const v = speechSynthesis.getVoices().find((x) => x.lang.replace('_', '-').toLowerCase() === u.lang.toLowerCase());
   if (v) u.voice = v; else if (lang === 'yue') toast('광둥어 음성이 없어 표준 중국어 음성으로 읽을 수 있어요');
-  speechSynthesis.speak(u);
+  return u;
+}
+
+/** 재생 중인 음성을 모두 멈춘다. 글 재생 표시도 해제 */
+function stopSpeech() {
+  speechToken++;
+  if (canSpeak()) speechSynthesis.cancel();
+  if (st.speaking) { st.speaking = null; render(); }
+}
+
+function speak(text, lang) {
+  if (!canSpeak()) { toast('이 기기에서는 발음 듣기를 지원하지 않아요'); return; }
+  const was = st.speaking;
+  speechToken++; st.speaking = null;
+  speechSynthesis.cancel();
+  speechSynthesis.speak(makeUtterance(text, lang));
+  if (was) render();
+}
+
+/** 문장 단위로 이어 읽는다 (긴 글을 한 번에 읽다 중간에 끊기는 브라우저 문제 완화). 끝나면 버튼이 자동으로 돌아온다 */
+function speakPassage(sentences, lang, key) {
+  if (!canSpeak()) { toast('이 기기에서는 발음 듣기를 지원하지 않아요'); return; }
+  const token = ++speechToken;
+  speechSynthesis.cancel();
+  st.speaking = key;
+  const finish = () => { if (token === speechToken && st.speaking === key) { st.speaking = null; render(); } };
+  sentences.forEach((text, i) => {
+    const u = makeUtterance(text, lang);
+    if (i === sentences.length - 1) u.onend = finish;
+    u.onerror = finish;
+    speechSynthesis.speak(u);
+  });
+  render();
 }
 
 let toastTimer;
@@ -425,7 +461,9 @@ function passageSection(date, lang, set) {
       <div class="story-tools">
         <button class="chip-btn" data-act="toggle-ko" aria-pressed="${ui.ko}">한국어 번역 ${ui.ko ? '숨기기' : '보기'}</button>
         ${hasRd ? `<button class="chip-btn" data-act="toggle-rd" aria-pressed="${ui.rd}">${L.rdLabel} ${ui.rd ? '숨기기' : '보기'}</button>` : ''}
-        <button class="chip-btn" data-act="speak-passage">${ICON.speaker}<span>전체 듣기</span></button>
+        ${st.speaking === key
+          ? `<button class="chip-btn playing" data-act="speak-passage" aria-pressed="true" aria-label="전체 듣기 정지">${ICON.stop}<span>정지</span></button>`
+          : `<button class="chip-btn" data-act="speak-passage">${ICON.speaker}<span>전체 듣기</span></button>`}
       </div>
       <div class="hint">밑줄 친 목표 단어를 누르면 뜻과 발음을 볼 수 있어요.</div>
       <div class="actions"><button class="btn primary${read ? ' on' : ''}" data-act="read" aria-pressed="${read}">${read ? '✓ 읽기 완료 취소' : '글 읽기 완료'}</button></div>
@@ -531,7 +569,7 @@ document.addEventListener('click', async (ev) => {
   const t = ev.target.closest('button, .mask');
   if (!t) return;
 
-  if (t.dataset.view) { st.view = t.dataset.view; if (st.view === 'daily') await loadDay(st.date); render(); scrollTo(0, 0); return; }
+  if (t.dataset.view) { stopSpeech(); st.view = t.dataset.view; if (st.view === 'daily') await loadDay(st.date); render(); scrollTo(0, 0); return; }
   if (t.id === 'btn-theme') {
     const dark = document.documentElement.dataset.theme === 'dark' || (setting('theme') === 'auto' && matchMedia('(prefers-color-scheme: dark)').matches);
     S.settings.theme = dark ? 'light' : 'dark'; save(); applyTheme(); return;
@@ -539,7 +577,7 @@ document.addEventListener('click', async (ev) => {
   if (t.id === 'btn-settings') { openSettings(); return; }
   if (t.dataset.cal) { calMonth = (() => { const [y, m] = calMonth.split('-').map(Number); const d = new Date(y, m - 1 + Number(t.dataset.cal), 1); return `${d.getFullYear()}-${pad(d.getMonth() + 1)}`; })(); drawCalendar(); return; }
   if (t.dataset.cdate) { $('#dlg-cal').close(); await selectDate(t.dataset.cdate); return; }
-  if (t.dataset.lang && !t.dataset.act) { st.lang = t.dataset.lang; st.pop = null; render(); return; }
+  if (t.dataset.lang && !t.dataset.act) { stopSpeech(); st.lang = t.dataset.lang; st.pop = null; render(); return; }
   if (t.dataset.rlang) { st.reviewLang = t.dataset.rlang; render(); return; }
   if (t.dataset.date && !t.dataset.act) { await selectDate(t.dataset.date); return; }
   if (t.dataset.reveal) { if (!setting('hideMeaning')) return; const k = t.dataset.reveal; st.revealed.has(k) ? st.revealed.delete(k) : st.revealed.add(k); t.classList.toggle('revealed'); return; }
@@ -568,7 +606,14 @@ document.addEventListener('click', async (ev) => {
       const ui = (st.ui[k] = st.ui[k] || { ko: false, rd: false });
       ui[t.dataset.act === 'toggle-ko' ? 'ko' : 'rd'] = !ui[t.dataset.act === 'toggle-ko' ? 'ko' : 'rd']; render(); break;
     }
-    case 'speak-passage': { if (!pas) break; const p = st.days[pas.dataset.date]?.data?.sets[pas.dataset.lang]?.passage; if (p) speak(p.sentences.map((s) => s.text).join(pas.dataset.lang === 'en' ? ' ' : ''), pas.dataset.lang); break; }
+    case 'speak-passage': {
+      if (!pas) break;
+      const key = readKey(pas.dataset.date, pas.dataset.lang);
+      if (st.speaking === key) { stopSpeech(); break; }
+      const p = st.days[pas.dataset.date]?.data?.sets[pas.dataset.lang]?.passage;
+      if (p) speakPassage(p.sentences.map((s) => s.text), pas.dataset.lang, key);
+      break;
+    }
     case 'read': { if (!pas) break; toggleRead(pas.dataset.date, pas.dataset.lang); break; }
     case 'install': if (deferredInstall) { deferredInstall.prompt(); deferredInstall = null; t.hidden = true; } break;
     case 'copy-config': {
@@ -599,6 +644,7 @@ function findWord(cardEl) {
 
 async function selectDate(date) {
   if (!isDate(date)) return;
+  stopSpeech();
   const today = todayStr();
   if (date > today) date = today;
   st.view = 'daily'; st.date = date; st.pop = null;
@@ -632,11 +678,12 @@ async function importData(file) {
 let deferredInstall = null;
 addEventListener('beforeinstallprompt', (e) => { e.preventDefault(); deferredInstall = e; const b = $('#btn-install'); if (b) b.hidden = false; });
 matchMedia('(prefers-color-scheme: dark)').addEventListener('change', applyTheme);
+addEventListener('pagehide', () => { if (canSpeak()) speechSynthesis.cancel(); });
 
 // 자정을 넘겨 앱을 계속 켜두었거나 백그라운드에서 돌아왔을 때 갱신
 let lastDay = todayStr();
 document.addEventListener('visibilitychange', async () => {
-  if (document.visibilityState !== 'visible') return;
+  if (document.visibilityState !== 'visible') { stopSpeech(); return; }
   const now = todayStr();
   if (now !== lastDay) { if (st.date === lastDay) st.date = now; lastDay = now; }
   await loadMeta();

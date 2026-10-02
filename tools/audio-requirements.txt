@@ -1,6 +1,0 @@
-# 광둥어 음성 생성용 (GitHub Actions / 로컬). 버전 고정: 샘플 테스트에 쓴 조합
-canto-tts==0.1.4
-onnxruntime==1.30.0
-numpy==2.4.6
-soundfile==0.14.0
-huggingface-hub==2.1.1

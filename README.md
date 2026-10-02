@@ -11,9 +11,7 @@ sw.js, manifest.webmanifest   PWA (오프라인·설치)
 data/config.json              개수·생성 시각·수준·주제
 data/index.json               날짜별 상태 (ready / generating / failed)
 data/days/YYYY-MM-DD.json     그날의 자료 (스키마 v2: 언어별 단어 + 통합 글)
-tools/                        validate · finalize · build-index · make-icons · 테스트 (Node), make_audio.py (광둥어 음성)
-audio/YYYY-MM-DD/             광둥어 음성 mp3 + yue.json (GitHub Actions 가 자동 생성)
-.github/workflows/yue-audio.yml  자료 push → 광둥어 음성 생성
+tools/                        validate · finalize · build-index · make-icons · 테스트 (Node)
 docs/GENERATION.md            자료 생성/검증 지침
 examples/day.example.json     자료 형식 예시 (앱은 읽지 않음)
 ```
@@ -54,12 +52,3 @@ node --test tools/validate.test.mjs
 **학습 완료 = 단어 25개 + 세 언어의 글 읽기(3편)를 모두 완료.** 하나라도 취소하면 즉시 '학습 중'으로 되돌아갑니다. 단어 진행률(`단어 n/25`)과 글 읽기(`글 m/3`)는 따로 저장·표시됩니다.
 
 자세한 생성 규칙은 [docs/GENERATION.md](docs/GENERATION.md).
-
-## 광둥어 음성 (canto-tts)
-
-기기에 광둥어 음성이 없어도 들을 수 있도록, 광둥어 단어·통합 글은 오픈소스 [canto-tts](https://github.com/typangaa/canto-tts)(Apache-2.0, CPU)로 **미리 만든 mp3**를 재생합니다.
-
-- 자료(`data/days/*.json`)가 push 되면 GitHub Actions(`yue-audio.yml`)가 자료에 이미 들어 있는 **검증된 Jyutping**을 입력으로 음성을 만들어 `audio/날짜/`에 커밋합니다 (API 키·서버 없음, 하루 약 200KB).
-- 앱은 `audio/날짜/yue.json`이 있으면 그 mp3를, 없으면 기기 음성을 씁니다. 음성 생성이 실패해도 학습에는 영향이 없습니다.
-- 수동 실행: GitHub → Actions → yue-audio → Run workflow (force 로 다시 생성 가능). 로컬: `pip install -r tools/audio-requirements.txt && python tools/make_audio.py`
-- 한계: 모델의 성조 정확도는 약 84%(제작자 평가)로, 사람 목소리와 같지 않습니다. 영어·중국어는 기기 음성을 씁니다.

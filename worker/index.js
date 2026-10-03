@@ -99,7 +99,7 @@ async function login(request, env) {
     return json({ error: `시도가 너무 많아요. ${wait}분 뒤에 다시 해 주세요` }, 429);
   }
 
-  const ok = timingSafeEqual(await sha256(pw), await sha256(env.APP_PASSWORD));
+  const ok = timingSafeEqual(await sha256(pw.trim()), await sha256(env.APP_PASSWORD.trim()));   // 대시보드에 붙여넣을 때 생기는 앞뒤 공백·줄바꿈은 무시
   if (!ok) {
     if (row && now - row.first_ts < LOGIN_WINDOW_MS) await env.DB.prepare('UPDATE attempts SET n = n + 1 WHERE ip = ?').bind(ip).run();
     else await env.DB.prepare('INSERT INTO attempts (ip, n, first_ts) VALUES (?, 1, ?) ON CONFLICT(ip) DO UPDATE SET n = 1, first_ts = excluded.first_ts').bind(ip, now).run();

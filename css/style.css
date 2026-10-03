@@ -120,9 +120,9 @@ h1 { margin: 2px 0 4px; font-size: 28px; letter-spacing: -.03em; line-height: 1.
 .day.future { opacity: .5; cursor: default; background: transparent; box-shadow: none; }
 
 /* 진행 카드 */
-.progress { margin-top: 18px; background: var(--soft); border-radius: 20px; padding: 18px 20px; }
-.progress .row { display: flex; justify-content: space-between; align-items: center; gap: 8px; font-size: 14px; }
-.progress .row b { font-weight: 600; }
+.progress-card { margin-top: 18px; background: var(--soft); border-radius: 20px; padding: 18px 20px; }
+.progress-card .row { display: flex; justify-content: space-between; align-items: center; gap: 8px; font-size: 14px; }
+.progress-card .row b { font-weight: 600; }
 .bar { height: 7px; border-radius: 99px; background: rgba(127,140,132,.22); margin-top: 14px; overflow: hidden; }
 .bar > i { display: block; height: 100%; background: var(--green); border-radius: 99px; transition: width .25s; }
 .badge { display: inline-block; font-size: 12px; padding: 3px 10px; border-radius: 99px; background: var(--card); color: var(--ink-2); border: 1px solid var(--line); }

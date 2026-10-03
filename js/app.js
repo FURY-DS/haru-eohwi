@@ -462,7 +462,7 @@ function progressCard(date, state) {
   const pct = units ? Math.round((doneUnits / units) * 100) : 0;
   const cls = state === 'complete' ? 'complete' : state === 'progress' ? 'progress' : state === 'failed' ? 'failed' : state === 'generating' ? 'generating' : '';
   const heading = date === todayStr() ? '오늘의 작은 성취' : `${dotted(date)}의 성취`;
-  return `<div class="progress"><div class="row"><span>${heading} <span class="badge ${cls}">${STATE_LABEL[state]}</span></span>
+  return `<div class="progress-card"><div class="row"><span>${heading} <span class="badge ${cls}">${STATE_LABEL[state]}</span></span>
     <b>단어 ${c.sum}/${total} · 글 ${c.reads}/${passages}</b></div>
     <div class="bar" role="progressbar" aria-label="오늘의 학습 진행률" aria-valuemin="0" aria-valuemax="${units}" aria-valuenow="${doneUnits}"><i style="width:${pct}%"></i></div></div>`;
 }

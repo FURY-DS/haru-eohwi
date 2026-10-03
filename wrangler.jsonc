@@ -1,5 +1,9 @@
 {
   "name": "haru-eohwi",
+  "main": "worker/index.js",
   "compatibility_date": "2026-10-01",
-  "assets": { "directory": "./" }
+  "assets": { "directory": "./", "binding": "ASSETS" },
+  "d1_databases": [
+    { "binding": "DB", "database_name": "haru-eohwi", "database_id": "e8e83391-1e09-4454-9bcf-e65c99a8d572" }
+  ]
 }

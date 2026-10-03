@@ -142,6 +142,7 @@ test('일본어: 문자 종류·목표 단어 사용·강조 경계', () => {
 test('일본어: 활용형은 허용(경고), 수준 휴리스틱 경고', () => {
   // 食べる → 食べます : 어간(食べ)이 포함되면 오류가 아니라 경고
   const r = run((d) => {
+    d.date = '2026-09-01'; delete d.sets.yue.passage.grammar; delete d.sets.ja.passage.grammar;   // 문법 설명과 무관한 테스트
     d.sets.ja.words[3] = { id: 'ja-4', word: '食べる', reading: 'たべる', meaning: '먹다', ruby: [{ t: '食', r: 'た' }, { t: 'べる' }] };
     const s = d.sets.ja.passage.sentences[4];
     s.text = '食べます。'; s.reading = 'たべます。'; s.ruby = [{ t: '食', r: 'た' }, { t: 'べます。' }]; s.uses = [{ wordId: 'ja-4', text: '食べ' }]; resolveUses(s);
@@ -157,4 +158,52 @@ test('일본어: 활용형은 허용(경고), 수준 휴리스틱 경고', () =>
 
 test('일본어: 수준(label) 표기', () => {
   has(run((d) => (d.sets.ja.level = '중급')), /level 은 "완전 초급 \(JLPT N5 이하\)"/);
+});
+
+/* ---------- 문법 설명 (광둥어·일본어, 참고용) ---------- */
+const gr = (d, k) => d.sets[k].passage.grammar;
+
+test('문법: 예시 통과 + 적용일 이후에는 필수, 이전 날짜는 요구하지 않음', () => {
+  assert.deepEqual(validateDay(base(), cfg).errors, []);
+  for (const k of ['yue', 'ja']) {
+    const r = run((d) => delete d.sets[k].passage.grammar);
+    assert.ok(r.errors.includes(`[${k}] 문법 설명(passage.grammar)이 없음`), r.errors.join(' | '));
+  }
+  const old = run((d) => { d.date = '2026-09-01'; delete d.sets.yue.passage.grammar; delete d.sets.ja.passage.grammar; });
+  assert.deepEqual(old.errors, []);
+  // 영어·중국어는 문법 설명을 요구하지 않음 (써도 무시되고 경고)
+  assert.deepEqual(run((d) => { delete d.sets.en.passage.grammar; }).errors, []);
+});
+
+test('문법: 표현(pattern)은 해당 문장에 실제로 있어야 하고 문장 번호는 유효해야 함', () => {
+  has(run((d) => (gr(d, 'yue').sentences[0].items[0].pattern = '없는표현')), /원문에 그대로 없음/);
+  has(run((d) => (gr(d, 'ja').sentences[0].sentence = 99)), /문장 번호/);
+  has(run((d) => (gr(d, 'ja').sentences[1].sentence = gr(d, 'ja').sentences[0].sentence)), /중복/);
+  has(run((d) => { gr(d, 'yue').sentences = gr(d, 'yue').sentences.slice(0, 2); }), /3개 문장 이상/);
+  has(run((d) => { const b = gr(d, 'yue').sentences[0]; b.items = Array(5).fill(b.items[0]); }), /1~4개/);
+});
+
+test('문법: 필수 필드·한국어·정리 3줄', () => {
+  has(run((d) => delete gr(d, 'yue').sentences[0].items[0].explain), /explain 누락/);
+  has(run((d) => (gr(d, 'yue').sentences[0].items[0].explain = 'English only')), /explain 는 한국어/);
+  has(run((d) => gr(d, 'ja').summary.pop()), /정확히 3줄/);
+  has(run((d) => gr(d, 'ja').summary.push('넷째 줄')), /정확히 3줄/);
+});
+
+test('문법: 일본어 설명에는 한자를 쓰지 않고, 강조는 한자 덩어리를 자르지 않음', () => {
+  has(run((d) => (gr(d, 'ja').sentences[0].items[0].explain = '「いく」(行く)는 가다예요.')), /한자를 쓰지 않음/);
+  has(run((d) => (gr(d, 'ja').summary[0] = '조사: 今日(きょう)')), /한자를 쓰지 않음/);
+  // 今日 의 '今' 만 가리키면 후리가나 덩어리 중간 → 오류
+  has(run((d) => { gr(d, 'ja').sentences[0].items[0].pattern = '今'; }), /중간을 자름/);
+});
+
+test('문법: 광둥어 간체 규칙과 표준 중국어 비교표', () => {
+  has(run((d) => (gr(d, 'yue').sentences[0].items[0].explain = '這個字是繁體입니다')), /광둥어도 간체로/);
+  has(run((d) => delete gr(d, 'yue').compare), /비교표.*3~8줄/);
+  has(run((d) => (gr(d, 'yue').compare = gr(d, 'yue').compare.slice(0, 2))), /3~8줄/);
+  has(run((d) => (gr(d, 'yue').compare[0].this = '글에없는말')), /글에 나오지 않음/);
+  has(run((d) => (gr(d, 'yue').compare[0].other = '給')), /간체여야/);
+  has(run((d) => (gr(d, 'yue').compare[0].other = '佢哋')), /광둥어 글자가 있음/);
+  // 일본어에는 비교표를 쓰지 않음 (있으면 경고)
+  assert.ok(run((d) => { gr(d, 'ja').compare = [{ this: 'a', other: 'b' }]; }).warns.some((w) => /비교표는 광둥어에서만/.test(w)));
 });

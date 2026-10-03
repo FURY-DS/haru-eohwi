@@ -148,6 +148,20 @@ function validRuby(ruby, base) {
   return ruby.map((g) => g.t).join('') === base ? ruby.map((g) => (g.r === undefined ? { t: g.t } : { t: g.t, r: g.r })) : null;
 }
 
+/** 문법 설명(참고용). 문장 번호·표현이 있는 것만 남기고, 없으면 null */
+function normalizeGrammar(g, n) {
+  if (!g || typeof g !== 'object') return null;
+  const str = (v) => (typeof v === 'string' ? v : '');
+  const blocks = (Array.isArray(g.sentences) ? g.sentences : []).map((b) => ({
+    sentence: Number.isInteger(b?.sentence) ? b.sentence : 0,
+    items: (Array.isArray(b?.items) ? b.items : []).filter((it) => it && str(it.pattern) && str(it.explain))
+      .map((it) => ({ pattern: str(it.pattern), title: str(it.title), explain: str(it.explain) })),
+  })).filter((b) => b.sentence >= 1 && b.sentence <= n && b.items.length);
+  const summary = (Array.isArray(g.summary) ? g.summary : []).filter((x) => typeof x === 'string' && x.trim());
+  const compare = (Array.isArray(g.compare) ? g.compare : []).filter((r) => r && str(r.this) && str(r.other)).map((r) => ({ this: r.this, other: r.other }));
+  return blocks.length || summary.length || compare.length ? { blocks, summary, compare } : null;
+}
+
 /** 자료 JSON → 화면용 구조. 단어 연결 정보(uses)는 원문과 일치하는 것만 사용한다. */
 function normalizeDay(j, date) {
   const status = j?.status || 'ready';
@@ -176,6 +190,7 @@ function normalizeDay(j, date) {
         })),
       };
     }
+    if (passage) passage.grammar = normalizeGrammar(p.grammar, passage.sentences.length);
     sets[l.key] = { level: s.level || '', hskStandard: s.hskStandard || '', words, passage };
     totalWords += words.length;
     if (passage) passageCount++;
@@ -553,6 +568,41 @@ function sentenceHTML(sent, showFurigana = true) {
   return out;
 }
 
+/* --- 문법 설명(참고용) --- */
+/** 후리가나 조각 → 원자(한자 덩어리는 하나, 그 밖은 한 글자씩) */
+function rubyAtoms(ruby) {
+  const atoms = []; let pos = 0;
+  for (const g of ruby) {
+    if (g.r === undefined) for (const ch of g.t) { atoms.push({ g: { t: ch }, start: pos, end: pos + ch.length }); pos += ch.length; }
+    else { atoms.push({ g, start: pos, end: pos + g.t.length }); pos += g.t.length; }
+  }
+  return atoms;
+}
+/** text 의 [from,to) 구간을 (후리가나가 있으면 한자 위에 표시하며) 그린다. 구간이 한자 덩어리 중간을 자르면 후리가나 없이 */
+function textRangeHTML(sent, from, to, showFg) {
+  if (sent.ruby) {
+    const part = rubyAtoms(sent.ruby).filter((a) => a.start >= from && a.end <= to);
+    if (part.length && part[0].start === from && part[part.length - 1].end === to) return part.map((a) => rubyTag(a.g, showFg)).join('');
+  }
+  return esc(sent.text.slice(from, to));
+}
+function grammarHTML(lang, p, showFg) {
+  const g = p.grammar, L = LANG[lang];
+  const blocks = g.blocks.map((b) => {
+    const sent = p.sentences[b.sentence - 1];
+    const items = b.items.map((it) => {
+      const pos = sent.text.indexOf(it.pattern);
+      const pat = pos >= 0 ? textRangeHTML(sent, pos, pos + it.pattern.length, showFg) : esc(it.pattern);
+      return `<div class="gram-it"><span class="gram-pat" lang="${L.htmlLang}">${pat}</span><span class="gram-t">${esc(it.title)}</span><p>${esc(it.explain)}</p></div>`;
+    }).join('');
+    return `<div class="gram-blk"><div class="gram-s" lang="${L.htmlLang}"><b>문장 ${b.sentence}</b>${textRangeHTML(sent, 0, sent.text.length, showFg)}</div>${items}</div>`;
+  }).join('');
+  const sum = g.summary.length ? `<div class="gram-sum"><div class="gram-h">오늘의 문법 포인트</div><ol>${g.summary.map((x) => `<li>${esc(x)}</li>`).join('')}</ol></div>` : '';
+  const cmp = g.compare.length ? `<div class="gram-cmp"><div class="gram-h">표준 중국어와 비교 <small>(헷갈리지 않게)</small></div>
+    <table><thead><tr><th>광둥어</th><th>표준 중국어</th></tr></thead><tbody>${g.compare.map((r) => `<tr><td lang="yue-Hans">${esc(r.this)}</td><td lang="zh-Hans">${esc(r.other)}</td></tr>`).join('')}</tbody></table></div>` : '';
+  return `<div class="gram"><div class="gram-ttl">문법 설명 <small>(참고용 — 완료 조건에는 들어가지 않아요)</small></div>${blocks}${sum}${cmp}</div>`;
+}
+
 function passageSection(date, lang, set) {
   const p = set.passage;
   if (!p) return `<section class="sec"><div class="sec-head"><h2><span class="no">②</span> 오늘의 통합 글</h2></div>
@@ -563,11 +613,13 @@ function passageSection(date, lang, set) {
   const showFg = ui.fg !== false;
   const hasRd = !isJa && lang !== 'en' && p.sentences.some((s) => s.reading);
   const hasFg = isJa && p.sentences.some((s) => s.ruby);
+  const hasGr = !!p.grammar;
   const read = isRead(date, lang);
   const sentences = ui.rd && hasRd
     ? p.sentences.map((s) => `<div class="sent"><div class="src" lang="${L.htmlLang}">${sentenceHTML(s, showFg)}</div><div class="rd">${esc(s.reading)}</div></div>`).join('')
     : `<p class="flow" lang="${L.htmlLang}">${p.sentences.map((x) => sentenceHTML(x, showFg)).join(lang === 'en' ? ' ' : '')}</p>`;
   const ko = ui.ko ? `<div class="ko-block"><div class="ko-ttl">한국어 번역</div><p>${p.sentences.map((s) => esc(s.ko)).join(' ')}</p></div>` : '';
+  const grammarPanel = ui.gr && p.grammar ? grammarHTML(lang, p, showFg) : '';
   let pop = '';
   if (st.pop && st.pop.date === date && st.pop.lang === lang) {
     const w = set.words.find((x) => x.id === st.pop.wordId);
@@ -583,10 +635,12 @@ function passageSection(date, lang, set) {
       <div class="story-body">${sentences}</div>
       ${pop}
       ${ko}
+      ${grammarPanel}
       <div class="story-tools">
         <button class="chip-btn" data-act="toggle-ko" aria-pressed="${ui.ko}">한국어 번역 ${ui.ko ? '숨기기' : '보기'}</button>
         ${hasRd ? `<button class="chip-btn" data-act="toggle-rd" aria-pressed="${ui.rd}">${L.rdLabel} ${ui.rd ? '숨기기' : '보기'}</button>` : ''}
         ${hasFg ? `<button class="chip-btn" data-act="toggle-fg" aria-pressed="${showFg}">후리가나 ${showFg ? '숨기기' : '보기'}</button>` : ''}
+        ${hasGr ? `<button class="chip-btn" data-act="toggle-gr" aria-pressed="${!!ui.gr}">문법 ${ui.gr ? '숨기기' : '보기'}</button>` : ''}
         ${st.speaking === key
           ? `<button class="chip-btn playing" data-act="speak-passage" aria-pressed="true" aria-label="전체 듣기 정지">${ICON.stop}<span>정지</span></button>`
           : `<button class="chip-btn" data-act="speak-passage">${ICON.speaker}<span>전체 듣기</span></button>`}
@@ -732,6 +786,11 @@ document.addEventListener('click', async (ev) => {
       st.pop = cur && cur.date === next.date && cur.lang === next.lang && cur.wordId === next.wordId ? null : next; render(); break; }
     case 'close-pop': st.pop = null; render(); break;
     case 'speak-word': { if (!pas) break; const w = passageWord(pas.dataset.date, pas.dataset.lang, t.dataset.word); if (w) speak(w.word, pas.dataset.lang); break; }
+    case 'toggle-gr': {
+      if (!pas) break; const k = readKey(pas.dataset.date, pas.dataset.lang);
+      const ui = (st.ui[k] = st.ui[k] || { ko: false, rd: false, fg: true });
+      ui.gr = !ui.gr; render(); break;
+    }
     case 'toggle-fg': {
       if (!pas) break; const k = readKey(pas.dataset.date, pas.dataset.lang);
       const ui = (st.ui[k] = st.ui[k] || { ko: false, rd: false, fg: true });

@@ -17,6 +17,8 @@ export const DEFAULT_CONFIG = {
     zh: { label: 'HSK 4~6급' },
     ja: { label: '완전 초급 (JLPT N5 이하)' },
   },
+  // 문법 설명(passage.grammar)을 요구하는 언어와 적용 시작일(그 전 날짜는 요구하지 않음)
+  grammar: { languages: ['yue', 'ja'], from: '2026-10-02' },
 };
 
 const hasHangul = (s) => /[ㄱ-ㆎ가-힣]/.test(s);
@@ -78,6 +80,82 @@ export function resolveUses(sentence) {
     u.start = idx; u.end = idx + u.text.length; cursor = u.end;
   }
   return errs;
+}
+
+/** 통합 글의 문법 설명 검사 (참고용 설명이라 완료 조건과는 무관). 언어: yue, ja */
+function checkGrammar(key, g, sents, E, W) {
+  const L = `[${key}] 문법`;
+  if (!g || typeof g !== 'object') { E(`${L}: 객체가 아님`); return; }
+  const textAll = sents.map((x) => x?.text || '').join('\n');
+  const noHanJa = (str) => key === 'ja' && han(str || '').length > 0;
+  const badTrad = (str) => [...new Set([...(str || '')].filter((c) => TRAD.includes(c)))];
+
+  // 문장별 설명
+  if (!Array.isArray(g.sentences)) E(`${L}: sentences 배열 누락`);
+  const covered = new Set(); let total = 0;
+  (Array.isArray(g.sentences) ? g.sentences : []).forEach((blk, i) => {
+    const at = `${L} 블록 ${i + 1}`;
+    const idx = blk?.sentence;
+    const st = Number.isInteger(idx) ? sents[idx - 1] : null;
+    if (!st) { E(`${at}: sentence 는 1~${sents.length} 사이의 문장 번호여야 함`); return; }
+    if (covered.has(idx)) E(`${at}: 문장 ${idx} 이(가) 중복됨`);
+    covered.add(idx);
+    const items = Array.isArray(blk.items) ? blk.items : [];
+    if (items.length < 1 || items.length > 4) E(`${at}(문장 ${idx}): 설명 항목은 1~4개여야 함 (${items.length}개)`);
+    items.forEach((it, j) => {
+      const ia = `${at}(문장 ${idx}) 항목 ${j + 1}`;
+      total++;
+      if (!it || typeof it.pattern !== 'string' || !it.pattern) { E(`${ia}: pattern 누락`); return; }
+      const pos = (st.text || '').indexOf(it.pattern);
+      if (pos < 0) E(`${ia}: pattern "${it.pattern}" 이 문장 ${idx} 원문에 그대로 없음 (〜 · + 같은 기호 없이 글에 있는 글자 그대로 적어야 함)`);
+      else if (key === 'ja' && Array.isArray(st.ruby) && st.ruby.every((r) => r && typeof r.t === 'string')) {
+        const bd = rubyBoundaries(st.ruby);
+        if (!bd.has(pos) || !bd.has(pos + it.pattern.length)) E(`${ia}: pattern "${it.pattern}" 이 후리가나가 붙은 한자 덩어리 중간을 자름`);
+      }
+      for (const f of ['title', 'explain']) {
+        if (typeof it[f] !== 'string' || !it[f].trim()) E(`${ia}: ${f} 누락`);
+        else {
+          if (!hasHangul(it[f])) E(`${ia}: ${f} 는 한국어여야 함`);
+          if (noHanJa(it[f])) E(`${ia}: 일본어 문법 설명(${f})에는 한자를 쓰지 않음 — 가나로 쓰세요 (학습자가 한자를 읽지 못함)`);
+        }
+      }
+      if (typeof it.explain === 'string' && it.explain.length > 240) W(`${ia}: 설명이 길어 입문자가 읽기 어려움 (${it.explain.length}자)`);
+      if (key === 'yue') {
+        const bad = badTrad(`${it.pattern}${it.title || ''}${it.explain || ''}`);
+        if (bad.length) E(`${ia}: 광둥어도 간체로 써야 함 — 광둥어 고유 글자만 그대로 둠 (번체 의심: ${bad.join('')})`);
+      }
+    });
+  });
+  if (covered.size < 3) E(`${L}: 문장별 설명은 3개 문장 이상에 있어야 함 (현재 ${covered.size}문장)`);
+  if (total > 12) W(`${L}: 설명 항목이 ${total}개로 많음 — 입문자에게는 핵심만 (12개 이하 권장)`);
+
+  // 한 줄 정리 (정확히 3줄)
+  if (!Array.isArray(g.summary) || g.summary.length !== 3) E(`${L}: summary 는 정확히 3줄(문자열 3개)이어야 함`);
+  else g.summary.forEach((line, i) => {
+    if (typeof line !== 'string' || !line.trim()) E(`${L} 정리 ${i + 1}: 비어 있음`);
+    else {
+      if (!hasHangul(line)) E(`${L} 정리 ${i + 1}: 한국어여야 함`);
+      if (noHanJa(line)) E(`${L} 정리 ${i + 1}: 일본어 문법 정리에는 한자를 쓰지 않음 — 가나로`);
+      if (line.length > 120) W(`${L} 정리 ${i + 1}: 한 줄이 길어요 (${line.length}자)`);
+      if (key === 'yue' && badTrad(line).length) E(`${L} 정리 ${i + 1}: 광둥어도 간체로 써야 함 (번체 의심: ${badTrad(line).join('')})`);
+    }
+  });
+
+  // 표준 중국어 비교표 (광둥어만)
+  if (key === 'yue') {
+    const cmp = g.compare;
+    if (!Array.isArray(cmp) || cmp.length < 3 || cmp.length > 8) E(`${L}: compare(표준 중국어 비교표)는 3~8줄이어야 함 (${Array.isArray(cmp) ? cmp.length : '없음'})`);
+    else cmp.forEach((row, i) => {
+      const ra = `${L} 비교 ${i + 1}`;
+      if (!row || typeof row.this !== 'string' || typeof row.other !== 'string' || !row.this || !row.other) { E(`${ra}: this/other 가 필요함`); return; }
+      if (!textAll.includes(row.this)) E(`${ra}: "${row.this}" 이 오늘 글에 나오지 않음 — 비교표는 글에 나온 표현만`);
+      if (badTrad(row.this).length) E(`${ra}: 광둥어도 간체로 써야 함 (번체 의심: ${badTrad(row.this).join('')})`);
+      if (badTrad(row.other).length) E(`${ra}: 표준 중국어는 간체여야 함 (번체 의심: ${badTrad(row.other).join('')})`);
+      const yb = YUE_ONLY.filter((c) => row.other.includes(c));
+      if (yb.length) E(`${ra}: 표준 중국어 칸에 광둥어 글자가 있음 (${yb.join(' ')})`);
+      if (row.this === row.other) W(`${ra}: 광둥어와 표준 중국어가 같은 표현 — 비교할 가치가 낮음`);
+    });
+  } else if (g.compare !== undefined) W(`${L}: 비교표는 광둥어에서만 사용함`);
 }
 
 const enStem = (w) => w.toLowerCase().replace(/[^a-z]/g, '').slice(0, Math.max(3, w.length - 3));
@@ -268,6 +346,12 @@ export function validateDay(d, config = {}) {
       if (sents.length >= words.length && per.every((n) => n === 1)) W(`${L} 문장마다 단어가 정확히 1개씩 — 독립 예문 나열처럼 보임. 하나의 상황으로 이어지는 글인지 확인`);
       if (zero > sents.length / 2) W(`${L} 목표 단어가 없는 문장이 절반을 넘음`);
     }
+    // 문법 설명(참고용): 설정된 언어는 적용 시작일부터 필수
+    const gcfg = { ...DEFAULT_CONFIG.grammar, ...(config.grammar || {}) };
+    const grammarOn = gcfg.languages.includes(key);
+    if (p.grammar === undefined) { if (grammarOn && String(d.date) >= gcfg.from) E(`${L} 문법 설명(passage.grammar)이 없음`); }
+    else if (!grammarOn) W(`${L} 이 언어는 문법 설명을 쓰지 않음 (무시됨)`);
+    else checkGrammar(key, p.grammar, sents, E, W);
     if (p.title && sents.length && textSeen.size === 0) E(`${L} 글 문장이 비어 있음`);
   }
   return { errors, warns };

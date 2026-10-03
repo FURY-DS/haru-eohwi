@@ -10,16 +10,18 @@ const LANGS = [
   { key: 'en',  label: '영어',   htmlLang: 'en',          speech: 'en-US', rdLabel: '' },
   { key: 'zh',  label: '중국어', htmlLang: 'zh-Hans',     speech: 'zh-CN', rdLabel: '병음' },
   { key: 'ja',  label: '일본어', htmlLang: 'ja',          speech: 'ja-JP', rdLabel: '후리가나' },
+  { key: 'ko',  label: '한국어', htmlLang: 'ko',          speech: 'ko-KR', rdLabel: '' },
 ];
 const LANG = Object.fromEntries(LANGS.map((l) => [l.key, l]));
 const DEFAULT_CONFIG = {
   generateAt: '08:45',
-  counts: { yue: 5, en: 10, zh: 10, ja: 5 },
+  counts: { yue: 5, en: 10, zh: 10, ja: 5, ko: 10 },
   levels: {
     yue: { label: '완전 초급' },
     en: { label: '토익스피킹 대비' },
     zh: { label: 'HSK 4~6급', standard: 'HSK 2.0 (6급제) 기준 4~6급 어휘' },
     ja: { label: '완전 초급 (JLPT N5 이하)' },
+    ko: { label: '사회통합프로그램 4단계 이상' },
   },
 };
 const DOW = ['일', '월', '화', '수', '목', '금', '토'];
@@ -173,16 +175,16 @@ function normalizeDay(j, date) {
   for (const l of LANGS) {
     const s = j.sets[l.key] || {};
     const words = (Array.isArray(s.words) ? s.words : []).filter((w) => w && w.id && w.word).map((w) => ({
-      id: String(w.id), word: String(w.word), reading: w.reading || '', meaning: w.meaning || '', pos: w.pos || '',
+      id: String(w.id), word: String(w.word), reading: w.reading || '', meaning: w.meaning || '', meaningZh: w.meaningZh || '', pos: w.pos || '',
       ruby: validRuby(w.ruby, String(w.word)),
     }));
     let passage = null;
     const p = s.passage;
     if (p && Array.isArray(p.sentences) && p.sentences.length) {
       passage = {
-        title: p.title || '', titleKo: p.titleKo || '', situation: p.situation || '',
+        title: p.title || '', titleKo: p.titleKo || '', titleZh: p.titleZh || '', situation: p.situation || '',
         sentences: p.sentences.filter((x) => x && x.text).map((x) => ({
-          text: String(x.text), ko: x.ko || '', reading: x.reading || '', ruby: validRuby(x.ruby, String(x.text)),
+          text: String(x.text), ko: x.ko || '', zh: x.zh || '', reading: x.reading || '', ruby: validRuby(x.ruby, String(x.text)),
           uses: (Array.isArray(x.uses) ? x.uses : [])
             .filter((u) => u && Number.isInteger(u.start) && Number.isInteger(u.end) && String(x.text).slice(u.start, u.end) === u.text && words.some((w) => w.id === u.wordId))
             .sort((a, b) => a.start - b.start)
@@ -280,6 +282,7 @@ const VOICE_PREF = {
   en: /\b(samantha|ava|allison|susan|nicky|karen)\b|google us english|microsoft (aria|jenny|guy)|english \(united states\)/i,
   zh: /tingting|ting-ting|婷婷|google 普通话|xiaoxiao|yunxi|huihui|mandarin/i,
   ja: /kyoko|o-ren|otoya|ayumi|haruka|sayaka|nanami|google 日本語|japanese/i,
+  ko: /yuna|sora|heami|sunhi|sun-hi|injoon|google 한국의|korean/i,
 };
 const VOICE_AVOID = /^(albert|bad news|bahh|bells|boing|bubbles|cellos|good news|jester|organ|superstar|trinoids|whisper|wobble|zarvox|fred|junior|ralph|kathy|princess|grandma|grandpa|eddy|flo|reed|rocko|sandy|shelley)\b/i;
 
@@ -292,6 +295,9 @@ function scoreVoice(v, lang) {
   } else if (lang === 'ja') {
     if (!l.startsWith('ja')) return -1;
     if (l === 'ja-jp') sc += 3; else sc += 1;
+  } else if (lang === 'ko') {
+    if (!l.startsWith('ko')) return -1;
+    if (l === 'ko-kr') sc += 3; else sc += 1;
   } else if (lang === 'zh') {
     // 표준중국어: 홍콩·대만·광둥어 음성은 제외
     if (!(l.startsWith('zh') || l.startsWith('cmn')) || /^zh-(hk|tw)|^zh-hant|^yue/.test(l) || /cantonese|粵|粤|廣東|广东|台灣|台湾/i.test(v.name)) return -1;
@@ -340,7 +346,7 @@ function makeUtterance(text, lang) {
 }
 
 /** 설정 화면의 '음성 점검': 언어별로 앱이 고른 음성과 테스트 듣기 */
-const VOICE_TEST = { yue: '早晨', en: 'Good morning. How are you today?', zh: '早上好，今天过得怎么样？', ja: 'おはようございます。' };
+const VOICE_TEST = { yue: '早晨', en: 'Good morning. How are you today?', zh: '早上好，今天过得怎么样？', ja: 'おはようございます。', ko: '안녕하세요. 오늘도 좋은 하루 보내세요.' };
 function voiceStatusHTML() {
   if (!canSpeak()) return '<div class="vs bad">이 브라우저는 음성 읽기를 지원하지 않아요.</div>';
   if (!speechSynthesis.getVoices().length) return '<div class="vs">음성 목록을 불러오는 중이에요… 설정을 닫았다가 다시 열어보세요.</div>';
@@ -416,7 +422,7 @@ function renderNav() {
   const c = st.config.counts;
   $('#nav').innerHTML = items.map(([k, l, i]) =>
     `<button class="nav-btn" data-view="${k}" ${st.view === k ? 'aria-current="page"' : ''}>${i}<span>${l}</span></button>`).join('') +
-    `<div class="routine"><h4>Daily Routine</h4>광둥어 ${c.yue}개<br>영어 ${c.en}개<br>중국어 ${c.zh}개<br>일본어 ${c.ja}개<br>+ 언어별 통합 글 ${LANGS.length}편<p>하루 ${c.yue + c.en + c.zh + c.ja}개, 조금씩 꾸준히.</p></div>`;
+    `<div class="routine"><h4>Daily Routine</h4>${LANGS.map((l) => `${l.label} ${c[l.key] || 0}개`).join('<br>')}<br>+ 언어별 통합 글 ${LANGS.length}편<p>하루 ${LANGS.reduce((n, l) => n + (c[l.key] || 0), 0)}개, 조금씩 꾸준히.</p></div>`;
 }
 
 function applyTheme() {
@@ -437,7 +443,7 @@ function viewDaily() {
   const isToday = date === today;
   const d = parseDate(date);
   const title = isToday ? '좋은 아침, 오늘도 한 걸음.' : `${d.getMonth() + 1}월 ${d.getDate()}일 (${DOW[d.getDay()]})의 학습`;
-  const sub = isToday ? '세 언어로 시작하는 나만의 아침 루틴' : (date > today ? '아직 오지 않은 날이에요' : '지난 기록을 다시 살펴보고 있어요');
+  const sub = isToday ? '여러 언어로 시작하는 나만의 아침 루틴' : (date > today ? '아직 오지 않은 날이에요' : '지난 기록을 다시 살펴보고 있어요');
 
   const ws = weekStart(date);
   const week = Array.from({ length: 7 }, (_, i) => addDays(ws, i));
@@ -513,6 +519,12 @@ function dailyReady(date, data) {
     ${passageSection(date, st.lang, set)}`;
 }
 
+/** 뜻 표시: 한국어 단어는 중국어 번역(굵게) + 쉬운 한국어 풀이, 그 밖의 언어는 한국어 뜻 */
+function meaningHTML(lang, w) {
+  if (lang === 'ko' && w.meaningZh) return `<span lang="zh-Hans">${esc(w.meaningZh)}</span><small class="def">${esc(w.meaning)}</small>`;
+  return esc(w.meaning);
+}
+
 function card(date, lang, w, no, showOrigin) {
   const L = LANG[lang], done = isDone(date, w.id), rev = !!S.review[doneKey(date, w.id)];
   const key = esc(doneKey(date, w.id));
@@ -520,7 +532,7 @@ function card(date, lang, w, no, showOrigin) {
   return `<article class="card${done ? ' done' : ''}" data-date="${date}" data-id="${esc(w.id)}" data-lang="${lang}">
     ${no ? `<span class="no">${pad(no)}</span>` : ''}
     <div class="head"><span class="word" lang="${L.htmlLang}">${wordHTML(lang, w)}</span>
-      <span class="meaning mask${r}" data-reveal="${key}m">${esc(w.meaning)}</span></div>
+      <span class="meaning mask${r}${lang === 'ko' ? ' ko-mean' : ''}" data-reveal="${key}m">${meaningHTML(lang, w)}</span></div>
     <div class="reading">${lang === 'ja' ? '' : esc(w.reading)}${w.pos ? `<span class="pos">${esc(w.pos)}</span>` : ''}</div>
     ${showOrigin ? `<div class="origin">${dotted(date)}에 받은 단어 · <button data-act="goto" data-date="${date}" data-lang="${lang}">그날 보기</button></div>` : ''}
     <div class="actions">
@@ -588,16 +600,17 @@ function textRangeHTML(sent, from, to, showFg) {
 }
 function grammarHTML(lang, p, showFg) {
   const g = p.grammar, L = LANG[lang];
+  const zx = lang === 'ko' ? ' lang="zh-Hans"' : '';   // 한국어 문법은 중국어로 설명
   const blocks = g.blocks.map((b) => {
     const sent = p.sentences[b.sentence - 1];
     const items = b.items.map((it) => {
       const pos = sent.text.indexOf(it.pattern);
       const pat = pos >= 0 ? textRangeHTML(sent, pos, pos + it.pattern.length, showFg) : esc(it.pattern);
-      return `<div class="gram-it"><span class="gram-pat" lang="${L.htmlLang}">${pat}</span><span class="gram-t">${esc(it.title)}</span><p>${esc(it.explain)}</p></div>`;
+      return `<div class="gram-it"><span class="gram-pat" lang="${L.htmlLang}">${pat}</span><span class="gram-t"${zx}>${esc(it.title)}</span><p${zx}>${esc(it.explain)}</p></div>`;
     }).join('');
     return `<div class="gram-blk"><div class="gram-s" lang="${L.htmlLang}"><b>문장 ${b.sentence}</b>${textRangeHTML(sent, 0, sent.text.length, showFg)}</div>${items}</div>`;
   }).join('');
-  const sum = g.summary.length ? `<div class="gram-sum"><div class="gram-h">오늘의 문법 포인트</div><ol>${g.summary.map((x) => `<li>${esc(x)}</li>`).join('')}</ol></div>` : '';
+  const sum = g.summary.length ? `<div class="gram-sum"><div class="gram-h">오늘의 문법 포인트${lang === 'ko' ? ' <small>(今日语法要点)</small>' : ''}</div><ol${zx}>${g.summary.map((x) => `<li>${esc(x)}</li>`).join('')}</ol></div>` : '';
   const cmp = g.compare.length ? `<div class="gram-cmp"><div class="gram-h">표준 중국어와 비교 <small>(헷갈리지 않게)</small></div>
     <table><thead><tr><th>광둥어</th><th>표준 중국어</th></tr></thead><tbody>${g.compare.map((r) => `<tr><td lang="yue-Hans">${esc(r.this)}</td><td lang="zh-Hans">${esc(r.other)}</td></tr>`).join('')}</tbody></table></div>` : '';
   return `<div class="gram"><div class="gram-ttl">문법 설명 <small>(참고용 — 완료 조건에는 들어가지 않아요)</small></div>${blocks}${sum}${cmp}</div>`;
@@ -618,26 +631,29 @@ function passageSection(date, lang, set) {
   const sentences = ui.rd && hasRd
     ? p.sentences.map((s) => `<div class="sent"><div class="src" lang="${L.htmlLang}">${sentenceHTML(s, showFg)}</div><div class="rd">${esc(s.reading)}</div></div>`).join('')
     : `<p class="flow" lang="${L.htmlLang}">${p.sentences.map((x) => sentenceHTML(x, showFg)).join(lang === 'en' ? ' ' : '')}</p>`;
-  const ko = ui.ko ? `<div class="ko-block"><div class="ko-ttl">한국어 번역</div><p>${p.sentences.map((s) => esc(s.ko)).join(' ')}</p></div>` : '';
+  const isKo = lang === 'ko';   // 한국어 학습자는 중국인 → 번역은 중국어(간체)
+  const ko = ui.ko ? (isKo
+    ? `<div class="ko-block"><div class="ko-ttl">中文翻译</div><p lang="zh-Hans">${p.sentences.map((s) => esc(s.zh)).join('')}</p></div>`
+    : `<div class="ko-block"><div class="ko-ttl">한국어 번역</div><p>${p.sentences.map((s) => esc(s.ko)).join(' ')}</p></div>`) : '';
   const grammarPanel = ui.gr && p.grammar ? grammarHTML(lang, p, showFg) : '';
   let pop = '';
   if (st.pop && st.pop.date === date && st.pop.lang === lang) {
     const w = set.words.find((x) => x.id === st.pop.wordId);
     if (w) pop = `<div class="pop" role="status"><div><span class="word sm" lang="${L.htmlLang}">${wordHTML(lang, w)}</span>
-      <span class="pop-rd">${lang === 'ja' ? '' : esc(w.reading)}</span></div><div class="pop-ko">${esc(w.meaning)}${w.pos ? ` <span class="pos">${esc(w.pos)}</span>` : ''}</div>
+      <span class="pop-rd">${lang === 'ja' ? '' : esc(w.reading)}</span></div><div class="pop-ko">${meaningHTML(lang, w)}${w.pos ? ` <span class="pos">${esc(w.pos)}</span>` : ''}</div>
       <div class="pop-act"><button class="btn" data-act="speak-word" data-word="${esc(w.id)}">${ICON.speaker}<span>듣기</span></button><button class="btn" data-act="close-pop">닫기</button></div></div>`;
   }
   return `<section class="sec passage" data-date="${date}" data-lang="${lang}" aria-labelledby="sec-passage">
     <div class="sec-head"><h2 id="sec-passage"><span class="no">②</span> 오늘의 통합 글</h2></div>
     <article class="story${read ? ' done' : ''}">
       <h3 class="story-title" lang="${L.htmlLang}">${esc(p.title)}</h3>
-      ${p.titleKo || p.situation ? `<div class="story-sub">${esc([p.titleKo, p.situation].filter(Boolean).join(' · '))}</div>` : ''}
+      ${(isKo ? p.titleZh : p.titleKo) || p.situation ? `<div class="story-sub">${esc([isKo ? p.titleZh : p.titleKo, p.situation].filter(Boolean).join(' · '))}</div>` : ''}
       <div class="story-body">${sentences}</div>
       ${pop}
       ${ko}
       ${grammarPanel}
       <div class="story-tools">
-        <button class="chip-btn" data-act="toggle-ko" aria-pressed="${ui.ko}">한국어 번역 ${ui.ko ? '숨기기' : '보기'}</button>
+        <button class="chip-btn" data-act="toggle-ko" aria-pressed="${ui.ko}">${isKo ? '중국어 번역' : '한국어 번역'} ${ui.ko ? '숨기기' : '보기'}</button>
         ${hasRd ? `<button class="chip-btn" data-act="toggle-rd" aria-pressed="${ui.rd}">${L.rdLabel} ${ui.rd ? '숨기기' : '보기'}</button>` : ''}
         ${hasFg ? `<button class="chip-btn" data-act="toggle-fg" aria-pressed="${showFg}">후리가나 ${showFg ? '숨기기' : '보기'}</button>` : ''}
         ${hasGr ? `<button class="chip-btn" data-act="toggle-gr" aria-pressed="${!!ui.gr}">문법 ${ui.gr ? '숨기기' : '보기'}</button>` : ''}
@@ -685,11 +701,8 @@ function viewSchedule() {
     <div class="panel"><h3>매일 자료 생성</h3><dl class="kv">
       <dt>생성 시각</dt><dd>매일 ${esc(cfg.generateAt)}</dd>
       <dt>다음 생성</dt><dd>${next.getMonth() + 1}월 ${next.getDate()}일 ${esc(cfg.generateAt)}</dd>
-      <dt>구성</dt><dd>단어 ${total}개 (광둥어 ${c.yue} · 영어 ${c.en} · 중국어 ${c.zh} · 일본어 ${c.ja}) + 언어별 통합 글 ${LANGS.length}편</dd>
-      <dt>광둥어 수준</dt><dd>${esc(lv.yue.label)}</dd>
-      <dt>영어 수준</dt><dd>${esc(lv.en.label)}</dd>
-      <dt>중국어 수준</dt><dd>${esc(lv.zh.label)}${lv.zh.standard ? ` <span class="msg">(${esc(lv.zh.standard)})</span>` : ''}</dd>
-      <dt>일본어 수준</dt><dd>${esc(lv.ja.label)}</dd>
+      <dt>구성</dt><dd>단어 ${total}개 (${LANGS.map((l) => `${l.label} ${c[l.key] || 0}`).join(' · ')}) + 언어별 통합 글 ${LANGS.length}편</dd>
+      ${LANGS.map((l) => `<dt>${l.label} 수준</dt><dd>${esc(lv[l.key]?.label || '')}${lv[l.key]?.standard ? ` <span class="msg">(${esc(lv[l.key].standard)})</span>` : ''}</dd>`).join('')}
       <dt>마지막 확인</dt><dd>${esc(sync)}</dd></dl>
       <div class="row-btns" style="margin-top:14px"><button class="btn" data-act="refresh">자료 새로고침</button>
       <button class="btn" data-act="install" id="btn-install" hidden>홈 화면에 설치</button></div></div>
@@ -730,7 +743,7 @@ function openSettings() {
   $('#dlg-settings').innerHTML = `<div class="dlg"><div class="dlg-head"><h2>설정</h2><button class="icon-btn" data-act="close" aria-label="닫기">✕</button></div>
     <div class="field"><label for="s-theme">화면 모드</label><select id="s-theme"><option value="auto">시스템 설정 따르기</option><option value="light">라이트</option><option value="dark">다크</option></select></div>
     <div class="field"><label>학습 수준 (언어별)</label>
-      <dl class="kv lv-list"><dt>광둥어</dt><dd>${esc(lv.yue.label)}</dd><dt>영어</dt><dd>${esc(lv.en.label)}</dd><dt>중국어</dt><dd>${esc(lv.zh.label)}${lv.zh.standard ? `<br><small>${esc(lv.zh.standard)}</small>` : ''}</dd><dt>일본어</dt><dd>${esc(lv.ja.label)}</dd></dl>
+      <dl class="kv lv-list">${LANGS.map((l) => `<dt>${l.label}</dt><dd>${esc(lv[l.key]?.label || '')}${lv[l.key]?.standard ? `<br><small>${esc(lv[l.key].standard)}</small>` : ''}</dd>`).join('')}</dl>
       <small>수준은 자료 생성 지침과 함께 관리돼요. 바꾸려면 <b>data/config.json</b>의 levels 를 수정하세요.</small></div>
     <div class="field"><label>음성 점검 (언어별로 앱이 고른 음성)</label>
       <div id="s-voice" class="voice-box">${voiceStatusHTML()}</div>

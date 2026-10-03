@@ -133,8 +133,9 @@ h1 { margin: 2px 0 4px; font-size: 28px; letter-spacing: -.03em; line-height: 1.
 
 /* 탭 */
 .tools { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin: 18px 0 14px; flex-wrap: wrap; }
-.tabs { display: flex; gap: 8px; flex-wrap: wrap; }
-.tab { border: 1px solid var(--line); background: var(--card); border-radius: 12px; padding: 9px 14px; font-size: 14px; min-height: 40px; }
+.tabs { display: flex; gap: 8px; flex-wrap: nowrap; overflow-x: auto; max-width: 100%; padding-bottom: 2px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+.tabs::-webkit-scrollbar { display: none; }
+.tab { flex: 0 0 auto; white-space: nowrap; border: 1px solid var(--line); background: var(--card); border-radius: 12px; padding: 9px 14px; font-size: 14px; min-height: 40px; }
 .tab[aria-selected="true"] { background: var(--green); border-color: var(--green); color: var(--on-green); font-weight: 600; }
 .tab .n { opacity: .75; font-size: 12px; margin-left: 4px; }
 .tool-btn { border: 1px solid var(--line); background: var(--card); border-radius: 12px; padding: 9px 14px; font-size: 14px; min-height: 40px; }
@@ -336,3 +337,11 @@ ruby rt { font-size: .55em; font-weight: 400; letter-spacing: 0; color: var(--in
 .gram-cmp th { font-size: 12.5px; color: var(--ink-2); font-weight: 600; }
 .gram-cmp td[lang="yue-Hans"] { font-family: var(--font-yue); }
 .gram-cmp td[lang="zh-Hans"] { font-family: var(--font-sc); color: var(--ink-2); }
+
+/* ===== 한국어(중국인 학습자): 중국어 뜻 + 쉬운 한국어 풀이 ===== */
+.meaning.ko-mean { display: flex; flex-direction: column; gap: 1px; }
+.meaning.ko-mean > span { font-family: var(--font-sc); font-size: 15px; font-weight: 600; color: var(--ink); }
+.meaning .def { display: block; font-size: 12.5px; color: var(--ink-2); font-weight: 400; }
+.pop-ko .def { display: block; color: var(--ink-2); font-size: 12.5px; }
+.pop-ko [lang="zh-Hans"] { font-family: var(--font-sc); font-weight: 600; }
+.ko-block p[lang="zh-Hans"], .gram [lang="zh-Hans"], .gram-it p[lang="zh-Hans"] { font-family: var(--font-sc); }

@@ -8,17 +8,20 @@ import { fileURLToPath } from 'node:url';
 import { join, dirname, resolve } from 'node:path';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
-export const LANG_KEYS = ['yue', 'en', 'zh', 'ja'];
+export const LANG_KEYS = ['yue', 'en', 'zh', 'ja', 'ko'];
 export const DEFAULT_CONFIG = {
-  counts: { yue: 5, en: 10, zh: 10, ja: 5 },
+  counts: { yue: 5, en: 10, zh: 10, ja: 5, ko: 10 },
   levels: {
     yue: { label: '완전 초급' },
     en: { label: '토익스피킹 대비' },
     zh: { label: 'HSK 4~6급' },
     ja: { label: '완전 초급 (JLPT N5 이하)' },
+    ko: { label: '사회통합프로그램 4단계 이상' },
   },
+  // 새로 추가한 언어가 '필수'가 되는 첫 날짜 (그 전 날짜는 그 언어 세트가 없어도 통과, 있으면 검사)
+  since: { ko: '2026-10-04' },
   // 문법 설명(passage.grammar)을 요구하는 언어와 적용 시작일(그 전 날짜는 요구하지 않음)
-  grammar: { languages: ['yue', 'ja'], from: '2026-10-02' },
+  grammar: { languages: ['yue', 'ja', 'ko'], from: '2026-10-02' },
 };
 
 const hasHangul = (s) => /[ㄱ-ㆎ가-힣]/.test(s);
@@ -88,6 +91,7 @@ function checkGrammar(key, g, sents, E, W) {
   if (!g || typeof g !== 'object') { E(`${L}: 객체가 아님`); return; }
   const textAll = sents.map((x) => x?.text || '').join('\n');
   const noHanJa = (str) => key === 'ja' && han(str || '').length > 0;
+  const zhExplain = key === 'ko';   // 한국어 문법은 중국어(간체)로 설명
   const badTrad = (str) => [...new Set([...(str || '')].filter((c) => TRAD.includes(c)))];
 
   // 문장별 설명
@@ -115,11 +119,17 @@ function checkGrammar(key, g, sents, E, W) {
       for (const f of ['title', 'explain']) {
         if (typeof it[f] !== 'string' || !it[f].trim()) E(`${ia}: ${f} 누락`);
         else {
-          if (!hasHangul(it[f])) E(`${ia}: ${f} 는 한국어여야 함`);
+          if (zhExplain) {
+            if (f === 'explain' && !hasHan(it[f])) E(`${ia}: 한국어 문법의 설명(explain)은 중국어(간체)로 써야 함 (학습자가 중국인)`);   // title 은 문형 표기만(-아/어 두다)도 허용
+          } else if (!hasHangul(it[f])) E(`${ia}: ${f} 는 한국어여야 함`);
           if (noHanJa(it[f])) E(`${ia}: 일본어 문법 설명(${f})에는 한자를 쓰지 않음 — 가나로 쓰세요 (학습자가 한자를 읽지 못함)`);
         }
       }
       if (typeof it.explain === 'string' && it.explain.length > 240) W(`${ia}: 설명이 길어 입문자가 읽기 어려움 (${it.explain.length}자)`);
+      if (zhExplain) {
+        const bad = badTrad(`${it.title || ''}${it.explain || ''}`);
+        if (bad.length) E(`${ia}: 중국어 설명은 간체여야 함 (번체 의심: ${bad.join('')})`);
+      }
       if (key === 'yue') {
         const bad = badTrad(`${it.pattern}${it.title || ''}${it.explain || ''}`);
         if (bad.length) E(`${ia}: 광둥어도 간체로 써야 함 — 광둥어 고유 글자만 그대로 둠 (번체 의심: ${bad.join('')})`);
@@ -134,7 +144,10 @@ function checkGrammar(key, g, sents, E, W) {
   else g.summary.forEach((line, i) => {
     if (typeof line !== 'string' || !line.trim()) E(`${L} 정리 ${i + 1}: 비어 있음`);
     else {
-      if (!hasHangul(line)) E(`${L} 정리 ${i + 1}: 한국어여야 함`);
+      if (zhExplain) {
+        if (!hasHan(line)) E(`${L} 정리 ${i + 1}: 중국어(간체)로 써야 함`);
+        if (badTrad(line).length) E(`${L} 정리 ${i + 1}: 중국어는 간체여야 함 (번체 의심: ${badTrad(line).join('')})`);
+      } else if (!hasHangul(line)) E(`${L} 정리 ${i + 1}: 한국어여야 함`);
       if (noHanJa(line)) E(`${L} 정리 ${i + 1}: 일본어 문법 정리에는 한자를 쓰지 않음 — 가나로`);
       if (line.length > 120) W(`${L} 정리 ${i + 1}: 한 줄이 길어요 (${line.length}자)`);
       if (key === 'yue' && badTrad(line).length) E(`${L} 정리 ${i + 1}: 광둥어도 간체로 써야 함 (번체 의심: ${badTrad(line).join('')})`);
@@ -158,6 +171,30 @@ function checkGrammar(key, g, sents, E, W) {
   } else if (g.compare !== undefined) W(`${L}: 비교표는 광둥어에서만 사용함`);
 }
 
+// --- 한국어 (사회통합프로그램 4단계 이상, 학습자: 중국인 → 쉬운 한국어 풀이 + 중국어 번역 + 중국어 문법 설명) ---
+const KO_WORD = /^[가-힣]+(?: [가-힣]+)*$/;
+const KO_TEXT = /^[가-힣0-9\s.,!?'"’“”‘「」()…~·:;%\-]+$/;
+const syl = (c) => { const n = (c || ' ').charCodeAt(0) - 0xAC00; return n >= 0 && n < 11172 ? { ini: Math.floor(n / 588), med: Math.floor((n % 588) / 28) } : null; };
+/** 단어가 글(text)에 나오는 방식: 'exact'(그대로) | 'conj'(활용: 먹다→먹었어요, 출근하다→출근했어요) | 'weak'(불규칙 활용 추정) | null */
+function koMatch(word, text) {
+  if (text.includes(word)) return 'exact';
+  if (word.length < 2 || !word.endsWith('다')) return null;
+  if (word.endsWith('하다') && word.length > 2) return text.includes(word.slice(0, -2)) ? 'conj' : null;
+  const stem = word.slice(0, -1);
+  if (text.includes(stem)) return 'conj';
+  // 불규칙(덥다→더워요, 듣다→들어요, 모르다→몰라요): 어간 마지막 글자와 초성·중성이 같은 글자가 이어지면 활용형으로 추정
+  const pre = stem.slice(0, -1), last = syl(stem.slice(-1));
+  if (!last) return null;
+  for (let from = 0; from <= text.length; from++) {
+    const i = pre ? text.indexOf(pre, from) : from;
+    if (i < 0) break;
+    const c = syl(text[i + pre.length]);
+    if (c && c.ini === last.ini && c.med === last.med) return 'weak';
+    from = i;
+  }
+  return null;
+}
+
 const enStem = (w) => w.toLowerCase().replace(/[^a-z]/g, '').slice(0, Math.max(3, w.length - 3));
 
 export function validateDay(d, config = {}) {
@@ -173,9 +210,11 @@ export function validateDay(d, config = {}) {
   if (d.schemaVersion !== 2) { E('schemaVersion 은 2 여야 함 (구 형식 languages 는 지원하지 않음)'); return { errors, warns }; }
   const sets = d.sets || {};
 
+  const since = { ...DEFAULT_CONFIG.since, ...(config.since || {}) };
   for (const key of LANG_KEYS.filter((k) => counts[k] !== undefined)) {
     const s = sets[key];
     const L = `[${key}]`;
+    if (s === undefined && since[key] && String(d.date) < since[key]) continue;   // 이 언어가 생기기 전 날짜
     if (!s || typeof s !== 'object') { E(`${L} sets.${key} 학습 세트가 없음`); continue; }
 
     // --- 수준 표기
@@ -188,7 +227,7 @@ export function validateDay(d, config = {}) {
     const byId = new Map(), seen = new Set();
     words.forEach((w, i) => {
       const at = `${L} 단어 ${i + 1}${w?.word ? ` "${w.word}"` : ''}`;
-      for (const f of ['id', 'word', 'reading', 'meaning'])
+      for (const f of (key === 'ko' ? ['id', 'word', 'meaning', 'meaningZh'] : ['id', 'word', 'reading', 'meaning']))
         if (!w?.[f] || typeof w[f] !== 'string') E(`${at}: ${f} 누락`);
       if (!w) return;
       if (w.id && !new RegExp(`^${key}-\\d+$`).test(w.id)) E(`${at}: id 는 "${key}-숫자" 형식`);
@@ -197,7 +236,16 @@ export function validateDay(d, config = {}) {
       if (w.meaning && !hasHangul(w.meaning)) E(`${at}: meaning 은 한국어여야 함`);
       if ('example' in w || 'exampleKo' in w) W(`${at}: 단어별 예문(example)은 더 이상 사용하지 않음 — 통합 글 사용`);
       const r = String(w.reading || '');
-      if (key === 'yue') {
+      if (key === 'ko') {
+        if (!KO_WORD.test(w.word || '')) E(`${at}: 한국어 단어는 한글(과 띄어쓰기)만 써야 함 — 사전형(예: 출근하다, 약속)`);
+        if (w.reading) W(`${at}: 한국어는 발음 표시(reading)를 쓰지 않음 (무시됨)`);
+        if (typeof w.meaningZh === 'string') {
+          if (!hasHan(w.meaningZh)) E(`${at}: meaningZh 는 중국어(간체)여야 함`);
+          if (hasHangul(w.meaningZh)) E(`${at}: meaningZh 에 한글이 섞임`);
+          const bad = [...new Set([...w.meaningZh].filter((c) => TRAD.includes(c)))];
+          if (bad.length) E(`${at}: meaningZh 는 간체여야 함 (번체 의심: ${bad.join('')})`);
+        }
+      } else if (key === 'yue') {
         if (han(w.word || '').length !== (w.word || '').length) E(`${at}: 광둥어 단어는 한자만 써야 함`);
         const bad = [...(w.word || '')].filter((c) => TRAD.includes(c));
         if (bad.length) E(`${at}: 광둥어도 간체로 써야 함 — 광둥어 고유 글자만 그대로 둠 (번체 의심: ${bad.join('')})`);
@@ -231,6 +279,7 @@ export function validateDay(d, config = {}) {
     const p = s.passage;
     if (!p || typeof p !== 'object') { E(`${L} passage(통합 글)가 없음`); continue; }
     if (!p.title || typeof p.title !== 'string') E(`${L} 글 제목(title) 누락`);
+    if (key === 'ko' && !(typeof p.titleZh === 'string' && hasHan(p.titleZh))) W(`${L} 글 제목의 중국어 번역(titleZh) 이 없음`);
     const sents = Array.isArray(p.sentences) ? p.sentences : [];
     if (sents.length < 4 || sents.length > 8) E(`${L} 글은 4~8문장(기본 5~6)이어야 하는데 ${sents.length}문장`);
     const used = new Map(); // wordId -> 횟수
@@ -241,7 +290,15 @@ export function validateDay(d, config = {}) {
       const at = `${L} 문장 ${i + 1}`;
       if (!st || typeof st !== 'object') { E(`${at}: 객체가 아님`); return; }
       if (!st.text || typeof st.text !== 'string') E(`${at}: 원문(text) 누락`);
-      if (!st.ko || typeof st.ko !== 'string') E(`${at}: 한국어 번역(ko) 누락`);
+      if (key === 'ko') {
+        if (!st.zh || typeof st.zh !== 'string') E(`${at}: 중국어 번역(zh) 누락`);
+        else {
+          if (!hasHan(st.zh)) E(`${at}: zh 가 중국어가 아님`);
+          if (hasHangul(st.zh)) E(`${at}: zh 에 한글이 섞임`);
+          const bad = [...new Set([...st.zh].filter((c) => TRAD.includes(c)))];
+          if (bad.length) E(`${at}: 중국어 번역은 간체여야 함 (번체 의심: ${bad.join('')})`);
+        }
+      } else if (!st.ko || typeof st.ko !== 'string') E(`${at}: 한국어 번역(ko) 누락`);
       else if (!hasHangul(st.ko)) E(`${at}: ko 가 한국어가 아님`);
       if (textSeen.has(st.text)) E(`${at}: 같은 문장이 반복됨`); textSeen.add(st.text);
       const text = st.text || '';
@@ -273,6 +330,14 @@ export function validateDay(d, config = {}) {
       } else if (key === 'en') {
         if (hasHan(text) || hasHangul(text)) E(`${at}: 영어 글에 한자/한글이 섞임`);
         if (text.trim().split(/\s+/).length > 28) W(`${at}: 문장이 길어 말하기 답변으로 쓰기 어려움 (${text.trim().split(/\s+/).length}단어)`);
+      } else if (key === 'ko') {
+        if (hasHan(text)) E(`${at}: 한국어 글에 한자가 섞임 — 한글로 쓰세요`);
+        else if (/[A-Za-z]/.test(text)) E(`${at}: 한국어 글에 알파벳이 섞임`);
+        else if (!KO_TEXT.test(text)) E(`${at}: 한국어 글에 허용되지 않는 문자가 있음`);
+        if (!hasHangul(text)) E(`${at}: 한국어 문장에 한글이 없음`);
+        const nh = (text.match(/[가-힣]/g) || []).length;
+        if (nh > 60) W(`${at}: 문장이 너무 김 (한글 ${nh}자) — 4단계 학습자가 한 번에 읽기 어려움`);
+        if (nh < 6) W(`${at}: 문장이 너무 짧음 (한글 ${nh}자) — 4단계 이상에서는 연결어미·표현을 쓴 문장으로`);
       } else if (key === 'ja') {
         if (hasHangul(text) || /[A-Za-z]/.test(text)) E(`${at}: 일본어 글에 한글/알파벳이 섞임`);
         else if (!JA_CHARS.test(text)) E(`${at}: 일본어 글에 허용되지 않는 문자가 있음`);
@@ -307,6 +372,10 @@ export function validateDay(d, config = {}) {
           const stem = w.word.slice(0, Math.max(1, w.word.length - 1));   // 활용(食べる→食べます)을 허용하는 어간
           if (!u.text.includes(stem)) E(`${ua}: "${u.text}" 가 목표 단어 "${w.word}" 를 담고 있지 않음`);
           else if (!u.text.includes(w.word)) W(`${ua}: "${u.text}" 는 "${w.word}" 의 활용형 — 맞는지 확인`);
+        } else if (key === 'ko') {
+          const m = koMatch(w.word, u.text);
+          if (!m) E(`${ua}: "${u.text}" 가 목표 단어 "${w.word}" 를 담고 있지 않음 (활용형이면 어간이 보여야 함)`);
+          else if (m === 'weak') W(`${ua}: "${u.text}" 는 "${w.word}" 의 불규칙 활용형으로 보임 — 맞는지 확인`);
         } else if (key === 'en') {
           if (!u.text.toLowerCase().includes(enStem(w.word))) W(`${ua}: "${u.text}" 가 목표 단어 "${w.word}" 의 활용형인지 확인`);
         } else {
@@ -331,7 +400,7 @@ export function validateDay(d, config = {}) {
     for (const w of words) {
       if (!w?.id) continue;
       if (!used.get(w.id)) E(`${L} 목표 단어 "${w.word}"(${w.id}) 가 글에 연결되어 사용되지 않음`);
-      const inText = key === 'en'
+      const inText = key === 'ko' ? koMatch(w.word, fullText) !== null : key === 'en'
         ? new RegExp(`\\b${enStem(w.word)}`, 'i').test(fullText)
         : key === 'ja'
           ? fullText.includes(w.word.slice(0, Math.max(1, w.word.length - 1)))

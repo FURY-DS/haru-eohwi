@@ -207,3 +207,72 @@ test('문법: 광둥어 간체 규칙과 표준 중국어 비교표', () => {
   // 일본어에는 비교표를 쓰지 않음 (있으면 경고)
   assert.ok(run((d) => { gr(d, 'ja').compare = [{ this: 'a', other: 'b' }]; }).warns.some((w) => /비교표는 광둥어에서만/.test(w)));
 });
+
+/* ---------- 한국어 (사회통합프로그램 4단계 이상 · 중국인 학습자) ---------- */
+const kmut = (f) => run((d) => f(d.sets.ko));
+
+test('한국어: 예시 통과, 단어 개수(10), 새 언어는 적용일 전 날짜에는 요구하지 않음', () => {
+  assert.deepEqual(validateDay(base(), cfg).errors, []);
+  has(run((d) => d.sets.ko.words.pop()), /\[ko\] 단어는 10개여야/);
+  // 적용일(2026-10-04) 전: 세트가 없어도 통과 / 적용일부터: 필수
+  assert.deepEqual(run((d) => { d.date = '2026-10-03'; delete d.sets.ko; }).errors, []);
+  has(run((d) => { d.date = '2026-10-04'; delete d.sets.ko; }), /sets\.ko 학습 세트가 없음/);
+  // 있으면 날짜와 상관없이 검사
+  has(run((d) => { d.date = '2026-10-03'; d.sets.ko.level = '초급'; }), /level 은 "사회통합프로그램 4단계 이상"/);
+});
+
+test('한국어: 단어는 한글, 뜻은 쉬운 한국어 풀이 + 중국어(간체) 번역', () => {
+  has(kmut((k) => (k.words[0].word = '搬家')), /한글.*만 써야/);
+  has(kmut((k) => (k.words[0].word = 'visa')), /한글.*만 써야/);
+  has(kmut((k) => delete k.words[0].meaningZh), /meaningZh 누락/);
+  has(kmut((k) => (k.words[0].meaningZh = '이사')), /meaningZh 는 중국어/);
+  has(kmut((k) => (k.words[0].meaningZh = '身份證件')), /meaningZh 는 간체/);
+  has(kmut((k) => (k.words[0].meaning = 'moving report')), /meaning 은 한국어여야/);
+  // 한국어는 발음 표시를 쓰지 않음 → reading 은 필수가 아니고, 있어도 경고만
+  assert.ok(!run((d) => delete d.sets.ko.words[0].reading).errors.length);
+  assert.ok(kmut((k) => (k.words[0].reading = 'jeonipsingo')) && run((d) => (d.sets.ko.words[0].reading = 'x')).warns.some((w) => /발음 표시/.test(w)));
+});
+
+test('한국어: 글은 한글(한자·알파벳 금지) + 문장별 중국어(간체) 번역', () => {
+  has(kmut((k) => (k.passage.sentences[0].text = '지난주에 이사를 했어요. 搬家')), /한자가 섞임/);
+  has(kmut((k) => (k.passage.sentences[0].text = 'Moving 전입신고를 했어요.')), /알파벳이 섞임/);
+  has(kmut((k) => delete k.passage.sentences[1].zh), /중국어 번역\(zh\) 누락/);
+  has(kmut((k) => (k.passage.sentences[1].zh = '신분증을 챙겼어요')), /zh 가 중국어가 아님/);
+  has(kmut((k) => (k.passage.sentences[1].zh = '我忘了带身份证 신분증')), /한글이 섞임/);
+  has(kmut((k) => (k.passage.sentences[1].zh = '因為沒有帶身份證')), /간체여야/);
+  // 한국어 글에는 한국어 번역(ko) 대신 zh 를 쓰므로 ko 는 필수가 아님 (예시에도 없음)
+  assert.ok(base().sets.ko.passage.sentences.every((x) => x.ko === undefined));
+  assert.ok(run(() => {}).warns.length === 0);
+  // 제목 번역 누락은 경고
+  assert.ok(run((d) => delete d.sets.ko.passage.titleZh).warns.some((w) => /titleZh/.test(w)));
+});
+
+test('한국어: 목표 단어 사용 — 활용형 허용, 불규칙은 경고, 엉뚱한 연결은 오류', () => {
+  // 확인하다 → 확인한/확인해 (하다 동사), 처리되다 → 처리되어서: 예시가 이미 오류·경고 없이 통과
+  has(kmut((k) => { const s = k.passage.sentences[2]; s.uses[1] = { wordId: 'ko-6', text: '다른' }; delete s.uses[1].start; s.uses[1].start = s.text.indexOf('다른'); s.uses[1].end = s.uses[1].start + 2; }), /담고 있지 않음/);
+  // 단어가 글에 전혀 없으면 오류
+  has(kmut((k) => { const s = k.passage.sentences[4]; s.text = '절차가 쉬워서 놀랐어요.'; s.zh = '手续很简单，我很吃惊。'; s.uses = []; }), /복잡하다.*(사용되지 않|나타나지 않)/);
+  // 불규칙 활용(덥다 → 더워요)은 허용하되 확인 경고
+  const r = run((d) => {
+    const k = d.sets.ko;
+    k.words[6] = { id: 'ko-7', word: '덥다', meaning: '날씨가 뜨겁다', meaningZh: '热', pos: '형용사' };
+    const s = k.passage.sentences[4]; s.text = '날씨가 더워요.'; s.zh = '天气很热。'; s.uses = [{ wordId: 'ko-7', text: '더워요' }]; resolveUses(s);
+  });
+  assert.deepEqual(r.errors.filter((e) => /\[ko\] 문장 5|ko-7|덥다/.test(e)), [], r.errors.join(' | '));
+  assert.ok(r.warns.some((w) => /불규칙 활용형/.test(w)), r.warns.join(' | '));
+});
+
+test('한국어: 문법 설명은 중국어(간체)로, 비교표는 쓰지 않음', () => {
+  const g = (d) => d.sets.ko.passage.grammar;
+  has(run((d) => delete d.sets.ko.passage.grammar.summary), /정확히 3줄/);
+  has(run((d) => (g(d).sentences[0].items[0].explain = '이유를 나타내요')), /설명\(explain\)은 중국어/);
+  has(run((d) => (g(d).sentences[0].items[0].explain = '表示原因，也表示關係')), /설명은 간체/);
+  has(run((d) => (g(d).summary[0] = '원인을 나타내요')), /중국어\(간체\)로 써야/);
+  has(run((d) => (g(d).sentences[0].items[0].pattern = '없는표현')), /원문에 그대로 없음/);
+  // title 은 문형 표기만(-아/어 두다)도 허용
+  assert.deepEqual(run((d) => (g(d).sentences[0].items[0].title = '-아/어서')).errors, []);
+  // 적용일 이후에는 문법 설명 필수
+  const none = run((d) => delete d.sets.ko.passage.grammar);
+  assert.ok(none.errors.includes('[ko] 문법 설명(passage.grammar)이 없음'), none.errors.join(' | '));
+  assert.ok(run((d) => { g(d).compare = [{ this: 'a', other: 'b' }]; }).warns.some((w) => /비교표는 광둥어에서만/.test(w)));
+});

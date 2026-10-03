@@ -12,6 +12,7 @@ data/config.json              개수·생성 시각·수준·주제
 data/index.json               날짜별 상태 (ready / generating / failed)
 data/days/YYYY-MM-DD.json     그날의 자료 (스키마 v2: 언어별 단어 + 통합 글)
 tools/                        validate · finalize · build-index · make-icons · 테스트 (Node)
+worker/index.js                기기 동기화 서버 (Cloudflare Worker + D1) — /api/* 만 처리
 docs/GENERATION.md            자료 생성/검증 지침
 examples/day.example.json     자료 형식 예시 (앱은 읽지 않음)
 ```
@@ -56,6 +57,21 @@ node --test tools/validate.test.mjs
 **문법 설명(참고용)**: 광둥어·일본어·한국어 글에는 "문법 보기/숨기기"가 있어 문장별 설명, 3줄 정리(광둥어는 표준 중국어 비교표 포함)를 볼 수 있어요. 완료 조건에는 들어가지 않아요.
 
 자세한 생성 규칙은 [docs/GENERATION.md](docs/GENERATION.md).
+
+## 기기 동기화 (PC ↔ 휴대폰)
+
+학습 기록(단어 완료·글 읽기·다시 복습)은 기본적으로 각 기기에만 저장됩니다. 설정 → **기기 동기화**에서 비밀번호로 로그인하면 기기끼리 같은 기록을 씁니다.
+
+- **구조**: 앱 파일은 그대로 정적 호스팅, `/api/*` 만 `worker/index.js` 가 처리합니다. 기록은 Cloudflare **D1** 에 기록 한 건씩(완료·읽기·복습) 저장하고, 같은 기록은 **가장 최근에 바꾼 쪽이 이깁니다**(취소도 기록으로 남겨 다른 기기에 전달). 오프라인에서 바꾼 것은 연결되면 자동으로 올라갑니다.
+- **보안**: 비밀번호·세션 비밀값은 코드·저장소에 없고 Cloudflare 의 **Secret** 으로만 둡니다. 로그인하면 서명된 HttpOnly 쿠키(90일)가 생기고, 같은 IP 에서 비밀번호를 8번 틀리면 15분간 막습니다. 학습 자료(단어·글)는 예전처럼 공개이고, 동기화되는 것은 진행 기록뿐입니다.
+- **설정(한 번만)**
+  1. Cloudflare → *Storage & databases → D1 SQL database → Create* → 이름 `haru-eohwi` → **Database ID** 복사 → `wrangler.jsonc` 의 `d1_databases[0].database_id` 에 넣고 push
+  2. Workers & Pages → `haru-eohwi` → *Settings → Variables and Secrets* 에서 **Secret** 으로 추가:
+     - `APP_PASSWORD` — 동기화에 쓸 비밀번호
+     - `APP_SESSION_SECRET` — 16자 이상 무작위 문자열 (`node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"` 로 만들어 붙여넣기. 다른 곳에 공유하지 않기)
+  3. 설정을 저장하면 재배포되고, 앱 설정 화면에 로그인 칸이 나타납니다. 표(테이블)는 첫 요청 때 자동으로 만들어집니다.
+- **로컬 시험**: `.dev.vars` 에 `APP_PASSWORD=…`, `APP_SESSION_SECRET=…` 를 적고(저장소에 올리지 않음) `npx wrangler dev` → `SYNC_BASE=http://127.0.0.1:8787 node tools/sync-smoke.mjs`
+  (Windows 에서 경로에 한글이 있으면 `--persist-to` 를 영문 경로로 주세요.)
 
 ## 음성 (기기 음성 사용) — 알려진 한계
 

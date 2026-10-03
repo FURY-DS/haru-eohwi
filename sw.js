@@ -2,7 +2,7 @@
  * - 같은 출처 GET 요청은 "네트워크 우선, 실패하면 캐시" 로 처리합니다.
  *   (새 데이터/새 코드는 항상 최신, 오프라인이면 마지막으로 본 내용)
  */
-const CACHE = 'haru-eohwi-v2';
+const CACHE = 'haru-eohwi-v3';
 const SHELL = [
   './', 'index.html', 'css/style.css', 'js/app.js', 'manifest.webmanifest',
   'icons/icon.svg', 'icons/icon-192.png', 'icons/icon-512.png',
@@ -30,6 +30,7 @@ self.addEventListener('fetch', (e) => {
   if (req.method !== 'GET') return;
   const url = new URL(req.url);
   if (url.origin !== location.origin) return;
+  if (url.pathname.startsWith('/api/')) return;   // 동기화 API 는 캐시하지 않고 그대로 네트워크로
 
   e.respondWith(
     fetch(req, { cache: 'no-cache' })

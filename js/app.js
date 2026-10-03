@@ -59,16 +59,157 @@ const ICON = {
 /* ---------- 저장소 (학습 기록) ---------- */
 const KEY = 'haru-eohwi.v1';
 const DEFAULT_SETTINGS = { theme: 'auto', topic: '실생활', hideMeaning: false };
-function emptyStore() { return { done: {}, read: {}, review: {}, days: {}, settings: {}, lastSync: null }; }
+function emptyStore() { return { done: {}, read: {}, review: {}, days: {}, settings: {}, lastSync: null, tomb: {}, sync: { cursor: 0, dirty: {}, lastAt: 0 } }; }
 function loadStore() {
   try {
     const o = JSON.parse(localStorage.getItem(KEY));
-    return { ...emptyStore(), ...(o && typeof o === 'object' ? o : {}) };
+    const s = { ...emptyStore(), ...(o && typeof o === 'object' ? o : {}) };
+    s.tomb = s.tomb && typeof s.tomb === 'object' ? s.tomb : {};
+    s.sync = { cursor: 0, dirty: {}, lastAt: 0, ...(s.sync && typeof s.sync === 'object' ? s.sync : {}) };
+    return s;
   } catch { return emptyStore(); }
 }
 let S = loadStore();
 function save() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch { toast('저장 공간을 사용할 수 없어요. 기록이 유지되지 않을 수 있어요.'); } }
 const setting = (k) => S.settings[k] ?? DEFAULT_SETTINGS[k];
+
+/* ---------- 기기 동기화 (PC ↔ 휴대폰) ----------
+ * 기록 한 건 = { key, ts, deleted, value }. key: d|날짜|단어id (단어 완료) · r|날짜|언어 (글 읽기) · v|날짜|단어id (다시 복습)
+ * 같은 기록은 가장 최근에 바꾼 쪽이 이긴다(삭제도 기록으로 남김). 서버가 없거나 로그인하지 않았으면 예전처럼 이 기기에만 저장된다. */
+const REC = { d: 'done', r: 'read', v: 'review' };
+const SY = { state: 'unknown', busy: false, err: '', timer: null };   // state: unknown | off(서버 미설정) | out(로그아웃) | on | offline
+const recTs = (kind, k) => { const v = S[REC[kind]][k]; return kind === 'v' ? (v?.addedAt || 0) : (typeof v === 'number' ? v : 0); };
+
+/** 기록 한 건을 바꾼다(val === null 이면 삭제). 동기화할 변경으로 표시한다 */
+function setRec(kind, k, val) {
+  const m = S[REC[kind]], rk = `${kind}|${k}`, ts = Date.now();
+  if (val === null) { delete m[k]; S.tomb[rk] = ts; }
+  else { m[k] = kind === 'v' ? { ...val, addedAt: ts } : ts; delete S.tomb[rk]; }
+  S.sync.dirty[rk] = ts;
+  scheduleSync();
+}
+function markAllDirty() {
+  const now = Date.now();
+  for (const kind of Object.keys(REC)) for (const k of Object.keys(S[REC[kind]])) S.sync.dirty[`${kind}|${k}`] = now;
+  for (const rk of Object.keys(S.tomb)) S.sync.dirty[rk] = now;
+}
+function pushRecords() {
+  const out = [], snap = {};
+  for (const [rk, dts] of Object.entries(S.sync.dirty)) {
+    if (out.length >= 500) break;
+    const kind = rk[0], k = rk.slice(2), cur = REC[kind] ? S[REC[kind]][k] : undefined;
+    if (cur !== undefined) out.push({ key: rk, ts: recTs(kind, k), deleted: false, value: kind === 'v' ? JSON.stringify(cur) : null });
+    else if (S.tomb[rk]) out.push({ key: rk, ts: S.tomb[rk], deleted: true, value: null });
+    else { delete S.sync.dirty[rk]; continue; }
+    snap[rk] = dts;
+  }
+  return { out, snap };
+}
+/** 서버에서 온 기록 한 건을 적용한다. 더 새로운 쪽이 이긴다. 바뀐 날짜를 돌려준다(없으면 null) */
+function applyRemote(r) {
+  if (!r || typeof r.key !== 'string' || !/^[drv]\|\d{4}-\d{2}-\d{2}\|/.test(r.key) || !Number.isFinite(r.ts)) return null;
+  const kind = r.key[0], k = r.key.slice(2), rk = r.key, m = S[REC[kind]];
+  const lts = m[k] !== undefined ? recTs(kind, k) : (S.tomb[rk] || 0);
+  if (r.ts <= lts) return null;
+  if (r.deleted) { delete m[k]; S.tomb[rk] = r.ts; }
+  else if (kind === 'v') {
+    let v; try { v = JSON.parse(r.value); } catch { return null; }
+    if (!v || !v.card || typeof v.card.id !== 'string') return null;
+    m[k] = { date: v.date, lang: v.lang, addedAt: r.ts, card: v.card }; delete S.tomb[rk];
+  } else { m[k] = r.ts; delete S.tomb[rk]; }
+  delete S.sync.dirty[rk];
+  return k.slice(0, 10);
+}
+
+const api = (path, body) => fetch(path, {
+  method: body === undefined ? 'GET' : 'POST', credentials: 'same-origin', cache: 'no-store',
+  headers: body === undefined ? {} : { 'Content-Type': 'application/json' }, body: body === undefined ? undefined : JSON.stringify(body),
+});
+
+async function syncStatus() {
+  try {
+    const res = await api('/api/status');
+    if (!res.ok || !(res.headers.get('Content-Type') || '').includes('json')) SY.state = 'off';
+    else { const j = await res.json(); SY.state = !j.configured ? 'off' : j.authed ? 'on' : 'out'; }
+  } catch { if (SY.state === 'unknown') SY.state = 'offline'; }
+  refreshSyncPanel();
+}
+
+function scheduleSync() {
+  if (SY.state !== 'on') return;
+  clearTimeout(SY.timer); SY.timer = setTimeout(syncNow, 1500);
+}
+
+async function syncNow() {
+  if (SY.state !== 'on' || SY.busy) return;
+  SY.busy = true; SY.err = '';
+  const touched = new Set();
+  try {
+    // 1) 올리기 (500건씩, 응답에서는 기록을 받지 않음)
+    for (let i = 0; i < 100 && Object.keys(S.sync.dirty).length; i++) {
+      const { out, snap } = pushRecords();
+      const res = await api('/api/sync', { since: Number.MAX_SAFE_INTEGER, records: out });
+      if (res.status === 401) { SY.state = 'out'; SY.err = '로그인이 풀렸어요. 다시 로그인해 주세요.'; return; }
+      if (!res.ok) throw new Error(`sync ${res.status}`);
+      for (const [rk, dts] of Object.entries(snap)) if (S.sync.dirty[rk] === dts) delete S.sync.dirty[rk];
+      if (!out.length) break;
+    }
+    // 2) 내려받기
+    let since = S.sync.cursor || 0, now = 0;
+    for (let i = 0; i < 100; i++) {
+      const res = await api('/api/sync', { since, records: [] });
+      if (res.status === 401) { SY.state = 'out'; SY.err = '로그인이 풀렸어요. 다시 로그인해 주세요.'; return; }
+      if (!res.ok) throw new Error(`sync ${res.status}`);
+      const j = await res.json();
+      for (const r of j.records || []) { const d = applyRemote(r); if (d) touched.add(d); }
+      now = j.now;
+      if (j.more) since = j.cursor; else break;
+    }
+    if (now) S.sync.cursor = Math.max(S.sync.cursor || 0, now * 1000 - 10_000_000);   // 10초 겹쳐서 받아 누락을 막는다(같은 기록은 다시 받아도 무해)
+    S.sync.lastAt = Date.now();
+    for (const d of touched) updateCompletion(d);
+    save();
+    if (touched.size) render();
+  } catch (e) {
+    SY.err = navigator.onLine ? '동기화에 실패했어요. 잠시 뒤 다시 시도돼요.' : '오프라인이에요. 연결되면 자동으로 동기화돼요.';
+  } finally {
+    SY.busy = false; refreshSyncPanel();
+  }
+}
+
+async function syncLogin() {
+  const pw = $('#s-pw')?.value || '';
+  if (!pw) { toast('비밀번호를 입력해 주세요'); return; }
+  SY.err = '';
+  try {
+    const res = await api('/api/login', { password: pw });
+    const j = await res.json().catch(() => ({}));
+    if (!res.ok) { SY.err = j.error || '로그인에 실패했어요'; refreshSyncPanel(); return; }
+  } catch { SY.err = '서버에 연결하지 못했어요'; refreshSyncPanel(); return; }
+  SY.state = 'on'; markAllDirty(); save(); refreshSyncPanel();
+  toast('로그인했어요. 기록을 합치는 중…');
+  await syncNow();
+  if (!SY.err) toast('동기화했어요');
+}
+async function syncLogout() {
+  try { await api('/api/logout', {}); } catch { /* 오프라인이어도 이 기기에서는 로그아웃 처리 */ }
+  SY.state = 'out'; SY.err = ''; refreshSyncPanel(); toast('로그아웃했어요');
+}
+
+function syncPanelHTML() {
+  const last = S.sync.lastAt ? new Date(S.sync.lastAt).toLocaleString('ko-KR') : '아직 없음';
+  const pend = Object.keys(S.sync.dirty).length;
+  const err = SY.err ? `<small class="warn-note">${esc(SY.err)}</small>` : '';
+  if (SY.state === 'on') return `<div class="vs ok">✓ 연결됨 — PC와 휴대폰이 같은 기록을 써요</div>
+    <small>마지막 동기화: ${esc(last)}${pend ? ` · 올릴 변경 ${pend}건` : ''}</small>${err}
+    <div class="row-btns" style="margin-top:8px"><button class="btn" data-act="sync-now">지금 동기화</button><button class="btn" data-act="sync-logout">로그아웃</button></div>`;
+  if (SY.state === 'out') return `<small>비밀번호를 입력하면 이 기기의 기록이 다른 기기와 합쳐져요.</small>
+    <div class="row-btns" style="margin-top:8px"><input id="s-pw" type="password" autocomplete="current-password" placeholder="동기화 비밀번호" style="flex:1;min-width:0"><button class="btn primary" data-act="sync-login">로그인</button></div>${err}`;
+  if (SY.state === 'off') return '<small>동기화 서버가 아직 설정되지 않았어요. 지금은 이 기기에만 기록이 저장돼요.</small>';
+  if (SY.state === 'offline') return '<small>지금은 오프라인이에요. 연결되면 다시 확인해요.</small>';
+  return '<small>확인 중…</small>';
+}
+function refreshSyncPanel() { const el = $('#s-sync'); if (el) el.innerHTML = syncPanelHTML(); }
 
 /* ---------- 앱 상태 ---------- */
 const st = {
@@ -253,20 +394,20 @@ function updateCompletion(date) {
 /* ---------- 액션 ---------- */
 function toggleDone(date, id) {
   const k = doneKey(date, id);
-  if (S.done[k]) delete S.done[k]; else S.done[k] = Date.now();
+  setRec('d', k, S.done[k] ? null : true);
   updateCompletion(date); save(); render();
 }
 
 function toggleRead(date, lang) {
   const k = readKey(date, lang);
-  if (S.read[k]) delete S.read[k]; else S.read[k] = Date.now();
+  setRec('r', k, S.read[k] ? null : true);
   updateCompletion(date); save(); render();
 }
 
 function toggleReview(date, lang, w) {
   const k = doneKey(date, w.id);
-  if (S.review[k]) { delete S.review[k]; toast('다시 복습에서 뺐어요'); }
-  else { S.review[k] = { date, lang, addedAt: Date.now(), card: w }; toast('다시 복습에 담았어요'); }
+  if (S.review[k]) { setRec('v', k, null); toast('다시 복습에서 뺐어요'); }
+  else { setRec('v', k, { date, lang, card: w }); toast('다시 복습에 담았어요'); }
   save(); render();
 }
 
@@ -754,7 +895,8 @@ function openSettings() {
       <small>생성에 적용하려면 <b>data/config.json</b>에 반영해야 해요. 아래 버튼으로 내용을 복사하세요.</small></div>
     <div class="row-btns"><button class="btn" data-act="copy-config">config.json 내용 복사</button></div>
     <hr style="border:0;border-top:1px solid var(--line);margin:18px 0">
-    <div class="field"><label>학습 기록 백업 (이 기기에만 저장돼요)</label>
+    <div class="field"><label>기기 동기화 (PC ↔ 휴대폰)</label><div id="s-sync">${syncPanelHTML()}</div></div>
+    <div class="field"><label>학습 기록 백업</label>
       <div class="row-btns"><button class="btn" data-act="export">내보내기</button><button class="btn" data-act="import">가져오기</button></div>
       <input type="file" id="s-file" accept="application/json" hidden></div>
     <pre hidden id="cfg-json">${esc(configJson())}</pre></div>`;
@@ -829,6 +971,9 @@ document.addEventListener('click', async (ev) => {
       try { await navigator.clipboard.writeText($('#cfg-json').textContent); toast('복사했어요'); } catch { toast('복사에 실패했어요'); }
       break;
     }
+    case 'sync-login': await syncLogin(); break;
+    case 'sync-now': toast('동기화 중…'); await syncStatus(); await syncNow(); if (!SY.err && SY.state === 'on') toast('동기화했어요'); break;
+    case 'sync-logout': await syncLogout(); break;
     case 'export': exportData(); break;
     case 'import': $('#s-file').click(); break;
   }
@@ -842,6 +987,7 @@ document.addEventListener('change', (ev) => {
 });
 function refreshCfgJson() { const el = $('#cfg-json'); if (el) el.textContent = configJson(); }
 $('#dlg-settings').addEventListener('input', (ev) => { if (ev.target.id === 's-topic') { S.settings.topic = ev.target.value.trim() || DEFAULT_SETTINGS.topic; save(); refreshCfgJson(); } });
+$('#dlg-settings').addEventListener('keydown', (ev) => { if (ev.key === 'Enter' && ev.target.id === 's-pw') { ev.preventDefault(); syncLogin(); } });
 for (const id of ['#dlg-cal', '#dlg-settings']) $(id).addEventListener('click', (ev) => { if (ev.target === ev.currentTarget) ev.currentTarget.close(); });
 
 function passageWord(date, lang, id) { return st.days[date]?.data?.sets[lang]?.words.find((w) => w.id === id) || null; }
@@ -879,7 +1025,8 @@ async function importData(file) {
     if (j?.app !== 'haru-eohwi' || !d || typeof d.done !== 'object') throw new Error('형식이 달라요');
     if (!confirm('현재 기록에 백업 내용을 합칠까요? (같은 항목은 백업 값으로 덮어써요)')) return;
     S = { ...S, done: { ...S.done, ...d.done }, read: { ...S.read, ...(d.read || {}) }, review: { ...S.review, ...(d.review || {}) }, days: { ...S.days, ...(d.days || {}) } };
-    save(); render(); toast('가져왔어요');
+    for (const [kind, m] of [['d', d.done], ['r', d.read || {}], ['v', d.review || {}]]) for (const k of Object.keys(m)) delete S.tomb[`${kind}|${k}`];
+    markAllDirty(); save(); render(); scheduleSync(); toast('가져왔어요');
   } catch (e) { toast('가져오지 못했어요: ' + e.message); }
 }
 
@@ -899,7 +1046,9 @@ document.addEventListener('visibilitychange', async () => {
   const cur = st.days[st.date];
   if (!cur || ['none', 'generating', 'failed', 'error'].includes(cur.state)) await loadDay(st.date, true);
   render();
+  syncStatus().then(syncNow);
 });
+addEventListener('online', () => { syncStatus().then(syncNow); });
 
 (async function init() {
   render();
@@ -909,4 +1058,5 @@ document.addEventListener('visibilitychange', async () => {
   if (q && isDate(q) && q <= todayStr()) st.date = q;
   await loadDay(st.date);
   render();
+  syncStatus().then(syncNow);
 })();

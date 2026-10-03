@@ -4,3 +4,7 @@ node_modules/
 deploy.token
 .DS_Store
 Thumbs.db
+
+# 로컬 시험용 비밀값·상태 (절대 올리지 않음)
+.dev.vars
+.wrangler/

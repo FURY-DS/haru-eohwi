@@ -10,3 +10,8 @@ examples
 README.md
 data/days/.gitkeep
 package.json
+worker
+package-lock.json
+.dev-wrangler.jsonc
+.dev.vars
+.wrangler

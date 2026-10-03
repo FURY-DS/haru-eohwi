@@ -352,3 +352,7 @@ ruby rt { font-size: .55em; font-weight: 400; letter-spacing: 0; color: var(--in
 .pop-ko .def { display: block; color: var(--ink-2); font-size: 12.5px; }
 .pop-ko [lang="zh-Hans"] { font-family: var(--font-sc); font-weight: 600; }
 .ko-block p[lang="zh-Hans"], .gram [lang="zh-Hans"], .gram-it p[lang="zh-Hans"] { font-family: var(--font-sc); }
+
+/* ===== 기기 동기화 ===== */
+#s-sync .vs.ok { color: var(--green); font-weight: 600; }
+#s-sync small { display: block; }

@@ -757,6 +757,27 @@ function grammarHTML(lang, p, showFg) {
   return `<div class="gram"><div class="gram-ttl">문법 설명 <small>(참고용 — 완료 조건에는 들어가지 않아요)</small></div>${blocks}${sum}${cmp}</div>`;
 }
 
+/* --- 일본어: 히라가나·가타카나 표 (전체 듣기 옆 토글). 칸 = '히라가나 로마자 한글근사', '-' = 빈칸. 가타카나는 자동 변환 (docs/KANA.md 와 같은 표) --- */
+const KANA = {
+  basic: ['あ a 아,い i 이,う u 우,え e 에,お o 오', 'か ka 카,き ki 키,く ku 쿠,け ke 케,こ ko 코', 'さ sa 사,し shi 시,す su 스,せ se 세,そ so 소', 'た ta 타,ち chi 치,つ tsu 츠,て te 테,と to 토', 'な na 나,に ni 니,ぬ nu 누,ね ne 네,の no 노', 'は ha 하,ひ hi 히,ふ fu 후,へ he 헤,ほ ho 호', 'ま ma 마,み mi 미,む mu 무,め me 메,も mo 모', 'や ya 야,-,ゆ yu 유,-,よ yo 요', 'ら ra 라,り ri 리,る ru 루,れ re 레,ろ ro 로', 'わ wa 와,-,-,-,を wo 오', 'ん n ㄴ받침,-,-,-,-'],
+  daku: ['が ga 가,ぎ gi 기,ぐ gu 구,げ ge 게,ご go 고', 'ざ za 자,じ ji 지,ず zu 즈,ぜ ze 제,ぞ zo 조', 'だ da 다,ぢ ji 지,づ zu 즈,で de 데,ど do 도', 'ば ba 바,び bi 비,ぶ bu 부,べ be 베,ぼ bo 보', 'ぱ pa 파,ぴ pi 피,ぷ pu 푸,ぺ pe 페,ぽ po 포'],
+  yoon: ['きゃ kya 캬,きゅ kyu 큐,きょ kyo 쿄', 'しゃ sha 샤,しゅ shu 슈,しょ sho 쇼', 'ちゃ cha 차,ちゅ chu 추,ちょ cho 초', 'にゃ nya 냐,にゅ nyu 뉴,にょ nyo 뇨', 'ひゃ hya 햐,ひゅ hyu 휴,ひょ hyo 효', 'みゃ mya 먀,みゅ myu 뮤,みょ myo 묘', 'りゃ rya 랴,りゅ ryu 류,りょ ryo 료', 'ぎゃ gya 갸,ぎゅ gyu 규,ぎょ gyo 교', 'じゃ ja 자,じゅ ju 주,じょ jo 조', 'びゃ bya 뱌,びゅ byu 뷰,びょ byo 뵤', 'ぴゃ pya 퍄,ぴゅ pyu 퓨,ぴょ pyo 표'],
+};
+const toKata = (s) => s.replace(/[\u3041-\u3096]/g, (c) => String.fromCharCode(c.charCodeAt(0) + 0x60));
+function kanaCell(c) {
+  if (c === '-') return '<span class="kana-c empty" aria-hidden="true"></span>';
+  const [h, r, k] = c.split(' ');
+  return `<button class="kana-c" data-act="kana-say" data-k="${esc(h)}" aria-label="${esc(h)} ${esc(r)} 듣기"><b lang="ja">${esc(h)}</b><i lang="ja">${esc(toKata(h))}</i><small>${esc(r)} · ${esc(k)}</small></button>`;
+}
+function kanaHTML() {
+  const grid = (rows, cols) => `<div class="kana-grid c${cols}">${rows.map((r) => r.split(',').map(kanaCell).join('')).join('')}</div>`;
+  return `<div class="kana"><div class="kana-ttl">히라가나 · 가타카나 <small>(큰 글자 히라가나 · 작은 글자 가타카나 · 누르면 소리가 나요)</small></div>
+    <div class="kana-h">기본 (청음)</div>${grid(KANA.basic, 5)}
+    <div class="kana-h">탁음 · 반탁음 (゛ ゜)</div>${grid(KANA.daku, 5)}
+    <div class="kana-h">요음 (작은 ゃ ゅ ょ)</div>${grid(KANA.yoon, 3)}
+    <p class="kana-note">작은 <b lang="ja">っ</b>(<b lang="ja">ッ</b>): 다음 자음을 한 번 더 — <span lang="ja">きって</span> kitte(킷테)<br><b lang="ja">ー</b>: 앞 소리를 길게 — <span lang="ja">コーヒー</span> kōhī(코-히-)</p></div>`;
+}
+
 function passageSection(date, lang, set) {
   const p = set.passage;
   if (!p) return `<section class="sec"><div class="sec-head"><h2><span class="no">②</span> 오늘의 통합 글</h2></div>
@@ -801,7 +822,9 @@ function passageSection(date, lang, set) {
         ${st.speaking === key
           ? `<button class="chip-btn playing" data-act="speak-passage" aria-pressed="true" aria-label="전체 듣기 정지">${ICON.stop}<span>정지</span></button>`
           : `<button class="chip-btn" data-act="speak-passage">${ICON.speaker}<span>전체 듣기</span></button>`}
+        ${isJa ? `<button class="chip-btn" data-act="toggle-kana" aria-pressed="${!!ui.kn}">가나표 ${ui.kn ? '숨기기' : '보기'}</button>` : ''}
       </div>
+      ${isJa && ui.kn ? kanaHTML() : ''}
       <div class="hint">밑줄 친 목표 단어를 누르면 뜻과 발음을 볼 수 있어요.</div>
       <div class="actions"><button class="btn primary${read ? ' on' : ''}" data-act="read" aria-pressed="${read}">${read ? '✓ 읽기 완료 취소' : '글 읽기 완료'}</button></div>
     </article></section>`;
@@ -941,6 +964,12 @@ document.addEventListener('click', async (ev) => {
       st.pop = cur && cur.date === next.date && cur.lang === next.lang && cur.wordId === next.wordId ? null : next; render(); break; }
     case 'close-pop': st.pop = null; render(); break;
     case 'speak-word': { if (!pas) break; const w = passageWord(pas.dataset.date, pas.dataset.lang, t.dataset.word); if (w) speak(w.word, pas.dataset.lang); break; }
+    case 'toggle-kana': {
+      if (!pas) break; const k = readKey(pas.dataset.date, pas.dataset.lang);
+      const ui = (st.ui[k] = st.ui[k] || { ko: false, rd: false, fg: true });
+      ui.kn = !ui.kn; render(); break;
+    }
+    case 'kana-say': speak(t.dataset.k, 'ja'); break;
     case 'toggle-gr': {
       if (!pas) break; const k = readKey(pas.dataset.date, pas.dataset.lang);
       const ui = (st.ui[k] = st.ui[k] || { ko: false, rd: false, fg: true });

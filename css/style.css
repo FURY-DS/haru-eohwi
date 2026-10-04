@@ -356,3 +356,20 @@ ruby rt { font-size: .55em; font-weight: 400; letter-spacing: 0; color: var(--in
 /* ===== 기기 동기화 ===== */
 #s-sync .vs.ok { color: var(--green); font-weight: 600; }
 #s-sync small { display: block; }
+
+/* ===== 일본어 가나표 ===== */
+.kana { margin-top: 12px; padding: 12px; border-radius: 14px; background: var(--soft-2); }
+.kana-ttl { font-weight: 600; font-size: 15px; }
+.kana-ttl small { font-weight: 400; color: var(--ink-3); font-size: 12px; }
+.kana-h { margin: 12px 0 6px; font-size: 13px; color: var(--ink-2); font-weight: 600; }
+.kana-grid { display: grid; gap: 4px; }
+.kana-grid.c5 { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+.kana-grid.c3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.kana-c { display: flex; flex-direction: column; align-items: center; padding: 6px 2px 5px; min-width: 0; border: 1px solid var(--line); border-radius: 10px; background: var(--card); color: var(--ink); font: inherit; cursor: pointer; }
+.kana-c:active { background: var(--soft); }
+.kana-c.empty { border: 0; background: transparent; cursor: default; }
+.kana-c b { font-family: var(--font-ja); font-size: 21px; line-height: 1.25; font-weight: 600; }
+.kana-c i { font-family: var(--font-ja); font-style: normal; font-size: 14px; line-height: 1.3; color: var(--ink-2); }
+.kana-c small { font-size: 10.5px; color: var(--ink-3); white-space: nowrap; line-height: 1.4; }
+.kana-note { margin: 10px 0 0; font-size: 12.5px; color: var(--ink-2); line-height: 1.7; }
+.kana-note b, .kana-note span[lang="ja"] { font-family: var(--font-ja); }

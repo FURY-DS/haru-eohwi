@@ -470,17 +470,23 @@ function findYueVoice() {
 
 /** 언어별 사용할 음성 (없으면 null → 기기가 언어 코드로 고르게 둠) */
 const IS_IOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-function pickVoice(lang) {
-  if (!canSpeak()) return null;
-  if (lang === 'yue') return findYueVoice();
-  // iOS 만 앱이 직접 고른다. PC·안드로이드는 기존처럼 언어 코드가 일치하는 첫 음성 (이미 잘 동작)
-  if (!IS_IOS) return speechSynthesis.getVoices().find((v) => voiceLang(v) === LANG[lang].speech.toLowerCase()) || null;
+const IS_MAC = /Mac/i.test(navigator.platform) && !IS_IOS;   // 맥(크롬·사파리): 효과음 같은 특이한 음성이 목록 앞쪽에 섞여 있어 직접 골라야 한다
+const IS_APPLE = IS_IOS || IS_MAC;
+/** 점수가 가장 높은 음성 (없으면 null) */
+function bestVoice(lang, voices) {
   let best = null, bestScore = -1;
-  for (const v of speechSynthesis.getVoices()) {
+  for (const v of voices) {
     const sc = scoreVoice(v, lang);
     if (sc > bestScore) { best = v; bestScore = sc; }
   }
   return best;
+}
+function pickVoice(lang) {
+  if (!canSpeak()) return null;
+  if (lang === 'yue') return findYueVoice();
+  // 애플 기기(아이폰·아이패드·맥)만 앱이 직접 고른다. PC·안드로이드는 언어 코드가 일치하는 첫 음성 (이미 잘 동작)
+  if (!IS_APPLE) return speechSynthesis.getVoices().find((v) => voiceLang(v) === LANG[lang].speech.toLowerCase()) || null;
+  return bestVoice(lang, speechSynthesis.getVoices());
 }
 
 function makeUtterance(text, lang) {
@@ -921,7 +927,8 @@ function openSettings() {
     <div class="field"><label>음성 점검 (언어별로 앱이 고른 음성)</label>
       <div id="s-voice" class="voice-box">${voiceStatusHTML()}</div>
       <small>광둥어 음성이 없으면 폰의 음성 설정에서 중국어(홍콩)/광둥어 음성을 설치하세요.</small>
-      ${IS_IOS ? '<small class="warn-note">아이폰: iOS 가 중국어 방언을 시스템 설정 하나로 고정해 읽는 경우가 있어요. 광둥어와 표준 중국어가 같은 방언으로 들리면 설정 → 손쉬운 사용 → 말하기 콘텐츠 → 음성 → 중국어 → 「口說語言」에서 학습하는 쪽(粵語 / 國語)으로 바꿔 보세요. 웹 앱에서는 이 설정을 바꿀 수 없어요.</small>' : ''}</div>
+      ${IS_IOS ? '<small class="warn-note">아이폰: iOS 가 중국어 방언을 시스템 설정 하나로 고정해 읽는 경우가 있어요. 광둥어와 표준 중국어가 같은 방언으로 들리면 설정 → 손쉬운 사용 → 말하기 콘텐츠 → 음성 → 중국어 → 「口說語言」에서 학습하는 쪽(粵語 / 國語)으로 바꿔 보세요. 웹 앱에서는 이 설정을 바꿀 수 없어요.</small>' : ''}
+      ${IS_MAC ? '<small class="warn-note">맥: 음성이 어색하면 시스템 설정 → 손쉬운 사용 → 말하기 콘텐츠 → 시스템 음성 → 음성 관리에서 한국어(Yuna)·일본어(Kyoko)·영어(Samantha) 같은 고품질(Enhanced/Premium) 음성을 내려받아 보세요. 중국어는 맥도 방언을 시스템 설정 하나로 고정해 읽는 경우가 있어요.</small>' : ''}</div>
     <div class="field"><label for="s-topic">선호 주제·장면</label><input id="s-topic" list="topics" value="${esc(setting('topic'))}" placeholder="예: 실생활, 여행, 음식, 직장">
       <datalist id="topics">${['실생활', '여행', '음식', '직장', '쇼핑', '감정 표현', '교통'].map((o) => `<option value="${o}">`).join('')}</datalist>
       <small>생성에 적용하려면 <b>data/config.json</b>에 반영해야 해요. 아래 버튼으로 내용을 복사하세요.</small></div>

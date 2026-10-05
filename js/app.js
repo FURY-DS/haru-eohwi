@@ -482,7 +482,8 @@ function bestVoice(lang, voices) {
   return best;
 }
 /* 재생이 바로 끊기거나 오류가 난 음성은 기억해 두고 다음부터 건너뛴다 (예: 맥에서 목록에는 있지만 실제로는 못 읽는 음성) */
-const BAD_KEY = 'haru-eohwi.badvoices';
+const BAD_KEY = 'haru-eohwi.badvoices.v2';   // v1 은 오탐(멀쩡한 음성을 실패로 기록)이 있어 버림
+try { localStorage.removeItem('haru-eohwi.badvoices'); } catch { /* 무시 */ }
 const badVoices = new Set((() => { try { const a = JSON.parse(localStorage.getItem(BAD_KEY)); return Array.isArray(a) ? a : []; } catch { return []; } })());
 const saveBad = () => { try { localStorage.setItem(BAD_KEY, JSON.stringify([...badVoices])); } catch { /* 저장 불가여도 이번 방문 동안은 유지 */ } };
 const usableVoices = () => speechSynthesis.getVoices().filter((v) => !badVoices.has(v.name));
@@ -490,8 +491,11 @@ function pickVoice(lang) {
   if (!canSpeak()) return null;
   if (lang === 'yue') return findYueVoice();
   // 애플 기기(아이폰·아이패드·맥)만 앱이 직접 고른다. PC·안드로이드는 언어 코드가 일치하는 첫 음성 (이미 잘 동작)
-  if (!IS_APPLE) return usableVoices().find((v) => voiceLang(v) === LANG[lang].speech.toLowerCase()) || null;
-  return bestVoice(lang, usableVoices());
+  const all = speechSynthesis.getVoices();
+  const pick = (vs) => (!IS_APPLE ? vs.find((v) => voiceLang(v) === LANG[lang].speech.toLowerCase()) || null : bestVoice(lang, vs));
+  // 건너뛰기로 기억한 음성을 뺀 뒤에도 같은 언어 음성이 남으면 그걸 쓰고, 없으면 그 음성을 다시 쓴다
+  // (음성을 지정하지 않으면 기기 기본 음성이 쓰여 영어를 중국어 음성이 읽는 일이 생기기 때문)
+  return pick(usableVoices()) || pick(all);
 }
 
 /** onFail: 이 음성이 못 읽어서 다른 음성으로 바꿨을 때 부를 함수(한 번만 다시 시도) */
@@ -501,16 +505,16 @@ function makeUtterance(text, lang, onFail) {
   const v = pickVoice(lang);
   if (v) {
     u.voice = v; u.lang = v.lang;
-    const tok = speechToken; let t0 = 0, handled = false;
+    const tok = speechToken; let handled = false;
     const fail = () => {
       if (handled || tok !== speechToken) return;   // 사용자가 멈추거나 다시 눌러서 끊긴 경우는 실패가 아님
       handled = true; badVoices.add(v.name); saveBad();
       toast('이 음성이 재생되지 않아 다른 음성으로 바꿨어요');
       if (onFail) onFail();
     };
-    u.addEventListener('start', () => { t0 = Date.now(); });
-    u.addEventListener('error', (e) => { if (e.error !== 'canceled' && e.error !== 'interrupted') fail(); });
-    u.addEventListener('end', () => { if (t0 && Date.now() - t0 < 150 && text.length >= 3) fail(); });   // 시작하자마자 끝나면 소리가 안 난 것
+    // 음성이 못 읽는다는 명확한 오류만 실패로 본다 (사용자가 멈춘 canceled/interrupted, 자동재생 제한 not-allowed 등은 제외)
+    const HARD = ['synthesis-failed', 'voice-unavailable', 'language-unavailable', 'synthesis-unavailable'];
+    u.addEventListener('error', (e) => { if (HARD.includes(e.error)) fail(); });
   }
   else if (lang === 'yue' && speechSynthesis.getVoices().length) toast('이 기기에 광둥어 음성이 없어 표준 중국어로 읽힐 수 있어요 (설정 → 음성 점검)');
   return u;
@@ -550,8 +554,20 @@ function startSpeech(token, utterances) {
   if (busy && IS_APPLE) setTimeout(go, 200); else go();
 }
 
+/** 크롬은 페이지를 연 직후에는 음성 목록이 비어 있을 수 있다. 비어 있으면 잠깐(최대 0.7초, 한 번만) 기다렸다가 시작한다 — 목록 없이 시작하면 기기 기본 음성(다른 언어)이 읽을 수 있다 */
+let voicesWaited = false;
+function whenVoices(fn) {
+  if (voicesWaited || IS_IOS || speechSynthesis.getVoices().length) { fn(); return; }
+  voicesWaited = true;
+  let done = false;
+  const go = () => { if (!done) { done = true; fn(); } };
+  speechSynthesis.addEventListener('voiceschanged', go, { once: true });
+  setTimeout(go, 700);
+}
+
 function speak(text, lang, retried = false) {
   if (!canSpeak()) { toast('이 기기에서는 발음 듣기를 지원하지 않아요'); return; }
+  if (!voicesWaited && !IS_IOS && !speechSynthesis.getVoices().length) { whenVoices(() => speak(text, lang, retried)); return; }
   const was = st.speaking;
   const token = ++speechToken; st.speaking = null;
   startSpeech(token, [makeUtterance(text, lang, retried ? null : () => speak(text, lang, true))]);
@@ -561,6 +577,7 @@ function speak(text, lang, retried = false) {
 /** 문장 단위로 이어 읽는다 (긴 글을 한 번에 읽다 중간에 끊기는 브라우저 문제 완화). 끝나면 버튼이 자동으로 돌아온다 */
 function speakPassage(sentences, lang, key, retried = false) {
   if (!canSpeak()) { toast('이 기기에서는 발음 듣기를 지원하지 않아요'); return; }
+  if (!voicesWaited && !IS_IOS && !speechSynthesis.getVoices().length) { whenVoices(() => speakPassage(sentences, lang, key, retried)); return; }
   const token = ++speechToken;
   st.speaking = key;
   const finish = () => { if (token === speechToken && st.speaking === key) { st.speaking = null; render(); } };

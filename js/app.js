@@ -481,19 +481,37 @@ function bestVoice(lang, voices) {
   }
   return best;
 }
+/* 재생이 바로 끊기거나 오류가 난 음성은 기억해 두고 다음부터 건너뛴다 (예: 맥에서 목록에는 있지만 실제로는 못 읽는 음성) */
+const BAD_KEY = 'haru-eohwi.badvoices';
+const badVoices = new Set((() => { try { const a = JSON.parse(localStorage.getItem(BAD_KEY)); return Array.isArray(a) ? a : []; } catch { return []; } })());
+const saveBad = () => { try { localStorage.setItem(BAD_KEY, JSON.stringify([...badVoices])); } catch { /* 저장 불가여도 이번 방문 동안은 유지 */ } };
+const usableVoices = () => speechSynthesis.getVoices().filter((v) => !badVoices.has(v.name));
 function pickVoice(lang) {
   if (!canSpeak()) return null;
   if (lang === 'yue') return findYueVoice();
   // 애플 기기(아이폰·아이패드·맥)만 앱이 직접 고른다. PC·안드로이드는 언어 코드가 일치하는 첫 음성 (이미 잘 동작)
-  if (!IS_APPLE) return speechSynthesis.getVoices().find((v) => voiceLang(v) === LANG[lang].speech.toLowerCase()) || null;
-  return bestVoice(lang, speechSynthesis.getVoices());
+  if (!IS_APPLE) return usableVoices().find((v) => voiceLang(v) === LANG[lang].speech.toLowerCase()) || null;
+  return bestVoice(lang, usableVoices());
 }
 
-function makeUtterance(text, lang) {
+/** onFail: 이 음성이 못 읽어서 다른 음성으로 바꿨을 때 부를 함수(한 번만 다시 시도) */
+function makeUtterance(text, lang, onFail) {
   const u = new SpeechSynthesisUtterance(text);
   u.lang = LANG[lang].speech; u.rate = .9;
   const v = pickVoice(lang);
-  if (v) { u.voice = v; u.lang = v.lang; }
+  if (v) {
+    u.voice = v; u.lang = v.lang;
+    const tok = speechToken; let t0 = 0, handled = false;
+    const fail = () => {
+      if (handled || tok !== speechToken) return;   // 사용자가 멈추거나 다시 눌러서 끊긴 경우는 실패가 아님
+      handled = true; badVoices.add(v.name); saveBad();
+      toast('이 음성이 재생되지 않아 다른 음성으로 바꿨어요');
+      if (onFail) onFail();
+    };
+    u.addEventListener('start', () => { t0 = Date.now(); });
+    u.addEventListener('error', (e) => { if (e.error !== 'canceled' && e.error !== 'interrupted') fail(); });
+    u.addEventListener('end', () => { if (t0 && Date.now() - t0 < 150 && text.length >= 3) fail(); });   // 시작하자마자 끝나면 소리가 안 난 것
+  }
   else if (lang === 'yue' && speechSynthesis.getVoices().length) toast('이 기기에 광둥어 음성이 없어 표준 중국어로 읽힐 수 있어요 (설정 → 음성 점검)');
   return u;
 }
@@ -503,7 +521,8 @@ const VOICE_TEST = { yue: '早晨', en: 'Good morning. How are you today?', zh: 
 function voiceStatusHTML() {
   if (!canSpeak()) return '<div class="vs bad">이 브라우저는 음성 읽기를 지원하지 않아요.</div>';
   if (!speechSynthesis.getVoices().length) return '<div class="vs">음성 목록을 불러오는 중이에요… 설정을 닫았다가 다시 열어보세요.</div>';
-  return LANGS.map((l) => {
+  const skipped = badVoices.size ? `<div class="vrow"><div class="vinfo"><small>재생에 실패해 건너뛰는 음성: ${[...badVoices].map(esc).join(', ')} <button class="lnk" data-act="voice-reset">초기화</button></small></div></div>` : '';
+  return skipped + LANGS.map((l) => {
     const v = pickVoice(l.key);
     let info;
     if (v) info = `<span class="vs ok">✓ ${esc(v.name)}</span> <small>(${esc(v.lang)})</small>`;
@@ -528,25 +547,25 @@ function startSpeech(token, utterances) {
   const busy = speechSynthesis.speaking || speechSynthesis.pending;
   if (busy) speechSynthesis.cancel();
   const go = () => { if (token === speechToken) utterances.forEach((u) => speechSynthesis.speak(u)); };
-  if (busy && IS_IOS) setTimeout(go, 200); else go();
+  if (busy && IS_APPLE) setTimeout(go, 200); else go();
 }
 
-function speak(text, lang) {
+function speak(text, lang, retried = false) {
   if (!canSpeak()) { toast('이 기기에서는 발음 듣기를 지원하지 않아요'); return; }
   const was = st.speaking;
   const token = ++speechToken; st.speaking = null;
-  startSpeech(token, [makeUtterance(text, lang)]);
+  startSpeech(token, [makeUtterance(text, lang, retried ? null : () => speak(text, lang, true))]);
   if (was) render();
 }
 
 /** 문장 단위로 이어 읽는다 (긴 글을 한 번에 읽다 중간에 끊기는 브라우저 문제 완화). 끝나면 버튼이 자동으로 돌아온다 */
-function speakPassage(sentences, lang, key) {
+function speakPassage(sentences, lang, key, retried = false) {
   if (!canSpeak()) { toast('이 기기에서는 발음 듣기를 지원하지 않아요'); return; }
   const token = ++speechToken;
   st.speaking = key;
   const finish = () => { if (token === speechToken && st.speaking === key) { st.speaking = null; render(); } };
   const utts = sentences.map((text, i) => {
-    const u = makeUtterance(text, lang);
+    const u = makeUtterance(text, lang, retried ? null : () => speakPassage(sentences, lang, key, true));
     if (i === sentences.length - 1) u.onend = finish;
     u.onerror = finish;
     return u;
@@ -1011,6 +1030,7 @@ document.addEventListener('click', async (ev) => {
     }
     case 'read': { if (!pas) break; toggleRead(pas.dataset.date, pas.dataset.lang); break; }
     case 'install': if (deferredInstall) { deferredInstall.prompt(); deferredInstall = null; t.hidden = true; } break;
+    case 'voice-reset': badVoices.clear(); saveBad(); { const el = document.getElementById('s-voice'); if (el) el.innerHTML = voiceStatusHTML(); } toast('건너뛰던 음성을 초기화했어요'); break;
     case 'voice-test': { const vl = t.dataset.vlang || 'yue'; const pv = pickVoice(vl); toast(pv ? `▶ ${pv.name} (${pv.lang})` : '▶ 기기 기본 음성'); speak(VOICE_TEST[vl], vl); break; }
     case 'copy-config': {
       try { await navigator.clipboard.writeText($('#cfg-json').textContent); toast('복사했어요'); } catch { toast('복사에 실패했어요'); }

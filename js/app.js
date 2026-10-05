@@ -433,6 +433,7 @@ const VOICE_PREF = {
 };
 const VOICE_AVOID = /^(albert|bad news|bahh|bells|boing|bubbles|cellos|good news|jester|organ|superstar|trinoids|whisper|wobble|zarvox|fred|junior|ralph|kathy|princess|grandma|grandpa|eddy|flo|reed|rocko|sandy|shelley)\b/i;
 
+const isGoogleVoice = (v) => /^google\s/i.test(v.name);
 const NOVELTY_VOICES = new Set(['bad', 'bahh', 'bells', 'boing', 'bubbles', 'cellos', 'good', 'jester', 'organ', 'superstar', 'trinoids', 'whisper', 'wobble', 'zarvox']);   // 'bad news' 'good news' 는 첫 단어로 비교
 const MULTI_VOICES = new Set(['eddy', 'flo', 'reed', 'rocko', 'sandy', 'shelley']);
 function scoreVoice(v, lang, loose = false) {
@@ -460,13 +461,16 @@ function scoreVoice(v, lang, loose = false) {
   else if (NOVELTY_VOICES.has(base)) sc -= 5;      // 마지막 수단일 때도 효과음 음성은 맨 뒤로
   else if (MULTI_VOICES.has(base)) sc += 2;        // 말은 하는 다국어 음성(Eddy·Flo 등)은 앞으로
   if (v.localService) sc += 1;
+  if (IS_MAC && isGoogleVoice(v)) sc += 10;   // 맥 크롬: Google 온라인 음성은 맥 설치 상태와 상관없이 그 언어로 정확히 읽는다
   return sc;
 }
 
 /** 광둥어 음성 찾기: yue-* 우선, 그다음 zh-HK(홍콩 중국어). 없으면 null */
 function findYueVoice() {
   if (!canSpeak()) return null;
-  const vs = speechSynthesis.getVoices();
+  const vs = speechSynthesis.getVoices().filter((v) => !badVoices.has(v.name));
+  const yueLike = (v) => /^yue(-|$)/.test(voiceLang(v)) || voiceLang(v) === 'zh-hk' || /cantonese|粵|粤|廣東|广东/i.test(v.name);
+  if (IS_MAC) { const g = vs.find((v) => isGoogleVoice(v) && yueLike(v)); if (g) return g; }
   return vs.find((v) => /^yue(-|$)/.test(voiceLang(v)))
     || vs.find((v) => voiceLang(v) === 'zh-hk')
     || vs.find((v) => /cantonese|粵|粤|廣東|广东/i.test(v.name))
@@ -487,8 +491,8 @@ function bestVoice(lang, voices, loose = false) {
   return best;
 }
 /* 재생이 바로 끊기거나 오류가 난 음성은 기억해 두고 다음부터 건너뛴다 (예: 맥에서 목록에는 있지만 실제로는 못 읽는 음성) */
-const BAD_KEY = 'haru-eohwi.badvoices.v3';   // 이전 버전의 기록은 버린다
-try { localStorage.removeItem('haru-eohwi.badvoices'); localStorage.removeItem('haru-eohwi.badvoices.v2'); } catch { /* 무시 */ }
+const BAD_KEY = 'haru-eohwi.badvoices.v4';   // 이전 버전의 기록은 버린다
+try { for (const k of ['haru-eohwi.badvoices', 'haru-eohwi.badvoices.v2', 'haru-eohwi.badvoices.v3']) localStorage.removeItem(k); } catch { /* 무시 */ }
 const speechLog = [];   // 최근 재생 시도 (음성 점검 화면·진단 복사용)
 const logSpeech = (lang, v, result) => { speechLog.push(`${new Date().toLocaleTimeString('ko-KR')} ${lang} ${v ? v.name : '(기본 음성)'} → ${result}`); if (speechLog.length > 12) speechLog.shift(); };
 const badVoices = new Set((() => { try { const a = JSON.parse(localStorage.getItem(BAD_KEY)); return Array.isArray(a) ? a : []; } catch { return []; } })());
@@ -543,7 +547,7 @@ function voiceStatusHTML() {
   return skipped + logHTML + LANGS.map((l) => {
     const v = pickVoice(l.key);
     let info;
-    if (v) info = `<span class="vs ok">✓ ${esc(v.name)}</span> <small>(${esc(v.lang)})</small>`;
+    if (v) info = `<span class="vs ok">✓ ${esc(v.name)}</span> <small>(${esc(v.lang)}${isGoogleVoice(v) ? ' · 온라인' : ''})</small>`;
     else if (l.key === 'yue') info = '<span class="vs bad">⚠ 광둥어 음성이 없어요 — 표준 중국어로 읽혀요</span>';
     else info = '<span class="vs">기기 기본 음성을 써요</span>';
     return `<div class="vrow"><div class="vlang">${l.label}</div><div class="vinfo">${info}</div>
@@ -979,7 +983,7 @@ function openSettings() {
       <div id="s-voice" class="voice-box">${voiceStatusHTML()}</div>
       <small>광둥어 음성이 없으면 폰의 음성 설정에서 중국어(홍콩)/광둥어 음성을 설치하세요.</small>
       ${IS_IOS ? '<small class="warn-note">아이폰: iOS 가 중국어 방언을 시스템 설정 하나로 고정해 읽는 경우가 있어요. 광둥어와 표준 중국어가 같은 방언으로 들리면 설정 → 손쉬운 사용 → 말하기 콘텐츠 → 음성 → 중국어 → 「口說語言」에서 학습하는 쪽(粵語 / 國語)으로 바꿔 보세요. 웹 앱에서는 이 설정을 바꿀 수 없어요.</small>' : ''}
-      ${IS_MAC ? '<small class="warn-note">맥: 음성이 어색하면 시스템 설정 → 손쉬운 사용 → 말하기 콘텐츠 → 시스템 음성 → 음성 관리에서 한국어(Yuna)·일본어(Kyoko)·영어(Samantha) 같은 고품질(Enhanced/Premium) 음성을 내려받아 보세요. 중국어는 맥도 방언을 시스템 설정 하나로 고정해 읽는 경우가 있어요.</small>' : ''}</div>
+      ${IS_MAC ? '<small class="warn-note">맥: 크롬에서는 「Google …」 온라인 음성을 우선 써요(인터넷 필요). 맥 시스템 음성은 설치되지 않은 음성도 목록에 보이고, 그런 음성을 쓰면 시스템 기본 음성(예: 중국어)이 대신 읽어요. 사파리를 쓰거나 오프라인이면 시스템 설정 → 손쉬운 사용 → 말하기 콘텐츠 → 시스템 음성 → 음성 관리에서 한국어(Yuna)·일본어(Kyoko)·영어(Samantha) 음성을 내려받아 주세요.</small>' : ''}</div>
     <div class="field"><label for="s-topic">선호 주제·장면</label><input id="s-topic" list="topics" value="${esc(setting('topic'))}" placeholder="예: 실생활, 여행, 음식, 직장">
       <datalist id="topics">${['실생활', '여행', '음식', '직장', '쇼핑', '감정 표현', '교통'].map((o) => `<option value="${o}">`).join('')}</datalist>
       <small>생성에 적용하려면 <b>data/config.json</b>에 반영해야 해요. 아래 버튼으로 내용을 복사하세요.</small></div>

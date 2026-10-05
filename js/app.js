@@ -15,6 +15,7 @@ const LANGS = [
 const LANG = Object.fromEntries(LANGS.map((l) => [l.key, l]));
 const DEFAULT_CONFIG = {
   generateAt: '08:45',
+  schedule: { days: [1, 3], label: '주 2일(월요일, 수요일)' },   // 0=일 … 6=토
   counts: { yue: 5, en: 10, zh: 10, ja: 5, ko: 10 },
   levels: {
     yue: { label: '완전 초급' },
@@ -226,6 +227,11 @@ const st = {
   pop: null,            // 강조 단어 팝업 { date, lang, wordId }
   speaking: null,       // 글 전체 듣기 재생 중인 `${date}|${lang}`
 };
+
+/* ---------- 자료 생성 요일 ---------- */
+const genDays = () => (Array.isArray(st.config.schedule?.days) && st.config.schedule.days.length ? st.config.schedule.days : [0, 1, 2, 3, 4, 5, 6]);
+const genDayNames = () => genDays().map((n) => `${DOW[n]}요일`).join('·');
+const scheduleNote = () => (st.config.schedule?.label ? `${st.config.schedule.label} 진행중입니다` : '');
 
 /* ---------- 데이터 로딩 ---------- */
 async function getJSON(path) {
@@ -603,7 +609,7 @@ function viewDaily() {
 
   return `<div class="wrap">
     <div class="eyebrow">${dotted(date)} · DAILY WORDS</div>
-    <div class="hero"><div><h1>${esc(title)}</h1><p class="sub">${sub}</p></div>${ICON.sun}</div>
+    <div class="hero"><div><h1>${esc(title)}</h1><p class="sub">${sub}</p>${scheduleNote() ? `<span class="sched-note">${esc(scheduleNote())}</span>` : ''}</div>${ICON.sun}</div>
     <div class="week-head"><span class="ttl">${week[0].slice(5).replace('-', '.')} – ${week[6].slice(5).replace('-', '.')}</span>
       <span class="ctl"><button class="chip-btn" data-act="week" data-n="-7" aria-label="이전 주">‹</button>
       <button class="chip-btn" data-act="today">오늘</button>
@@ -634,7 +640,9 @@ function emptyState(date, ds) {
   if (ds.state === 'future') return `<div class="empty"><div class="big">🌱</div><h3>아직 오지 않은 날이에요</h3><p>미래 날짜에는 자료를 미리 보여주지 않아요.</p><button class="btn" data-act="today">오늘로 돌아가기</button></div>`;
   if (ds.state === 'generating') return `<div class="empty"><div class="big">✍️</div><h3>자료를 만드는 중이에요</h3><p>${esc(ds.message || '잠시 후 새로고침 해보세요.')}</p><button class="btn" data-act="refresh">새로고침</button></div>`;
   if (ds.state === 'failed') return `<div class="empty"><div class="big">⚠️</div><h3>자료 생성에 실패했어요</h3><p>${esc(ds.message || '다시 시도하면 해결될 수 있어요.')}</p><button class="btn" data-act="refresh">다시 불러오기</button></div>`;
-  const hint = date === today ? `오늘 자료는 보통 매일 ${esc(st.config.generateAt)} 이후에 올라와요.` : '이 날짜에는 만들어진 자료가 없어요.';
+  const offDay = !genDays().includes(parseDate(date).getDay());
+  const hint = offDay ? `자료는 ${esc(genDayNames())} ${esc(st.config.generateAt)}에만 만들어져요.<br>이 날은 자료를 만드는 요일이 아니에요.`
+    : date === today ? `오늘 자료는 보통 ${esc(genDayNames())} ${esc(st.config.generateAt)} 이후에 올라와요.` : '이 날짜에는 만들어진 자료가 없어요.';
   const offline = st.index ? '' : '<br>(자료 목록을 불러오지 못했어요. 연결 상태를 확인해 주세요.)';
   return `<div class="empty"><div class="big">📭</div><h3>자료가 없어요</h3><p>${hint}${offline}</p><button class="btn" data-act="refresh">새로고침</button></div>`;
 }
@@ -849,7 +857,8 @@ function viewReview() {
 function viewSchedule() {
   const cfg = st.config, c = cfg.counts, total = LANGS.reduce((n, l) => n + (c[l.key] || 0), 0);
   const now = new Date(), [hh, mm] = cfg.generateAt.split(':').map(Number);
-  const next = new Date(now); next.setHours(hh, mm, 0, 0); if (next <= now) next.setDate(next.getDate() + 1);
+  const next = new Date(now); next.setHours(hh, mm, 0, 0);
+  for (let i = 0; i < 8 && !(genDays().includes(next.getDay()) && next > now); i++) next.setDate(next.getDate() + 1);   // 다음 '생성 요일'
   const today = todayStr();
   const recent = Array.from({ length: 14 }, (_, i) => addDays(today, -i));
   const rows = recent.map((d) => {
@@ -862,9 +871,9 @@ function viewSchedule() {
   const lv = cfg.levels;
   return `<div class="wrap"><div class="eyebrow">SCHEDULE</div>
     <div class="hero"><div><h1>스케줄</h1><p class="sub">자료는 자동으로 만들어져 이 앱에 올라와요</p></div></div>
-    <div class="panel"><h3>매일 자료 생성</h3><dl class="kv">
-      <dt>생성 시각</dt><dd>매일 ${esc(cfg.generateAt)}</dd>
-      <dt>다음 생성</dt><dd>${next.getMonth() + 1}월 ${next.getDate()}일 ${esc(cfg.generateAt)}</dd>
+    <div class="panel"><h3>자료 생성</h3><dl class="kv">
+      <dt>생성 요일·시각</dt><dd>${esc(cfg.schedule?.label || '매일')} · ${esc(cfg.generateAt)}</dd>
+      <dt>다음 생성</dt><dd>${next.getMonth() + 1}월 ${next.getDate()}일 (${DOW[next.getDay()]}) ${esc(cfg.generateAt)}</dd>
       <dt>구성</dt><dd>단어 ${total}개 (${LANGS.map((l) => `${l.label} ${c[l.key] || 0}`).join(' · ')}) + 언어별 통합 글 ${LANGS.length}편</dd>
       ${LANGS.map((l) => `<dt>${l.label} 수준</dt><dd>${esc(lv[l.key]?.label || '')}${lv[l.key]?.standard ? ` <span class="msg">(${esc(lv[l.key].standard)})</span>` : ''}</dd>`).join('')}
       <dt>마지막 확인</dt><dd>${esc(sync)}</dd></dl>

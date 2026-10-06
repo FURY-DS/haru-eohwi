@@ -1,0 +1,1166 @@
+{
+  "schemaVersion": 2,
+  "date": "2026-10-07",
+  "status": "ready",
+  "generatedAt": "2026-10-07T08:48:34+09:00",
+  "sets": {
+    "yue": {
+      "lang": "yue",
+      "level": "완전 초급",
+      "words": [
+        {
+          "id": "yue-1",
+          "word": "今日",
+          "reading": "gam1 jat6",
+          "meaning": "오늘",
+          "pos": "명사"
+        },
+        {
+          "id": "yue-2",
+          "word": "巴士",
+          "reading": "baa1 si2",
+          "meaning": "버스",
+          "pos": "명사"
+        },
+        {
+          "id": "yue-3",
+          "word": "屋企",
+          "reading": "uk1 kei2",
+          "meaning": "집",
+          "pos": "명사"
+        },
+        {
+          "id": "yue-4",
+          "word": "靚",
+          "reading": "leng3",
+          "meaning": "예쁘다",
+          "pos": "형용사"
+        },
+        {
+          "id": "yue-5",
+          "word": "钟意",
+          "reading": "zung1 ji3",
+          "meaning": "좋아하다",
+          "pos": "동사"
+        }
+      ],
+      "passage": {
+        "title": "坐巴士返屋企",
+        "titleKo": "버스 타고 집에 가기",
+        "situation": "버스를 타고 집으로 돌아가는 길",
+        "sentences": [
+          {
+            "text": "今日我坐巴士。",
+            "reading": "gam1 jat6 ngo5 co5 baa1 si2.",
+            "ko": "오늘 저는 버스를 타요.",
+            "uses": [
+              {
+                "wordId": "yue-1",
+                "text": "今日",
+                "start": 0,
+                "end": 2
+              },
+              {
+                "wordId": "yue-2",
+                "text": "巴士",
+                "start": 4,
+                "end": 6
+              }
+            ]
+          },
+          {
+            "text": "我想返屋企。",
+            "reading": "ngo5 soeng2 faan1 uk1 kei2.",
+            "ko": "저는 집에 돌아가고 싶어요.",
+            "uses": [
+              {
+                "wordId": "yue-3",
+                "text": "屋企",
+                "start": 3,
+                "end": 5
+              }
+            ]
+          },
+          {
+            "text": "巴士上面有好多人。",
+            "reading": "baa1 si2 soeng6 min6 jau5 hou2 do1 jan4.",
+            "ko": "버스 안에 사람이 아주 많아요.",
+            "uses": [
+              {
+                "wordId": "yue-2",
+                "text": "巴士",
+                "start": 0,
+                "end": 2
+              }
+            ]
+          },
+          {
+            "text": "我睇到一个靚女。",
+            "reading": "ngo5 tai2 dou2 jat1 go3 leng3 neoi2.",
+            "ko": "저는 예쁜 여자 한 명을 봤어요.",
+            "uses": [
+              {
+                "wordId": "yue-4",
+                "text": "靚",
+                "start": 5,
+                "end": 6
+              }
+            ]
+          },
+          {
+            "text": "佢有一只狗，我好钟意狗。",
+            "reading": "keoi5 jau5 jat1 zek3 gau2, ngo5 hou2 zung1 ji3 gau2.",
+            "ko": "그녀는 개가 한 마리 있어요. 저는 개를 아주 좋아해요.",
+            "uses": [
+              {
+                "wordId": "yue-5",
+                "text": "钟意",
+                "start": 8,
+                "end": 10
+              }
+            ]
+          },
+          {
+            "text": "到屋企，我好开心！",
+            "reading": "dou3 uk1 kei2, ngo5 hou2 hoi1 sam1!",
+            "ko": "집에 도착하니 저는 아주 기뻐요!",
+            "uses": [
+              {
+                "wordId": "yue-3",
+                "text": "屋企",
+                "start": 1,
+                "end": 3
+              }
+            ]
+          }
+        ],
+        "grammar": {
+          "sentences": [
+            {
+              "sentence": 1,
+              "items": [
+                {
+                  "pattern": "今日",
+                  "title": "今日 (오늘)",
+                  "explain": "今日(gam1 jat6)는 '오늘'이에요. 시간을 나타내는 말은 보통 문장 맨 앞이나 주어 뒤에 놓아요."
+                },
+                {
+                  "pattern": "坐巴士",
+                  "title": "坐 + 탈것 (~을 타다)",
+                  "explain": "坐(co5)는 '앉다'이면서 '(탈것을) 타다'예요. 坐巴士 = 버스를 타다. 한국어와 달리 동사가 목적어 앞에 와요."
+                }
+              ]
+            },
+            {
+              "sentence": 2,
+              "items": [
+                {
+                  "pattern": "想返屋企",
+                  "title": "想 + 동사 (~하고 싶다)",
+                  "explain": "想(soeng2) 뒤에 동사를 붙이면 '~하고 싶다'예요. 返屋企(faan1 uk1 kei2) = 집에 돌아가다."
+                }
+              ]
+            },
+            {
+              "sentence": 3,
+              "items": [
+                {
+                  "pattern": "有好多人",
+                  "title": "有 + 好多 (~이 많이 있다)",
+                  "explain": "有(jau5)는 '있다'예요. 好多(hou2 do1)는 '아주 많다'예요. 有好多人 = 사람이 많이 있다."
+                }
+              ]
+            },
+            {
+              "sentence": 4,
+              "items": [
+                {
+                  "pattern": "睇到",
+                  "title": "동사 + 到 (~해서 보게 되다)",
+                  "explain": "睇(tai2)는 '보다'예요. 뒤에 到(dou2)를 붙이면 '보게 되다, 눈에 들어오다'라는 결과를 나타내요."
+                },
+                {
+                  "pattern": "一个靚女",
+                  "title": "수 + 양사 + 명사",
+                  "explain": "사람은 个(go3)로 세요. 一个靚女 = 예쁜 여자 한 명. 靚(leng3)는 '예쁘다'이고 명사 앞에 바로 쓸 수 있어요."
+                }
+              ]
+            },
+            {
+              "sentence": 5,
+              "items": [
+                {
+                  "pattern": "一只狗",
+                  "title": "只 (동물 세는 말)",
+                  "explain": "동물은 只(zek3)로 세요. 一只狗 = 개 한 마리."
+                },
+                {
+                  "pattern": "好钟意",
+                  "title": "好 + 동사 (아주 ~하다)",
+                  "explain": "好(hou2)는 '아주'예요. 钟意(zung1 ji3)는 '좋아하다'이고, 好钟意 = 아주 좋아하다."
+                }
+              ]
+            },
+            {
+              "sentence": 6,
+              "items": [
+                {
+                  "pattern": "好开心",
+                  "title": "好 + 형용사 (係 없이)",
+                  "explain": "광둥어는 형용사 앞에 好만 붙이면 돼요. 我好开心 = 저는 기뻐요. 我係开心처럼 係(이다)를 넣지 않아요."
+                }
+              ]
+            }
+          ],
+          "summary": [
+            "동사가 목적어 앞: 坐巴士(버스를 타다), 想 + 동사 = ~하고 싶다 (想返屋企).",
+            "수 + 양사 + 명사: 一个靚女(사람), 一只狗(동물). 到는 '결과'를 나타내요 (睇到).",
+            "好 + 형용사/동사 = 아주 ~하다 (好多人, 好钟意, 好开心). 係를 넣지 않아요."
+          ],
+          "compare": [
+            {
+              "this": "今日",
+              "other": "今天"
+            },
+            {
+              "this": "睇",
+              "other": "看"
+            },
+            {
+              "this": "佢",
+              "other": "他 / 她"
+            },
+            {
+              "this": "钟意",
+              "other": "喜欢"
+            },
+            {
+              "this": "屋企",
+              "other": "家"
+            },
+            {
+              "this": "好多",
+              "other": "很多"
+            }
+          ]
+        }
+      }
+    },
+    "en": {
+      "lang": "en",
+      "level": "토익스피킹 대비",
+      "words": [
+        {
+          "id": "en-1",
+          "word": "encourage",
+          "reading": "/ɪnˈkɜːrɪdʒ/",
+          "meaning": "격려하다, 장려하다",
+          "pos": "동사"
+        },
+        {
+          "id": "en-2",
+          "word": "regularly",
+          "reading": "/ˈrɛɡjələrli/",
+          "meaning": "규칙적으로, 정기적으로",
+          "pos": "부사"
+        },
+        {
+          "id": "en-3",
+          "word": "stressful",
+          "reading": "/ˈstrɛsfəl/",
+          "meaning": "스트레스가 많은",
+          "pos": "형용사"
+        },
+        {
+          "id": "en-4",
+          "word": "routine",
+          "reading": "/ruːˈtiːn/",
+          "meaning": "일상, 습관적인 일과",
+          "pos": "명사"
+        },
+        {
+          "id": "en-5",
+          "word": "offer",
+          "reading": "/ˈɔːfər/",
+          "meaning": "제공하다",
+          "pos": "동사"
+        },
+        {
+          "id": "en-6",
+          "word": "participate",
+          "reading": "/pɑːrˈtɪsɪpeɪt/",
+          "meaning": "참여하다",
+          "pos": "동사"
+        },
+        {
+          "id": "en-7",
+          "word": "energetic",
+          "reading": "/ˌɛnərˈdʒɛtɪk/",
+          "meaning": "활기찬",
+          "pos": "형용사"
+        },
+        {
+          "id": "en-8",
+          "word": "concentrate",
+          "reading": "/ˈkɑːnsəntreɪt/",
+          "meaning": "집중하다",
+          "pos": "동사"
+        },
+        {
+          "id": "en-9",
+          "word": "colleague",
+          "reading": "/ˈkɑːliːɡ/",
+          "meaning": "동료",
+          "pos": "명사"
+        },
+        {
+          "id": "en-10",
+          "word": "relationship",
+          "reading": "/rɪˈleɪʃənʃɪp/",
+          "meaning": "관계",
+          "pos": "명사"
+        }
+      ],
+      "passage": {
+        "title": "Opinion: Fitness Programs at Work",
+        "titleKo": "의견 말하기: 회사의 운동 프로그램",
+        "situation": "회사가 직원 운동 프로그램을 지원해야 하는지에 대한 의견 말하기",
+        "sentences": [
+          {
+            "text": "I think companies should encourage employees to exercise regularly.",
+            "ko": "저는 회사가 직원들이 규칙적으로 운동하도록 장려해야 한다고 생각합니다.",
+            "uses": [
+              {
+                "wordId": "en-1",
+                "text": "encourage",
+                "start": 25,
+                "end": 34
+              },
+              {
+                "wordId": "en-2",
+                "text": "regularly",
+                "start": 57,
+                "end": 66
+              }
+            ]
+          },
+          {
+            "text": "Many people have a stressful job, so a healthy routine can really help.",
+            "ko": "많은 사람들이 스트레스가 많은 일을 하기 때문에, 건강한 습관은 정말 도움이 될 수 있습니다.",
+            "uses": [
+              {
+                "wordId": "en-3",
+                "text": "stressful",
+                "start": 19,
+                "end": 28
+              },
+              {
+                "wordId": "en-4",
+                "text": "routine",
+                "start": 47,
+                "end": 54
+              }
+            ]
+          },
+          {
+            "text": "For example, my company offers free yoga classes after work.",
+            "ko": "예를 들어, 저희 회사는 퇴근 후에 무료 요가 수업을 제공합니다.",
+            "uses": [
+              {
+                "wordId": "en-5",
+                "text": "offers",
+                "start": 24,
+                "end": 30
+              }
+            ]
+          },
+          {
+            "text": "I participate in the class every Tuesday, and I feel more energetic afterward.",
+            "ko": "저는 매주 화요일 그 수업에 참여하고, 그 후에 더 활기차게 느낍니다.",
+            "uses": [
+              {
+                "wordId": "en-6",
+                "text": "participate",
+                "start": 2,
+                "end": 13
+              },
+              {
+                "wordId": "en-7",
+                "text": "energetic",
+                "start": 58,
+                "end": 67
+              }
+            ]
+          },
+          {
+            "text": "As a result, I can concentrate better and finish my tasks faster.",
+            "ko": "그 결과, 저는 더 잘 집중하고 일을 더 빨리 끝낼 수 있습니다.",
+            "uses": [
+              {
+                "wordId": "en-8",
+                "text": "concentrate",
+                "start": 19,
+                "end": 30
+              }
+            ]
+          },
+          {
+            "text": "In addition, the program helps colleagues build stronger relationships.",
+            "ko": "게다가, 그 프로그램은 동료들이 더 끈끈한 관계를 쌓도록 도와줍니다.",
+            "uses": [
+              {
+                "wordId": "en-9",
+                "text": "colleagues",
+                "start": 31,
+                "end": 41
+              },
+              {
+                "wordId": "en-10",
+                "text": "relationships",
+                "start": 57,
+                "end": 70
+              }
+            ]
+          },
+          {
+            "text": "That is why I strongly support this kind of program.",
+            "ko": "그래서 저는 이런 프로그램을 적극 지지합니다.",
+            "uses": []
+          }
+        ]
+      }
+    },
+    "zh": {
+      "lang": "zh",
+      "level": "HSK 4~6급",
+      "hskStandard": "HSK 2.0 (6급제) 기준 4~6급 어휘",
+      "words": [
+        {
+          "id": "zh-1",
+          "word": "举办",
+          "reading": "jǔbàn",
+          "meaning": "개최하다, 열다",
+          "pos": "동사"
+        },
+        {
+          "id": "zh-2",
+          "word": "通知",
+          "reading": "tōngzhī",
+          "meaning": "통지, 공지",
+          "pos": "명사"
+        },
+        {
+          "id": "zh-3",
+          "word": "报名",
+          "reading": "bàomíng",
+          "meaning": "신청하다, 등록하다",
+          "pos": "동사"
+        },
+        {
+          "id": "zh-4",
+          "word": "陌生",
+          "reading": "mòshēng",
+          "meaning": "낯설다",
+          "pos": "형용사"
+        },
+        {
+          "id": "zh-5",
+          "word": "积极",
+          "reading": "jījí",
+          "meaning": "적극적이다",
+          "pos": "형용사"
+        },
+        {
+          "id": "zh-6",
+          "word": "关心",
+          "reading": "guānxīn",
+          "meaning": "관심을 갖다, 배려하다",
+          "pos": "동사"
+        },
+        {
+          "id": "zh-7",
+          "word": "收获",
+          "reading": "shōuhuò",
+          "meaning": "수확, 얻은 것",
+          "pos": "명사"
+        },
+        {
+          "id": "zh-8",
+          "word": "感受",
+          "reading": "gǎnshòu",
+          "meaning": "느끼다, 느낌",
+          "pos": "동사"
+        },
+        {
+          "id": "zh-9",
+          "word": "贡献",
+          "reading": "gòngxiàn",
+          "meaning": "공헌(하다)",
+          "pos": "명사"
+        },
+        {
+          "id": "zh-10",
+          "word": "增加",
+          "reading": "zēngjiā",
+          "meaning": "늘다, 늘리다",
+          "pos": "동사"
+        }
+      ],
+      "passage": {
+        "title": "社区志愿活动",
+        "titleKo": "동네 봉사 활동",
+        "situation": "동네 환경 보호 봉사 활동에 참가한 경험 이야기",
+        "sentences": [
+          {
+            "text": "上个月社区举办了一次环保活动，我看到通知后马上报名了。",
+            "reading": "Shàng ge yuè shèqū jǔbàn le yí cì huánbǎo huódòng, wǒ kàndào tōngzhī hòu mǎshàng bàomíng le.",
+            "ko": "지난달 동네에서 환경 보호 행사를 열었고, 저는 공지를 보고 바로 신청했어요.",
+            "uses": [
+              {
+                "wordId": "zh-1",
+                "text": "举办",
+                "start": 5,
+                "end": 7
+              },
+              {
+                "wordId": "zh-2",
+                "text": "通知",
+                "start": 18,
+                "end": 20
+              },
+              {
+                "wordId": "zh-3",
+                "text": "报名",
+                "start": 23,
+                "end": 25
+              }
+            ]
+          },
+          {
+            "text": "刚到现场的时候，我对周围的人都很陌生，心里不太自在。",
+            "reading": "Gāng dào xiànchǎng de shíhou, wǒ duì zhōuwéi de rén dōu hěn mòshēng, xīnlǐ bú tài zìzài.",
+            "ko": "현장에 막 도착했을 때 주변 사람들이 다 낯설어서 마음이 편하지 않았어요.",
+            "uses": [
+              {
+                "wordId": "zh-4",
+                "text": "陌生",
+                "start": 16,
+                "end": 18
+              }
+            ]
+          },
+          {
+            "text": "不过大家都很积极，主动关心每一位新来的人。",
+            "reading": "Bùguò dàjiā dōu hěn jījí, zhǔdòng guānxīn měi yí wèi xīn lái de rén.",
+            "ko": "하지만 모두가 적극적이어서, 새로 온 사람들을 먼저 챙겨 주었어요.",
+            "uses": [
+              {
+                "wordId": "zh-5",
+                "text": "积极",
+                "start": 6,
+                "end": 8
+              },
+              {
+                "wordId": "zh-6",
+                "text": "关心",
+                "start": 11,
+                "end": 13
+              }
+            ]
+          },
+          {
+            "text": "我们一起打扫公园，捡了很多垃圾。",
+            "reading": "Wǒmen yìqǐ dǎsǎo gōngyuán, jiǎn le hěn duō lājī.",
+            "ko": "우리는 함께 공원을 청소하고 쓰레기를 많이 주웠어요.",
+            "uses": []
+          },
+          {
+            "text": "虽然很累，但是我收获了很多，也真正感受到了团队的力量。",
+            "reading": "Suīrán hěn lèi, dànshì wǒ shōuhuò le hěn duō, yě zhēnzhèng gǎnshòu dào le tuánduì de lìliàng.",
+            "ko": "비록 힘들었지만 얻은 것이 많았고, 팀의 힘도 진정으로 느꼈어요.",
+            "uses": [
+              {
+                "wordId": "zh-7",
+                "text": "收获",
+                "start": 8,
+                "end": 10
+              },
+              {
+                "wordId": "zh-8",
+                "text": "感受",
+                "start": 17,
+                "end": 19
+              }
+            ]
+          },
+          {
+            "text": "每个人都为社区做出了一点贡献，参加的人数也比去年增加了不少。",
+            "reading": "Měi ge rén dōu wèi shèqū zuòchū le yìdiǎn gòngxiàn, cānjiā de rénshù yě bǐ qùnián zēngjiā le bù shǎo.",
+            "ko": "모두가 동네에 작게나마 기여했고, 참가 인원도 작년보다 꽤 늘었어요.",
+            "uses": [
+              {
+                "wordId": "zh-9",
+                "text": "贡献",
+                "start": 12,
+                "end": 14
+              },
+              {
+                "wordId": "zh-10",
+                "text": "增加",
+                "start": 24,
+                "end": 26
+              }
+            ]
+          },
+          {
+            "text": "我打算以后经常参加这样的活动。",
+            "reading": "Wǒ dǎsuàn yǐhòu jīngcháng cānjiā zhèyàng de huódòng.",
+            "ko": "저는 앞으로 이런 활동에 자주 참가할 생각이에요.",
+            "uses": []
+          }
+        ]
+      }
+    },
+    "ja": {
+      "lang": "ja",
+      "level": "완전 초급 (JLPT N5 이하)",
+      "words": [
+        {
+          "id": "ja-1",
+          "word": "天気",
+          "reading": "てんき",
+          "meaning": "날씨",
+          "pos": "명사",
+          "ruby": [
+            {
+              "t": "天",
+              "r": "てん"
+            },
+            {
+              "t": "気",
+              "r": "き"
+            }
+          ]
+        },
+        {
+          "id": "ja-2",
+          "word": "あつい",
+          "reading": "あつい",
+          "meaning": "덥다",
+          "pos": "형용사"
+        },
+        {
+          "id": "ja-3",
+          "word": "アイス",
+          "reading": "アイス",
+          "meaning": "아이스크림",
+          "pos": "명사"
+        },
+        {
+          "id": "ja-4",
+          "word": "かう",
+          "reading": "かう",
+          "meaning": "사다",
+          "pos": "동사"
+        },
+        {
+          "id": "ja-5",
+          "word": "こうえん",
+          "reading": "こうえん",
+          "meaning": "공원",
+          "pos": "명사"
+        }
+      ],
+      "passage": {
+        "title": "あつい日のアイス",
+        "titleKo": "더운 날의 아이스크림",
+        "situation": "더운 날 친구와 공원에 가서 아이스크림을 사 먹기",
+        "sentences": [
+          {
+            "text": "今日はいい天気です。",
+            "reading": "きょうはいいてんきです。",
+            "ko": "오늘은 날씨가 좋아요.",
+            "ruby": [
+              {
+                "t": "今日",
+                "r": "きょう"
+              },
+              {
+                "t": "はいい"
+              },
+              {
+                "t": "天気",
+                "r": "てんき"
+              },
+              {
+                "t": "です。"
+              }
+            ],
+            "uses": [
+              {
+                "wordId": "ja-1",
+                "text": "天気",
+                "start": 5,
+                "end": 7
+              }
+            ]
+          },
+          {
+            "text": "でも、すこしあついです。",
+            "reading": "でも、すこしあついです。",
+            "ko": "그래도 조금 더워요.",
+            "uses": [
+              {
+                "wordId": "ja-2",
+                "text": "あつい",
+                "start": 6,
+                "end": 9
+              }
+            ]
+          },
+          {
+            "text": "友だちとこうえんに行きます。",
+            "reading": "ともだちとこうえんにいきます。",
+            "ko": "친구와 공원에 가요.",
+            "ruby": [
+              {
+                "t": "友",
+                "r": "とも"
+              },
+              {
+                "t": "だちとこうえんに"
+              },
+              {
+                "t": "行",
+                "r": "い"
+              },
+              {
+                "t": "きます。"
+              }
+            ],
+            "uses": [
+              {
+                "wordId": "ja-5",
+                "text": "こうえん",
+                "start": 4,
+                "end": 8
+              }
+            ]
+          },
+          {
+            "text": "みせでアイスをかいます。",
+            "reading": "みせでアイスをかいます。",
+            "ko": "가게에서 아이스크림을 사요.",
+            "uses": [
+              {
+                "wordId": "ja-3",
+                "text": "アイス",
+                "start": 3,
+                "end": 6
+              },
+              {
+                "wordId": "ja-4",
+                "text": "かい",
+                "start": 7,
+                "end": 9
+              }
+            ]
+          },
+          {
+            "text": "アイスはおいしいです。",
+            "reading": "アイスはおいしいです。",
+            "ko": "아이스크림은 맛있어요.",
+            "uses": [
+              {
+                "wordId": "ja-3",
+                "text": "アイス",
+                "start": 0,
+                "end": 3
+              }
+            ]
+          },
+          {
+            "text": "あつい日はアイスがいいですね。",
+            "reading": "あついひはアイスがいいですね。",
+            "ko": "더운 날은 아이스크림이 좋네요.",
+            "ruby": [
+              {
+                "t": "あつい"
+              },
+              {
+                "t": "日",
+                "r": "ひ"
+              },
+              {
+                "t": "はアイスがいいですね。"
+              }
+            ],
+            "uses": [
+              {
+                "wordId": "ja-2",
+                "text": "あつい",
+                "start": 0,
+                "end": 3
+              },
+              {
+                "wordId": "ja-3",
+                "text": "アイス",
+                "start": 5,
+                "end": 8
+              }
+            ]
+          }
+        ],
+        "grammar": {
+          "sentences": [
+            {
+              "sentence": 1,
+              "items": [
+                {
+                  "pattern": "天気です",
+                  "title": "〜です (~입니다)",
+                  "explain": "「です」는 '~예요/입니다'라는 정중한 말이에요. てんきです = 날씨예요. 「いい」는 '좋다'이고 명사 앞에 바로 쓸 수 있어요."
+                }
+              ]
+            },
+            {
+              "sentence": 2,
+              "items": [
+                {
+                  "pattern": "あつい",
+                  "title": "い형용사 (あつい)",
+                  "explain": "「あつい」(덥다)처럼 끝이 「い」인 말은 뒤에 「です」를 붙여 정중하게 말해요. あついです = 더워요. 「すこし」는 '조금'이에요."
+                }
+              ]
+            },
+            {
+              "sentence": 3,
+              "items": [
+                {
+                  "pattern": "友だちと",
+                  "title": "と (~와/과)",
+                  "explain": "「と」는 '~와 함께'예요. ともだちと = 친구와."
+                },
+                {
+                  "pattern": "こうえんに",
+                  "title": "に (~에, 가는 곳)",
+                  "explain": "「に」는 가는 곳(목적지)을 나타내요. こうえんに = 공원에."
+                },
+                {
+                  "pattern": "行きます",
+                  "title": "〜ます (정중한 말투)",
+                  "explain": "「いく」(가다)의 정중한 말이에요. いく → いき + ます = 가요."
+                }
+              ]
+            },
+            {
+              "sentence": 4,
+              "items": [
+                {
+                  "pattern": "みせで",
+                  "title": "で (~에서)",
+                  "explain": "「で」는 어떤 일을 하는 장소를 나타내요. みせで = 가게에서."
+                },
+                {
+                  "pattern": "アイスを",
+                  "title": "を (~을/를)",
+                  "explain": "「を」는 동작의 대상 뒤에 붙어요. アイスを = 아이스크림을."
+                },
+                {
+                  "pattern": "かいます",
+                  "title": "かう → かいます (사다의 정중한 말)",
+                  "explain": "「かう」(사다)의 정중한 말은 かいます예요. 끝의 「う」가 「い」로 바뀌고 「ます」가 붙어요."
+                }
+              ]
+            },
+            {
+              "sentence": 5,
+              "items": [
+                {
+                  "pattern": "アイスは",
+                  "title": "は (~은/는)",
+                  "explain": "「は」는 이야기의 주제를 나타내요. 소리는 「わ」로 읽어요. アイスは = 아이스크림은."
+                }
+              ]
+            },
+            {
+              "sentence": 6,
+              "items": [
+                {
+                  "pattern": "いいですね",
+                  "title": "〜ね (~네요)",
+                  "explain": "문장 끝의 「ね」는 상대에게 공감을 구하는 말이에요. いいですね = 좋네요."
+                }
+              ]
+            }
+          ],
+          "summary": [
+            "「に」는 가는 곳, 「で」는 하는 곳, 「を」는 대상, 「と」는 함께 하는 사람.",
+            "동사에 「ます」를 붙이면 정중해요: いく → いきます, かう → かいます.",
+            "「です」「〜い+です」: てんきです, あついです. 끝의 「ね」는 '~네요'."
+          ]
+        }
+      }
+    },
+    "ko": {
+      "lang": "ko",
+      "level": "사회통합프로그램 4단계 이상",
+      "words": [
+        {
+          "id": "ko-1",
+          "word": "근로계약서",
+          "meaning": "일하는 조건을 적어 회사와 직원이 약속한 문서",
+          "meaningZh": "劳动合同",
+          "pos": "명사"
+        },
+        {
+          "id": "ko-2",
+          "word": "출근하다",
+          "meaning": "일하러 회사에 가다",
+          "meaningZh": "上班",
+          "pos": "동사"
+        },
+        {
+          "id": "ko-3",
+          "word": "야근",
+          "meaning": "정해진 시간이 지난 뒤 밤에 하는 일",
+          "meaningZh": "加班（夜班）",
+          "pos": "명사"
+        },
+        {
+          "id": "ko-4",
+          "word": "월급",
+          "meaning": "한 달 동안 일한 값으로 받는 돈",
+          "meaningZh": "月薪；工资",
+          "pos": "명사"
+        },
+        {
+          "id": "ko-5",
+          "word": "연차",
+          "meaning": "일 년 동안 쉴 수 있도록 정해진 유급 휴가",
+          "meaningZh": "年假",
+          "pos": "명사"
+        },
+        {
+          "id": "ko-6",
+          "word": "동료",
+          "meaning": "같은 곳에서 함께 일하는 사람",
+          "meaningZh": "同事",
+          "pos": "명사"
+        },
+        {
+          "id": "ko-7",
+          "word": "신청하다",
+          "meaning": "어떤 일을 해 달라고 정식으로 요청하다",
+          "meaningZh": "申请",
+          "pos": "동사"
+        },
+        {
+          "id": "ko-8",
+          "word": "승인",
+          "meaning": "요청한 일을 해도 좋다고 허락하는 것",
+          "meaningZh": "批准；认可",
+          "pos": "명사"
+        },
+        {
+          "id": "ko-9",
+          "word": "일정",
+          "meaning": "언제 무엇을 할지 정해 놓은 계획",
+          "meaningZh": "日程；行程安排",
+          "pos": "명사"
+        },
+        {
+          "id": "ko-10",
+          "word": "조율하다",
+          "meaning": "서로 맞지 않는 것을 의논해서 알맞게 맞추다",
+          "meaningZh": "协调；调整",
+          "pos": "동사"
+        }
+      ],
+      "passage": {
+        "title": "회사에서 연차 신청하기",
+        "titleZh": "在公司申请年假",
+        "situation": "새 회사에서 일하며 연차를 신청하는 과정",
+        "sentences": [
+          {
+            "text": "저는 이번 달에 새 회사에 입사해서 근로계약서를 꼼꼼히 읽어 보았어요.",
+            "zh": "我这个月进了新公司，仔细读了劳动合同。",
+            "uses": [
+              {
+                "wordId": "ko-1",
+                "text": "근로계약서",
+                "start": 20,
+                "end": 25
+              }
+            ]
+          },
+          {
+            "text": "매일 아침 아홉 시까지 출근해야 하는데 요즘은 야근이 많다 보니 늘 피곤해요.",
+            "zh": "每天早上九点前必须上班，可是最近加班很多，所以总是很累。",
+            "uses": [
+              {
+                "wordId": "ko-2",
+                "text": "출근해야",
+                "start": 13,
+                "end": 17
+              },
+              {
+                "wordId": "ko-3",
+                "text": "야근",
+                "start": 26,
+                "end": 28
+              }
+            ]
+          },
+          {
+            "text": "그래도 월급날이 되면 기분이 좋아지고 동료들과 점심을 먹으면서 힘을 내요.",
+            "zh": "不过一到发工资的日子心情就会变好，和同事们一起吃午饭也能打起精神。",
+            "uses": [
+              {
+                "wordId": "ko-4",
+                "text": "월급",
+                "start": 4,
+                "end": 6
+              },
+              {
+                "wordId": "ko-6",
+                "text": "동료",
+                "start": 21,
+                "end": 23
+              }
+            ]
+          },
+          {
+            "text": "다음 달에 가족 여행을 가려고 연차를 신청하기로 했어요.",
+            "zh": "我打算下个月去家庭旅行，所以决定申请年假。",
+            "uses": [
+              {
+                "wordId": "ko-5",
+                "text": "연차",
+                "start": 17,
+                "end": 19
+              },
+              {
+                "wordId": "ko-7",
+                "text": "신청하기로",
+                "start": 21,
+                "end": 26
+              }
+            ]
+          },
+          {
+            "text": "연차를 쓰려면 팀장님의 승인을 받아야 해서 먼저 일정을 조율해 봤어요.",
+            "zh": "想休年假就得获得组长的批准，所以我先协调了一下日程。",
+            "uses": [
+              {
+                "wordId": "ko-5",
+                "text": "연차",
+                "start": 0,
+                "end": 2
+              },
+              {
+                "wordId": "ko-8",
+                "text": "승인",
+                "start": 13,
+                "end": 15
+              },
+              {
+                "wordId": "ko-9",
+                "text": "일정",
+                "start": 27,
+                "end": 29
+              },
+              {
+                "wordId": "ko-10",
+                "text": "조율해",
+                "start": 31,
+                "end": 34
+              }
+            ]
+          },
+          {
+            "text": "다행히 동료들이 업무를 대신 맡아 주기로 해서 걱정을 덜었어요.",
+            "zh": "幸好同事们决定替我接手工作，我也就放心了。",
+            "uses": [
+              {
+                "wordId": "ko-6",
+                "text": "동료",
+                "start": 4,
+                "end": 6
+              }
+            ]
+          }
+        ],
+        "grammar": {
+          "sentences": [
+            {
+              "sentence": 1,
+              "items": [
+                {
+                  "pattern": "읽어 보았어요",
+                  "title": "-아/어 보다（试着……）",
+                  "explain": "表示“尝试做某事”或“做过某事”。읽다（读）+ -어 보다 = 읽어 보다（读读看）。这里是“认真读了一遍”的意思，过去式为 읽어 보았어요。"
+                }
+              ]
+            },
+            {
+              "sentence": 2,
+              "items": [
+                {
+                  "pattern": "많다 보니",
+                  "title": "-다 보니（做着做着就……）",
+                  "explain": "表示在某个状态或行为持续的过程中，自然得出后面的结果。야근이 많다 보니 늘 피곤해요 = 因为加班多，所以总是累。注意：前后主语可以不同，后句多为自然形成的结果，不能接命令句或共动句。"
+                }
+              ]
+            },
+            {
+              "sentence": 3,
+              "items": [
+                {
+                  "pattern": "되면",
+                  "title": "-(으)면（如果……就……）",
+                  "explain": "表示假设或条件。월급날이 되면 = 一到发工资的日子。与中文“一……就……”相近，动词词干以元音结尾加 -면，以辅音结尾加 -으면。"
+                }
+              ]
+            },
+            {
+              "sentence": 4,
+              "items": [
+                {
+                  "pattern": "신청하기로 했어요",
+                  "title": "-기로 하다（决定……）",
+                  "explain": "表示“决定做某事”或“约定做某事”。신청하다 + -기로 하다 = 신청하기로 하다（决定申请）。时态放在 하다 上：했어요 表示已经决定。注意不要说成 -기로 결정하다。"
+                }
+              ]
+            },
+            {
+              "sentence": 5,
+              "items": [
+                {
+                  "pattern": "쓰려면",
+                  "title": "-(으)려면（想要……的话）",
+                  "explain": "表示“如果想要做某事，就需要……”，后面常接 -아/어야 하다（必须）。연차를 쓰려면 승인을 받아야 해요 = 想休年假就得获得批准。쓰다 以元音结尾，所以用 -려면。"
+                }
+              ]
+            },
+            {
+              "sentence": 6,
+              "items": [
+                {
+                  "pattern": "주기로 해서",
+                  "title": "-기로 해서（决定……所以）",
+                  "explain": "-기로 하다 + -아/어서 = 因为决定了做某事，所以……。맡아 주다 是“替人接手、帮忙承担”的意思，-아/어 주다 表示为别人做某事。"
+                }
+              ]
+            }
+          ],
+          "summary": [
+            "-다 보니：做着做着自然得出结果（야근이 많다 보니 피곤해요）。",
+            "-(으)려면：想要做某事的话（연차를 쓰려면 승인을 받아야 해요）。",
+            "-기로 하다：决定或约定做某事（신청하기로 했어요、주기로 해서）。"
+          ]
+        }
+      }
+    }
+  }
+}

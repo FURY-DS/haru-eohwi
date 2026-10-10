@@ -1,22 +1,24 @@
 :root {
-  --bg: #f6f7f2;
+  /* Honeycomb: #FFC107 꿀 · #F9E076 연노랑 · #FFFDD0 크림 · #895129 갈색 (변수 이름 --green 은 '주요 색'이라는 뜻으로 그대로 둠) */
+  --bg: #fffbeb;
   --panel: #ffffff;
   --card: #ffffff;
-  --soft: #e6efe3;
-  --soft-2: #f1f4ec;
-  --line: #e3e7dc;
-  --ink: #1f2a24;
-  --ink-2: #5d6a62;
-  --ink-3: #8b968f;
-  --green: #2f5d46;
+  --soft: #fdf0bf;
+  --soft-2: #fffbe2;
+  --line: #f0e3bf;
+  --ink: #2b1c10;
+  --ink-2: #6d5643;
+  --ink-3: #a38c75;
+  --green: #895129;
   --green-ink: #ffffff;
-  --accent: #3f7a5a;
-  --warn: #b7791f;
-  --warn-bg: #fbf1dc;
+  --accent: #b5741c;
+  --honey: #ffc107;
+  --warn: #c2410c;
+  --warn-bg: #fde6d8;
   --bad: #b4443a;
-  --bad-bg: #f9e5e2;
+  --bad-bg: #f9e2de;
   --radius: 18px;
-  --shadow: 0 1px 2px rgba(31, 42, 36, .04);
+  --shadow: 0 1px 2px rgba(43, 28, 16, .05);
   --font: "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-han: "Noto Sans HK", "PingFang HK", "Microsoft JhengHei", "Noto Sans TC", var(--font);
   --font-sc: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", var(--font);
@@ -25,25 +27,25 @@
   color-scheme: light;
 }
 :root[data-theme="dark"] {
-  --bg: #151a17; --panel: #1b221e; --card: #1f2723; --soft: #25352c; --soft-2: #232c27;
-  --line: #2e3933; --ink: #e8efe9; --ink-2: #aab7ae; --ink-3: #79867d;
-  --green: #7fc29b; --green-ink: #10201657; --accent: #7fc29b;
-  --warn: #e3b25c; --warn-bg: #3a3120; --bad: #e58c82; --bad-bg: #3b2724;
+  --bg: #19130e; --panel: #201912; --card: #261d15; --soft: #3d2c17; --soft-2: #2b2118;
+  --line: #3b2f24; --ink: #f6eddf; --ink-2: #c9b7a2; --ink-3: #917e6a;
+  --green: #ffc107; --green-ink: #2a1a0b; --accent: #f9e076; --honey: #ffc107;
+  --warn: #f29a62; --warn-bg: #3e2518; --bad: #ef8f84; --bad-bg: #3d2522;
   --shadow: none; color-scheme: dark;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg: #151a17; --panel: #1b221e; --card: #1f2723; --soft: #25352c; --soft-2: #232c27;
-    --line: #2e3933; --ink: #e8efe9; --ink-2: #aab7ae; --ink-3: #79867d;
-    --green: #7fc29b; --green-ink: #10201657; --accent: #7fc29b;
-    --warn: #e3b25c; --warn-bg: #3a3120; --bad: #e58c82; --bad-bg: #3b2724;
+    --bg: #19130e; --panel: #201912; --card: #261d15; --soft: #3d2c17; --soft-2: #2b2118;
+    --line: #3b2f24; --ink: #f6eddf; --ink-2: #c9b7a2; --ink-3: #917e6a;
+    --green: #ffc107; --green-ink: #2a1a0b; --accent: #f9e076; --honey: #ffc107;
+    --warn: #f29a62; --warn-bg: #3e2518; --bad: #ef8f84; --bad-bg: #3d2522;
     --shadow: none; color-scheme: dark;
   }
 }
 /* 다크에서 버튼 글자색 */
-:root[data-theme="dark"] { --on-green: #0f1f16; }
+:root[data-theme="dark"] { --on-green: #2a1a0b; }
 :root:not([data-theme="dark"]) { --on-green: #ffffff; }
-@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --on-green: #0f1f16; } }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --on-green: #2a1a0b; } }
 
 * { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; }
@@ -123,8 +125,8 @@ h1 { margin: 2px 0 4px; font-size: 28px; letter-spacing: -.03em; line-height: 1.
 .progress-card { margin-top: 18px; background: var(--soft); border-radius: 20px; padding: 18px 20px; }
 .progress-card .row { display: flex; justify-content: space-between; align-items: center; gap: 8px; font-size: 14px; }
 .progress-card .row b { font-weight: 600; white-space: nowrap; }
-.bar { height: 7px; border-radius: 99px; background: rgba(127,140,132,.22); margin-top: 14px; overflow: hidden; }
-.bar > i { display: block; height: 100%; background: var(--green); border-radius: 99px; transition: width .25s; }
+.bar { height: 7px; border-radius: 99px; background: rgba(160,120,60,.18); margin-top: 14px; overflow: hidden; }
+.bar > i { display: block; height: 100%; background: var(--honey); border-radius: 99px; transition: width .25s; }
 .badge { display: inline-block; font-size: 12px; padding: 3px 10px; border-radius: 99px; background: var(--card); color: var(--ink-2); border: 1px solid var(--line); }
 .badge.complete { background: var(--green); color: var(--on-green); border-color: transparent; }
 .badge.progress { color: var(--green); border-color: var(--accent); }
@@ -200,7 +202,7 @@ h1 { margin: 2px 0 4px; font-size: 28px; letter-spacing: -.03em; line-height: 1.
 
 /* 모달 */
 dialog { border: 1px solid var(--line); border-radius: 22px; background: var(--panel); color: var(--ink); padding: 0; width: min(440px, calc(100vw - 24px)); max-height: calc(100dvh - 24px); box-shadow: 0 18px 60px rgba(0,0,0,.25); }
-dialog::backdrop { background: rgba(10, 16, 12, .45); }
+dialog::backdrop { background: rgba(20, 12, 4, .45); }
 .dlg { padding: 20px; }
 .dlg-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
 .dlg-head h2 { margin: 0; font-size: 18px; }

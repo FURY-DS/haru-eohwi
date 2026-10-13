@@ -1,0 +1,1262 @@
+{
+  "schemaVersion": 2,
+  "date": "2026-10-14",
+  "status": "ready",
+  "generatedAt": "2026-10-14T08:48:13+09:00",
+  "sets": {
+    "yue": {
+      "lang": "yue",
+      "level": "완전 초급",
+      "words": [
+        {
+          "id": "yue-1",
+          "word": "街市",
+          "reading": "gaai1 si5",
+          "meaning": "재래시장",
+          "pos": "명사"
+        },
+        {
+          "id": "yue-2",
+          "word": "鱼",
+          "reading": "jyu2",
+          "meaning": "생선",
+          "pos": "명사"
+        },
+        {
+          "id": "yue-3",
+          "word": "蚊",
+          "reading": "man1",
+          "meaning": "달러(홍콩 돈 단위, 구어)",
+          "pos": "양사"
+        },
+        {
+          "id": "yue-4",
+          "word": "要",
+          "reading": "jiu3",
+          "meaning": "원하다, 주세요",
+          "pos": "동사"
+        },
+        {
+          "id": "yue-5",
+          "word": "老板",
+          "reading": "lou5 baan2",
+          "meaning": "사장님, 가게 주인",
+          "pos": "명사"
+        }
+      ],
+      "passage": {
+        "title": "喺街市买鱼",
+        "titleKo": "시장에서 생선 사기",
+        "situation": "시장에서 생선 값을 묻고 사기",
+        "sentences": [
+          {
+            "text": "今日我去街市。",
+            "reading": "gam1 jat6 ngo5 heoi3 gaai1 si5.",
+            "ko": "오늘 저는 시장에 가요.",
+            "uses": [
+              {
+                "wordId": "yue-1",
+                "text": "街市",
+                "start": 4,
+                "end": 6
+              }
+            ]
+          },
+          {
+            "text": "我睇到条鱼。",
+            "reading": "ngo5 tai2 dou2 tiu4 jyu2.",
+            "ko": "저는 생선 한 마리를 봐요.",
+            "uses": [
+              {
+                "wordId": "yue-2",
+                "text": "鱼",
+                "start": 4,
+                "end": 5
+              }
+            ]
+          },
+          {
+            "text": "老板，呢条鱼几多钱呀？",
+            "reading": "lou5 baan2, ni1 tiu4 jyu2 gei2 do1 cin2 aa3?",
+            "ko": "사장님, 이 생선은 얼마예요?",
+            "uses": [
+              {
+                "wordId": "yue-5",
+                "text": "老板",
+                "start": 0,
+                "end": 2
+              },
+              {
+                "wordId": "yue-2",
+                "text": "鱼",
+                "start": 5,
+                "end": 6
+              }
+            ]
+          },
+          {
+            "text": "老板话：「三十蚊。」",
+            "reading": "lou5 baan2 waa6: \"saam1 sap6 man1.\"",
+            "ko": "사장님이 \"30달러예요\"라고 말해요.",
+            "uses": [
+              {
+                "wordId": "yue-5",
+                "text": "老板",
+                "start": 0,
+                "end": 2
+              },
+              {
+                "wordId": "yue-3",
+                "text": "蚊",
+                "start": 7,
+                "end": 8
+              }
+            ]
+          },
+          {
+            "text": "我话：「好呀，我要呢条。」",
+            "reading": "ngo5 waa6: \"hou2 aa3, ngo5 jiu3 ni1 tiu4.\"",
+            "ko": "저는 \"좋아요, 이걸로 주세요\"라고 말해요.",
+            "uses": [
+              {
+                "wordId": "yue-4",
+                "text": "要",
+                "start": 8,
+                "end": 9
+              }
+            ]
+          },
+          {
+            "text": "我畀钱，讲：「唔该！」",
+            "reading": "ngo5 bei2 cin2, gong2: \"m4 goi1!\"",
+            "ko": "저는 돈을 내고 \"감사합니다!\"라고 말해요.",
+            "uses": []
+          }
+        ],
+        "grammar": {
+          "sentences": [
+            {
+              "sentence": 1,
+              "items": [
+                {
+                  "pattern": "去街市",
+                  "title": "去 + 장소 (~에 가다)",
+                  "explain": "去(heoi3)는 \"가다\"예요. 去 뒤에 장소를 바로 붙여요. 去街市 = 시장에 가요. 한국어의 \"에\"에 해당하는 말이 따로 필요 없어요."
+                }
+              ]
+            },
+            {
+              "sentence": 2,
+              "items": [
+                {
+                  "pattern": "睇到",
+                  "title": "睇到 (보이다, 눈에 띄다)",
+                  "explain": "睇(tai2)는 \"보다\"예요. 뒤에 到를 붙이면 \"보게 되다, 눈에 띄다\"가 돼요. 我睇到条鱼 = 생선이 눈에 띄었어요."
+                },
+                {
+                  "pattern": "条鱼",
+                  "title": "条 (생선 세는 말)",
+                  "explain": "중국어권에서는 물건마다 세는 말(양사)이 있어요. 길쭉한 생선에는 条(tiu4)를 써요. 一条鱼 = 생선 한 마리."
+                }
+              ]
+            },
+            {
+              "sentence": 3,
+              "items": [
+                {
+                  "pattern": "呢条鱼",
+                  "title": "呢 + 양사 + 명사 (이 ~)",
+                  "explain": "呢(ni1)는 \"이\"예요. 呢와 명사 사이에 세는 말을 꼭 넣어요. 呢条鱼 = 이 생선."
+                },
+                {
+                  "pattern": "几多钱呀",
+                  "title": "几多钱 + 呀 (얼마예요?)",
+                  "explain": "几多钱(gei2 do1 cin2)는 값을 물을 때 쓰는 말이에요. 끝에 呀(aa3)를 붙이면 부드러운 질문이 돼요."
+                }
+              ]
+            },
+            {
+              "sentence": 4,
+              "items": [
+                {
+                  "pattern": "话",
+                  "title": "话 (말하다)",
+                  "explain": "광둥어에서 话(waa6)는 \"말하다, ~라고 하다\"로 자주 써요. 老板话 = 사장님이 말해요. 뒤에 하는 말을 「」로 이어요."
+                },
+                {
+                  "pattern": "三十蚊",
+                  "title": "숫자 + 蚊 (~달러)",
+                  "explain": "蚊(man1)은 홍콩 달러를 세는 입말이에요. 三十蚊 = 30달러. 숫자 뒤에 바로 붙여요."
+                }
+              ]
+            },
+            {
+              "sentence": 5,
+              "items": [
+                {
+                  "pattern": "好呀",
+                  "title": "好呀 (좋아요)",
+                  "explain": "好(hou2)는 \"좋다\"예요. 끝에 呀를 붙이면 \"좋아요!\" 하고 흔쾌히 답하는 느낌이에요."
+                },
+                {
+                  "pattern": "我要",
+                  "title": "要 (~을 원하다, 주세요)",
+                  "explain": "要(jiu3)는 가게에서 \"~을 주세요, ~을 살게요\"라고 할 때 써요. 我要呢条 = 이걸로 주세요."
+                }
+              ]
+            },
+            {
+              "sentence": 6,
+              "items": [
+                {
+                  "pattern": "唔该",
+                  "title": "唔该 (감사합니다 / 부탁합니다)",
+                  "explain": "唔该(m4 goi1)는 작은 도움이나 서비스를 받을 때 하는 인사예요. 선물처럼 큰 은혜에는 多谢를 써요."
+                }
+              ]
+            }
+          ],
+          "summary": [
+            "광둥어는 去 + 장소, 要 + 물건처럼 동사가 목적어 앞에 와요.",
+            "명사 앞에는 呢条鱼처럼 \"이/그 + 세는 말 + 명사\"로 말해요.",
+            "가격은 几多钱呀로 묻고, 돈을 내며 唔该라고 말해요."
+          ],
+          "compare": [
+            {
+              "this": "今日",
+              "other": "今天"
+            },
+            {
+              "this": "睇到",
+              "other": "看到"
+            },
+            {
+              "this": "呢条",
+              "other": "这条"
+            },
+            {
+              "this": "几多钱",
+              "other": "多少钱"
+            },
+            {
+              "this": "话",
+              "other": "说"
+            },
+            {
+              "this": "蚊",
+              "other": "块"
+            },
+            {
+              "this": "畀",
+              "other": "给"
+            }
+          ]
+        }
+      }
+    },
+    "en": {
+      "lang": "en",
+      "level": "토익스피킹 대비",
+      "words": [
+        {
+          "id": "en-1",
+          "word": "volunteer",
+          "reading": "/ˌvɑːlənˈtɪr/",
+          "meaning": "자원봉사를 하다; 자원봉사자",
+          "pos": "verb"
+        },
+        {
+          "id": "en-2",
+          "word": "community",
+          "reading": "/kəˈmjuːnəti/",
+          "meaning": "지역 사회, 공동체",
+          "pos": "noun"
+        },
+        {
+          "id": "en-3",
+          "word": "donate",
+          "reading": "/ˈdoʊneɪt/",
+          "meaning": "기부하다",
+          "pos": "verb"
+        },
+        {
+          "id": "en-4",
+          "word": "generous",
+          "reading": "/ˈdʒenərəs/",
+          "meaning": "너그러운, 후한",
+          "pos": "adjective"
+        },
+        {
+          "id": "en-5",
+          "word": "enthusiastic",
+          "reading": "/ɪnˌθuːziˈæstɪk/",
+          "meaning": "열정적인",
+          "pos": "adjective"
+        },
+        {
+          "id": "en-6",
+          "word": "experience",
+          "reading": "/ɪkˈspɪriəns/",
+          "meaning": "경험",
+          "pos": "noun"
+        },
+        {
+          "id": "en-7",
+          "word": "gain",
+          "reading": "/ɡeɪn/",
+          "meaning": "얻다",
+          "pos": "verb"
+        },
+        {
+          "id": "en-8",
+          "word": "opportunity",
+          "reading": "/ˌɑːpərˈtuːnəti/",
+          "meaning": "기회",
+          "pos": "noun"
+        },
+        {
+          "id": "en-9",
+          "word": "responsibility",
+          "reading": "/rɪˌspɑːnsəˈbɪləti/",
+          "meaning": "책임(감)",
+          "pos": "noun"
+        },
+        {
+          "id": "en-10",
+          "word": "support",
+          "reading": "/səˈpɔːrt/",
+          "meaning": "지지하다, 지원하다",
+          "pos": "verb"
+        }
+      ],
+      "passage": {
+        "title": "Why People Should Volunteer",
+        "titleKo": "왜 자원봉사를 해야 할까",
+        "situation": "자원봉사에 대한 의견을 경험과 함께 말하기",
+        "sentences": [
+          {
+            "text": "I believe everyone should volunteer in their community at least once a year.",
+            "ko": "저는 모든 사람이 일 년에 적어도 한 번은 지역 사회에서 자원봉사를 해야 한다고 생각해요.",
+            "uses": [
+              {
+                "wordId": "en-1",
+                "text": "volunteer",
+                "start": 26,
+                "end": 35
+              },
+              {
+                "wordId": "en-2",
+                "text": "community",
+                "start": 45,
+                "end": 54
+              }
+            ]
+          },
+          {
+            "text": "Last month, I joined an event where people donated used clothes to families in need.",
+            "ko": "지난달에 저는 사람들이 어려운 가정에 입던 옷을 기부하는 행사에 참여했어요.",
+            "uses": [
+              {
+                "wordId": "en-3",
+                "text": "donated",
+                "start": 43,
+                "end": 50
+              }
+            ]
+          },
+          {
+            "text": "Many neighbors were generous, so we collected more than we planned.",
+            "ko": "많은 이웃이 너그러워서 우리는 계획보다 더 많이 모았어요.",
+            "uses": [
+              {
+                "wordId": "en-4",
+                "text": "generous",
+                "start": 20,
+                "end": 28
+              }
+            ]
+          },
+          {
+            "text": "The team leaders were enthusiastic, and they made every volunteer feel welcome.",
+            "ko": "팀장들은 열정적이었고 모든 자원봉사자가 환영받는다고 느끼게 해 주었어요.",
+            "uses": [
+              {
+                "wordId": "en-5",
+                "text": "enthusiastic",
+                "start": 22,
+                "end": 34
+              },
+              {
+                "wordId": "en-1",
+                "text": "volunteer",
+                "start": 56,
+                "end": 65
+              }
+            ]
+          },
+          {
+            "text": "It was a valuable experience because I gained new skills and met kind people.",
+            "ko": "새로운 기술을 얻고 친절한 사람들을 만났기 때문에 값진 경험이었어요.",
+            "uses": [
+              {
+                "wordId": "en-6",
+                "text": "experience",
+                "start": 18,
+                "end": 28
+              },
+              {
+                "wordId": "en-7",
+                "text": "gained",
+                "start": 39,
+                "end": 45
+              }
+            ]
+          },
+          {
+            "text": "Volunteering also gives young people an opportunity to learn responsibility.",
+            "ko": "자원봉사는 또한 젊은 사람들에게 책임감을 배울 기회를 줘요.",
+            "uses": [
+              {
+                "wordId": "en-1",
+                "text": "Volunteering",
+                "start": 0,
+                "end": 12
+              },
+              {
+                "wordId": "en-8",
+                "text": "opportunity",
+                "start": 40,
+                "end": 51
+              },
+              {
+                "wordId": "en-9",
+                "text": "responsibility",
+                "start": 61,
+                "end": 75
+              }
+            ]
+          },
+          {
+            "text": "For these reasons, I strongly support community service programs.",
+            "ko": "이런 이유로 저는 지역 봉사 프로그램을 강력히 지지해요.",
+            "uses": [
+              {
+                "wordId": "en-10",
+                "text": "support",
+                "start": 30,
+                "end": 37
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "zh": {
+      "lang": "zh",
+      "level": "HSK 4~6급",
+      "hskStandard": "HSK 2.0 (6급제) 기준 4~6급 어휘",
+      "words": [
+        {
+          "id": "zh-1",
+          "word": "目标",
+          "reading": "mùbiāo",
+          "meaning": "목표",
+          "pos": "名词"
+        },
+        {
+          "id": "zh-2",
+          "word": "复习",
+          "reading": "fùxí",
+          "meaning": "복습하다",
+          "pos": "动词"
+        },
+        {
+          "id": "zh-3",
+          "word": "集中",
+          "reading": "jízhōng",
+          "meaning": "집중하다; 모으다",
+          "pos": "动词"
+        },
+        {
+          "id": "zh-4",
+          "word": "资料",
+          "reading": "zīliào",
+          "meaning": "자료",
+          "pos": "名词"
+        },
+        {
+          "id": "zh-5",
+          "word": "解决",
+          "reading": "jiějué",
+          "meaning": "해결하다",
+          "pos": "动词"
+        },
+        {
+          "id": "zh-6",
+          "word": "习惯",
+          "reading": "xíguàn",
+          "meaning": "습관; 익숙해지다",
+          "pos": "名词"
+        },
+        {
+          "id": "zh-7",
+          "word": "避免",
+          "reading": "bìmiǎn",
+          "meaning": "피하다, 방지하다",
+          "pos": "动词"
+        },
+        {
+          "id": "zh-8",
+          "word": "鼓励",
+          "reading": "gǔlì",
+          "meaning": "격려하다",
+          "pos": "动词"
+        },
+        {
+          "id": "zh-9",
+          "word": "成绩",
+          "reading": "chéngjì",
+          "meaning": "성적, 성과",
+          "pos": "名词"
+        },
+        {
+          "id": "zh-10",
+          "word": "提高",
+          "reading": "tígāo",
+          "meaning": "향상시키다, 높이다",
+          "pos": "动词"
+        }
+      ],
+      "passage": {
+        "title": "图书馆里的复习计划",
+        "titleKo": "도서관에서의 복습 계획",
+        "situation": "시험을 앞두고 도서관에서 공부하는 하루",
+        "sentences": [
+          {
+            "text": "为了实现这学期的目标，我每天晚上都去图书馆复习。",
+            "reading": "wèile shíxiàn zhè xuéqī de mùbiāo, wǒ měitiān wǎnshang dōu qù túshūguǎn fùxí.",
+            "ko": "이번 학기의 목표를 이루기 위해 저는 매일 저녁 도서관에 가서 복습해요.",
+            "uses": [
+              {
+                "wordId": "zh-1",
+                "text": "目标",
+                "start": 8,
+                "end": 10
+              },
+              {
+                "wordId": "zh-2",
+                "text": "复习",
+                "start": 21,
+                "end": 23
+              }
+            ]
+          },
+          {
+            "text": "那里很安静，我可以集中精力看资料。",
+            "reading": "nàli hěn ānjìng, wǒ kěyǐ jízhōng jīnglì kàn zīliào.",
+            "ko": "그곳은 아주 조용해서 저는 정신을 집중해 자료를 볼 수 있어요.",
+            "uses": [
+              {
+                "wordId": "zh-3",
+                "text": "集中",
+                "start": 9,
+                "end": 11
+              },
+              {
+                "wordId": "zh-4",
+                "text": "资料",
+                "start": 14,
+                "end": 16
+              }
+            ]
+          },
+          {
+            "text": "遇到难题时，我先自己想办法解决，实在不会再问同学。",
+            "reading": "yùdào nántí shí, wǒ xiān zìjǐ xiǎng bànfǎ jiějué, shízài bú huì zài wèn tóngxué.",
+            "ko": "어려운 문제를 만나면 저는 먼저 스스로 방법을 찾아 해결하고, 정말 모르겠으면 친구에게 물어봐요.",
+            "uses": [
+              {
+                "wordId": "zh-5",
+                "text": "解决",
+                "start": 13,
+                "end": 15
+              }
+            ]
+          },
+          {
+            "text": "以前我常常熬夜，现在我努力改掉这个习惯，避免白天没精神。",
+            "reading": "yǐqián wǒ chángcháng áoyè, xiànzài wǒ nǔlì gǎidiào zhège xíguàn, bìmiǎn báitiān méi jīngshen.",
+            "ko": "예전에는 자주 밤을 새웠지만, 지금은 이 습관을 고치려고 노력해서 낮에 기운이 없는 것을 피해요.",
+            "uses": [
+              {
+                "wordId": "zh-6",
+                "text": "习惯",
+                "start": 17,
+                "end": 19
+              },
+              {
+                "wordId": "zh-7",
+                "text": "避免",
+                "start": 20,
+                "end": 22
+              }
+            ]
+          },
+          {
+            "text": "朋友们总是鼓励我，说只要坚持，成绩一定会提高。",
+            "reading": "péngyoumen zǒngshì gǔlì wǒ, shuō zhǐyào jiānchí, chéngjì yídìng huì tígāo.",
+            "ko": "친구들은 늘 저를 격려하며, 꾸준히 하기만 하면 성적이 반드시 오를 거라고 말해요.",
+            "uses": [
+              {
+                "wordId": "zh-8",
+                "text": "鼓励",
+                "start": 5,
+                "end": 7
+              },
+              {
+                "wordId": "zh-9",
+                "text": "成绩",
+                "start": 15,
+                "end": 17
+              },
+              {
+                "wordId": "zh-10",
+                "text": "提高",
+                "start": 20,
+                "end": 22
+              }
+            ]
+          },
+          {
+            "text": "我相信只要认真努力，期末考试一定会有好结果。",
+            "reading": "wǒ xiāngxìn zhǐyào rènzhēn nǔlì, qīmò kǎoshì yídìng huì yǒu hǎo jiéguǒ.",
+            "ko": "열심히 노력하기만 하면 기말고사에서 반드시 좋은 결과가 있을 거라고 믿어요.",
+            "uses": []
+          }
+        ]
+      }
+    },
+    "ja": {
+      "lang": "ja",
+      "level": "완전 초급 (JLPT N5 이하)",
+      "words": [
+        {
+          "id": "ja-1",
+          "word": "毎日",
+          "reading": "まいにち",
+          "meaning": "매일",
+          "pos": "부사·명사",
+          "ruby": [
+            {
+              "t": "毎日",
+              "r": "まいにち"
+            }
+          ]
+        },
+        {
+          "id": "ja-2",
+          "word": "学校",
+          "reading": "がっこう",
+          "meaning": "학교",
+          "pos": "명사",
+          "ruby": [
+            {
+              "t": "学校",
+              "r": "がっこう"
+            }
+          ]
+        },
+        {
+          "id": "ja-3",
+          "word": "先生",
+          "reading": "せんせい",
+          "meaning": "선생님",
+          "pos": "명사",
+          "ruby": [
+            {
+              "t": "先生",
+              "r": "せんせい"
+            }
+          ]
+        },
+        {
+          "id": "ja-4",
+          "word": "本",
+          "reading": "ほん",
+          "meaning": "책",
+          "pos": "명사",
+          "ruby": [
+            {
+              "t": "本",
+              "r": "ほん"
+            }
+          ]
+        },
+        {
+          "id": "ja-5",
+          "word": "読む",
+          "reading": "よむ",
+          "meaning": "읽다",
+          "pos": "동사",
+          "ruby": [
+            {
+              "t": "読",
+              "r": "よ"
+            },
+            {
+              "t": "む"
+            }
+          ]
+        }
+      ],
+      "passage": {
+        "title": "学校の先生",
+        "titleKo": "학교 선생님",
+        "situation": "학교에서 선생님과 책을 읽는 하루",
+        "sentences": [
+          {
+            "text": "毎日、学校にいきます。",
+            "reading": "まいにち、がっこうにいきます。",
+            "ko": "매일 학교에 가요.",
+            "ruby": [
+              {
+                "t": "毎日",
+                "r": "まいにち"
+              },
+              {
+                "t": "、"
+              },
+              {
+                "t": "学校",
+                "r": "がっこう"
+              },
+              {
+                "t": "にいきます。"
+              }
+            ],
+            "uses": [
+              {
+                "wordId": "ja-1",
+                "text": "毎日",
+                "start": 0,
+                "end": 2
+              },
+              {
+                "wordId": "ja-2",
+                "text": "学校",
+                "start": 3,
+                "end": 5
+              }
+            ]
+          },
+          {
+            "text": "学校に先生がいます。",
+            "reading": "がっこうにせんせいがいます。",
+            "ko": "학교에 선생님이 계세요.",
+            "ruby": [
+              {
+                "t": "学校",
+                "r": "がっこう"
+              },
+              {
+                "t": "に"
+              },
+              {
+                "t": "先生",
+                "r": "せんせい"
+              },
+              {
+                "t": "がいます。"
+              }
+            ],
+            "uses": [
+              {
+                "wordId": "ja-2",
+                "text": "学校",
+                "start": 0,
+                "end": 2
+              },
+              {
+                "wordId": "ja-3",
+                "text": "先生",
+                "start": 3,
+                "end": 5
+              }
+            ]
+          },
+          {
+            "text": "先生は本を読みます。",
+            "reading": "せんせいはほんをよみます。",
+            "ko": "선생님은 책을 읽어요.",
+            "ruby": [
+              {
+                "t": "先生",
+                "r": "せんせい"
+              },
+              {
+                "t": "は"
+              },
+              {
+                "t": "本",
+                "r": "ほん"
+              },
+              {
+                "t": "を"
+              },
+              {
+                "t": "読",
+                "r": "よ"
+              },
+              {
+                "t": "みます。"
+              }
+            ],
+            "uses": [
+              {
+                "wordId": "ja-3",
+                "text": "先生",
+                "start": 0,
+                "end": 2
+              },
+              {
+                "wordId": "ja-4",
+                "text": "本",
+                "start": 3,
+                "end": 4
+              },
+              {
+                "wordId": "ja-5",
+                "text": "読",
+                "start": 5,
+                "end": 6
+              }
+            ]
+          },
+          {
+            "text": "わたしも本を読みます。",
+            "reading": "わたしもほんをよみます。",
+            "ko": "저도 책을 읽어요.",
+            "ruby": [
+              {
+                "t": "わたしも"
+              },
+              {
+                "t": "本",
+                "r": "ほん"
+              },
+              {
+                "t": "を"
+              },
+              {
+                "t": "読",
+                "r": "よ"
+              },
+              {
+                "t": "みます。"
+              }
+            ],
+            "uses": [
+              {
+                "wordId": "ja-4",
+                "text": "本",
+                "start": 4,
+                "end": 5
+              },
+              {
+                "wordId": "ja-5",
+                "text": "読",
+                "start": 6,
+                "end": 7
+              }
+            ]
+          },
+          {
+            "text": "本はおもしろいです。",
+            "reading": "ほんはおもしろいです。",
+            "ko": "책은 재미있어요.",
+            "ruby": [
+              {
+                "t": "本",
+                "r": "ほん"
+              },
+              {
+                "t": "はおもしろいです。"
+              }
+            ],
+            "uses": [
+              {
+                "wordId": "ja-4",
+                "text": "本",
+                "start": 0,
+                "end": 1
+              }
+            ]
+          },
+          {
+            "text": "先生、ありがとうございます。",
+            "reading": "せんせい、ありがとうございます。",
+            "ko": "선생님, 감사합니다.",
+            "ruby": [
+              {
+                "t": "先生",
+                "r": "せんせい"
+              },
+              {
+                "t": "、ありがとうございます。"
+              }
+            ],
+            "uses": [
+              {
+                "wordId": "ja-3",
+                "text": "先生",
+                "start": 0,
+                "end": 2
+              }
+            ]
+          }
+        ],
+        "grammar": {
+          "sentences": [
+            {
+              "sentence": 1,
+              "items": [
+                {
+                  "pattern": "毎日",
+                  "title": "まいにち(매일)",
+                  "explain": "「まいにち」는 \"매일\"이에요. 문장 맨 앞에 두고 뒤에 「、」를 찍어요. まいにち、がっこうにいきます = 매일 학교에 가요."
+                },
+                {
+                  "pattern": "学校に",
+                  "title": "に(~에)",
+                  "explain": "「に」는 가는 곳(목적지)을 나타내요. 「いく」(가다)의 정중한 말이 「いきます」예요."
+                }
+              ]
+            },
+            {
+              "sentence": 2,
+              "items": [
+                {
+                  "pattern": "先生がいます",
+                  "title": "が + います(~이 있어요)",
+                  "explain": "사람이나 동물이 \"있다\"고 할 때는 「います」를 써요. 물건이 있을 때는 「あります」예요. 「が」는 있는 주인공 뒤에 붙어요."
+                }
+              ]
+            },
+            {
+              "sentence": 3,
+              "items": [
+                {
+                  "pattern": "本を",
+                  "title": "を(~을/를)",
+                  "explain": "「を」는 동작의 대상(목적어) 뒤에 붙어요. ほんをよみます = 책을 읽어요."
+                },
+                {
+                  "pattern": "読みます",
+                  "title": "よみます(읽어요)",
+                  "explain": "「よむ」(읽다)에 「ます」를 붙인 정중한 말이에요. よむ → よみます."
+                }
+              ]
+            },
+            {
+              "sentence": 4,
+              "items": [
+                {
+                  "pattern": "わたしも",
+                  "title": "も(~도)",
+                  "explain": "「も」는 \"~도\"예요. 앞 문장과 같은 일을 할 때 「は」 대신 써요. わたしも = 저도."
+                }
+              ]
+            },
+            {
+              "sentence": 5,
+              "items": [
+                {
+                  "pattern": "本は",
+                  "title": "は(~은/는)",
+                  "explain": "「は」는 이야기의 주제를 나타내요. 소리는 「わ」로 읽어요. ほんは = 책은."
+                },
+                {
+                  "pattern": "おもしろいです",
+                  "title": "おもしろいです(재미있어요)",
+                  "explain": "「おもしろい」는 \"재미있다\"라는 い형용사예요. 뒤에 「です」를 붙이면 정중한 말이 돼요."
+                }
+              ]
+            },
+            {
+              "sentence": 6,
+              "items": [
+                {
+                  "pattern": "ありがとうございます",
+                  "title": "ありがとうございます(감사합니다)",
+                  "explain": "고마울 때 쓰는 정중한 인사예요. 「ありがとう」만 쓰면 친구에게 하는 편한 말이에요."
+                }
+              ]
+            }
+          ],
+          "summary": [
+            "「を」는 목적어, 「に」는 가는 곳, 「も」는 \"~도\"를 나타내요.",
+            "「います」는 사람이 있을 때, 동사는 「ます」를 붙이면 정중해요.",
+            "い형용사 뒤에 「です」를 붙이면 정중한 말이 돼요."
+          ]
+        }
+      }
+    },
+    "ko": {
+      "lang": "ko",
+      "level": "사회통합프로그램 4단계 이상",
+      "words": [
+        {
+          "id": "ko-1",
+          "word": "택배",
+          "meaning": "집까지 물건을 가져다주는 서비스나 그 물건",
+          "meaningZh": "快递",
+          "pos": "명사"
+        },
+        {
+          "id": "ko-2",
+          "word": "배송",
+          "meaning": "물건을 사는 사람에게 보내 주는 일",
+          "meaningZh": "配送；送货",
+          "pos": "명사"
+        },
+        {
+          "id": "ko-3",
+          "word": "도착하다",
+          "meaning": "가려고 한 곳에 닿다",
+          "meaningZh": "到达；抵达",
+          "pos": "동사"
+        },
+        {
+          "id": "ko-4",
+          "word": "경비실",
+          "meaning": "아파트나 건물을 지키는 사람이 있는 방",
+          "meaningZh": "保安室；门卫室",
+          "pos": "명사"
+        },
+        {
+          "id": "ko-5",
+          "word": "문의하다",
+          "meaning": "궁금한 것을 물어보다",
+          "meaningZh": "咨询；询问",
+          "pos": "동사"
+        },
+        {
+          "id": "ko-6",
+          "word": "송장",
+          "meaning": "택배에 붙어 있는, 보낸 물건의 정보를 적은 종이",
+          "meaningZh": "快递单；运单",
+          "pos": "명사"
+        },
+        {
+          "id": "ko-7",
+          "word": "분실하다",
+          "meaning": "가지고 있던 물건을 잃어버리다",
+          "meaningZh": "丢失；遗失",
+          "pos": "동사"
+        },
+        {
+          "id": "ko-8",
+          "word": "책임",
+          "meaning": "맡은 일을 해야 하고 결과에 대해 책임을 지는 것",
+          "meaningZh": "责任",
+          "pos": "명사"
+        },
+        {
+          "id": "ko-9",
+          "word": "보상",
+          "meaning": "손해를 본 만큼 돈이나 물건으로 갚아 주는 일",
+          "meaningZh": "赔偿；补偿",
+          "pos": "명사"
+        },
+        {
+          "id": "ko-10",
+          "word": "연락처",
+          "meaning": "전화번호나 이메일처럼 연락할 수 있는 곳",
+          "meaningZh": "联系方式",
+          "pos": "명사"
+        }
+      ],
+      "passage": {
+        "title": "사라진 택배",
+        "titleZh": "不见了的快递",
+        "situation": "택배가 오지 않아 택배 회사에 문의하는 상황",
+        "sentences": [
+          {
+            "text": "어제 도착할 줄 알았던 택배가 오늘까지도 오지 않았어요.",
+            "zh": "我以为昨天会到的快递，到今天还没有来。",
+            "uses": [
+              {
+                "wordId": "ko-3",
+                "text": "도착할",
+                "start": 3,
+                "end": 6
+              },
+              {
+                "wordId": "ko-1",
+                "text": "택배",
+                "start": 13,
+                "end": 15
+              }
+            ]
+          },
+          {
+            "text": "배송 상태를 보니 경비실에 맡겼다고 되어 있었지만, 경비실에는 아무것도 없었어요.",
+            "zh": "查看配送状态，上面写着已寄放在保安室，可是保安室里什么也没有。",
+            "uses": [
+              {
+                "wordId": "ko-2",
+                "text": "배송",
+                "start": 0,
+                "end": 2
+              },
+              {
+                "wordId": "ko-4",
+                "text": "경비실",
+                "start": 10,
+                "end": 13
+              },
+              {
+                "wordId": "ko-4",
+                "text": "경비실",
+                "start": 29,
+                "end": 32
+              }
+            ]
+          },
+          {
+            "text": "택배 회사에 문의했더니 송장 번호를 알려 주면 바로 확인해 주겠다고 했어요.",
+            "zh": "我向快递公司咨询，对方说只要告诉他们快递单号，就马上帮我确认。",
+            "uses": [
+              {
+                "wordId": "ko-1",
+                "text": "택배",
+                "start": 0,
+                "end": 2
+              },
+              {
+                "wordId": "ko-5",
+                "text": "문의했",
+                "start": 7,
+                "end": 10
+              },
+              {
+                "wordId": "ko-6",
+                "text": "송장",
+                "start": 13,
+                "end": 15
+              }
+            ]
+          },
+          {
+            "text": "직원은 택배가 분실되었더라도 회사가 책임지고 보상해 드리겠다고 했어요.",
+            "zh": "职员说，即使快递丢失了，公司也会负责赔偿。",
+            "uses": [
+              {
+                "wordId": "ko-1",
+                "text": "택배",
+                "start": 4,
+                "end": 6
+              },
+              {
+                "wordId": "ko-7",
+                "text": "분실되었",
+                "start": 8,
+                "end": 12
+              },
+              {
+                "wordId": "ko-8",
+                "text": "책임",
+                "start": 20,
+                "end": 22
+              },
+              {
+                "wordId": "ko-9",
+                "text": "보상",
+                "start": 25,
+                "end": 27
+              }
+            ]
+          },
+          {
+            "text": "저는 연락처를 남기고 택배가 도착하면 알려 달라고 부탁했어요.",
+            "zh": "我留下了联系方式，并拜托他们快递到了就通知我。",
+            "uses": [
+              {
+                "wordId": "ko-10",
+                "text": "연락처",
+                "start": 3,
+                "end": 6
+              },
+              {
+                "wordId": "ko-1",
+                "text": "택배",
+                "start": 12,
+                "end": 14
+              },
+              {
+                "wordId": "ko-3",
+                "text": "도착하",
+                "start": 16,
+                "end": 19
+              }
+            ]
+          },
+          {
+            "text": "다음부터는 이런 일이 없도록 받는 사람이 직접 확인할 수 있게 해 달라는 말도 덧붙였어요.",
+            "zh": "我还补充说，希望以后为了不再发生这种事，能让收件人自己直接确认。",
+            "uses": []
+          }
+        ],
+        "grammar": {
+          "sentences": [
+            {
+              "sentence": 1,
+              "items": [
+                {
+                  "pattern": "도착할 줄 알았던",
+                  "title": "-(으)ㄹ 줄 알다（以为会……）",
+                  "explain": "表示\"原以为会……（结果不是）\"。用过去形\"-(으)ㄹ 줄 알았다\"时，多含有与预想不同的意思。例：도착할 줄 알았던 택배 = 原以为会到的快递。注意：和\"-(으)ㄹ 수 있다（能够）\"不同。"
+                }
+              ]
+            },
+            {
+              "sentence": 3,
+              "items": [
+                {
+                  "pattern": "주겠다고 했어요",
+                  "title": "-겠다고 하다（说要……）",
+                  "explain": "这是间接引语，转述别人说的话或承诺。\"확인해 주겠다\"（会帮您确认）+ \"-고 하다\"= \"说会帮忙确认\"。说话人是转述别人，所以主语常常不是\"我\"。"
+                }
+              ]
+            },
+            {
+              "sentence": 4,
+              "items": [
+                {
+                  "pattern": "분실되었더라도",
+                  "title": "-더라도（即使……也）",
+                  "explain": "表示假设一个情况，但后面的结果不受它影响，相当于\"即使……也……\"。분실되었더라도 보상해 드리겠다 = 即使丢失了也会赔偿。比\"-아/어도\"更强调假设。"
+                }
+              ]
+            },
+            {
+              "sentence": 6,
+              "items": [
+                {
+                  "pattern": "없도록",
+                  "title": "-도록（为了不……／以至于）",
+                  "explain": "表示目的，相当于\"为了……／让……\"。이런 일이 없도록 = 为了不再发生这样的事。后面通常接请求、要求或努力做的事。注意：不能和\"-게\"完全互换，\"-도록\"更正式。"
+                }
+              ]
+            }
+          ],
+          "summary": [
+            "-(으)ㄹ 줄 알았다：原以为会……，结果和想的不同。",
+            "-더라도：即使有这个情况，结果也不变。",
+            "-도록：表示目的，\"为了让……／为了不……\"。"
+          ]
+        }
+      }
+    }
+  }
+}

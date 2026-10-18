@@ -1,0 +1,1135 @@
+{
+  "schemaVersion": 2,
+  "date": "2026-10-19",
+  "status": "ready",
+  "generatedAt": "2026-10-19T08:48:11+09:00",
+  "sets": {
+    "yue": {
+      "lang": "yue",
+      "level": "완전 초급",
+      "words": [
+        {
+          "id": "yue-1",
+          "word": "咖啡",
+          "reading": "gaa3 fe1",
+          "meaning": "커피",
+          "pos": "명사"
+        },
+        {
+          "id": "yue-2",
+          "word": "多士",
+          "reading": "do1 si2",
+          "meaning": "토스트",
+          "pos": "명사"
+        },
+        {
+          "id": "yue-3",
+          "word": "好味",
+          "reading": "hou2 mei6",
+          "meaning": "맛있다",
+          "pos": "형용사"
+        },
+        {
+          "id": "yue-4",
+          "word": "两个",
+          "reading": "loeng5 go3",
+          "meaning": "두 명 / 두 개",
+          "pos": "수량"
+        },
+        {
+          "id": "yue-5",
+          "word": "听日",
+          "reading": "ting1 jat6",
+          "meaning": "내일",
+          "pos": "시간"
+        }
+      ],
+      "passage": {
+        "title": "喺茶餐厅",
+        "titleKo": "차찬텡에서",
+        "situation": "엄마와 함께 차찬텡에서 아침 먹기",
+        "sentences": [
+          {
+            "text": "我同阿妈两个喺茶餐厅。",
+            "reading": "ngo5 tung4 aa3 maa1 loeng5 go3 hai2 caa4 caan1 teng1.",
+            "ko": "저와 엄마 두 사람은 차찬텡에 있어요.",
+            "uses": [
+              {
+                "wordId": "yue-4",
+                "text": "两个",
+                "start": 4,
+                "end": 6
+              }
+            ]
+          },
+          {
+            "text": "我要咖啡同多士。",
+            "reading": "ngo5 jiu3 gaa3 fe1 tung4 do1 si2.",
+            "ko": "저는 커피랑 토스트 주세요.",
+            "uses": [
+              {
+                "wordId": "yue-1",
+                "text": "咖啡",
+                "start": 2,
+                "end": 4
+              },
+              {
+                "wordId": "yue-2",
+                "text": "多士",
+                "start": 5,
+                "end": 7
+              }
+            ]
+          },
+          {
+            "text": "多士好味！",
+            "reading": "do1 si2 hou2 mei6!",
+            "ko": "토스트 맛있어요!",
+            "uses": [
+              {
+                "wordId": "yue-2",
+                "text": "多士",
+                "start": 0,
+                "end": 2
+              },
+              {
+                "wordId": "yue-3",
+                "text": "好味",
+                "start": 2,
+                "end": 4
+              }
+            ]
+          },
+          {
+            "text": "阿妈钟意咖啡，佢话好香。",
+            "reading": "aa3 maa1 zung1 ji3 gaa3 fe1, keoi5 waa6 hou2 hoeng1.",
+            "ko": "엄마는 커피를 좋아해요. 엄마가 향이 아주 좋대요.",
+            "uses": [
+              {
+                "wordId": "yue-1",
+                "text": "咖啡",
+                "start": 4,
+                "end": 6
+              }
+            ]
+          },
+          {
+            "text": "听日我哋再嚟！",
+            "reading": "ting1 jat6 ngo5 dei6 zoi3 lai4!",
+            "ko": "내일 우리 또 와요!",
+            "uses": [
+              {
+                "wordId": "yue-5",
+                "text": "听日",
+                "start": 0,
+                "end": 2
+              }
+            ]
+          }
+        ],
+        "grammar": {
+          "sentences": [
+            {
+              "sentence": 1,
+              "items": [
+                {
+                  "pattern": "同阿妈",
+                  "title": "同 (~와/과, ~랑)",
+                  "explain": "同(tung4)은 사람 앞에 붙어서 '~와 함께'라는 뜻이에요. 我同阿妈 = 저와 엄마. 두 사람이면 뒤에 两个(두 사람)를 붙여요."
+                },
+                {
+                  "pattern": "喺茶餐厅",
+                  "title": "喺 + 장소 (~에 있다)",
+                  "explain": "喺(hai2)는 '~에 있다'예요. 장소 앞에 붙여요. 喺茶餐厅 = 차찬텡에 있어요."
+                }
+              ]
+            },
+            {
+              "sentence": 2,
+              "items": [
+                {
+                  "pattern": "我要",
+                  "title": "要 (~주세요)",
+                  "explain": "要(jiu3)는 '원하다'인데, 가게에서는 '~주세요'처럼 주문할 때 써요. 我要咖啡 = 커피 주세요."
+                },
+                {
+                  "pattern": "咖啡同多士",
+                  "title": "同 (~와/과, 명사 잇기)",
+                  "explain": "同은 물건과 물건도 이어 줘요. 咖啡同多士 = 커피와 토스트. 한국어의 '~와/과'와 같아요."
+                }
+              ]
+            },
+            {
+              "sentence": 3,
+              "items": [
+                {
+                  "pattern": "好味",
+                  "title": "好 + 형용사 (아주 ~하다)",
+                  "explain": "광둥어는 형용사 앞에 好(hou2)를 붙여 '아주 ~하다'라고 해요. 係(이다)는 필요 없어요. 多士好味 = 토스트 맛있어요."
+                }
+              ]
+            },
+            {
+              "sentence": 4,
+              "items": [
+                {
+                  "pattern": "钟意咖啡",
+                  "title": "钟意 (~을 좋아하다)",
+                  "explain": "钟意(zung1 ji3) 뒤에 좋아하는 것을 바로 붙여요. 阿妈钟意咖啡 = 엄마는 커피를 좋아해요."
+                },
+                {
+                  "pattern": "佢话",
+                  "title": "佢 (그/그녀) · 话 (말하다)",
+                  "explain": "佢(keoi5)는 '그'도 되고 '그녀'도 돼요. 话(waa6)는 '말하다'예요. 佢话 = 그분이 말하기를."
+                }
+              ]
+            },
+            {
+              "sentence": 5,
+              "items": [
+                {
+                  "pattern": "听日",
+                  "title": "听日 (내일)",
+                  "explain": "听日(ting1 jat6)는 '내일'이에요. 시간 말은 문장 맨 앞에 와도 돼요. 听日我哋再嚟 = 내일 우리 또 와요."
+                },
+                {
+                  "pattern": "再嚟",
+                  "title": "再 + 동사 (다시 ~하다)",
+                  "explain": "再(zoi3) 뒤에 동사를 붙이면 '다시 ~하다'예요. 嚟(lai4)는 '오다'예요. 再嚟 = 다시 오다."
+                },
+                {
+                  "pattern": "我哋",
+                  "title": "我哋 (우리)",
+                  "explain": "哋(dei6)를 붙이면 복수가 돼요. 我 = 나, 我哋 = 우리."
+                }
+              ]
+            }
+          ],
+          "summary": [
+            "同 = ~와/과 (我同阿妈, 咖啡同多士) / 喺 + 장소 = ~에 있다",
+            "好 + 형용사 = 아주 ~하다 (好味), 钟意 + 대상 = ~을 좋아하다",
+            "听日(내일), 再 + 동사(다시 ~), 我哋(우리)는 자주 쓰는 말이에요"
+          ],
+          "compare": [
+            {
+              "this": "同",
+              "other": "和 / 跟"
+            },
+            {
+              "this": "喺",
+              "other": "在"
+            },
+            {
+              "this": "佢",
+              "other": "他 / 她"
+            },
+            {
+              "this": "话",
+              "other": "说"
+            },
+            {
+              "this": "听日",
+              "other": "明天"
+            },
+            {
+              "this": "好味",
+              "other": "好吃"
+            },
+            {
+              "this": "嚟",
+              "other": "来"
+            }
+          ]
+        }
+      }
+    },
+    "en": {
+      "lang": "en",
+      "level": "토익스피킹 대비",
+      "words": [
+        {
+          "id": "en-1",
+          "word": "passenger",
+          "reading": "/ˈpæsɪndʒər/",
+          "meaning": "승객",
+          "pos": "명사"
+        },
+        {
+          "id": "en-2",
+          "word": "gate",
+          "reading": "/ɡeɪt/",
+          "meaning": "탑승구, 출입구",
+          "pos": "명사"
+        },
+        {
+          "id": "en-3",
+          "word": "luggage",
+          "reading": "/ˈlʌɡɪdʒ/",
+          "meaning": "짐, 수하물",
+          "pos": "명사"
+        },
+        {
+          "id": "en-4",
+          "word": "delay",
+          "reading": "/dɪˈleɪ/",
+          "meaning": "지연, 지연시키다",
+          "pos": "명사/동사"
+        },
+        {
+          "id": "en-5",
+          "word": "announce",
+          "reading": "/əˈnaʊns/",
+          "meaning": "발표하다, 안내 방송을 하다",
+          "pos": "동사"
+        },
+        {
+          "id": "en-6",
+          "word": "board",
+          "reading": "/bɔːrd/",
+          "meaning": "탑승하다",
+          "pos": "동사"
+        },
+        {
+          "id": "en-7",
+          "word": "hurry",
+          "reading": "/ˈhɜːri/",
+          "meaning": "서두르다",
+          "pos": "동사"
+        },
+        {
+          "id": "en-8",
+          "word": "patient",
+          "reading": "/ˈpeɪʃənt/",
+          "meaning": "참을성 있는",
+          "pos": "형용사"
+        },
+        {
+          "id": "en-9",
+          "word": "ticket",
+          "reading": "/ˈtɪkɪt/",
+          "meaning": "표, 티켓",
+          "pos": "명사"
+        },
+        {
+          "id": "en-10",
+          "word": "destination",
+          "reading": "/ˌdɛstɪˈneɪʃən/",
+          "meaning": "목적지",
+          "pos": "명사"
+        }
+      ],
+      "passage": {
+        "title": "A Delay at the Airport",
+        "titleKo": "공항에서의 지연",
+        "situation": "토익스피킹 사진 묘사 — 공항 탑승구 앞의 모습",
+        "sentences": [
+          {
+            "text": "In this photo, many passengers are waiting near the gate.",
+            "ko": "이 사진에서 많은 승객이 탑승구 근처에서 기다리고 있어요.",
+            "uses": [
+              {
+                "wordId": "en-1",
+                "text": "passengers",
+                "start": 20,
+                "end": 30
+              },
+              {
+                "wordId": "en-2",
+                "text": "gate",
+                "start": 52,
+                "end": 56
+              }
+            ]
+          },
+          {
+            "text": "Most of them are holding a ticket and carrying heavy luggage.",
+            "ko": "대부분 표를 들고 무거운 짐을 들고 있어요.",
+            "uses": [
+              {
+                "wordId": "en-9",
+                "text": "ticket",
+                "start": 27,
+                "end": 33
+              },
+              {
+                "wordId": "en-3",
+                "text": "luggage",
+                "start": 53,
+                "end": 60
+              }
+            ]
+          },
+          {
+            "text": "An employee just announced a short delay because of bad weather.",
+            "ko": "직원이 방금 악천후 때문에 잠시 지연된다고 안내했어요.",
+            "uses": [
+              {
+                "wordId": "en-5",
+                "text": "announced",
+                "start": 17,
+                "end": 26
+              },
+              {
+                "wordId": "en-4",
+                "text": "delay",
+                "start": 35,
+                "end": 40
+              }
+            ]
+          },
+          {
+            "text": "Some people look worried about reaching their destination on time, but others stay patient.",
+            "ko": "어떤 사람들은 제시간에 목적지에 도착할지 걱정하는 듯 보이지만, 다른 사람들은 참을성 있게 기다려요.",
+            "uses": [
+              {
+                "wordId": "en-10",
+                "text": "destination",
+                "start": 46,
+                "end": 57
+              },
+              {
+                "wordId": "en-8",
+                "text": "patient",
+                "start": 83,
+                "end": 90
+              }
+            ]
+          },
+          {
+            "text": "A man is looking at his watch, and he may have to hurry when it is time to board.",
+            "ko": "한 남자가 시계를 보고 있는데, 탑승 시간이 되면 서둘러야 할 수도 있어요.",
+            "uses": [
+              {
+                "wordId": "en-7",
+                "text": "hurry",
+                "start": 50,
+                "end": 55
+              },
+              {
+                "wordId": "en-6",
+                "text": "board",
+                "start": 75,
+                "end": 80
+              }
+            ]
+          },
+          {
+            "text": "Overall, the scene shows how travelers stay calm during a delay.",
+            "ko": "전반적으로 이 장면은 여행객들이 지연되는 동안 침착하게 있는 모습을 보여 줘요.",
+            "uses": [
+              {
+                "wordId": "en-4",
+                "text": "delay",
+                "start": 58,
+                "end": 63
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "zh": {
+      "lang": "zh",
+      "level": "HSK 4~6급",
+      "hskStandard": "HSK 2.0 (6급제) 기준 4~6급 어휘",
+      "words": [
+        {
+          "id": "zh-1",
+          "word": "环境",
+          "reading": "huánjìng",
+          "meaning": "환경",
+          "pos": "명사"
+        },
+        {
+          "id": "zh-2",
+          "word": "保护",
+          "reading": "bǎohù",
+          "meaning": "보호하다",
+          "pos": "동사"
+        },
+        {
+          "id": "zh-3",
+          "word": "垃圾",
+          "reading": "lājī",
+          "meaning": "쓰레기",
+          "pos": "명사"
+        },
+        {
+          "id": "zh-4",
+          "word": "浪费",
+          "reading": "làngfèi",
+          "meaning": "낭비하다",
+          "pos": "동사"
+        },
+        {
+          "id": "zh-5",
+          "word": "节约",
+          "reading": "jiéyuē",
+          "meaning": "절약하다",
+          "pos": "동사"
+        },
+        {
+          "id": "zh-6",
+          "word": "污染",
+          "reading": "wūrǎn",
+          "meaning": "오염, 오염시키다",
+          "pos": "명사/동사"
+        },
+        {
+          "id": "zh-7",
+          "word": "资源",
+          "reading": "zīyuán",
+          "meaning": "자원",
+          "pos": "명사"
+        },
+        {
+          "id": "zh-8",
+          "word": "意识",
+          "reading": "yìshí",
+          "meaning": "의식, 인식",
+          "pos": "명사"
+        },
+        {
+          "id": "zh-9",
+          "word": "提倡",
+          "reading": "tíchàng",
+          "meaning": "제창하다, 장려하다",
+          "pos": "동사"
+        },
+        {
+          "id": "zh-10",
+          "word": "影响",
+          "reading": "yǐngxiǎng",
+          "meaning": "영향, 영향을 주다",
+          "pos": "명사/동사"
+        }
+      ],
+      "passage": {
+        "title": "社区环保讲座",
+        "titleKo": "동네 환경 보호 강연",
+        "situation": "주말에 동네에서 열린 환경 보호 강연을 듣고 쓴 글",
+        "sentences": [
+          {
+            "text": "上个周末，社区举办了一场关于环境的讲座。",
+            "reading": "Shàng gè zhōumò, shèqū jǔbàn le yì chǎng guānyú huánjìng de jiǎngzuò.",
+            "ko": "지난 주말에 동네에서 환경에 관한 강연이 열렸어요.",
+            "uses": [
+              {
+                "wordId": "zh-1",
+                "text": "环境",
+                "start": 14,
+                "end": 16
+              }
+            ]
+          },
+          {
+            "text": "讲座上，老师说，我们每天扔掉的垃圾会造成严重的污染。",
+            "reading": "Jiǎngzuò shàng, lǎoshī shuō, wǒmen měi tiān rēngdiào de lājī huì zàochéng yánzhòng de wūrǎn.",
+            "ko": "강연에서 선생님은 우리가 매일 버리는 쓰레기가 심각한 오염을 일으킨다고 말했어요.",
+            "uses": [
+              {
+                "wordId": "zh-3",
+                "text": "垃圾",
+                "start": 15,
+                "end": 17
+              },
+              {
+                "wordId": "zh-6",
+                "text": "污染",
+                "start": 23,
+                "end": 25
+              }
+            ]
+          },
+          {
+            "text": "他提醒大家，要增强保护环境的意识。",
+            "reading": "Tā tíxǐng dàjiā, yào zēngqiáng bǎohù huánjìng de yìshí.",
+            "ko": "그는 모두에게 환경을 보호하는 의식을 키워야 한다고 일깨워 줬어요.",
+            "uses": [
+              {
+                "wordId": "zh-2",
+                "text": "保护",
+                "start": 9,
+                "end": 11
+              },
+              {
+                "wordId": "zh-1",
+                "text": "环境",
+                "start": 11,
+                "end": 13
+              },
+              {
+                "wordId": "zh-8",
+                "text": "意识",
+                "start": 14,
+                "end": 16
+              }
+            ]
+          },
+          {
+            "text": "很多人觉得浪费一点水和电没什么影响。",
+            "reading": "Hěn duō rén juéde làngfèi yìdiǎn shuǐ hé diàn méi shénme yǐngxiǎng.",
+            "ko": "많은 사람이 물과 전기를 조금 낭비해도 별 영향이 없다고 생각해요.",
+            "uses": [
+              {
+                "wordId": "zh-4",
+                "text": "浪费",
+                "start": 5,
+                "end": 7
+              },
+              {
+                "wordId": "zh-10",
+                "text": "影响",
+                "start": 15,
+                "end": 17
+              }
+            ]
+          },
+          {
+            "text": "其实，节约资源是每个人都能做到的小事。",
+            "reading": "Qíshí, jiéyuē zīyuán shì měi gè rén dōu néng zuòdào de xiǎoshì.",
+            "ko": "사실 자원을 절약하는 것은 누구나 할 수 있는 작은 일이에요.",
+            "uses": [
+              {
+                "wordId": "zh-5",
+                "text": "节约",
+                "start": 3,
+                "end": 5
+              },
+              {
+                "wordId": "zh-7",
+                "text": "资源",
+                "start": 5,
+                "end": 7
+              }
+            ]
+          },
+          {
+            "text": "我决定从今天开始，少用塑料袋，并向身边的朋友提倡这样做。",
+            "reading": "Wǒ juédìng cóng jīntiān kāishǐ, shǎo yòng sùliào dài, bìng xiàng shēnbiān de péngyou tíchàng zhèyàng zuò.",
+            "ko": "저는 오늘부터 비닐봉지를 적게 쓰고, 주변 친구들에게도 이렇게 하자고 권하기로 했어요.",
+            "uses": [
+              {
+                "wordId": "zh-9",
+                "text": "提倡",
+                "start": 22,
+                "end": 24
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "ja": {
+      "lang": "ja",
+      "level": "완전 초급 (JLPT N5 이하)",
+      "words": [
+        {
+          "id": "ja-1",
+          "word": "雨",
+          "reading": "あめ",
+          "meaning": "비",
+          "pos": "명사",
+          "ruby": [
+            {
+              "t": "雨",
+              "r": "あめ"
+            }
+          ]
+        },
+        {
+          "id": "ja-2",
+          "word": "かさ",
+          "reading": "かさ",
+          "meaning": "우산",
+          "pos": "명사"
+        },
+        {
+          "id": "ja-3",
+          "word": "さむい",
+          "reading": "さむい",
+          "meaning": "춥다",
+          "pos": "형용사"
+        },
+        {
+          "id": "ja-4",
+          "word": "おちゃ",
+          "reading": "おちゃ",
+          "meaning": "차 (마시는 차)",
+          "pos": "명사"
+        },
+        {
+          "id": "ja-5",
+          "word": "のむ",
+          "reading": "のむ",
+          "meaning": "마시다",
+          "pos": "동사"
+        }
+      ],
+      "passage": {
+        "title": "あめの日",
+        "titleKo": "비 오는 날",
+        "situation": "비 오는 추운 날, 카페에서 따뜻한 차 마시기",
+        "sentences": [
+          {
+            "text": "今日は雨です。",
+            "reading": "きょうはあめです。",
+            "ko": "오늘은 비가 와요.",
+            "ruby": [
+              {
+                "t": "今日",
+                "r": "きょう"
+              },
+              {
+                "t": "は"
+              },
+              {
+                "t": "雨",
+                "r": "あめ"
+              },
+              {
+                "t": "です。"
+              }
+            ],
+            "uses": [
+              {
+                "wordId": "ja-1",
+                "text": "雨",
+                "start": 3,
+                "end": 4
+              }
+            ]
+          },
+          {
+            "text": "でも、かさがありません。",
+            "reading": "でも、かさがありません。",
+            "ko": "하지만 우산이 없어요.",
+            "uses": [
+              {
+                "wordId": "ja-2",
+                "text": "かさ",
+                "start": 3,
+                "end": 5
+              }
+            ]
+          },
+          {
+            "text": "さむいですね。",
+            "reading": "さむいですね。",
+            "ko": "춥네요.",
+            "uses": [
+              {
+                "wordId": "ja-3",
+                "text": "さむい",
+                "start": 0,
+                "end": 3
+              }
+            ]
+          },
+          {
+            "text": "カフェで、おちゃをのみます。",
+            "reading": "カフェで、おちゃをのみます。",
+            "ko": "카페에서 차를 마셔요.",
+            "uses": [
+              {
+                "wordId": "ja-4",
+                "text": "おちゃ",
+                "start": 5,
+                "end": 8
+              },
+              {
+                "wordId": "ja-5",
+                "text": "のみ",
+                "start": 9,
+                "end": 11
+              }
+            ]
+          },
+          {
+            "text": "おちゃはあたたかいです。",
+            "reading": "おちゃはあたたかいです。",
+            "ko": "차는 따뜻해요.",
+            "uses": [
+              {
+                "wordId": "ja-4",
+                "text": "おちゃ",
+                "start": 0,
+                "end": 3
+              }
+            ]
+          }
+        ],
+        "grammar": {
+          "sentences": [
+            {
+              "sentence": 1,
+              "items": [
+                {
+                  "pattern": "今日は",
+                  "title": "は (~은/는)",
+                  "explain": "「は」는 말하는 주제를 나타내요. きょうは = 오늘은. 「は」라고 쓰지만 소리는 「わ」로 읽어요."
+                },
+                {
+                  "pattern": "雨です",
+                  "title": "〜です (~예요)",
+                  "explain": "명사 뒤에 「です」를 붙이면 정중한 말이 돼요. あめです = 비예요."
+                }
+              ]
+            },
+            {
+              "sentence": 2,
+              "items": [
+                {
+                  "pattern": "でも",
+                  "title": "でも (하지만)",
+                  "explain": "앞 문장과 반대되는 말을 이을 때 써요. 비가 오는데(앞), 우산이 없다(뒤)처럼 이어져요."
+                },
+                {
+                  "pattern": "がありません",
+                  "title": "が + ありません (~이 없어요)",
+                  "explain": "「ありません」은 '없어요'예요. 「が」는 없는 물건 뒤에 붙어요. かさがありません = 우산이 없어요."
+                }
+              ]
+            },
+            {
+              "sentence": 3,
+              "items": [
+                {
+                  "pattern": "さむいですね",
+                  "title": "い형용사 + です, ね (~네요)",
+                  "explain": "さむい(춥다)는 끝이 「い」인 형용사예요. 뒤에 「です」를 붙이면 정중해져요. 「ね」는 '~네요'처럼 상대에게 공감을 구하는 말이에요."
+                }
+              ]
+            },
+            {
+              "sentence": 4,
+              "items": [
+                {
+                  "pattern": "カフェで",
+                  "title": "で (~에서)",
+                  "explain": "「で」는 어떤 일을 하는 장소를 나타내요. カフェで = 카페에서."
+                },
+                {
+                  "pattern": "おちゃをのみます",
+                  "title": "を + 〜ます (~을 ~해요)",
+                  "explain": "「を」는 하는 일의 대상 뒤에 붙어요. 「のむ」(마시다)를 정중하게 하면 のみます예요. おちゃをのみます = 차를 마셔요."
+                }
+              ]
+            },
+            {
+              "sentence": 5,
+              "items": [
+                {
+                  "pattern": "おちゃは",
+                  "title": "は (~은/는)",
+                  "explain": "앞에서 나온 おちゃ를 다시 주제로 삼아 이야기할 때 「は」를 써요. おちゃは = 차는."
+                },
+                {
+                  "pattern": "あたたかいです",
+                  "title": "あたたかい + です (따뜻해요)",
+                  "explain": "あたたかい(따뜻하다)도 끝이 「い」인 형용사예요. 「です」를 붙이면 정중한 말이 돼요."
+                }
+              ]
+            }
+          ],
+          "summary": [
+            "조사: は(~은/는) / を(~을/를) / で(~에서) / が(~이/가)",
+            "〜です, 〜ます는 정중한 말투. い형용사(さむい, あたたかい) 뒤에도 「です」를 붙여요",
+            "でも(하지만), 〜がありません(없어요), 문장 끝 「ね」(~네요)"
+          ]
+        }
+      }
+    },
+    "ko": {
+      "lang": "ko",
+      "level": "사회통합프로그램 4단계 이상",
+      "words": [
+        {
+          "id": "ko-1",
+          "word": "주차장",
+          "meaning": "차를 세워 두는 곳",
+          "meaningZh": "停车场",
+          "pos": "명사"
+        },
+        {
+          "id": "ko-2",
+          "word": "단속",
+          "meaning": "법이나 규칙을 지키는지 살펴보고 막는 일",
+          "meaningZh": "取缔；管制检查",
+          "pos": "명사"
+        },
+        {
+          "id": "ko-3",
+          "word": "위반하다",
+          "meaning": "법이나 규칙을 지키지 않다",
+          "meaningZh": "违反",
+          "pos": "동사"
+        },
+        {
+          "id": "ko-4",
+          "word": "과태료",
+          "meaning": "규칙을 어겼을 때 내는 돈",
+          "meaningZh": "罚款（行政处罚）",
+          "pos": "명사"
+        },
+        {
+          "id": "ko-5",
+          "word": "고지서",
+          "meaning": "내야 할 돈이나 일을 알려 주는 종이",
+          "meaningZh": "缴费通知单",
+          "pos": "명사"
+        },
+        {
+          "id": "ko-6",
+          "word": "납부하다",
+          "meaning": "내야 하는 돈을 내다",
+          "meaningZh": "缴纳",
+          "pos": "동사"
+        },
+        {
+          "id": "ko-7",
+          "word": "기한",
+          "meaning": "어떤 일을 끝내야 하는 날짜",
+          "meaningZh": "期限；截止日期",
+          "pos": "명사"
+        },
+        {
+          "id": "ko-8",
+          "word": "이의",
+          "meaning": "결정이 옳지 않다고 하는 다른 의견",
+          "meaningZh": "异议",
+          "pos": "명사"
+        },
+        {
+          "id": "ko-9",
+          "word": "감면하다",
+          "meaning": "내야 하는 돈을 줄여 주거나 면해 주다",
+          "meaningZh": "减免",
+          "pos": "동사"
+        },
+        {
+          "id": "ko-10",
+          "word": "억울하다",
+          "meaning": "잘못이 없는데 벌을 받아서 속상하다",
+          "meaningZh": "冤枉；委屈",
+          "pos": "형용사"
+        }
+      ],
+      "passage": {
+        "title": "주차 단속과 과태료",
+        "titleZh": "停车管制与罚款",
+        "situation": "주차 위반 과태료를 받은 뒤",
+        "sentences": [
+          {
+            "text": "지난주에 마트 앞 주차장에 잠깐 차를 세웠다가 단속에 걸렸어요.",
+            "zh": "上周我在超市前的停车场临时停了一会儿车，结果被执法人员查处了。",
+            "uses": [
+              {
+                "wordId": "ko-1",
+                "text": "주차장",
+                "start": 10,
+                "end": 13
+              },
+              {
+                "wordId": "ko-2",
+                "text": "단속",
+                "start": 26,
+                "end": 28
+              }
+            ]
+          },
+          {
+            "text": "얼마 뒤 집으로 과태료 고지서가 왔는데, 알고 보니 주차 금지 구역이라서 규칙을 위반한 것이었어요.",
+            "zh": "不久后家里收到了罚款通知单，才知道那里是禁止停车区域，我违反了规定。",
+            "uses": [
+              {
+                "wordId": "ko-4",
+                "text": "과태료",
+                "start": 9,
+                "end": 12
+              },
+              {
+                "wordId": "ko-5",
+                "text": "고지서",
+                "start": 13,
+                "end": 16
+              },
+              {
+                "wordId": "ko-3",
+                "text": "위반한",
+                "start": 45,
+                "end": 48
+              }
+            ]
+          },
+          {
+            "text": "저는 억울했지만, 괜히 일이 더 복잡해질까 봐 이의를 제기하지 못했어요.",
+            "zh": "我觉得很冤枉，但又怕事情变得更麻烦，所以没能提出异议。",
+            "uses": [
+              {
+                "wordId": "ko-10",
+                "text": "억울했지만",
+                "start": 3,
+                "end": 8
+              },
+              {
+                "wordId": "ko-8",
+                "text": "이의",
+                "start": 26,
+                "end": 28
+              }
+            ]
+          },
+          {
+            "text": "구청 직원은 기한 안에 납부하면 과태료를 감면해 준다고 설명해 주었어요.",
+            "zh": "区政府的职员解释说，如果在期限内缴纳，罚款可以减免。",
+            "uses": [
+              {
+                "wordId": "ko-7",
+                "text": "기한",
+                "start": 7,
+                "end": 9
+              },
+              {
+                "wordId": "ko-6",
+                "text": "납부하면",
+                "start": 13,
+                "end": 17
+              },
+              {
+                "wordId": "ko-4",
+                "text": "과태료",
+                "start": 18,
+                "end": 21
+              },
+              {
+                "wordId": "ko-9",
+                "text": "감면해",
+                "start": 23,
+                "end": 26
+              }
+            ]
+          },
+          {
+            "text": "그래서 고지서를 받는 대로 은행에 가서 돈을 냈어요.",
+            "zh": "所以我一收到通知单，就去银行把钱缴了。",
+            "uses": [
+              {
+                "wordId": "ko-5",
+                "text": "고지서",
+                "start": 4,
+                "end": 7
+              }
+            ]
+          },
+          {
+            "text": "앞으로는 차를 세우기 전에 단속 구역인지 먼저 확인하려고 해요.",
+            "zh": "以后我打算在停车之前，先确认是不是管制区域。",
+            "uses": [
+              {
+                "wordId": "ko-2",
+                "text": "단속",
+                "start": 15,
+                "end": 17
+              }
+            ]
+          }
+        ],
+        "grammar": {
+          "sentences": [
+            {
+              "sentence": 1,
+              "items": [
+                {
+                  "pattern": "세웠다가",
+                  "title": "-다가（做……的途中，转而……）",
+                  "explain": "表示一个动作进行到一半，转而发生另一件事，常引出意外的结果。“세웠다가 단속에 걸렸어요”＝停了车，结果被查处了。"
+                }
+              ]
+            },
+            {
+              "sentence": 2,
+              "items": [
+                {
+                  "pattern": "알고 보니",
+                  "title": "-고 보니（做了……才发现……）",
+                  "explain": "表示做了某事之后，才发现原来是另一回事。“알고 보니”＝仔细了解后才知道。"
+                },
+                {
+                  "pattern": "구역이라서",
+                  "title": "이라서/라서（因为是……）",
+                  "explain": "名词后面表示原因。有收音的名词用“이라서”，没有收音的用“라서”。“금지 구역이라서”＝因为是禁止区域。"
+                }
+              ]
+            },
+            {
+              "sentence": 3,
+              "items": [
+                {
+                  "pattern": "복잡해질까 봐",
+                  "title": "-(으)ㄹ까 봐（担心会……）",
+                  "explain": "表示担心可能发生不好的事，后面常接担心后采取的行动。“복잡해질까 봐 못 했어요”＝怕变复杂，所以没做。"
+                },
+                {
+                  "pattern": "제기하지 못했어요",
+                  "title": "-지 못하다（没能……）",
+                  "explain": "表示因能力或情况所限而做不到。“못 제기했어요”意思相同，但“-지 못하다”更书面。"
+                }
+              ]
+            },
+            {
+              "sentence": 4,
+              "items": [
+                {
+                  "pattern": "납부하면",
+                  "title": "-(으)면（如果……）",
+                  "explain": "表示假设或条件。“기한 안에 납부하면”＝如果在期限内缴纳。有收音时用“-으면”，如“먹으면”。"
+                },
+                {
+                  "pattern": "감면해 준다고",
+                  "title": "-(ㄴ/는)다고 하다 · -아/어 주다",
+                  "explain": "“-아/어 주다”表示为别人做某事（减免给你）；“-ㄴ/는다고”是转述别人的话（听说会……）。“감면해 준다고 설명했어요”＝说明会给予减免。"
+                }
+              ]
+            },
+            {
+              "sentence": 5,
+              "items": [
+                {
+                  "pattern": "받는 대로",
+                  "title": "-는 대로（一……就……）",
+                  "explain": "表示前一个动作一结束，马上做后一个动作。“고지서를 받는 대로”＝一收到通知单就。注意与名词后的“대로”（按照）不同。"
+                },
+                {
+                  "pattern": "가서",
+                  "title": "-아/어서（……之后，接着……）",
+                  "explain": "表示先后顺序：先去银行，然后再缴钱。前后句主语通常相同，后面不能用过去式“-았/었-”。"
+                }
+              ]
+            },
+            {
+              "sentence": 6,
+              "items": [
+                {
+                  "pattern": "세우기 전에",
+                  "title": "-기 전에（在……之前）",
+                  "explain": "动词词干加“-기 전에”，表示在做某事之前。无论是否有收音，形式都一样，如“먹기 전에”。"
+                },
+                {
+                  "pattern": "확인하려고 해요",
+                  "title": "-(으)려고 하다（打算……）",
+                  "explain": "表示打算或计划做某事。“확인하려고 해요”＝打算确认。词干有收音时用“-으려고”，如“먹으려고 해요”。"
+                }
+              ]
+            }
+          ],
+          "summary": [
+            "原因与担心：-이라서（因为是）、-(으)ㄹ까 봐（怕会……）。",
+            "时间顺序：-다가（中途转变）、-는 대로（一……就）、-기 전에（……之前）。",
+            "条件与打算：-(으)면（如果）、-(으)려고 하다（打算）、-지 못하다（没能）。"
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-18T23:48:15.166Z",
+  "updatedAt": "2026-10-20T23:49:07.001Z",
   "days": {
     "2026-10-02": {
       "status": "ready"
@@ -30,6 +30,10 @@
     "2026-10-19": {
       "status": "ready",
       "warnings": 1
+    },
+    "2026-10-21": {
+      "status": "ready",
+      "warnings": 2
     }
   }
 }

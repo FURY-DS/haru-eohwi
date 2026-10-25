@@ -1,0 +1,1168 @@
+{
+  "schemaVersion": 2,
+  "date": "2026-10-26",
+  "status": "ready",
+  "generatedAt": "2026-10-26T08:48:56+09:00",
+  "sets": {
+    "yue": {
+      "lang": "yue",
+      "level": "완전 초급",
+      "words": [
+        {
+          "id": "yue-1",
+          "word": "生日",
+          "reading": "saang1 jat6",
+          "meaning": "생일",
+          "pos": "명사"
+        },
+        {
+          "id": "yue-2",
+          "word": "蛋糕",
+          "reading": "daan2 gou1",
+          "meaning": "케이크",
+          "pos": "명사"
+        },
+        {
+          "id": "yue-3",
+          "word": "开心",
+          "reading": "hoi1 sam1",
+          "meaning": "기쁘다, 즐겁다",
+          "pos": "형용사"
+        },
+        {
+          "id": "yue-4",
+          "word": "礼物",
+          "reading": "lai5 mat6",
+          "meaning": "선물",
+          "pos": "명사"
+        },
+        {
+          "id": "yue-5",
+          "word": "送",
+          "reading": "sung3",
+          "meaning": "선물하다, 주다",
+          "pos": "동사"
+        }
+      ],
+      "passage": {
+        "title": "朋友生日",
+        "titleKo": "친구의 생일",
+        "situation": "친구 생일에 케이크를 사고 선물을 주기",
+        "sentences": [
+          {
+            "text": "今日係我朋友嘅生日。",
+            "reading": "gam1 jat6 hai6 ngo5 pang4 jau5 ge3 saang1 jat6.",
+            "ko": "오늘은 제 친구의 생일이에요.",
+            "uses": [
+              {
+                "wordId": "yue-1",
+                "text": "生日",
+                "start": 7,
+                "end": 9
+              }
+            ]
+          },
+          {
+            "text": "我买咗一个蛋糕。",
+            "reading": "ngo5 maai5 zo2 jat1 go3 daan2 gou1.",
+            "ko": "저는 케이크를 하나 샀어요.",
+            "uses": [
+              {
+                "wordId": "yue-2",
+                "text": "蛋糕",
+                "start": 5,
+                "end": 7
+              }
+            ]
+          },
+          {
+            "text": "佢食蛋糕，好开心。",
+            "reading": "keui5 sik6 daan2 gou1, hou2 hoi1 sam1.",
+            "ko": "그는 케이크를 먹고 아주 기뻐해요.",
+            "uses": [
+              {
+                "wordId": "yue-2",
+                "text": "蛋糕",
+                "start": 2,
+                "end": 4
+              },
+              {
+                "wordId": "yue-3",
+                "text": "开心",
+                "start": 6,
+                "end": 8
+              }
+            ]
+          },
+          {
+            "text": "我送佢一份礼物。",
+            "reading": "ngo5 sung3 keui5 jat1 fan6 lai5 mat6.",
+            "ko": "저는 그에게 선물을 하나 줘요.",
+            "uses": [
+              {
+                "wordId": "yue-5",
+                "text": "送",
+                "start": 1,
+                "end": 2
+              },
+              {
+                "wordId": "yue-4",
+                "text": "礼物",
+                "start": 5,
+                "end": 7
+              }
+            ]
+          },
+          {
+            "text": "佢话：「多谢你！」",
+            "reading": "keui5 waa6: \"do1 ze6 nei5!\"",
+            "ko": "그가 \"고마워요!\"라고 말해요.",
+            "uses": []
+          },
+          {
+            "text": "我哋都好开心。",
+            "reading": "ngo5 dei6 dou1 hou2 hoi1 sam1.",
+            "ko": "우리도 모두 아주 즐거워요.",
+            "uses": [
+              {
+                "wordId": "yue-3",
+                "text": "开心",
+                "start": 4,
+                "end": 6
+              }
+            ]
+          }
+        ],
+        "grammar": {
+          "sentences": [
+            {
+              "sentence": 1,
+              "items": [
+                {
+                  "pattern": "今日",
+                  "title": "今日 (오늘)",
+                  "explain": "今日(gam1 jat6)는 '오늘'이에요. 표준 중국어는 今天이라고 해요. 광둥어에서는 今日를 써요."
+                },
+                {
+                  "pattern": "係",
+                  "title": "A 係 B (A는 B예요)",
+                  "explain": "係(hai6)는 '~이다'예요. 今日係生日 = 오늘은 생일이에요. 부정은 唔係(~이 아니다)예요."
+                },
+                {
+                  "pattern": "朋友嘅生日",
+                  "title": "A 嘅 B (A의 B)",
+                  "explain": "嘅(ge3)는 '~의'예요. 我朋友嘅生日 = 내 친구의 생일. 한국어 '~의'와 같은 순서예요."
+                }
+              ]
+            },
+            {
+              "sentence": 2,
+              "items": [
+                {
+                  "pattern": "买咗",
+                  "title": "동사 + 咗 (~했어요)",
+                  "explain": "咗(zo2)를 동사 뒤에 붙이면 '이미 했다'는 뜻이에요. 买咗 = 샀어요."
+                },
+                {
+                  "pattern": "一个蛋糕",
+                  "title": "수 + 양사 + 명사",
+                  "explain": "个(go3)는 물건을 세는 가장 흔한 단위(양사)예요. 一个蛋糕 = 케이크 하나. 한국어와 달리 수 + 양사 + 명사 순서예요."
+                }
+              ]
+            },
+            {
+              "sentence": 3,
+              "items": [
+                {
+                  "pattern": "佢",
+                  "title": "佢 (그 / 그녀)",
+                  "explain": "佢(keui5)는 '그'도 '그녀'도 뜻해요. 말할 때는 남녀를 나누지 않아요."
+                },
+                {
+                  "pattern": "好开心",
+                  "title": "好 + 형용사 (아주 ~해요)",
+                  "explain": "好(hou2)를 형용사 앞에 붙이면 '아주 ~하다'예요. 好开心 = 아주 기뻐요. 이때 係는 쓰지 않아요."
+                }
+              ]
+            },
+            {
+              "sentence": 4,
+              "items": [
+                {
+                  "pattern": "送佢",
+                  "title": "送 + 사람 + 물건 (~에게 ~을 주다)",
+                  "explain": "送(sung3)는 선물로 주는 거예요. 送佢礼物 = 그에게 선물을 줘요. '사람 먼저, 물건 나중' 순서예요. 一份礼物의 份(fan6)은 선물 같은 것을 세는 단위예요."
+                }
+              ]
+            },
+            {
+              "sentence": 5,
+              "items": [
+                {
+                  "pattern": "话",
+                  "title": "话 (말하다)",
+                  "explain": "话(waa6)는 '말하다'예요. 佢话：「…」처럼 말한 내용을 뒤에 붙여요."
+                },
+                {
+                  "pattern": "多谢",
+                  "title": "多谢 / 唔该 구분",
+                  "explain": "多谢(do1 ze6)는 선물이나 도움을 받았을 때 '고마워요'예요. 부탁하거나 서비스를 받을 때는 唔该를 써요."
+                }
+              ]
+            },
+            {
+              "sentence": 6,
+              "items": [
+                {
+                  "pattern": "我哋",
+                  "title": "哋 (복수)",
+                  "explain": "哋(dei6)를 붙이면 복수예요. 我哋 = 우리, 你哋 = 너희, 佢哋 = 그들."
+                },
+                {
+                  "pattern": "都",
+                  "title": "都 (~도, 모두)",
+                  "explain": "都(dou1)는 '~도' 또는 '모두'예요. 동사나 형용사 앞에 와요. 我哋都好开心 = 우리도 모두 아주 즐거워요."
+                }
+              ]
+            }
+          ],
+          "summary": [
+            "A 係 B(~이다) / A 嘅 B(A의 B) / 동사 + 咗(~했다)",
+            "수 + 양사 + 명사: 一个蛋糕, 一份礼物 / 好 + 형용사: 好开心",
+            "佢(그·그녀), 我哋(우리), 多谢(고마워요) — 말할 때 쓰는 광둥어 표현이에요."
+          ],
+          "compare": [
+            {
+              "this": "佢",
+              "other": "他 / 她"
+            },
+            {
+              "this": "今日",
+              "other": "今天"
+            },
+            {
+              "this": "嘅",
+              "other": "的"
+            },
+            {
+              "this": "咗",
+              "other": "了"
+            },
+            {
+              "this": "我哋",
+              "other": "我们"
+            },
+            {
+              "this": "话",
+              "other": "说"
+            },
+            {
+              "this": "係",
+              "other": "是"
+            }
+          ]
+        }
+      }
+    },
+    "en": {
+      "lang": "en",
+      "level": "토익스피킹 대비",
+      "words": [
+        {
+          "id": "en-1",
+          "word": "vendor",
+          "reading": "/ˈvɛndər/",
+          "meaning": "판매상, 노점상",
+          "pos": "명사"
+        },
+        {
+          "id": "en-2",
+          "word": "selection",
+          "reading": "/sɪˈlɛkʃən/",
+          "meaning": "다양한 종류, 선택 가능한 상품",
+          "pos": "명사"
+        },
+        {
+          "id": "en-3",
+          "word": "fresh",
+          "reading": "/frɛʃ/",
+          "meaning": "신선한",
+          "pos": "형용사"
+        },
+        {
+          "id": "en-4",
+          "word": "display",
+          "reading": "/dɪˈspleɪ/",
+          "meaning": "진열, 전시",
+          "pos": "명사/동사"
+        },
+        {
+          "id": "en-5",
+          "word": "shopper",
+          "reading": "/ˈʃɑːpər/",
+          "meaning": "쇼핑객",
+          "pos": "명사"
+        },
+        {
+          "id": "en-6",
+          "word": "browse",
+          "reading": "/braʊz/",
+          "meaning": "둘러보다",
+          "pos": "동사"
+        },
+        {
+          "id": "en-7",
+          "word": "basket",
+          "reading": "/ˈbæskɪt/",
+          "meaning": "바구니",
+          "pos": "명사"
+        },
+        {
+          "id": "en-8",
+          "word": "bargain",
+          "reading": "/ˈbɑːrɡən/",
+          "meaning": "싸게 산 물건, 특가품",
+          "pos": "명사"
+        },
+        {
+          "id": "en-9",
+          "word": "nearby",
+          "reading": "/ˌnɪrˈbaɪ/",
+          "meaning": "근처의, 가까이에",
+          "pos": "형용사/부사"
+        },
+        {
+          "id": "en-10",
+          "word": "pleasant",
+          "reading": "/ˈplɛzənt/",
+          "meaning": "기분 좋은, 쾌적한",
+          "pos": "형용사"
+        }
+      ],
+      "passage": {
+        "title": "A Photo of an Outdoor Market",
+        "titleKo": "야외 시장 사진 묘사",
+        "situation": "토익스피킹 사진 묘사 — 야외 시장 풍경",
+        "sentences": [
+          {
+            "text": "In this photo, a vendor is standing behind a table at an outdoor market.",
+            "ko": "이 사진에서는 한 상인이 야외 시장의 테이블 뒤에 서 있어요.",
+            "uses": [
+              {
+                "wordId": "en-1",
+                "text": "vendor",
+                "start": 17,
+                "end": 23
+              }
+            ]
+          },
+          {
+            "text": "He has put a wide selection of fresh vegetables on display.",
+            "ko": "그는 다양한 신선한 채소를 진열해 놓았어요.",
+            "uses": [
+              {
+                "wordId": "en-2",
+                "text": "selection",
+                "start": 18,
+                "end": 27
+              },
+              {
+                "wordId": "en-3",
+                "text": "fresh",
+                "start": 31,
+                "end": 36
+              },
+              {
+                "wordId": "en-4",
+                "text": "display",
+                "start": 51,
+                "end": 58
+              }
+            ]
+          },
+          {
+            "text": "Several shoppers are walking around, and some of them are browsing the items.",
+            "ko": "여러 쇼핑객이 걸어 다니고 있고, 그중 몇 명은 물건을 둘러보고 있어요.",
+            "uses": [
+              {
+                "wordId": "en-5",
+                "text": "shoppers",
+                "start": 8,
+                "end": 16
+              },
+              {
+                "wordId": "en-6",
+                "text": "browsing",
+                "start": 58,
+                "end": 66
+              }
+            ]
+          },
+          {
+            "text": "One woman is carrying a basket and looking for a good bargain.",
+            "ko": "한 여성이 바구니를 들고 좋은 특가품을 찾고 있어요.",
+            "uses": [
+              {
+                "wordId": "en-7",
+                "text": "basket",
+                "start": 24,
+                "end": 30
+              },
+              {
+                "wordId": "en-8",
+                "text": "bargain",
+                "start": 54,
+                "end": 61
+              }
+            ]
+          },
+          {
+            "text": "Behind them, I can see a few more stalls nearby.",
+            "ko": "그들 뒤로 근처에 가판대가 몇 개 더 보여요.",
+            "uses": [
+              {
+                "wordId": "en-9",
+                "text": "nearby",
+                "start": 41,
+                "end": 47
+              }
+            ]
+          },
+          {
+            "text": "Overall, the atmosphere looks pleasant, and I would like to visit this place.",
+            "ko": "전반적으로 분위기가 기분 좋아 보이고, 저는 이곳을 방문해 보고 싶어요.",
+            "uses": [
+              {
+                "wordId": "en-10",
+                "text": "pleasant",
+                "start": 30,
+                "end": 38
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "zh": {
+      "lang": "zh",
+      "level": "HSK 4~6급",
+      "hskStandard": "HSK 2.0 (6급제) 기준 4~6급 어휘",
+      "words": [
+        {
+          "id": "zh-1",
+          "word": "项目",
+          "reading": "xiàngmù",
+          "meaning": "프로젝트",
+          "pos": "명사"
+        },
+        {
+          "id": "zh-2",
+          "word": "讨论",
+          "reading": "tǎolùn",
+          "meaning": "토론하다",
+          "pos": "동사"
+        },
+        {
+          "id": "zh-3",
+          "word": "方案",
+          "reading": "fāng'àn",
+          "meaning": "방안, 계획안",
+          "pos": "명사"
+        },
+        {
+          "id": "zh-4",
+          "word": "意见",
+          "reading": "yìjiàn",
+          "meaning": "의견",
+          "pos": "명사"
+        },
+        {
+          "id": "zh-5",
+          "word": "修改",
+          "reading": "xiūgǎi",
+          "meaning": "수정하다",
+          "pos": "동사"
+        },
+        {
+          "id": "zh-6",
+          "word": "负责",
+          "reading": "fùzé",
+          "meaning": "책임지다, 맡다",
+          "pos": "동사"
+        },
+        {
+          "id": "zh-7",
+          "word": "合作",
+          "reading": "hézuò",
+          "meaning": "협력하다",
+          "pos": "동사"
+        },
+        {
+          "id": "zh-8",
+          "word": "按时",
+          "reading": "ànshí",
+          "meaning": "제때에, 시간에 맞춰",
+          "pos": "부사"
+        },
+        {
+          "id": "zh-9",
+          "word": "完成",
+          "reading": "wánchéng",
+          "meaning": "완성하다, 끝내다",
+          "pos": "동사"
+        },
+        {
+          "id": "zh-10",
+          "word": "总结",
+          "reading": "zǒngjié",
+          "meaning": "총정리, 결산하다",
+          "pos": "명사/동사"
+        }
+      ],
+      "passage": {
+        "title": "一次项目会议",
+        "titleKo": "프로젝트 회의",
+        "situation": "직장에서 새 프로젝트 회의를 하는 하루",
+        "sentences": [
+          {
+            "text": "周一上午，我们小组开会讨论新项目。",
+            "reading": "Zhōuyī shàngwǔ, wǒmen xiǎozǔ kāihuì tǎolùn xīn xiàngmù.",
+            "ko": "월요일 오전, 우리 팀은 회의를 열어 새 프로젝트를 논의했어요.",
+            "uses": [
+              {
+                "wordId": "zh-2",
+                "text": "讨论",
+                "start": 11,
+                "end": 13
+              },
+              {
+                "wordId": "zh-1",
+                "text": "项目",
+                "start": 14,
+                "end": 16
+              }
+            ]
+          },
+          {
+            "text": "经理先说了他的方案，然后让大家提出意见。",
+            "reading": "Jīnglǐ xiān shuō le tā de fāng'àn, ránhòu ràng dàjiā tíchū yìjiàn.",
+            "ko": "팀장님이 먼저 자신의 방안을 말한 뒤, 모두에게 의견을 내라고 했어요.",
+            "uses": [
+              {
+                "wordId": "zh-3",
+                "text": "方案",
+                "start": 7,
+                "end": 9
+              },
+              {
+                "wordId": "zh-4",
+                "text": "意见",
+                "start": 17,
+                "end": 19
+              }
+            ]
+          },
+          {
+            "text": "小王觉得有些地方需要修改，我也同意他的想法。",
+            "reading": "Xiǎo Wáng juéde yǒuxiē dìfang xūyào xiūgǎi, wǒ yě tóngyì tā de xiǎngfǎ.",
+            "ko": "샤오왕은 몇몇 부분을 수정해야 한다고 생각했고, 저도 그의 생각에 동의했어요.",
+            "uses": [
+              {
+                "wordId": "zh-5",
+                "text": "修改",
+                "start": 10,
+                "end": 12
+              }
+            ]
+          },
+          {
+            "text": "最后，经理决定让我负责这个项目。",
+            "reading": "Zuìhòu, jīnglǐ juédìng ràng wǒ fùzé zhège xiàngmù.",
+            "ko": "마지막으로 팀장님은 제게 이 프로젝트를 맡기기로 결정했어요.",
+            "uses": [
+              {
+                "wordId": "zh-6",
+                "text": "负责",
+                "start": 9,
+                "end": 11
+              },
+              {
+                "wordId": "zh-1",
+                "text": "项目",
+                "start": 13,
+                "end": 15
+              }
+            ]
+          },
+          {
+            "text": "我们要互相合作，按时完成每个阶段的任务。",
+            "reading": "Wǒmen yào hùxiāng hézuò, ànshí wánchéng měi gè jiēduàn de rènwu.",
+            "ko": "우리는 서로 협력하며 각 단계의 업무를 제때 끝내야 해요.",
+            "uses": [
+              {
+                "wordId": "zh-7",
+                "text": "合作",
+                "start": 5,
+                "end": 7
+              },
+              {
+                "wordId": "zh-8",
+                "text": "按时",
+                "start": 8,
+                "end": 10
+              },
+              {
+                "wordId": "zh-9",
+                "text": "完成",
+                "start": 10,
+                "end": 12
+              }
+            ]
+          },
+          {
+            "text": "会议结束前，大家一起做了总结，我觉得收获很大。",
+            "reading": "Huìyì jiéshù qián, dàjiā yìqǐ zuò le zǒngjié, wǒ juéde shōuhuò hěn dà.",
+            "ko": "회의가 끝나기 전에 모두 함께 정리를 했고, 저는 얻은 것이 많다고 느꼈어요.",
+            "uses": [
+              {
+                "wordId": "zh-10",
+                "text": "总结",
+                "start": 12,
+                "end": 14
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "ja": {
+      "lang": "ja",
+      "level": "완전 초급 (JLPT N5 이하)",
+      "words": [
+        {
+          "id": "ja-1",
+          "word": "おなか",
+          "reading": "おなか",
+          "meaning": "배 (신체)",
+          "pos": "명사"
+        },
+        {
+          "id": "ja-2",
+          "word": "ラーメン",
+          "reading": "ラーメン",
+          "meaning": "라멘",
+          "pos": "명사"
+        },
+        {
+          "id": "ja-3",
+          "word": "メニュー",
+          "reading": "メニュー",
+          "meaning": "메뉴",
+          "pos": "명사"
+        },
+        {
+          "id": "ja-4",
+          "word": "何",
+          "reading": "なに",
+          "meaning": "무엇",
+          "pos": "의문사",
+          "ruby": [
+            {
+              "t": "何",
+              "r": "なに"
+            }
+          ]
+        },
+        {
+          "id": "ja-5",
+          "word": "おねがいします",
+          "reading": "おねがいします",
+          "meaning": "부탁합니다 / 주세요",
+          "pos": "표현"
+        }
+      ],
+      "passage": {
+        "title": "ラーメンやさんで",
+        "titleKo": "라멘 가게에서",
+        "situation": "친구와 라멘 가게에 가서 주문하기",
+        "sentences": [
+          {
+            "text": "おなかがすきました。",
+            "reading": "おなかがすきました。",
+            "ko": "배가 고파요.",
+            "uses": [
+              {
+                "wordId": "ja-1",
+                "text": "おなか",
+                "start": 0,
+                "end": 3
+              }
+            ]
+          },
+          {
+            "text": "友だちとラーメンやさんに行きます。",
+            "reading": "ともだちとラーメンやさんにいきます。",
+            "ko": "친구와 라멘 가게에 가요.",
+            "ruby": [
+              {
+                "t": "友",
+                "r": "とも"
+              },
+              {
+                "t": "だちとラーメンやさんに"
+              },
+              {
+                "t": "行",
+                "r": "い"
+              },
+              {
+                "t": "きます。"
+              }
+            ],
+            "uses": [
+              {
+                "wordId": "ja-2",
+                "text": "ラーメン",
+                "start": 4,
+                "end": 8
+              }
+            ]
+          },
+          {
+            "text": "メニューを見ます。",
+            "reading": "メニューをみます。",
+            "ko": "메뉴를 봐요.",
+            "ruby": [
+              {
+                "t": "メニューを"
+              },
+              {
+                "t": "見",
+                "r": "み"
+              },
+              {
+                "t": "ます。"
+              }
+            ],
+            "uses": [
+              {
+                "wordId": "ja-3",
+                "text": "メニュー",
+                "start": 0,
+                "end": 4
+              }
+            ]
+          },
+          {
+            "text": "何を食べますか。",
+            "reading": "なにをたべますか。",
+            "ko": "무엇을 먹을까요?",
+            "ruby": [
+              {
+                "t": "何",
+                "r": "なに"
+              },
+              {
+                "t": "を"
+              },
+              {
+                "t": "食",
+                "r": "た"
+              },
+              {
+                "t": "べますか。"
+              }
+            ],
+            "uses": [
+              {
+                "wordId": "ja-4",
+                "text": "何",
+                "start": 0,
+                "end": 1
+              }
+            ]
+          },
+          {
+            "text": "ラーメンをふたつ、おねがいします。",
+            "reading": "ラーメンをふたつ、おねがいします。",
+            "ko": "라멘 두 개 부탁합니다.",
+            "uses": [
+              {
+                "wordId": "ja-2",
+                "text": "ラーメン",
+                "start": 0,
+                "end": 4
+              },
+              {
+                "wordId": "ja-5",
+                "text": "おねがいします",
+                "start": 9,
+                "end": 16
+              }
+            ]
+          },
+          {
+            "text": "とてもおいしいです。",
+            "reading": "とてもおいしいです。",
+            "ko": "아주 맛있어요.",
+            "uses": []
+          }
+        ],
+        "grammar": {
+          "sentences": [
+            {
+              "sentence": 1,
+              "items": [
+                {
+                  "pattern": "おなかがすきました",
+                  "title": "おなかがすく (배가 고프다)",
+                  "explain": "「おなかがすく」는 배가 고프다는 뜻이에요. 「が」는 「おなか」가 이야기의 중심이라는 표시예요. 「すきました」는 「すく」의 정중한 과거예요."
+                }
+              ]
+            },
+            {
+              "sentence": 2,
+              "items": [
+                {
+                  "pattern": "友だちと",
+                  "title": "と (~와/과)",
+                  "explain": "「と」는 함께 하는 사람을 나타내요. ともだちと = 친구와."
+                },
+                {
+                  "pattern": "に行きます",
+                  "title": "に + いきます (~에 가요)",
+                  "explain": "「に」는 가는 곳을 나타내고, 「いきます」는 「いく」(가다)의 정중한 말이에요. ラーメンやさんにいきます = 라멘 가게에 가요."
+                }
+              ]
+            },
+            {
+              "sentence": 3,
+              "items": [
+                {
+                  "pattern": "メニューを",
+                  "title": "を (~을/를)",
+                  "explain": "「を」는 동작의 대상 뒤에 붙어요. メニューを = 메뉴를."
+                },
+                {
+                  "pattern": "見ます",
+                  "title": "〜ます (정중한 말투)",
+                  "explain": "「みる」(보다)에 「ます」를 붙인 정중한 말이에요. みます = 봐요."
+                }
+              ]
+            },
+            {
+              "sentence": 4,
+              "items": [
+                {
+                  "pattern": "何を",
+                  "title": "なに (무엇)",
+                  "explain": "「なに」는 '무엇'이에요. なにを = 무엇을. 대답은 「ラーメンを」처럼 같은 「を」를 써요."
+                },
+                {
+                  "pattern": "食べますか",
+                  "title": "〜ますか (~할까요?)",
+                  "explain": "문장 끝에 「か」를 붙이면 질문이 돼요. たべますか = 먹어요? / 먹을까요?"
+                }
+              ]
+            },
+            {
+              "sentence": 5,
+              "items": [
+                {
+                  "pattern": "ふたつ",
+                  "title": "ふたつ (두 개)",
+                  "explain": "물건을 셀 때 쓰는 말이에요. ひとつ(하나), ふたつ(둘), みっつ(셋). ラーメンをふたつ = 라멘 두 개."
+                },
+                {
+                  "pattern": "おねがいします",
+                  "title": "おねがいします (부탁합니다)",
+                  "explain": "주문하거나 부탁할 때 쓰는 정중한 말이에요. 「〜をください」와 비슷하게 '~주세요'라는 느낌이에요."
+                }
+              ]
+            },
+            {
+              "sentence": 6,
+              "items": [
+                {
+                  "pattern": "おいしいです",
+                  "title": "おいしい + です (맛있어요)",
+                  "explain": "「おいしい」(맛있다) 뒤에 「です」를 붙이면 정중한 말이 돼요. 「とても」는 '아주'라는 뜻이에요."
+                }
+              ]
+            }
+          ],
+          "summary": [
+            "조사: が(중심) / と(~와) / に(가는 곳) / を(대상)",
+            "말투: 〜ます(~해요) / 〜ですか(~예요?) / 〜ますか(~할까요?)",
+            "주문: 〜をふたつ、おねがいします = ~을 두 개 부탁합니다."
+          ]
+        }
+      }
+    },
+    "ko": {
+      "lang": "ko",
+      "level": "사회통합프로그램 4단계 이상",
+      "words": [
+        {
+          "id": "ko-1",
+          "word": "부동산",
+          "meaning": "집을 사고팔거나 빌리는 일을 도와주는 곳",
+          "meaningZh": "房产中介；不动产",
+          "pos": "명사"
+        },
+        {
+          "id": "ko-2",
+          "word": "집주인",
+          "meaning": "그 집을 가지고 있는 사람",
+          "meaningZh": "房东；屋主",
+          "pos": "명사"
+        },
+        {
+          "id": "ko-3",
+          "word": "보증금",
+          "meaning": "집을 빌릴 때 집주인에게 맡기는 돈",
+          "meaningZh": "押金；租房保证金",
+          "pos": "명사"
+        },
+        {
+          "id": "ko-4",
+          "word": "월세",
+          "meaning": "집을 빌리고 매달 내는 돈",
+          "meaningZh": "月租；月付租金",
+          "pos": "명사"
+        },
+        {
+          "id": "ko-5",
+          "word": "계약하다",
+          "meaning": "서로 지키기로 약속하고 문서를 쓰다",
+          "meaningZh": "签约；签合同",
+          "pos": "동사"
+        },
+        {
+          "id": "ko-6",
+          "word": "계약서",
+          "meaning": "계약 내용을 적은 문서",
+          "meaningZh": "合同书",
+          "pos": "명사"
+        },
+        {
+          "id": "ko-7",
+          "word": "관리비",
+          "meaning": "건물을 관리하는 데 매달 내는 돈",
+          "meaningZh": "物业管理费",
+          "pos": "명사"
+        },
+        {
+          "id": "ko-8",
+          "word": "입주하다",
+          "meaning": "새 집에 들어가 살기 시작하다",
+          "meaningZh": "入住；搬入",
+          "pos": "동사"
+        },
+        {
+          "id": "ko-9",
+          "word": "포함되다",
+          "meaning": "어떤 것 안에 같이 들어 있다",
+          "meaningZh": "包含；包括在内",
+          "pos": "동사"
+        },
+        {
+          "id": "ko-10",
+          "word": "돌려받다",
+          "meaning": "냈던 돈이나 맡긴 것을 다시 받다",
+          "meaningZh": "取回；拿回；退还",
+          "pos": "동사"
+        }
+      ],
+      "passage": {
+        "title": "부동산에서 집 계약하기",
+        "titleZh": "在房产中介办理租房签约",
+        "situation": "새 집을 구해서 부동산에서 계약할 때",
+        "sentences": [
+          {
+            "text": "이번 달 말에 회사 근처로 이사하려고 부동산에 찾아갔어요.",
+            "zh": "这个月底我打算搬到公司附近，所以去了房产中介。",
+            "uses": [
+              {
+                "wordId": "ko-1",
+                "text": "부동산",
+                "start": 21,
+                "end": 24
+              }
+            ]
+          },
+          {
+            "text": "마음에 드는 집을 찾아서 집주인을 만나 보증금과 월세를 이야기했어요.",
+            "zh": "找到了满意的房子，我见了房东，谈了押金和月租。",
+            "uses": [
+              {
+                "wordId": "ko-2",
+                "text": "집주인",
+                "start": 14,
+                "end": 17
+              },
+              {
+                "wordId": "ko-3",
+                "text": "보증금",
+                "start": 22,
+                "end": 25
+              },
+              {
+                "wordId": "ko-4",
+                "text": "월세",
+                "start": 27,
+                "end": 29
+              }
+            ]
+          },
+          {
+            "text": "보증금이 조금 부담스러웠지만 위치가 좋아서 그 집과 계약하기로 했어요.",
+            "zh": "虽然押金有点负担，但位置很好，所以决定和那套房子签约。",
+            "uses": [
+              {
+                "wordId": "ko-3",
+                "text": "보증금",
+                "start": 0,
+                "end": 3
+              },
+              {
+                "wordId": "ko-5",
+                "text": "계약하기로",
+                "start": 29,
+                "end": 34
+              }
+            ]
+          },
+          {
+            "text": "계약서에 서명하기 전에 관리비에 무엇이 포함되는지 먼저 물어봤어요.",
+            "zh": "在合同上签字之前，我先问了物业费里包含什么。",
+            "uses": [
+              {
+                "wordId": "ko-6",
+                "text": "계약서",
+                "start": 0,
+                "end": 3
+              },
+              {
+                "wordId": "ko-7",
+                "text": "관리비",
+                "start": 13,
+                "end": 16
+              },
+              {
+                "wordId": "ko-9",
+                "text": "포함되는지",
+                "start": 22,
+                "end": 27
+              }
+            ]
+          },
+          {
+            "text": "새 집에 입주하면 한동안 정신없이 바쁠 텐데 벌써부터 설레요.",
+            "zh": "搬进新家后有一阵子会忙得不可开交，但我现在就已经很期待了。",
+            "uses": [
+              {
+                "wordId": "ko-8",
+                "text": "입주하면",
+                "start": 5,
+                "end": 9
+              }
+            ]
+          },
+          {
+            "text": "나중에 보증금을 돌려받으려면 집을 깨끗하게 써야 한다고 해서 조심하려고요.",
+            "zh": "听说以后想顺利拿回押金，就得把房子保持干净地使用，所以我打算多加小心。",
+            "uses": [
+              {
+                "wordId": "ko-3",
+                "text": "보증금",
+                "start": 4,
+                "end": 7
+              },
+              {
+                "wordId": "ko-10",
+                "text": "돌려받으려면",
+                "start": 9,
+                "end": 15
+              }
+            ]
+          }
+        ],
+        "grammar": {
+          "sentences": [
+            {
+              "sentence": 1,
+              "items": [
+                {
+                  "pattern": "이사하려고",
+                  "title": "-(으)려고（为了……；打算……）",
+                  "explain": "表示做某事的意图或目的。“이사하려고 부동산에 찾아갔어요”＝为了搬家去了房产中介。注意：后面可以接陈述句和疑问句，但不能接命令句和劝诱句。"
+                }
+              ]
+            },
+            {
+              "sentence": 3,
+              "items": [
+                {
+                  "pattern": "계약하기로 했어요",
+                  "title": "-기로 하다（决定……）",
+                  "explain": "表示做出决定或约定。“계약하기로 했어요”＝决定签约了。中文说“决定签约”，韩语用“동사词干＋기로 하다”，不要说成“계약하다고 했어요”。"
+                }
+              ]
+            },
+            {
+              "sentence": 4,
+              "items": [
+                {
+                  "pattern": "서명하기 전에",
+                  "title": "-기 전에（……之前）",
+                  "explain": "动词词干加 -기 전에，表示在做某事之前。无论词干有没有收音都用 -기 전에。“서명하기 전에”＝签字之前。"
+                },
+                {
+                  "pattern": "포함되는지",
+                  "title": "-는지（是否……）",
+                  "explain": "在句子里表示不确定的内容，常和“묻다、알다、확인하다”等一起用。“무엇이 포함되는지 물어봤어요”＝问了包含什么。"
+                }
+              ]
+            },
+            {
+              "sentence": 5,
+              "items": [
+                {
+                  "pattern": "입주하면",
+                  "title": "-(으)면（如果……的话）",
+                  "explain": "表示假设或条件。“새 집에 입주하면”＝如果搬进新家的话。有收音用 -으면，没有收音（或ㄹ收音）用 -면。"
+                },
+                {
+                  "pattern": "바쁠 텐데",
+                  "title": "-(으)ㄹ 텐데（想必会……，可是……）",
+                  "explain": "表示说话人的推测，同时带出后面的内容（担心、遗憾、对比等）。“바쁠 텐데 설레요”＝虽然会很忙，但很期待。"
+                }
+              ]
+            },
+            {
+              "sentence": 6,
+              "items": [
+                {
+                  "pattern": "돌려받으려면",
+                  "title": "-(으)려면（如果想要……的话）",
+                  "explain": "表示“如果想做某事”，后面通常接必须做的事或条件。“돌려받으려면 깨끗하게 써야 한다”＝想拿回押金，就得保持干净。"
+                },
+                {
+                  "pattern": "써야 한다고 해서",
+                  "title": "-다고 하다（听说……）＋ -아/어서",
+                  "explain": "-다고 하다用于转述别人的话。“써야 한다고 해서”＝因为听说必须……。这里 -아/어서 表示原因，“해서”是“하다”的 -아/어서 形式。"
+                }
+              ]
+            }
+          ],
+          "summary": [
+            "目的与决定：-(으)려고（打算）、-기로 하다（决定）、-기 전에（……之前）。",
+            "条件与推测：-(으)면（如果）、-(으)려면（想要……的话）、-(으)ㄹ 텐데（想必会……）。",
+            "间接内容：-는지（是否）、-다고 하다（听说、转述）。"
+          ]
+        }
+      }
+    }
+  }
+}

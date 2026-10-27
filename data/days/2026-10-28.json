@@ -1,0 +1,1172 @@
+{
+  "schemaVersion": 2,
+  "date": "2026-10-28",
+  "status": "ready",
+  "generatedAt": "2026-10-28T08:49:17+09:00",
+  "sets": {
+    "yue": {
+      "lang": "yue",
+      "level": "완전 초급",
+      "words": [
+        {
+          "id": "yue-1",
+          "word": "落雨",
+          "reading": "lok6 jyu5",
+          "meaning": "비가 오다",
+          "pos": "동사"
+        },
+        {
+          "id": "yue-2",
+          "word": "遮",
+          "reading": "ze1",
+          "meaning": "우산",
+          "pos": "명사"
+        },
+        {
+          "id": "yue-3",
+          "word": "冻",
+          "reading": "dung3",
+          "meaning": "춥다",
+          "pos": "형용사"
+        },
+        {
+          "id": "yue-4",
+          "word": "返工",
+          "reading": "faan1 gung1",
+          "meaning": "출근하다",
+          "pos": "동사"
+        },
+        {
+          "id": "yue-5",
+          "word": "衫",
+          "reading": "saam1",
+          "meaning": "옷",
+          "pos": "명사"
+        }
+      ],
+      "passage": {
+        "title": "落雨嘅朝早",
+        "titleKo": "비 오는 아침",
+        "situation": "비 오는 날 출근하기",
+        "sentences": [
+          {
+            "text": "今日落雨。",
+            "reading": "gam1 jat6 lok6 jyu5.",
+            "ko": "오늘 비가 와요.",
+            "uses": [
+              {
+                "wordId": "yue-1",
+                "text": "落雨",
+                "start": 2,
+                "end": 4
+              }
+            ]
+          },
+          {
+            "text": "出面好冻。",
+            "reading": "ceot1 min6 hou2 dung3.",
+            "ko": "밖이 아주 추워요.",
+            "uses": [
+              {
+                "wordId": "yue-3",
+                "text": "冻",
+                "start": 3,
+                "end": 4
+              }
+            ]
+          },
+          {
+            "text": "我着多件衫。",
+            "reading": "ngo5 zoek3 do1 gin6 saam1.",
+            "ko": "저는 옷을 한 벌 더 입어요.",
+            "uses": [
+              {
+                "wordId": "yue-5",
+                "text": "衫",
+                "start": 4,
+                "end": 5
+              }
+            ]
+          },
+          {
+            "text": "我要返工。",
+            "reading": "ngo5 jiu3 faan1 gung1.",
+            "ko": "저는 출근해야 해요.",
+            "uses": [
+              {
+                "wordId": "yue-4",
+                "text": "返工",
+                "start": 2,
+                "end": 4
+              }
+            ]
+          },
+          {
+            "text": "可惜我冇带遮。",
+            "reading": "ho2 sik1 ngo5 mou5 daai3 ze1.",
+            "ko": "아쉽게도 저는 우산을 안 가져왔어요.",
+            "uses": [
+              {
+                "wordId": "yue-2",
+                "text": "遮",
+                "start": 5,
+                "end": 6
+              }
+            ]
+          },
+          {
+            "text": "同事借遮畀我。",
+            "reading": "tung4 si6 ze3 ze1 bei2 ngo5.",
+            "ko": "동료가 우산을 빌려줘요.",
+            "uses": [
+              {
+                "wordId": "yue-2",
+                "text": "遮",
+                "start": 3,
+                "end": 4
+              }
+            ]
+          },
+          {
+            "text": "我话：「唔该晒！」",
+            "reading": "ngo5 waa6: \"m4 goi1 saai3!\"",
+            "ko": "저는 \"정말 고마워요!\"라고 말해요.",
+            "uses": []
+          }
+        ],
+        "grammar": {
+          "sentences": [
+            {
+              "sentence": 1,
+              "items": [
+                {
+                  "pattern": "今日",
+                  "title": "今日 (오늘)",
+                  "explain": "今日(gam1 jat6)는 '오늘'이에요. 때를 나타내는 말은 문장 앞에 와요."
+                },
+                {
+                  "pattern": "落雨",
+                  "title": "落雨 (비가 오다)",
+                  "explain": "落(lok6)雨(jyu5)는 '비가 오다'예요. 今日落雨 = 오늘 비가 와요. 날씨 말은 주어 없이도 말해요."
+                }
+              ]
+            },
+            {
+              "sentence": 2,
+              "items": [
+                {
+                  "pattern": "好冻",
+                  "title": "好 + 형용사 (아주 ~하다)",
+                  "explain": "好(hou2) 뒤에 형용사를 붙이면 '아주 ~하다'예요. 係(이다)는 쓰지 않아요. 好冻 = 아주 추워요."
+                }
+              ]
+            },
+            {
+              "sentence": 3,
+              "items": [
+                {
+                  "pattern": "多件衫",
+                  "title": "多 + 양사 + 명사 (더 ~)",
+                  "explain": "着(zoek3)는 '입다'예요. 件(gin6)은 옷을 세는 양사예요. 多件衫 = 옷 한 벌 더."
+                }
+              ]
+            },
+            {
+              "sentence": 4,
+              "items": [
+                {
+                  "pattern": "要返工",
+                  "title": "要 + 동사 (~해야 하다)",
+                  "explain": "要(jiu3) 뒤에 동사를 붙이면 '~해야 해요'예요. 返工(faan1 gung1)은 '출근하다'예요."
+                }
+              ]
+            },
+            {
+              "sentence": 5,
+              "items": [
+                {
+                  "pattern": "冇带遮",
+                  "title": "冇 (없다 / 안 ~했다)",
+                  "explain": "冇(mou5)는 '없다'예요. 冇带遮 = 우산을 안 가져왔어요. 표준 중국어의 没有에 해당해요."
+                }
+              ]
+            },
+            {
+              "sentence": 6,
+              "items": [
+                {
+                  "pattern": "借遮畀我",
+                  "title": "畀 (주다)",
+                  "explain": "畀(bei2)는 '주다'예요. 借遮畀我 = 우산을 나에게 빌려주다. 畀 뒤에 받는 사람이 와요."
+                }
+              ]
+            },
+            {
+              "sentence": 7,
+              "items": [
+                {
+                  "pattern": "话",
+                  "title": "话 (말하다)",
+                  "explain": "话(waa6)는 '말하다'예요. 我话：「…」처럼 말한 내용을 뒤에 붙여요."
+                },
+                {
+                  "pattern": "唔该晒",
+                  "title": "唔该晒 (정말 고마워요)",
+                  "explain": "唔该(m4 goi1) 뒤에 晒(saai3)를 붙이면 '정말 고마워요'로 더 강한 감사의 말이 돼요."
+                }
+              ]
+            }
+          ],
+          "summary": [
+            "好 + 형용사 = 아주 ~하다 (好冻), 要 + 동사 = ~해야 하다 (要返工)",
+            "冇 = 없다 / 안 ~했다 (冇带遮), 畀 = 주다 (借遮畀我)",
+            "件은 옷의 양사 (一件衫), 唔该晒 = 정말 고마워요"
+          ],
+          "compare": [
+            {
+              "this": "落雨",
+              "other": "下雨"
+            },
+            {
+              "this": "冻",
+              "other": "冷"
+            },
+            {
+              "this": "衫",
+              "other": "衣服"
+            },
+            {
+              "this": "返工",
+              "other": "上班"
+            },
+            {
+              "this": "遮",
+              "other": "伞"
+            },
+            {
+              "this": "冇",
+              "other": "没有"
+            },
+            {
+              "this": "畀",
+              "other": "给"
+            }
+          ]
+        }
+      }
+    },
+    "en": {
+      "lang": "en",
+      "level": "토익스피킹 대비",
+      "words": [
+        {
+          "id": "en-1",
+          "word": "exercise",
+          "reading": "/ˈɛksərsaɪz/",
+          "meaning": "운동, 운동하다",
+          "pos": "명사/동사"
+        },
+        {
+          "id": "en-2",
+          "word": "healthy",
+          "reading": "/ˈhɛlθi/",
+          "meaning": "건강한",
+          "pos": "형용사"
+        },
+        {
+          "id": "en-3",
+          "word": "balance",
+          "reading": "/ˈbæləns/",
+          "meaning": "균형",
+          "pos": "명사"
+        },
+        {
+          "id": "en-4",
+          "word": "habit",
+          "reading": "/ˈhæbɪt/",
+          "meaning": "습관",
+          "pos": "명사"
+        },
+        {
+          "id": "en-5",
+          "word": "diet",
+          "reading": "/ˈdaɪət/",
+          "meaning": "식단, 식습관",
+          "pos": "명사"
+        },
+        {
+          "id": "en-6",
+          "word": "sleep",
+          "reading": "/sliːp/",
+          "meaning": "잠, 자다",
+          "pos": "명사/동사"
+        },
+        {
+          "id": "en-7",
+          "word": "mood",
+          "reading": "/muːd/",
+          "meaning": "기분",
+          "pos": "명사"
+        },
+        {
+          "id": "en-8",
+          "word": "motivated",
+          "reading": "/ˈmoʊtəveɪtɪd/",
+          "meaning": "의욕이 있는",
+          "pos": "형용사"
+        },
+        {
+          "id": "en-9",
+          "word": "track",
+          "reading": "/træk/",
+          "meaning": "기록하며 추적하다",
+          "pos": "동사"
+        },
+        {
+          "id": "en-10",
+          "word": "goal",
+          "reading": "/ɡoʊl/",
+          "meaning": "목표",
+          "pos": "명사"
+        }
+      ],
+      "passage": {
+        "title": "How I Stay Healthy",
+        "titleKo": "내가 건강을 유지하는 방법",
+        "situation": "토익스피킹 의견 말하기 — 건강한 생활 습관",
+        "sentences": [
+          {
+            "text": "In my opinion, a healthy life starts with good habits.",
+            "ko": "제 생각에 건강한 삶은 좋은 습관에서 시작돼요.",
+            "uses": [
+              {
+                "wordId": "en-2",
+                "text": "healthy",
+                "start": 17,
+                "end": 24
+              },
+              {
+                "wordId": "en-4",
+                "text": "habits",
+                "start": 47,
+                "end": 53
+              }
+            ]
+          },
+          {
+            "text": "I set a goal to exercise three times a week.",
+            "ko": "저는 일주일에 세 번 운동하겠다는 목표를 세웠어요.",
+            "uses": [
+              {
+                "wordId": "en-10",
+                "text": "goal",
+                "start": 8,
+                "end": 12
+              },
+              {
+                "wordId": "en-1",
+                "text": "exercise",
+                "start": 16,
+                "end": 24
+              }
+            ]
+          },
+          {
+            "text": "To stay motivated, I track my progress on my phone.",
+            "ko": "의욕을 유지하려고 저는 휴대폰으로 진행 상황을 기록해요.",
+            "uses": [
+              {
+                "wordId": "en-8",
+                "text": "motivated",
+                "start": 8,
+                "end": 17
+              },
+              {
+                "wordId": "en-9",
+                "text": "track",
+                "start": 21,
+                "end": 26
+              }
+            ]
+          },
+          {
+            "text": "I also try to keep a balance between work and rest.",
+            "ko": "저는 일과 휴식 사이의 균형을 맞추려고도 노력해요.",
+            "uses": [
+              {
+                "wordId": "en-3",
+                "text": "balance",
+                "start": 21,
+                "end": 28
+              }
+            ]
+          },
+          {
+            "text": "A simple diet and enough sleep help me a lot.",
+            "ko": "단순한 식단과 충분한 잠이 저에게 큰 도움이 돼요.",
+            "uses": [
+              {
+                "wordId": "en-5",
+                "text": "diet",
+                "start": 9,
+                "end": 13
+              },
+              {
+                "wordId": "en-6",
+                "text": "sleep",
+                "start": 25,
+                "end": 30
+              }
+            ]
+          },
+          {
+            "text": "When I sleep well, my mood is better and I feel ready for the day.",
+            "ko": "잘 자면 기분이 더 좋고 하루를 맞을 준비가 된 느낌이에요.",
+            "uses": [
+              {
+                "wordId": "en-6",
+                "text": "sleep",
+                "start": 7,
+                "end": 12
+              },
+              {
+                "wordId": "en-7",
+                "text": "mood",
+                "start": 22,
+                "end": 26
+              }
+            ]
+          },
+          {
+            "text": "That is why I think small changes can make a big difference.",
+            "ko": "그래서 저는 작은 변화가 큰 차이를 만들 수 있다고 생각해요.",
+            "uses": []
+          }
+        ]
+      }
+    },
+    "zh": {
+      "lang": "zh",
+      "level": "HSK 4~6급",
+      "hskStandard": "HSK 2.0 (6급제) 기준 4~6급 어휘",
+      "words": [
+        {
+          "id": "zh-1",
+          "word": "爬山",
+          "reading": "páshān",
+          "meaning": "등산하다",
+          "pos": "동사"
+        },
+        {
+          "id": "zh-2",
+          "word": "空气",
+          "reading": "kōngqì",
+          "meaning": "공기",
+          "pos": "명사"
+        },
+        {
+          "id": "zh-3",
+          "word": "风景",
+          "reading": "fēngjǐng",
+          "meaning": "풍경",
+          "pos": "명사"
+        },
+        {
+          "id": "zh-4",
+          "word": "摄影",
+          "reading": "shèyǐng",
+          "meaning": "사진 촬영",
+          "pos": "명사/동사"
+        },
+        {
+          "id": "zh-5",
+          "word": "体力",
+          "reading": "tǐlì",
+          "meaning": "체력",
+          "pos": "명사"
+        },
+        {
+          "id": "zh-6",
+          "word": "补充",
+          "reading": "bǔchōng",
+          "meaning": "보충하다",
+          "pos": "동사"
+        },
+        {
+          "id": "zh-7",
+          "word": "危险",
+          "reading": "wēixiǎn",
+          "meaning": "위험하다",
+          "pos": "형용사"
+        },
+        {
+          "id": "zh-8",
+          "word": "速度",
+          "reading": "sùdù",
+          "meaning": "속도",
+          "pos": "명사"
+        },
+        {
+          "id": "zh-9",
+          "word": "到达",
+          "reading": "dàodá",
+          "meaning": "도착하다",
+          "pos": "동사"
+        },
+        {
+          "id": "zh-10",
+          "word": "成就",
+          "reading": "chéngjiù",
+          "meaning": "성취",
+          "pos": "명사"
+        }
+      ],
+      "passage": {
+        "title": "周末爬山",
+        "titleKo": "주말 등산",
+        "situation": "친구와 주말에 산에 오른 이야기",
+        "sentences": [
+          {
+            "text": "周末我和朋友去爬山，山里的空气特别新鲜。",
+            "reading": "Zhōumò wǒ hé péngyou qù páshān, shānlǐ de kōngqì tèbié xīnxiān.",
+            "ko": "주말에 저는 친구와 등산을 갔는데, 산속 공기가 특히 상쾌했어요.",
+            "uses": [
+              {
+                "wordId": "zh-1",
+                "text": "爬山",
+                "start": 7,
+                "end": 9
+              },
+              {
+                "wordId": "zh-2",
+                "text": "空气",
+                "start": 13,
+                "end": 15
+              }
+            ]
+          },
+          {
+            "text": "路上的风景很美，朋友喜欢摄影，不停地拍照。",
+            "reading": "Lùshang de fēngjǐng hěn měi, péngyou xǐhuan shèyǐng, bùtíng de pāizhào.",
+            "ko": "길 위의 풍경이 아름다워서, 사진 찍기를 좋아하는 친구는 쉬지 않고 사진을 찍었어요.",
+            "uses": [
+              {
+                "wordId": "zh-3",
+                "text": "风景",
+                "start": 3,
+                "end": 5
+              },
+              {
+                "wordId": "zh-4",
+                "text": "摄影",
+                "start": 12,
+                "end": 14
+              }
+            ]
+          },
+          {
+            "text": "有些路比较危险，所以我们放慢了速度。",
+            "reading": "Yǒuxiē lù bǐjiào wēixiǎn, suǒyǐ wǒmen fàngmàn le sùdù.",
+            "ko": "어떤 길은 꽤 위험해서 우리는 속도를 늦췄어요.",
+            "uses": [
+              {
+                "wordId": "zh-7",
+                "text": "危险",
+                "start": 5,
+                "end": 7
+              },
+              {
+                "wordId": "zh-8",
+                "text": "速度",
+                "start": 15,
+                "end": 17
+              }
+            ]
+          },
+          {
+            "text": "我的体力不太好，走一会儿就要停下来补充水分。",
+            "reading": "Wǒ de tǐlì bú tài hǎo, zǒu yíhuìr jiù yào tíng xiàlai bǔchōng shuǐfèn.",
+            "ko": "저는 체력이 별로 좋지 않아서, 조금 걷다가 멈춰서 수분을 보충해야 했어요.",
+            "uses": [
+              {
+                "wordId": "zh-5",
+                "text": "体力",
+                "start": 2,
+                "end": 4
+              },
+              {
+                "wordId": "zh-6",
+                "text": "补充",
+                "start": 17,
+                "end": 19
+              }
+            ]
+          },
+          {
+            "text": "两个小时后，我们终于到达了山顶。",
+            "reading": "Liǎng gè xiǎoshí hòu, wǒmen zhōngyú dàodá le shāndǐng.",
+            "ko": "두 시간 뒤, 우리는 마침내 정상에 도착했어요.",
+            "uses": [
+              {
+                "wordId": "zh-9",
+                "text": "到达",
+                "start": 10,
+                "end": 12
+              }
+            ]
+          },
+          {
+            "text": "站在上面，我感到了一种成就感。",
+            "reading": "Zhàn zài shàngmian, wǒ gǎndào le yì zhǒng chéngjiùgǎn.",
+            "ko": "그 위에 서니 일종의 성취감이 느껴졌어요.",
+            "uses": [
+              {
+                "wordId": "zh-10",
+                "text": "成就",
+                "start": 11,
+                "end": 13
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "ja": {
+      "lang": "ja",
+      "level": "완전 초급 (JLPT N5 이하)",
+      "words": [
+        {
+          "id": "ja-1",
+          "word": "電話",
+          "reading": "でんわ",
+          "meaning": "전화",
+          "pos": "명사",
+          "ruby": [
+            {
+              "t": "電話",
+              "r": "でんわ"
+            }
+          ]
+        },
+        {
+          "id": "ja-2",
+          "word": "えき",
+          "reading": "えき",
+          "meaning": "역",
+          "pos": "명사"
+        },
+        {
+          "id": "ja-3",
+          "word": "まつ",
+          "reading": "まつ",
+          "meaning": "기다리다",
+          "pos": "동사"
+        },
+        {
+          "id": "ja-4",
+          "word": "あした",
+          "reading": "あした",
+          "meaning": "내일",
+          "pos": "명사"
+        },
+        {
+          "id": "ja-5",
+          "word": "来る",
+          "reading": "くる",
+          "meaning": "오다",
+          "pos": "동사",
+          "ruby": [
+            {
+              "t": "来",
+              "r": "く"
+            },
+            {
+              "t": "る"
+            }
+          ]
+        }
+      ],
+      "passage": {
+        "title": "ともだちと",
+        "titleKo": "친구와",
+        "situation": "친구와 전화로 약속 잡기",
+        "sentences": [
+          {
+            "text": "友だちから電話です。",
+            "reading": "ともだちからでんわです。",
+            "ko": "친구한테서 전화예요.",
+            "ruby": [
+              {
+                "t": "友",
+                "r": "とも"
+              },
+              {
+                "t": "だちから"
+              },
+              {
+                "t": "電話",
+                "r": "でんわ"
+              },
+              {
+                "t": "です。"
+              }
+            ],
+            "uses": [
+              {
+                "wordId": "ja-1",
+                "text": "電話",
+                "start": 5,
+                "end": 7
+              }
+            ]
+          },
+          {
+            "text": "「あした、あいませんか。」",
+            "reading": "「あした、あいませんか。」",
+            "ko": "\"내일 만나지 않을래요?\"",
+            "uses": [
+              {
+                "wordId": "ja-4",
+                "text": "あした",
+                "start": 1,
+                "end": 4
+              }
+            ]
+          },
+          {
+            "text": "「いいですよ。」",
+            "reading": "「いいですよ。」",
+            "ko": "\"좋아요.\"",
+            "uses": []
+          },
+          {
+            "text": "「えきでまちます。」",
+            "reading": "「えきでまちます。」",
+            "ko": "\"역에서 기다릴게요.\"",
+            "uses": [
+              {
+                "wordId": "ja-2",
+                "text": "えき",
+                "start": 1,
+                "end": 3
+              },
+              {
+                "wordId": "ja-3",
+                "text": "まち",
+                "start": 4,
+                "end": 6
+              }
+            ]
+          },
+          {
+            "text": "「十時に来ます。」",
+            "reading": "「じゅうじにきます。」",
+            "ko": "\"10시에 올게요.\"",
+            "ruby": [
+              {
+                "t": "「"
+              },
+              {
+                "t": "十時",
+                "r": "じゅうじ"
+              },
+              {
+                "t": "に"
+              },
+              {
+                "t": "来",
+                "r": "き"
+              },
+              {
+                "t": "ます。」"
+              }
+            ],
+            "uses": [
+              {
+                "wordId": "ja-5",
+                "text": "来",
+                "start": 4,
+                "end": 5
+              }
+            ]
+          },
+          {
+            "text": "「たのしみです。」",
+            "reading": "「たのしみです。」",
+            "ko": "\"기대돼요.\"",
+            "uses": []
+          }
+        ],
+        "grammar": {
+          "sentences": [
+            {
+              "sentence": 1,
+              "items": [
+                {
+                  "pattern": "から",
+                  "title": "から (~에게서)",
+                  "explain": "「から」는 사람이나 곳에서 '~로부터'라는 뜻이에요. ともだちからでんわです = 친구한테서 전화예요."
+                },
+                {
+                  "pattern": "電話です",
+                  "title": "〜です (~예요)",
+                  "explain": "「でんわ」(전화) 뒤에 「です」를 붙이면 '전화예요'라는 정중한 말이 돼요."
+                }
+              ]
+            },
+            {
+              "sentence": 2,
+              "items": [
+                {
+                  "pattern": "あした",
+                  "title": "あした (내일)",
+                  "explain": "「あした」는 내일이에요. 때를 나타내는 말은 문장 앞에 와요."
+                },
+                {
+                  "pattern": "ませんか",
+                  "title": "〜ませんか (~하지 않을래요?)",
+                  "explain": "「ます」를 「ませんか」로 바꾸면 '같이 ~할래요?' 하고 권하는 말이 돼요. 부드럽게 약속을 청할 때 써요."
+                }
+              ]
+            },
+            {
+              "sentence": 3,
+              "items": [
+                {
+                  "pattern": "よ",
+                  "title": "よ (~요)",
+                  "explain": "문장 끝의 「よ」는 상대에게 알려 주거나 가볍게 대답하는 느낌을 더해요. いいですよ = 좋아요."
+                }
+              ]
+            },
+            {
+              "sentence": 4,
+              "items": [
+                {
+                  "pattern": "で",
+                  "title": "で (~에서)",
+                  "explain": "「で」는 일이 일어나는 장소를 나타내요. えきでまちます = 역에서 기다려요."
+                },
+                {
+                  "pattern": "まちます",
+                  "title": "〜ます (정중한 말)",
+                  "explain": "「まつ」(기다리다)의 정중한 말이에요. まつ → まち + ます = 기다려요."
+                }
+              ]
+            },
+            {
+              "sentence": 5,
+              "items": [
+                {
+                  "pattern": "に",
+                  "title": "に (~에, 때)",
+                  "explain": "「に」는 시각 뒤에 붙어 '~시에'라는 뜻이 돼요. じゅうじに = 10시에."
+                },
+                {
+                  "pattern": "来ます",
+                  "title": "くる → きます (오다)",
+                  "explain": "「くる」(오다)의 정중한 말은 「きます」예요. 다른 동사와 달리 모양이 조금 바뀌어요."
+                }
+              ]
+            },
+            {
+              "sentence": 6,
+              "items": [
+                {
+                  "pattern": "たのしみです",
+                  "title": "〜です (~예요)",
+                  "explain": "「たのしみ」(기대) 뒤에 「です」를 붙이면 '기대돼요'가 돼요."
+                }
+              ]
+            }
+          ],
+          "summary": [
+            "조사: から(~에게서) / で(~에서) / に(~에, 때)",
+            "말투: 〜ます(~해요) / 〜ませんか(~할래요?) / 〜です(~예요)",
+            "「くる」는 「きます」로 모양이 바뀌어요. 문장 끝 「よ」는 알려 주는 느낌이에요."
+          ]
+        }
+      }
+    },
+    "ko": {
+      "lang": "ko",
+      "level": "사회통합프로그램 4단계 이상",
+      "words": [
+        {
+          "id": "ko-1",
+          "word": "회원증",
+          "meaning": "도서관 같은 곳의 회원임을 보여 주는 카드",
+          "meaningZh": "会员证",
+          "pos": "명사"
+        },
+        {
+          "id": "ko-2",
+          "word": "대출하다",
+          "meaning": "도서관에서 책을 빌리다",
+          "meaningZh": "借出；借阅",
+          "pos": "동사"
+        },
+        {
+          "id": "ko-3",
+          "word": "반납하다",
+          "meaning": "빌린 것을 다시 돌려주다",
+          "meaningZh": "归还",
+          "pos": "동사"
+        },
+        {
+          "id": "ko-4",
+          "word": "연체되다",
+          "meaning": "돌려줄 날짜가 지나 늦어지다",
+          "meaningZh": "逾期；拖欠",
+          "pos": "동사"
+        },
+        {
+          "id": "ko-5",
+          "word": "연장하다",
+          "meaning": "기간을 더 길게 늘리다",
+          "meaningZh": "延长",
+          "pos": "동사"
+        },
+        {
+          "id": "ko-6",
+          "word": "신간",
+          "meaning": "새로 나온 책",
+          "meaningZh": "新书；新刊",
+          "pos": "명사"
+        },
+        {
+          "id": "ko-7",
+          "word": "열람하다",
+          "meaning": "책이나 자료를 읽어 보다",
+          "meaningZh": "阅览；查阅",
+          "pos": "동사"
+        },
+        {
+          "id": "ko-8",
+          "word": "자료",
+          "meaning": "공부나 일에 쓰는 글이나 정보",
+          "meaningZh": "资料",
+          "pos": "명사"
+        },
+        {
+          "id": "ko-9",
+          "word": "조용하다",
+          "meaning": "소리가 거의 없다",
+          "meaningZh": "安静",
+          "pos": "형용사"
+        },
+        {
+          "id": "ko-10",
+          "word": "이용하다",
+          "meaning": "어떤 장소나 서비스를 쓰다",
+          "meaningZh": "使用；利用",
+          "pos": "동사"
+        }
+      ],
+      "passage": {
+        "title": "도서관에서 책 빌리기",
+        "titleZh": "在图书馆借书",
+        "situation": "동네 도서관에서 책을 빌린 경험",
+        "sentences": [
+          {
+            "text": "우리 동네 도서관을 이용하려면 먼저 회원증을 만들어야 해요.",
+            "zh": "想使用我们社区的图书馆，首先得办一张会员证。",
+            "uses": [
+              {
+                "wordId": "ko-10",
+                "text": "이용하려면",
+                "start": 11,
+                "end": 16
+              },
+              {
+                "wordId": "ko-1",
+                "text": "회원증",
+                "start": 20,
+                "end": 23
+              }
+            ]
+          },
+          {
+            "text": "저는 새로 나온 신간을 대출하고 싶어서 도서관에 갔어요.",
+            "zh": "我想借新出的新书，所以去了图书馆。",
+            "uses": [
+              {
+                "wordId": "ko-6",
+                "text": "신간",
+                "start": 9,
+                "end": 11
+              },
+              {
+                "wordId": "ko-2",
+                "text": "대출하고",
+                "start": 13,
+                "end": 17
+              }
+            ]
+          },
+          {
+            "text": "책을 반납하는 날짜를 잊어버리는 바람에 연체되어서 며칠 동안 빌릴 수 없었어요.",
+            "zh": "因为忘了还书的日期，书逾期了，所以好几天都不能借书。",
+            "uses": [
+              {
+                "wordId": "ko-3",
+                "text": "반납하는",
+                "start": 3,
+                "end": 7
+              },
+              {
+                "wordId": "ko-4",
+                "text": "연체되어서",
+                "start": 22,
+                "end": 27
+              }
+            ]
+          },
+          {
+            "text": "빌리는 기간을 연장하면 일주일 더 읽을 수 있을 텐데, 저는 그 방법을 몰랐어요.",
+            "zh": "如果延长借阅期限，应该可以多读一个星期，可我不知道这个办法。",
+            "uses": [
+              {
+                "wordId": "ko-5",
+                "text": "연장하면",
+                "start": 8,
+                "end": 12
+              }
+            ]
+          },
+          {
+            "text": "도서관 안은 조용한 곳이어서 자료를 열람할 때에는 작은 소리로 말해야 해요.",
+            "zh": "图书馆里是安静的地方，所以阅览资料的时候要小声说话。",
+            "uses": [
+              {
+                "wordId": "ko-9",
+                "text": "조용한",
+                "start": 7,
+                "end": 10
+              },
+              {
+                "wordId": "ko-8",
+                "text": "자료",
+                "start": 16,
+                "end": 18
+              },
+              {
+                "wordId": "ko-7",
+                "text": "열람할",
+                "start": 20,
+                "end": 23
+              }
+            ]
+          },
+          {
+            "text": "다음에는 회원증을 꼭 챙기고, 반납 날짜도 미리 확인해야겠어요.",
+            "zh": "下次我一定要带好会员证，还要提前确认还书日期。",
+            "uses": [
+              {
+                "wordId": "ko-1",
+                "text": "회원증",
+                "start": 5,
+                "end": 8
+              },
+              {
+                "wordId": "ko-3",
+                "text": "반납",
+                "start": 17,
+                "end": 19
+              }
+            ]
+          }
+        ],
+        "grammar": {
+          "sentences": [
+            {
+              "sentence": 1,
+              "items": [
+                {
+                  "pattern": "이용하려면",
+                  "title": "-(으)려면（如果想要……的话）",
+                  "explain": "表示“如果想做某事的话”，后面常接必须做的事。“이용하려면 회원증을 만들어야 해요”＝想使用的话得办会员证。"
+                },
+                {
+                  "pattern": "만들어야 해요",
+                  "title": "-아/어야 하다（必须……）",
+                  "explain": "表示义务或必要性。“만들다”去掉다加 -어야 하다，ㄹ收音的词干照常连接，变成“만들어야 해요”。"
+                }
+              ]
+            },
+            {
+              "sentence": 2,
+              "items": [
+                {
+                  "pattern": "대출하고 싶어서",
+                  "title": "-고 싶다 + -아/어서（因为想……所以……）",
+                  "explain": "-고 싶다表示“想要做……”；-아/어서表示原因。“대출하고 싶어서”＝因为想借阅。注意主语是第一人称时才用-고 싶다。"
+                }
+              ]
+            },
+            {
+              "sentence": 3,
+              "items": [
+                {
+                  "pattern": "잊어버리는 바람에",
+                  "title": "-는 바람에（因为……，结果……）",
+                  "explain": "表示因为前面的事，导致了后面不好的结果，多用于抱怨或遗憾。后面不能接命令句和劝诱句。过去的事也用 -는 바람에。"
+                },
+                {
+                  "pattern": "빌릴 수 없었어요",
+                  "title": "-(으)ㄹ 수 없다（不能……）",
+                  "explain": "表示没有能力或不可能。“빌릴 수 없었어요”＝没能借到。肯定说 -(으)ㄹ 수 있다（能够……）。"
+                }
+              ]
+            },
+            {
+              "sentence": 4,
+              "items": [
+                {
+                  "pattern": "연장하면",
+                  "title": "-(으)면（如果……就……）",
+                  "explain": "表示假设或条件。“연장하면”＝如果延长的话。词干有收音用 -으면，没有收音用 -면。"
+                },
+                {
+                  "pattern": "있을 텐데",
+                  "title": "-(으)ㄹ 텐데（应该会……，可是……）",
+                  "explain": "表示推测，同时暗示与实际不同的遗憾或前提。“읽을 수 있을 텐데”＝本来应该可以读，可是……。后面常接对比的内容。"
+                }
+              ]
+            },
+            {
+              "sentence": 5,
+              "items": [
+                {
+                  "pattern": "조용한 곳이어서",
+                  "title": "-(이)어서（因为是……）",
+                  "explain": "名词后面接 -(이)어서，表示原因。“곳이어서”＝因为是地方。名词有收音用 -이어서，没有收音用 -여서。"
+                },
+                {
+                  "pattern": "열람할 때에는",
+                  "title": "-(으)ㄹ 때（……的时候）",
+                  "explain": "表示某个动作进行的时间。“열람할 때”＝阅览的时候。加“에는”表示强调这个情况。"
+                }
+              ]
+            },
+            {
+              "sentence": 6,
+              "items": [
+                {
+                  "pattern": "확인해야겠어요",
+                  "title": "-아/어야겠다（得……才行）",
+                  "explain": "表示说话人自己下的决心或判断。“확인해야겠어요”＝我得确认一下才行。只能用于第一人称（疑问句时用于第二人称）。"
+                }
+              ]
+            }
+          ],
+          "summary": [
+            "表示条件和目的：-(으)려면（想要……的话）、-(으)면（如果……）。",
+            "表示原因和结果：-(이)어서（因为……）、-는 바람에（因为……，结果不好）。",
+            "表示推测和决心：-(으)ㄹ 텐데（应该……，可是……）、-아/어야겠다（得……才行）。"
+          ]
+        }
+      }
+    }
+  }
+}

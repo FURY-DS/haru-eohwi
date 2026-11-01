@@ -1,0 +1,1133 @@
+{
+  "schemaVersion": 2,
+  "date": "2026-11-02",
+  "status": "ready",
+  "generatedAt": "2026-11-02T08:48:10+09:00",
+  "sets": {
+    "yue": {
+      "lang": "yue",
+      "level": "완전 초급",
+      "words": [
+        {
+          "id": "yue-1",
+          "word": "阿妈",
+          "reading": "aa3 maa1",
+          "meaning": "엄마",
+          "pos": "명사"
+        },
+        {
+          "id": "yue-2",
+          "word": "煮",
+          "reading": "zyu2",
+          "meaning": "요리하다, 끓이다",
+          "pos": "동사"
+        },
+        {
+          "id": "yue-3",
+          "word": "汤",
+          "reading": "tong1",
+          "meaning": "국, 수프",
+          "pos": "명사"
+        },
+        {
+          "id": "yue-4",
+          "word": "碗",
+          "reading": "wun2",
+          "meaning": "그릇, 사발",
+          "pos": "명사"
+        },
+        {
+          "id": "yue-5",
+          "word": "饿",
+          "reading": "ngo6",
+          "meaning": "배고프다",
+          "pos": "형용사"
+        }
+      ],
+      "passage": {
+        "title": "阿妈煮饭",
+        "titleKo": "엄마가 밥을 해요",
+        "situation": "집에서 엄마가 저녁을 준비하는 장면",
+        "sentences": [
+          {
+            "text": "我好饿呀。",
+            "reading": "ngo5 hou2 ngo6 aa3.",
+            "ko": "나 너무 배고파요.",
+            "uses": [
+              {
+                "wordId": "yue-5",
+                "text": "饿",
+                "start": 2,
+                "end": 3
+              }
+            ]
+          },
+          {
+            "text": "阿妈喺厨房煮饭。",
+            "reading": "aa3 maa1 hai2 cyu4 fong2 zyu2 faan6.",
+            "ko": "엄마가 주방에서 밥을 해요.",
+            "uses": [
+              {
+                "wordId": "yue-1",
+                "text": "阿妈",
+                "start": 0,
+                "end": 2
+              },
+              {
+                "wordId": "yue-2",
+                "text": "煮",
+                "start": 5,
+                "end": 6
+              }
+            ]
+          },
+          {
+            "text": "佢煮咗一煲汤。",
+            "reading": "keoi5 zyu2 zo2 jat1 bou1 tong1.",
+            "ko": "엄마는 국을 한 냄비 끓였어요.",
+            "uses": [
+              {
+                "wordId": "yue-2",
+                "text": "煮",
+                "start": 1,
+                "end": 2
+              },
+              {
+                "wordId": "yue-3",
+                "text": "汤",
+                "start": 5,
+                "end": 6
+              }
+            ]
+          },
+          {
+            "text": "我帮阿妈拎碗。",
+            "reading": "ngo5 bong1 aa3 maa1 ling1 wun2.",
+            "ko": "나는 엄마를 도와 그릇을 들어요.",
+            "uses": [
+              {
+                "wordId": "yue-1",
+                "text": "阿妈",
+                "start": 2,
+                "end": 4
+              },
+              {
+                "wordId": "yue-4",
+                "text": "碗",
+                "start": 5,
+                "end": 6
+              }
+            ]
+          },
+          {
+            "text": "汤好热，要小心呀。",
+            "reading": "tong1 hou2 jit6, jiu3 siu2 sam1 aa3.",
+            "ko": "국이 너무 뜨거워요, 조심해야 해요.",
+            "uses": [
+              {
+                "wordId": "yue-3",
+                "text": "汤",
+                "start": 0,
+                "end": 1
+              }
+            ]
+          },
+          {
+            "text": "我哋一齐食饭。",
+            "reading": "ngo5 dei6 jat1 cai4 sik6 faan6.",
+            "ko": "우리 같이 밥 먹어요.",
+            "uses": []
+          },
+          {
+            "text": "阿妈煮嘅汤好好饮！",
+            "reading": "aa3 maa1 zyu2 ge3 tong1 hou2 hou2 jam2!",
+            "ko": "엄마가 끓인 국은 정말 맛있어요!",
+            "uses": [
+              {
+                "wordId": "yue-1",
+                "text": "阿妈",
+                "start": 0,
+                "end": 2
+              },
+              {
+                "wordId": "yue-2",
+                "text": "煮",
+                "start": 2,
+                "end": 3
+              },
+              {
+                "wordId": "yue-3",
+                "text": "汤",
+                "start": 4,
+                "end": 5
+              }
+            ]
+          }
+        ],
+        "grammar": {
+          "sentences": [
+            {
+              "sentence": 1,
+              "items": [
+                {
+                  "pattern": "好饿",
+                  "title": "好 + 형용사 (아주 ~하다)",
+                  "explain": "광둥어는 형용사 앞에 好를 붙여서 \"아주 ~하다\"라고 해요. 係(이다)를 넣지 않아요. 好饿 = 배고파요. 끝의 呀는 말투를 부드럽게 해요."
+                }
+              ]
+            },
+            {
+              "sentence": 2,
+              "items": [
+                {
+                  "pattern": "喺厨房",
+                  "title": "喺 + 장소 (~에서)",
+                  "explain": "喺(hai2)는 \"~에(서)\"예요. 喺厨房 = 주방에서. 장소는 동사 앞에 와요."
+                },
+                {
+                  "pattern": "煮饭",
+                  "title": "동사 + 목적어",
+                  "explain": "광둥어도 한국어와 달리 동사가 목적어 앞에 와요. 煮饭 = 밥을 하다(동사 煮 → 목적어 饭)."
+                }
+              ]
+            },
+            {
+              "sentence": 3,
+              "items": [
+                {
+                  "pattern": "煮咗",
+                  "title": "동사 + 咗 (~했다)",
+                  "explain": "咗(zo2)를 동사 뒤에 붙이면 끝난 일이에요. 煮咗 = 끓였어요. 佢(keoi5)는 그/그녀예요."
+                },
+                {
+                  "pattern": "一煲汤",
+                  "title": "수 + 양사 + 명사",
+                  "explain": "煲(bou1)는 냄비로 끓인 것을 세는 단위(양사)예요. 一煲汤 = 국 한 냄비."
+                }
+              ]
+            },
+            {
+              "sentence": 4,
+              "items": [
+                {
+                  "pattern": "帮阿妈拎碗",
+                  "title": "帮 + 사람 + 동사 (~를 도와 ~하다)",
+                  "explain": "帮(bong1)은 \"돕다\"예요. 帮阿妈拎碗 = 엄마를 도와 그릇을 들다. 拎(ling1)은 \"손으로 들다\"예요."
+                }
+              ]
+            },
+            {
+              "sentence": 5,
+              "items": [
+                {
+                  "pattern": "汤好热",
+                  "title": "명사 + 好 + 형용사",
+                  "explain": "주어 뒤에 好 + 형용사만 오면 돼요. 汤好热 = 국이 아주 뜨거워요."
+                },
+                {
+                  "pattern": "要小心",
+                  "title": "要 + 동사 (~해야 하다)",
+                  "explain": "要(jiu3)는 여기서 \"~해야 한다\"예요. 要小心 = 조심해야 해요."
+                }
+              ]
+            },
+            {
+              "sentence": 7,
+              "items": [
+                {
+                  "pattern": "煮嘅汤",
+                  "title": "~嘅 + 명사 (~한 ~)",
+                  "explain": "嘅(ge3)는 앞말이 뒤의 명사를 꾸미게 해요. 阿妈煮嘅汤 = 엄마가 끓인 국."
+                },
+                {
+                  "pattern": "好好饮",
+                  "title": "好饮 (맛있다, 음료)",
+                  "explain": "마시는 것이 맛있으면 好饮라고 해요. 好를 한 번 더 붙이면 \"아주 맛있다\"."
+                }
+              ]
+            }
+          ],
+          "summary": [
+            "형용사는 好 + 형용사 (好饿, 好热). 係는 필요 없어요.",
+            "동사 뒤에 咗 = 끝난 일 (煮咗), 양사는 수 + 양사 + 명사 (一煲汤).",
+            "喺 + 장소 = ~에서, 帮 = 돕다, ~嘅 + 명사 = ~한 ~."
+          ],
+          "compare": [
+            {
+              "this": "佢",
+              "other": "他 / 她"
+            },
+            {
+              "this": "喺",
+              "other": "在"
+            },
+            {
+              "this": "食饭",
+              "other": "吃饭"
+            },
+            {
+              "this": "咗",
+              "other": "了"
+            },
+            {
+              "this": "我哋",
+              "other": "我们"
+            },
+            {
+              "this": "嘅",
+              "other": "的"
+            },
+            {
+              "this": "好饮",
+              "other": "好喝"
+            }
+          ]
+        }
+      }
+    },
+    "en": {
+      "lang": "en",
+      "level": "토익스피킹 대비",
+      "words": [
+        {
+          "id": "en-1",
+          "word": "skill",
+          "reading": "/skɪl/",
+          "meaning": "기술, 능력",
+          "pos": "명사"
+        },
+        {
+          "id": "en-2",
+          "word": "enroll",
+          "reading": "/ɪnˈroʊl/",
+          "meaning": "등록하다",
+          "pos": "동사"
+        },
+        {
+          "id": "en-3",
+          "word": "platform",
+          "reading": "/ˈplætfɔːrm/",
+          "meaning": "플랫폼",
+          "pos": "명사"
+        },
+        {
+          "id": "en-4",
+          "word": "instructor",
+          "reading": "/ɪnˈstrʌktər/",
+          "meaning": "강사",
+          "pos": "명사"
+        },
+        {
+          "id": "en-5",
+          "word": "lecture",
+          "reading": "/ˈlɛktʃər/",
+          "meaning": "강의",
+          "pos": "명사"
+        },
+        {
+          "id": "en-6",
+          "word": "access",
+          "reading": "/ˈæksɛs/",
+          "meaning": "접속하다, 이용하다",
+          "pos": "동사/명사"
+        },
+        {
+          "id": "en-7",
+          "word": "assignment",
+          "reading": "/əˈsaɪnmənt/",
+          "meaning": "과제",
+          "pos": "명사"
+        },
+        {
+          "id": "en-8",
+          "word": "review",
+          "reading": "/rɪˈvjuː/",
+          "meaning": "복습하다, 검토하다",
+          "pos": "동사"
+        },
+        {
+          "id": "en-9",
+          "word": "affordable",
+          "reading": "/əˈfɔːrdəbəl/",
+          "meaning": "가격이 적당한",
+          "pos": "형용사"
+        },
+        {
+          "id": "en-10",
+          "word": "certificate",
+          "reading": "/sərˈtɪfɪkət/",
+          "meaning": "수료증, 증명서",
+          "pos": "명사"
+        }
+      ],
+      "passage": {
+        "title": "Why I Like Online Classes",
+        "titleKo": "내가 온라인 수업을 좋아하는 이유",
+        "situation": "토익스피킹 의견 말하기 — 온라인 수업에 대한 생각",
+        "sentences": [
+          {
+            "text": "I think online classes are a smart way to learn a new skill.",
+            "ko": "온라인 수업은 새로운 기술을 배우는 현명한 방법이라고 생각해요.",
+            "uses": [
+              {
+                "wordId": "en-1",
+                "text": "skill",
+                "start": 54,
+                "end": 59
+              }
+            ]
+          },
+          {
+            "text": "Last month, I decided to enroll in a design course on a popular platform.",
+            "ko": "지난달에 저는 인기 있는 플랫폼에서 디자인 강좌에 등록하기로 했어요.",
+            "uses": [
+              {
+                "wordId": "en-2",
+                "text": "enroll",
+                "start": 25,
+                "end": 31
+              },
+              {
+                "wordId": "en-3",
+                "text": "platform",
+                "start": 64,
+                "end": 72
+              }
+            ]
+          },
+          {
+            "text": "The instructor records each lecture, so I can access it anytime.",
+            "ko": "강사가 모든 강의를 녹화해 줘서 언제든 접속할 수 있어요.",
+            "uses": [
+              {
+                "wordId": "en-4",
+                "text": "instructor",
+                "start": 4,
+                "end": 14
+              },
+              {
+                "wordId": "en-5",
+                "text": "lecture",
+                "start": 28,
+                "end": 35
+              },
+              {
+                "wordId": "en-6",
+                "text": "access",
+                "start": 46,
+                "end": 52
+              }
+            ]
+          },
+          {
+            "text": "After class, I finish an assignment and review my notes.",
+            "ko": "수업이 끝나면 과제를 하고 필기한 내용을 복습해요.",
+            "uses": [
+              {
+                "wordId": "en-7",
+                "text": "assignment",
+                "start": 25,
+                "end": 35
+              },
+              {
+                "wordId": "en-8",
+                "text": "review",
+                "start": 40,
+                "end": 46
+              }
+            ]
+          },
+          {
+            "text": "The course is also affordable, and I received a certificate at the end.",
+            "ko": "수강료도 적당했고, 끝에는 수료증도 받았어요.",
+            "uses": [
+              {
+                "wordId": "en-9",
+                "text": "affordable",
+                "start": 19,
+                "end": 29
+              },
+              {
+                "wordId": "en-10",
+                "text": "certificate",
+                "start": 48,
+                "end": 59
+              }
+            ]
+          },
+          {
+            "text": "For these reasons, I would recommend online learning to busy workers.",
+            "ko": "이런 이유로 바쁜 직장인에게 온라인 학습을 추천하고 싶어요.",
+            "uses": []
+          }
+        ]
+      }
+    },
+    "zh": {
+      "lang": "zh",
+      "level": "HSK 4~6급",
+      "hskStandard": "HSK 2.0 (6급제) 기준 4~6급 어휘",
+      "words": [
+        {
+          "id": "zh-1",
+          "word": "体检",
+          "reading": "tǐjiǎn",
+          "meaning": "건강 검진",
+          "pos": "명사/동사"
+        },
+        {
+          "id": "zh-2",
+          "word": "睡眠",
+          "reading": "shuìmián",
+          "meaning": "수면",
+          "pos": "명사"
+        },
+        {
+          "id": "zh-3",
+          "word": "缺乏",
+          "reading": "quēfá",
+          "meaning": "부족하다, 결핍되다",
+          "pos": "동사"
+        },
+        {
+          "id": "zh-4",
+          "word": "锻炼",
+          "reading": "duànliàn",
+          "meaning": "운동하다, 단련하다",
+          "pos": "동사"
+        },
+        {
+          "id": "zh-5",
+          "word": "建议",
+          "reading": "jiànyì",
+          "meaning": "제안하다, 권하다",
+          "pos": "동사/명사"
+        },
+        {
+          "id": "zh-6",
+          "word": "调整",
+          "reading": "tiáozhěng",
+          "meaning": "조정하다",
+          "pos": "동사"
+        },
+        {
+          "id": "zh-7",
+          "word": "饮食",
+          "reading": "yǐnshí",
+          "meaning": "식생활, 음식",
+          "pos": "명사"
+        },
+        {
+          "id": "zh-8",
+          "word": "营养",
+          "reading": "yíngyǎng",
+          "meaning": "영양",
+          "pos": "명사"
+        },
+        {
+          "id": "zh-9",
+          "word": "改善",
+          "reading": "gǎishàn",
+          "meaning": "개선하다",
+          "pos": "동사"
+        },
+        {
+          "id": "zh-10",
+          "word": "健康",
+          "reading": "jiànkāng",
+          "meaning": "건강",
+          "pos": "명사/형용사"
+        }
+      ],
+      "passage": {
+        "title": "体检之后",
+        "titleKo": "건강 검진 이후",
+        "situation": "회사 건강 검진 후 생활 습관을 바꾸는 이야기",
+        "sentences": [
+          {
+            "text": "上个月公司组织大家去体检，我的结果不太理想。",
+            "reading": "Shàng ge yuè gōngsī zǔzhī dàjiā qù tǐjiǎn, wǒ de jiéguǒ bú tài lǐxiǎng.",
+            "ko": "지난달 회사에서 다 같이 건강 검진을 받게 했는데, 제 결과는 그리 좋지 않았어요.",
+            "uses": [
+              {
+                "wordId": "zh-1",
+                "text": "体检",
+                "start": 10,
+                "end": 12
+              }
+            ]
+          },
+          {
+            "text": "医生说我睡眠不足，而且缺乏锻炼。",
+            "reading": "Yīshēng shuō wǒ shuìmián bùzú, érqiě quēfá duànliàn.",
+            "ko": "의사는 제가 수면이 부족하고 게다가 운동도 부족하다고 했어요.",
+            "uses": [
+              {
+                "wordId": "zh-2",
+                "text": "睡眠",
+                "start": 4,
+                "end": 6
+              },
+              {
+                "wordId": "zh-3",
+                "text": "缺乏",
+                "start": 11,
+                "end": 13
+              },
+              {
+                "wordId": "zh-4",
+                "text": "锻炼",
+                "start": 13,
+                "end": 15
+              }
+            ]
+          },
+          {
+            "text": "他建议我先调整一下饮食，少吃油腻的东西。",
+            "reading": "Tā jiànyì wǒ xiān tiáozhěng yíxià yǐnshí, shǎo chī yóunì de dōngxi.",
+            "ko": "그는 먼저 식생활을 조정하고 기름진 음식을 줄이라고 권했어요.",
+            "uses": [
+              {
+                "wordId": "zh-5",
+                "text": "建议",
+                "start": 1,
+                "end": 3
+              },
+              {
+                "wordId": "zh-6",
+                "text": "调整",
+                "start": 5,
+                "end": 7
+              },
+              {
+                "wordId": "zh-7",
+                "text": "饮食",
+                "start": 9,
+                "end": 11
+              }
+            ]
+          },
+          {
+            "text": "另外，也要注意营养，不要只吃快餐。",
+            "reading": "Lìngwài, yě yào zhùyì yíngyǎng, búyào zhǐ chī kuàicān.",
+            "ko": "그 밖에 영양도 신경 쓰고, 패스트푸드만 먹지 말라고 했어요.",
+            "uses": [
+              {
+                "wordId": "zh-8",
+                "text": "营养",
+                "start": 7,
+                "end": 9
+              }
+            ]
+          },
+          {
+            "text": "为了改善身体状况，我现在每天早点儿睡，晚上还去公园锻炼。",
+            "reading": "Wèile gǎishàn shēntǐ zhuàngkuàng, wǒ xiànzài měi tiān zǎo diǎnr shuì, wǎnshang hái qù gōngyuán duànliàn.",
+            "ko": "몸 상태를 개선하려고 저는 지금 매일 일찍 자고, 저녁에는 공원에서 운동도 해요.",
+            "uses": [
+              {
+                "wordId": "zh-9",
+                "text": "改善",
+                "start": 2,
+                "end": 4
+              },
+              {
+                "wordId": "zh-4",
+                "text": "锻炼",
+                "start": 25,
+                "end": 27
+              }
+            ]
+          },
+          {
+            "text": "一个月后，我觉得精神好多了，健康真的比什么都重要。",
+            "reading": "Yí ge yuè hòu, wǒ juéde jīngshén hǎo duō le, jiànkāng zhēn de bǐ shénme dōu zhòngyào.",
+            "ko": "한 달 뒤 정신이 훨씬 좋아졌고, 건강이 정말 무엇보다 중요하다고 느꼈어요.",
+            "uses": [
+              {
+                "wordId": "zh-10",
+                "text": "健康",
+                "start": 14,
+                "end": 16
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "ja": {
+      "lang": "ja",
+      "level": "완전 초급 (JLPT N5 이하)",
+      "words": [
+        {
+          "id": "ja-1",
+          "word": "スーパー",
+          "reading": "スーパー",
+          "meaning": "슈퍼마켓",
+          "pos": "명사"
+        },
+        {
+          "id": "ja-2",
+          "word": "やさい",
+          "reading": "やさい",
+          "meaning": "채소",
+          "pos": "명사"
+        },
+        {
+          "id": "ja-3",
+          "word": "りんご",
+          "reading": "りんご",
+          "meaning": "사과",
+          "pos": "명사"
+        },
+        {
+          "id": "ja-4",
+          "word": "さかな",
+          "reading": "さかな",
+          "meaning": "생선",
+          "pos": "명사"
+        },
+        {
+          "id": "ja-5",
+          "word": "やすい",
+          "reading": "やすい",
+          "meaning": "싸다",
+          "pos": "형용사"
+        }
+      ],
+      "passage": {
+        "title": "スーパーで",
+        "titleKo": "슈퍼에서",
+        "situation": "슈퍼마켓에서 장보기",
+        "sentences": [
+          {
+            "text": "今日、スーパーに行きます。",
+            "reading": "きょう、スーパーにいきます。",
+            "ko": "오늘 슈퍼에 가요.",
+            "ruby": [
+              {
+                "t": "今日",
+                "r": "きょう"
+              },
+              {
+                "t": "、スーパーに"
+              },
+              {
+                "t": "行",
+                "r": "い"
+              },
+              {
+                "t": "きます。"
+              }
+            ],
+            "uses": [
+              {
+                "wordId": "ja-1",
+                "text": "スーパー",
+                "start": 3,
+                "end": 7
+              }
+            ]
+          },
+          {
+            "text": "やさいはやすいです。",
+            "reading": "やさいはやすいです。",
+            "ko": "채소는 싸요.",
+            "uses": [
+              {
+                "wordId": "ja-2",
+                "text": "やさい",
+                "start": 0,
+                "end": 3
+              },
+              {
+                "wordId": "ja-5",
+                "text": "やすい",
+                "start": 4,
+                "end": 7
+              }
+            ]
+          },
+          {
+            "text": "りんごもあります。",
+            "reading": "りんごもあります。",
+            "ko": "사과도 있어요.",
+            "uses": [
+              {
+                "wordId": "ja-3",
+                "text": "りんご",
+                "start": 0,
+                "end": 3
+              }
+            ]
+          },
+          {
+            "text": "さかなもやすいです。",
+            "reading": "さかなもやすいです。",
+            "ko": "생선도 싸요.",
+            "uses": [
+              {
+                "wordId": "ja-4",
+                "text": "さかな",
+                "start": 0,
+                "end": 3
+              },
+              {
+                "wordId": "ja-5",
+                "text": "やすい",
+                "start": 4,
+                "end": 7
+              }
+            ]
+          },
+          {
+            "text": "りんごをみっつください。",
+            "reading": "りんごをみっつください。",
+            "ko": "사과를 세 개 주세요.",
+            "uses": [
+              {
+                "wordId": "ja-3",
+                "text": "りんご",
+                "start": 0,
+                "end": 3
+              }
+            ]
+          },
+          {
+            "text": "さかなもひとつください。",
+            "reading": "さかなもひとつください。",
+            "ko": "생선도 한 마리 주세요.",
+            "uses": [
+              {
+                "wordId": "ja-4",
+                "text": "さかな",
+                "start": 0,
+                "end": 3
+              }
+            ]
+          },
+          {
+            "text": "ありがとうございます。",
+            "reading": "ありがとうございます。",
+            "ko": "감사합니다.",
+            "uses": []
+          }
+        ],
+        "grammar": {
+          "sentences": [
+            {
+              "sentence": 1,
+              "items": [
+                {
+                  "pattern": "今日",
+                  "title": "「きょう」(오늘)",
+                  "explain": "「きょう」는 오늘이에요. 때를 나타내는 말은 문장 앞에 와요."
+                },
+                {
+                  "pattern": "に",
+                  "title": "に (~에, 가는 곳)",
+                  "explain": "「に」는 가는 곳을 나타내요. スーパーに = 슈퍼에."
+                },
+                {
+                  "pattern": "行きます",
+                  "title": "〜ます (정중한 말투)",
+                  "explain": "「いく」(가다)의 정중한 말이에요. いき + ます = 가요."
+                }
+              ]
+            },
+            {
+              "sentence": 2,
+              "items": [
+                {
+                  "pattern": "は",
+                  "title": "は (~은/는)",
+                  "explain": "「は」는 이야기의 주제를 나타내요. 읽을 때는 「わ」라고 읽어요. やさいは = 채소는."
+                },
+                {
+                  "pattern": "やすいです",
+                  "title": "けいようし + です (~해요)",
+                  "explain": "「やすい」(싸다)는 형용사예요. 뒤에 「です」를 붙이면 정중한 말이 돼요. やすいです = 싸요."
+                }
+              ]
+            },
+            {
+              "sentence": 3,
+              "items": [
+                {
+                  "pattern": "も",
+                  "title": "も (~도)",
+                  "explain": "「も」는 ~도 라는 뜻이에요. りんごもあります = 사과도 있어요."
+                }
+              ]
+            },
+            {
+              "sentence": 5,
+              "items": [
+                {
+                  "pattern": "をみっつください",
+                  "title": "〜をください (~을 주세요)",
+                  "explain": "물건을 달라고 할 때 쓰는 기본 표현이에요. 「を」는 달라는 물건 뒤에 붙어요. 「みっつ」는 세 개예요."
+                }
+              ]
+            },
+            {
+              "sentence": 6,
+              "items": [
+                {
+                  "pattern": "ひとつ",
+                  "title": "ひとつ (한 개)",
+                  "explain": "「ひとつ」는 한 개예요. ふたつ(두 개), みっつ(세 개)처럼 「〜つ」로 세요."
+                }
+              ]
+            }
+          ],
+          "summary": [
+            "조사: に(가는 곳) / は(주제) / も(~도) / を(대상)",
+            "말투: 〜ます(가요) / 〜です(~해요)",
+            "〜をください = ~주세요. 개수는 ひとつ・ふたつ・みっつ."
+          ]
+        }
+      }
+    },
+    "ko": {
+      "lang": "ko",
+      "level": "사회통합프로그램 4단계 이상",
+      "words": [
+        {
+          "id": "ko-1",
+          "word": "지원하다",
+          "meaning": "어떤 일이나 회사에 들어가고 싶다고 신청하다",
+          "meaningZh": "申请；报名应聘",
+          "pos": "동사"
+        },
+        {
+          "id": "ko-2",
+          "word": "이력서",
+          "meaning": "지금까지 한 공부와 일을 적은 서류",
+          "meaningZh": "简历",
+          "pos": "명사"
+        },
+        {
+          "id": "ko-3",
+          "word": "경력",
+          "meaning": "지금까지 해 온 일의 경험",
+          "meaningZh": "工作经历",
+          "pos": "명사"
+        },
+        {
+          "id": "ko-4",
+          "word": "자격증",
+          "meaning": "어떤 일을 할 수 있다고 인정해 주는 증명서",
+          "meaningZh": "资格证书",
+          "pos": "명사"
+        },
+        {
+          "id": "ko-5",
+          "word": "면접",
+          "meaning": "회사에서 사람을 직접 만나 질문하며 알아보는 일",
+          "meaningZh": "面试",
+          "pos": "명사"
+        },
+        {
+          "id": "ko-6",
+          "word": "긴장하다",
+          "meaning": "마음이 편하지 않고 몸이 굳어지다",
+          "meaningZh": "紧张",
+          "pos": "동사"
+        },
+        {
+          "id": "ko-7",
+          "word": "담당자",
+          "meaning": "어떤 일을 맡아서 하는 사람",
+          "meaningZh": "负责人；经办人",
+          "pos": "명사"
+        },
+        {
+          "id": "ko-8",
+          "word": "연락",
+          "meaning": "소식을 전하거나 알리는 일",
+          "meaningZh": "联系",
+          "pos": "명사"
+        },
+        {
+          "id": "ko-9",
+          "word": "합격하다",
+          "meaning": "시험이나 면접에서 통과하다",
+          "meaningZh": "合格；被录取",
+          "pos": "동사"
+        },
+        {
+          "id": "ko-10",
+          "word": "채용하다",
+          "meaning": "회사가 사람을 뽑아서 일하게 하다",
+          "meaningZh": "录用；聘用",
+          "pos": "동사"
+        }
+      ],
+      "passage": {
+        "title": "취업 면접을 본 날",
+        "titleZh": "参加求职面试的那天",
+        "situation": "회사에 지원해서 합격하기까지",
+        "sentences": [
+          {
+            "text": "저는 이번 달에 한 회사에 지원하기 위해서 이력서를 새로 썼어요.",
+            "zh": "我为了应聘一家公司，这个月重新写了简历。",
+            "uses": [
+              {
+                "wordId": "ko-1",
+                "text": "지원하기",
+                "start": 15,
+                "end": 19
+              },
+              {
+                "wordId": "ko-2",
+                "text": "이력서",
+                "start": 24,
+                "end": 27
+              }
+            ]
+          },
+          {
+            "text": "경력은 많지 않지만 자격증을 따 둔 덕분에 면접 기회를 얻었어요.",
+            "zh": "虽然工作经历不多，但多亏提前考取了资格证书，我得到了面试机会。",
+            "uses": [
+              {
+                "wordId": "ko-3",
+                "text": "경력",
+                "start": 0,
+                "end": 2
+              },
+              {
+                "wordId": "ko-4",
+                "text": "자격증",
+                "start": 11,
+                "end": 14
+              },
+              {
+                "wordId": "ko-5",
+                "text": "면접",
+                "start": 24,
+                "end": 26
+              }
+            ]
+          },
+          {
+            "text": "면접 날에는 많이 긴장할 텐데 침착하게 대답해야 한다고 스스로에게 말했어요.",
+            "zh": "面试那天一定会很紧张，所以我对自己说要沉着地回答。",
+            "uses": [
+              {
+                "wordId": "ko-5",
+                "text": "면접",
+                "start": 0,
+                "end": 2
+              },
+              {
+                "wordId": "ko-6",
+                "text": "긴장할",
+                "start": 10,
+                "end": 13
+              }
+            ]
+          },
+          {
+            "text": "면접에서 이 일을 하고 싶은 이유를 질문받아서 준비한 대로 차분하게 대답했어요.",
+            "zh": "面试中被问到为什么想做这份工作，我按照准备好的内容沉着地回答了。",
+            "uses": [
+              {
+                "wordId": "ko-5",
+                "text": "면접",
+                "start": 0,
+                "end": 2
+              }
+            ]
+          },
+          {
+            "text": "며칠 뒤 인사팀 담당자에게서 연락이 왔는데, 제가 합격했다고 했어요.",
+            "zh": "几天后，人事部的负责人联系了我，说我合格了。",
+            "uses": [
+              {
+                "wordId": "ko-7",
+                "text": "담당자",
+                "start": 9,
+                "end": 12
+              },
+              {
+                "wordId": "ko-8",
+                "text": "연락",
+                "start": 16,
+                "end": 18
+              },
+              {
+                "wordId": "ko-9",
+                "text": "합격했다고",
+                "start": 28,
+                "end": 33
+              }
+            ]
+          },
+          {
+            "text": "저를 채용한다는 소식을 듣고 정말 기뻤어요.",
+            "zh": "听到公司要录用我的消息，我真的很高兴。",
+            "uses": [
+              {
+                "wordId": "ko-10",
+                "text": "채용한다는",
+                "start": 3,
+                "end": 8
+              }
+            ]
+          }
+        ],
+        "grammar": {
+          "sentences": [
+            {
+              "sentence": 1,
+              "items": [
+                {
+                  "pattern": "지원하기 위해서",
+                  "title": "-기 위해서（为了……）",
+                  "explain": "表示目的，“为了做……”。动词词干加 -기 위해서，前后主语通常相同。“지원하기 위해서 이력서를 썼어요”＝为了应聘而写了简历。只能接动词，不能接形容词。"
+                }
+              ]
+            },
+            {
+              "sentence": 2,
+              "items": [
+                {
+                  "pattern": "따 둔 덕분에",
+                  "title": "-(으)ㄴ 덕분에（多亏……）",
+                  "explain": "表示因为前面的好事而得到好结果，带有感谢的语气。“따 둔”是“따 두다”(先考取好)的过去式定语。名词后直接加“덕분에”，如“친구 덕분에”。坏结果要用“-는 바람에”，不能用“덕분에”。"
+                }
+              ]
+            },
+            {
+              "sentence": 3,
+              "items": [
+                {
+                  "pattern": "긴장할 텐데",
+                  "title": "-(으)ㄹ 텐데（想必会……，所以……）",
+                  "explain": "表示说话人的推测，并以此作为后面内容的背景。“긴장할 텐데”＝想必会紧张的，所以……。比“-(으)ㄹ 것 같다”更常用于提醒、担心或建议。"
+                }
+              ]
+            },
+            {
+              "sentence": 4,
+              "items": [
+                {
+                  "pattern": "준비한 대로",
+                  "title": "-(으)ㄴ 대로（按照……）",
+                  "explain": "表示“和……一样、按照……”。过去的事用 -(으)ㄴ 대로，如“준비한 대로”；还没发生的事用 -(으)ㄹ 대로。注意“대로”前面要空一格。"
+                }
+              ]
+            }
+          ],
+          "summary": [
+            "-기 위해서＝为了做……（目的，只接动词）",
+            "-(으)ㄴ 덕분에＝多亏……（好的原因，带感谢）",
+            "-(으)ㄹ 텐데＝想必会……；-(으)ㄴ 대로＝按照……"
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,1164 @@
+{
+  "schemaVersion": 2,
+  "date": "2026-11-04",
+  "status": "ready",
+  "generatedAt": "2026-11-04T08:48:24+09:00",
+  "sets": {
+    "yue": {
+      "lang": "yue",
+      "level": "완전 초급",
+      "words": [
+        {
+          "id": "yue-1",
+          "word": "电影",
+          "reading": "din6 jing2",
+          "meaning": "영화",
+          "pos": "명사"
+        },
+        {
+          "id": "yue-2",
+          "word": "戏票",
+          "reading": "hei3 piu3",
+          "meaning": "영화표",
+          "pos": "명사"
+        },
+        {
+          "id": "yue-3",
+          "word": "爆谷",
+          "reading": "baau3 guk1",
+          "meaning": "팝콘",
+          "pos": "명사"
+        },
+        {
+          "id": "yue-4",
+          "word": "等",
+          "reading": "dang2",
+          "meaning": "기다리다",
+          "pos": "동사"
+        },
+        {
+          "id": "yue-5",
+          "word": "好睇",
+          "reading": "hou2 tai2",
+          "meaning": "재미있다 / 볼 만하다",
+          "pos": "형용사"
+        }
+      ],
+      "passage": {
+        "title": "睇电影",
+        "titleKo": "영화 보러 가기",
+        "situation": "친구와 영화관에 가서 영화 보기",
+        "sentences": [
+          {
+            "text": "今日我哋去睇电影。",
+            "reading": "gam1 jat6 ngo5 dei6 heoi3 tai2 din6 jing2.",
+            "ko": "오늘 우리는 영화 보러 가요.",
+            "uses": [
+              {
+                "wordId": "yue-1",
+                "text": "电影",
+                "start": 6,
+                "end": 8
+              }
+            ]
+          },
+          {
+            "text": "我买咗两张戏票。",
+            "reading": "ngo5 maai5 zo2 loeng5 zoeng1 hei3 piu3.",
+            "ko": "저는 영화표 두 장을 샀어요.",
+            "uses": [
+              {
+                "wordId": "yue-2",
+                "text": "戏票",
+                "start": 5,
+                "end": 7
+              }
+            ]
+          },
+          {
+            "text": "朋友想食爆谷。",
+            "reading": "pang4 jau5 soeng2 sik6 baau3 guk1.",
+            "ko": "친구는 팝콘이 먹고 싶대요.",
+            "uses": [
+              {
+                "wordId": "yue-3",
+                "text": "爆谷",
+                "start": 4,
+                "end": 6
+              }
+            ]
+          },
+          {
+            "text": "我哋喺门口等佢。",
+            "reading": "ngo5 dei6 hai2 mun4 hau2 dang2 keoi5.",
+            "ko": "우리는 입구에서 그를 기다려요.",
+            "uses": [
+              {
+                "wordId": "yue-4",
+                "text": "等",
+                "start": 5,
+                "end": 6
+              }
+            ]
+          },
+          {
+            "text": "佢嚟咗，我哋一齐入去。",
+            "reading": "keoi5 lai4 zo2, ngo5 dei6 jat1 cai4 jap6 heoi3.",
+            "ko": "그가 왔어요, 우리는 같이 들어가요.",
+            "uses": []
+          },
+          {
+            "text": "呢部电影真系好睇！",
+            "reading": "ni1 bou6 din6 jing2 zan1 hai6 hou2 tai2!",
+            "ko": "이 영화 정말 재미있어요!",
+            "uses": [
+              {
+                "wordId": "yue-1",
+                "text": "电影",
+                "start": 2,
+                "end": 4
+              },
+              {
+                "wordId": "yue-5",
+                "text": "好睇",
+                "start": 6,
+                "end": 8
+              }
+            ]
+          }
+        ],
+        "grammar": {
+          "sentences": [
+            {
+              "sentence": 1,
+              "items": [
+                {
+                  "pattern": "去睇电影",
+                  "title": "去 + 동사 (~하러 가다)",
+                  "explain": "去(heoi3)는 '가다'예요. 뒤에 동사를 붙이면 '~하러 가다'가 돼요. 去睇电影 = 영화 보러 가다. 睇(tai2)는 '보다'예요."
+                },
+                {
+                  "pattern": "我哋",
+                  "title": "我哋 (우리)",
+                  "explain": "哋(dei6)를 붙이면 복수가 돼요. 我(나) → 我哋(우리). 표준 중국어의 '我们'에 해당해요."
+                }
+              ]
+            },
+            {
+              "sentence": 2,
+              "items": [
+                {
+                  "pattern": "买咗",
+                  "title": "동사 + 咗 (~했다)",
+                  "explain": "咗(zo2)는 동사 뒤에 붙어 '이미 했다'는 뜻을 나타내요. 买咗 = 샀다. 표준 중국어의 '了'와 비슷해요."
+                },
+                {
+                  "pattern": "两张戏票",
+                  "title": "수 + 양사 + 명사",
+                  "explain": "물건을 셀 때는 '수 + 양사 + 명사' 순서예요. 张(zoeng1)은 표·종이를 세는 양사예요. 两张戏票 = 영화표 두 장."
+                }
+              ]
+            },
+            {
+              "sentence": 3,
+              "items": [
+                {
+                  "pattern": "想食",
+                  "title": "想 + 동사 (~하고 싶다)",
+                  "explain": "想(soeng2) 뒤에 동사를 붙이면 '~하고 싶다'예요. 想食爆谷 = 팝콘이 먹고 싶다."
+                }
+              ]
+            },
+            {
+              "sentence": 4,
+              "items": [
+                {
+                  "pattern": "喺门口",
+                  "title": "喺 (~에, ~에서)",
+                  "explain": "喺(hai2)는 장소 앞에 붙어 '~에(서)'라는 뜻이에요. 喺门口 = 입구에서."
+                },
+                {
+                  "pattern": "等佢",
+                  "title": "佢 (그 / 그녀)",
+                  "explain": "佢(keoi5)는 '그' 또는 '그녀'예요. 남녀 구분 없이 하나의 글자를 써요. 동사 等 뒤에 바로 목적어가 와요."
+                }
+              ]
+            },
+            {
+              "sentence": 5,
+              "items": [
+                {
+                  "pattern": "嚟咗",
+                  "title": "嚟 (오다)",
+                  "explain": "嚟(lai4)는 '오다'예요. 뒤에 咗를 붙이면 '왔다'가 돼요."
+                },
+                {
+                  "pattern": "一齐入去",
+                  "title": "一齐 + 동사 (같이 ~하다)",
+                  "explain": "一齐(jat1 cai4)는 '같이'라는 뜻이고 동사 앞에 와요. 入去 = 들어가다."
+                }
+              ]
+            },
+            {
+              "sentence": 6,
+              "items": [
+                {
+                  "pattern": "好睇",
+                  "title": "好 + 형용사 (아주 ~하다)",
+                  "explain": "好(hou2) 뒤에 형용사를 바로 붙여요. 係(이다)는 필요 없어요. 真系好睇 = 정말 재미있다. 真系(zan1 hai6)는 '정말'이에요."
+                },
+                {
+                  "pattern": "呢部电影",
+                  "title": "呢 + 양사 + 명사 (이 ~)",
+                  "explain": "呢(ni1)는 '이'예요. 呢 + 양사 + 명사 순서로 써요. 部(bou6)는 영화를 세는 양사예요."
+                }
+              ]
+            }
+          ],
+          "summary": [
+            "어순: 동사 + 목적어 (去睇电影, 想食爆谷). 장소는 喺 + 장소.",
+            "끝말 咗(했다), 想(~하고 싶다), 好 + 형용사 (係 없이 好睇).",
+            "수와 가리킴: 수 + 양사 + 명사 (两张戏票), 呢 + 양사 + 명사 (呢部电影)."
+          ],
+          "compare": [
+            {
+              "this": "佢",
+              "other": "他 / 她"
+            },
+            {
+              "this": "今日",
+              "other": "今天"
+            },
+            {
+              "this": "睇",
+              "other": "看"
+            },
+            {
+              "this": "喺",
+              "other": "在"
+            },
+            {
+              "this": "咗",
+              "other": "了"
+            },
+            {
+              "this": "我哋",
+              "other": "我们"
+            }
+          ]
+        }
+      }
+    },
+    "en": {
+      "lang": "en",
+      "level": "토익스피킹 대비",
+      "words": [
+        {
+          "id": "en-1",
+          "word": "cafeteria",
+          "reading": "/ˌkæfəˈtɪriə/",
+          "meaning": "구내식당",
+          "pos": "명사"
+        },
+        {
+          "id": "en-2",
+          "word": "employee",
+          "reading": "/ɪmˈplɔɪiː/",
+          "meaning": "직원",
+          "pos": "명사"
+        },
+        {
+          "id": "en-3",
+          "word": "skip",
+          "reading": "/skɪp/",
+          "meaning": "건너뛰다, 거르다",
+          "pos": "동사"
+        },
+        {
+          "id": "en-4",
+          "word": "rush",
+          "reading": "/rʌʃ/",
+          "meaning": "서두름, 급히 하는 것",
+          "pos": "명사"
+        },
+        {
+          "id": "en-5",
+          "word": "option",
+          "reading": "/ˈɑːpʃən/",
+          "meaning": "선택지, 선택 사항",
+          "pos": "명사"
+        },
+        {
+          "id": "en-6",
+          "word": "nutritious",
+          "reading": "/nuːˈtrɪʃəs/",
+          "meaning": "영양가 높은",
+          "pos": "형용사"
+        },
+        {
+          "id": "en-7",
+          "word": "afford",
+          "reading": "/əˈfɔːrd/",
+          "meaning": "~할 여유가 되다",
+          "pos": "동사"
+        },
+        {
+          "id": "en-8",
+          "word": "chat",
+          "reading": "/tʃæt/",
+          "meaning": "수다를 떨다, 이야기하다",
+          "pos": "동사"
+        },
+        {
+          "id": "en-9",
+          "word": "morale",
+          "reading": "/məˈræl/",
+          "meaning": "사기, 의욕",
+          "pos": "명사"
+        },
+        {
+          "id": "en-10",
+          "word": "worth",
+          "reading": "/wɜːrθ/",
+          "meaning": "~할 가치가 있는",
+          "pos": "형용사"
+        }
+      ],
+      "passage": {
+        "title": "A Cafeteria at Work",
+        "titleKo": "직장 구내식당",
+        "situation": "회사에 구내식당이 필요한지에 대한 의견 말하기",
+        "sentences": [
+          {
+            "text": "I think every company should have a cafeteria for its employees.",
+            "ko": "저는 모든 회사가 직원들을 위한 구내식당을 가져야 한다고 생각합니다.",
+            "uses": [
+              {
+                "wordId": "en-1",
+                "text": "cafeteria",
+                "start": 36,
+                "end": 45
+              },
+              {
+                "wordId": "en-2",
+                "text": "employees",
+                "start": 54,
+                "end": 63
+              }
+            ]
+          },
+          {
+            "text": "Many people skip lunch or eat in a rush because they are busy.",
+            "ko": "많은 사람이 바빠서 점심을 거르거나 서둘러 먹습니다.",
+            "uses": [
+              {
+                "wordId": "en-3",
+                "text": "skip",
+                "start": 12,
+                "end": 16
+              },
+              {
+                "wordId": "en-4",
+                "text": "rush",
+                "start": 35,
+                "end": 39
+              }
+            ]
+          },
+          {
+            "text": "A cafeteria gives them more options, and the food is usually nutritious.",
+            "ko": "구내식당은 더 많은 선택지를 주고, 음식도 보통 영양가가 높습니다.",
+            "uses": [
+              {
+                "wordId": "en-1",
+                "text": "cafeteria",
+                "start": 2,
+                "end": 11
+              },
+              {
+                "wordId": "en-5",
+                "text": "options",
+                "start": 28,
+                "end": 35
+              },
+              {
+                "wordId": "en-6",
+                "text": "nutritious",
+                "start": 61,
+                "end": 71
+              }
+            ]
+          },
+          {
+            "text": "Also, the price is low, so most workers can afford a good meal every day.",
+            "ko": "또 가격이 저렴해서 대부분의 직원이 매일 좋은 식사를 할 여유가 됩니다.",
+            "uses": [
+              {
+                "wordId": "en-7",
+                "text": "afford",
+                "start": 44,
+                "end": 50
+              }
+            ]
+          },
+          {
+            "text": "During lunch, colleagues can chat and get to know each other.",
+            "ko": "점심시간에 동료들은 이야기를 나누며 서로를 알아갈 수 있습니다.",
+            "uses": [
+              {
+                "wordId": "en-8",
+                "text": "chat",
+                "start": 29,
+                "end": 33
+              }
+            ]
+          },
+          {
+            "text": "This improves team morale, so I think a cafeteria is well worth the cost.",
+            "ko": "이는 팀 사기를 높여 주므로, 저는 구내식당이 비용만큼의 가치가 충분히 있다고 생각합니다.",
+            "uses": [
+              {
+                "wordId": "en-9",
+                "text": "morale",
+                "start": 19,
+                "end": 25
+              },
+              {
+                "wordId": "en-10",
+                "text": "worth",
+                "start": 58,
+                "end": 63
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "zh": {
+      "lang": "zh",
+      "level": "HSK 4~6급",
+      "hskStandard": "HSK 2.0 (6급제) 기준 4~6급 어휘",
+      "words": [
+        {
+          "id": "zh-1",
+          "word": "打折",
+          "reading": "dǎzhé",
+          "meaning": "할인하다",
+          "pos": "동사"
+        },
+        {
+          "id": "zh-2",
+          "word": "质量",
+          "reading": "zhìliàng",
+          "meaning": "품질",
+          "pos": "명사"
+        },
+        {
+          "id": "zh-3",
+          "word": "网站",
+          "reading": "wǎngzhàn",
+          "meaning": "웹사이트",
+          "pos": "명사"
+        },
+        {
+          "id": "zh-4",
+          "word": "保证",
+          "reading": "bǎozhèng",
+          "meaning": "보증하다, 약속하다",
+          "pos": "동사"
+        },
+        {
+          "id": "zh-5",
+          "word": "退",
+          "reading": "tuì",
+          "meaning": "반품하다, 물리다",
+          "pos": "동사"
+        },
+        {
+          "id": "zh-6",
+          "word": "商品",
+          "reading": "shāngpǐn",
+          "meaning": "상품",
+          "pos": "명사"
+        },
+        {
+          "id": "zh-7",
+          "word": "联系",
+          "reading": "liánxì",
+          "meaning": "연락하다",
+          "pos": "동사"
+        },
+        {
+          "id": "zh-8",
+          "word": "解释",
+          "reading": "jiěshì",
+          "meaning": "설명하다, 해명하다",
+          "pos": "동사"
+        },
+        {
+          "id": "zh-9",
+          "word": "道歉",
+          "reading": "dàoqiàn",
+          "meaning": "사과하다",
+          "pos": "동사"
+        },
+        {
+          "id": "zh-10",
+          "word": "抱怨",
+          "reading": "bàoyuàn",
+          "meaning": "불평하다, 원망하다",
+          "pos": "동사"
+        }
+      ],
+      "passage": {
+        "title": "网上购物",
+        "titleKo": "인터넷 쇼핑",
+        "situation": "인터넷에서 산 물건에 문제가 생겨 고객센터에 연락하기",
+        "sentences": [
+          {
+            "text": "上周我在一个购物网站上买了一件打折的外套。",
+            "reading": "Shàngzhōu wǒ zài yí ge gòuwù wǎngzhàn shàng mǎi le yí jiàn dǎzhé de wàitào.",
+            "ko": "지난주에 나는 한 쇼핑 사이트에서 할인하는 외투를 한 벌 샀다.",
+            "uses": [
+              {
+                "wordId": "zh-3",
+                "text": "网站",
+                "start": 8,
+                "end": 10
+              },
+              {
+                "wordId": "zh-1",
+                "text": "打折",
+                "start": 15,
+                "end": 17
+              }
+            ]
+          },
+          {
+            "text": "商品到了以后，我发现质量不太好。",
+            "reading": "Shāngpǐn dào le yǐhòu, wǒ fāxiàn zhìliàng bú tài hǎo.",
+            "ko": "상품이 도착한 뒤, 나는 품질이 별로 좋지 않다는 것을 알게 되었다.",
+            "uses": [
+              {
+                "wordId": "zh-6",
+                "text": "商品",
+                "start": 0,
+                "end": 2
+              },
+              {
+                "wordId": "zh-2",
+                "text": "质量",
+                "start": 10,
+                "end": 12
+              }
+            ]
+          },
+          {
+            "text": "网站上说七天内可以退，所以我马上联系了客服。",
+            "reading": "Wǎngzhàn shàng shuō qī tiān nèi kěyǐ tuì, suǒyǐ wǒ mǎshàng liánxì le kèfú.",
+            "ko": "사이트에 7일 안에 반품할 수 있다고 쓰여 있어서, 나는 바로 고객센터에 연락했다.",
+            "uses": [
+              {
+                "wordId": "zh-3",
+                "text": "网站",
+                "start": 0,
+                "end": 2
+              },
+              {
+                "wordId": "zh-5",
+                "text": "退",
+                "start": 9,
+                "end": 10
+              },
+              {
+                "wordId": "zh-7",
+                "text": "联系",
+                "start": 16,
+                "end": 18
+              }
+            ]
+          },
+          {
+            "text": "客服先向我道歉，然后解释说这批货有问题。",
+            "reading": "Kèfú xiān xiàng wǒ dàoqiàn, ránhòu jiěshì shuō zhè pī huò yǒu wèntí.",
+            "ko": "상담원은 먼저 나에게 사과하고, 이어서 이번 물량에 문제가 있었다고 설명했다.",
+            "uses": [
+              {
+                "wordId": "zh-9",
+                "text": "道歉",
+                "start": 5,
+                "end": 7
+              },
+              {
+                "wordId": "zh-8",
+                "text": "解释",
+                "start": 10,
+                "end": 12
+              }
+            ]
+          },
+          {
+            "text": "我本来想抱怨几句，但他态度很好，还保证三天内处理。",
+            "reading": "Wǒ běnlái xiǎng bàoyuàn jǐ jù, dàn tā tàidù hěn hǎo, hái bǎozhèng sān tiān nèi chǔlǐ.",
+            "ko": "나는 원래 몇 마디 불평하려 했지만, 그의 태도가 아주 좋았고 사흘 안에 처리하겠다고 약속까지 했다.",
+            "uses": [
+              {
+                "wordId": "zh-10",
+                "text": "抱怨",
+                "start": 4,
+                "end": 6
+              },
+              {
+                "wordId": "zh-4",
+                "text": "保证",
+                "start": 17,
+                "end": 19
+              }
+            ]
+          },
+          {
+            "text": "现在钱已经回到我的账户了，我觉得很满意。",
+            "reading": "Xiànzài qián yǐjīng huídào wǒ de zhànghù le, wǒ juéde hěn mǎnyì.",
+            "ko": "지금은 돈이 이미 내 계좌로 돌아와서, 나는 매우 만족한다.",
+            "uses": []
+          }
+        ]
+      }
+    },
+    "ja": {
+      "lang": "ja",
+      "level": "완전 초급 (JLPT N5 이하)",
+      "words": [
+        {
+          "id": "ja-1",
+          "word": "びょういん",
+          "reading": "びょういん",
+          "meaning": "병원",
+          "pos": "명사"
+        },
+        {
+          "id": "ja-2",
+          "word": "あたま",
+          "reading": "あたま",
+          "meaning": "머리",
+          "pos": "명사"
+        },
+        {
+          "id": "ja-3",
+          "word": "いたい",
+          "reading": "いたい",
+          "meaning": "아프다",
+          "pos": "형용사"
+        },
+        {
+          "id": "ja-4",
+          "word": "くすり",
+          "reading": "くすり",
+          "meaning": "약",
+          "pos": "명사"
+        },
+        {
+          "id": "ja-5",
+          "word": "休む",
+          "reading": "やすむ",
+          "meaning": "쉬다",
+          "pos": "동사",
+          "ruby": [
+            {
+              "t": "休",
+              "r": "やす"
+            },
+            {
+              "t": "む"
+            }
+          ]
+        }
+      ],
+      "passage": {
+        "title": "びょういんへ",
+        "titleKo": "병원에",
+        "situation": "머리가 아파서 학교를 쉬고 병원에 가기",
+        "sentences": [
+          {
+            "text": "きのうから、あたまがいたいです。",
+            "reading": "きのうから、あたまがいたいです。",
+            "ko": "어제부터 머리가 아파요.",
+            "uses": [
+              {
+                "wordId": "ja-2",
+                "text": "あたま",
+                "start": 6,
+                "end": 9
+              },
+              {
+                "wordId": "ja-3",
+                "text": "いたい",
+                "start": 10,
+                "end": 13
+              }
+            ]
+          },
+          {
+            "text": "今日は、がっこうを休みます。",
+            "reading": "きょうは、がっこうをやすみます。",
+            "ko": "오늘은 학교를 쉬어요.",
+            "uses": [
+              {
+                "wordId": "ja-5",
+                "text": "休み",
+                "start": 9,
+                "end": 11
+              }
+            ],
+            "ruby": [
+              {
+                "t": "今日",
+                "r": "きょう"
+              },
+              {
+                "t": "は、がっこうを"
+              },
+              {
+                "t": "休",
+                "r": "やす"
+              },
+              {
+                "t": "みます。"
+              }
+            ]
+          },
+          {
+            "text": "それから、びょういんにいきます。",
+            "reading": "それから、びょういんにいきます。",
+            "ko": "그리고 병원에 가요.",
+            "uses": [
+              {
+                "wordId": "ja-1",
+                "text": "びょういん",
+                "start": 5,
+                "end": 10
+              }
+            ]
+          },
+          {
+            "text": "せんせいに、くすりをもらいました。",
+            "reading": "せんせいに、くすりをもらいました。",
+            "ko": "선생님께 약을 받았어요.",
+            "uses": [
+              {
+                "wordId": "ja-4",
+                "text": "くすり",
+                "start": 6,
+                "end": 9
+              }
+            ]
+          },
+          {
+            "text": "うちでゆっくり休みます。",
+            "reading": "うちでゆっくりやすみます。",
+            "ko": "집에서 푹 쉬어요.",
+            "uses": [
+              {
+                "wordId": "ja-5",
+                "text": "休み",
+                "start": 7,
+                "end": 9
+              }
+            ],
+            "ruby": [
+              {
+                "t": "うちでゆっくり"
+              },
+              {
+                "t": "休",
+                "r": "やす"
+              },
+              {
+                "t": "みます。"
+              }
+            ]
+          },
+          {
+            "text": "はやくげんきになりたいです。",
+            "reading": "はやくげんきになりたいです。",
+            "ko": "빨리 건강해지고 싶어요.",
+            "uses": []
+          }
+        ],
+        "grammar": {
+          "sentences": [
+            {
+              "sentence": 1,
+              "items": [
+                {
+                  "pattern": "あたまが",
+                  "title": "が (~이/가)",
+                  "explain": "「が」는 '무엇이 어떤지'를 말할 때 써요. あたまがいたい = 머리가 아프다. 아픈 곳 뒤에 が를 붙여요."
+                },
+                {
+                  "pattern": "いたいです",
+                  "title": "いたい + です (아파요)",
+                  "explain": "いたい(아프다)는 형용사예요. 뒤에 「です」를 붙이면 정중한 말이 돼요. 「から」는 '~부터'예요: きのうから = 어제부터."
+                }
+              ]
+            },
+            {
+              "sentence": 2,
+              "items": [
+                {
+                  "pattern": "今日は",
+                  "title": "は (~은/는)",
+                  "explain": "「は」는 이야기의 주제를 나타내요. 읽을 때는 「わ」라고 읽어요. きょうは = 오늘은."
+                },
+                {
+                  "pattern": "がっこうを",
+                  "title": "を (~을/를)",
+                  "explain": "「を」는 동작의 대상 뒤에 붙어요. がっこうをやすむ = 학교를 쉬다."
+                },
+                {
+                  "pattern": "休みます",
+                  "title": "〜ます (정중한 말투)",
+                  "explain": "「やすむ」(쉬다)에 ます를 붙이면 정중한 말이 돼요. やすむ → やすみ + ます = 쉬어요."
+                }
+              ]
+            },
+            {
+              "sentence": 3,
+              "items": [
+                {
+                  "pattern": "びょういんに",
+                  "title": "に (~에, 가는 곳)",
+                  "explain": "「に」는 가는 곳(목적지)을 나타내요. びょういんに = 병원에."
+                },
+                {
+                  "pattern": "いきます",
+                  "title": "いきます (가요)",
+                  "explain": "「いく」(가다)의 정중한 말이에요. いく → いき + ます. 「それから」는 '그리고 나서'예요."
+                }
+              ]
+            },
+            {
+              "sentence": 4,
+              "items": [
+                {
+                  "pattern": "せんせいに",
+                  "title": "に (~에게)",
+                  "explain": "여기서 「に」는 받는 상대를 나타내요. せんせいに = 선생님께."
+                },
+                {
+                  "pattern": "くすりをもらいました",
+                  "title": "〜ました (과거)",
+                  "explain": "「もらう」(받다)의 과거 정중한 말이에요. もらいます(받아요) → もらいました(받았어요). ます를 ました로 바꾸면 과거예요."
+                }
+              ]
+            },
+            {
+              "sentence": 5,
+              "items": [
+                {
+                  "pattern": "うちで",
+                  "title": "で (~에서)",
+                  "explain": "「で」는 동작이 일어나는 장소를 나타내요. うちでやすむ = 집에서 쉬다. 「ゆっくり」는 '푹, 천천히'예요."
+                }
+              ]
+            },
+            {
+              "sentence": 6,
+              "items": [
+                {
+                  "pattern": "げんきになりたいです",
+                  "title": "〜たい (~하고 싶다)",
+                  "explain": "동사에서 ます를 빼고 「たい」를 붙이면 '~하고 싶다'예요. 「げんきになる」(건강해지다)는 なり + たい. 「はやく」는 '빨리'예요."
+                }
+              ]
+            }
+          ],
+          "summary": [
+            "조사: が(~이/가) / は(~은/는) / を(~을) / に(~에) / で(~에서)",
+            "말투: 〜ます(가요·쉬어요) / 〜ました(했어요) / 〜です(~예요)",
+            "〜たい는 '~하고 싶다'. いたい는 '아프다'예요."
+          ]
+        }
+      }
+    },
+    "ko": {
+      "lang": "ko",
+      "level": "사회통합프로그램 4단계 이상",
+      "words": [
+        {
+          "id": "ko-1",
+          "word": "구매하다",
+          "meaning": "돈을 내고 물건을 사다",
+          "meaningZh": "购买；购置",
+          "pos": "동사"
+        },
+        {
+          "id": "ko-2",
+          "word": "영수증",
+          "meaning": "물건값을 냈다는 것을 보여 주는 종이",
+          "meaningZh": "收据；发票",
+          "pos": "명사"
+        },
+        {
+          "id": "ko-3",
+          "word": "불량",
+          "meaning": "물건의 질이 나쁘거나 고장 난 상태",
+          "meaningZh": "不良；次品",
+          "pos": "명사"
+        },
+        {
+          "id": "ko-4",
+          "word": "교환하다",
+          "meaning": "산 물건을 다른 물건으로 바꾸다",
+          "meaningZh": "换货；交换",
+          "pos": "동사"
+        },
+        {
+          "id": "ko-5",
+          "word": "환불하다",
+          "meaning": "산 물건을 돌려주고 낸 돈을 다시 받다",
+          "meaningZh": "退款",
+          "pos": "동사"
+        },
+        {
+          "id": "ko-6",
+          "word": "반품하다",
+          "meaning": "산 물건을 판 곳으로 다시 돌려보내다",
+          "meaningZh": "退货",
+          "pos": "동사"
+        },
+        {
+          "id": "ko-7",
+          "word": "고객센터",
+          "meaning": "손님의 질문이나 불만을 받아 주는 곳",
+          "meaningZh": "客服中心",
+          "pos": "명사"
+        },
+        {
+          "id": "ko-8",
+          "word": "소비자",
+          "meaning": "물건이나 서비스를 사서 쓰는 사람",
+          "meaningZh": "消费者",
+          "pos": "명사"
+        },
+        {
+          "id": "ko-9",
+          "word": "상담원",
+          "meaning": "전화나 방문으로 손님의 이야기를 듣고 도와주는 사람",
+          "meaningZh": "咨询员；客服人员",
+          "pos": "명사"
+        },
+        {
+          "id": "ko-10",
+          "word": "처리하다",
+          "meaning": "일이나 문제를 끝내도록 해결하다",
+          "meaningZh": "处理",
+          "pos": "동사"
+        }
+      ],
+      "passage": {
+        "title": "온라인 쇼핑 환불",
+        "titleZh": "网购退款",
+        "situation": "인터넷에서 산 물건이 불량이라 고객센터에 연락하기",
+        "sentences": [
+          {
+            "text": "지난주에 인터넷에서 청소기를 구매했는데 받아 보니 불량이었어요.",
+            "zh": "上周在网上购买了吸尘器，收到一看是次品。",
+            "uses": [
+              {
+                "wordId": "ko-1",
+                "text": "구매했",
+                "start": 16,
+                "end": 19
+              },
+              {
+                "wordId": "ko-3",
+                "text": "불량",
+                "start": 28,
+                "end": 30
+              }
+            ]
+          },
+          {
+            "text": "저는 소비자로서 제품을 교환하거나 환불할 수 있다고 생각했어요.",
+            "zh": "我认为作为消费者，可以换货或者退款。",
+            "uses": [
+              {
+                "wordId": "ko-8",
+                "text": "소비자",
+                "start": 3,
+                "end": 6
+              },
+              {
+                "wordId": "ko-4",
+                "text": "교환하",
+                "start": 13,
+                "end": 16
+              },
+              {
+                "wordId": "ko-5",
+                "text": "환불할",
+                "start": 19,
+                "end": 22
+              }
+            ]
+          },
+          {
+            "text": "그래서 영수증을 챙겨서 고객센터에 전화를 걸었어요.",
+            "zh": "所以我带好收据，给客服中心打了电话。",
+            "uses": [
+              {
+                "wordId": "ko-2",
+                "text": "영수증",
+                "start": 4,
+                "end": 7
+              },
+              {
+                "wordId": "ko-7",
+                "text": "고객센터",
+                "start": 13,
+                "end": 17
+              }
+            ]
+          },
+          {
+            "text": "상담원은 제품을 반품하는 대로 환불해 주겠다고 했어요.",
+            "zh": "客服人员说，一退货就给我退款。",
+            "uses": [
+              {
+                "wordId": "ko-9",
+                "text": "상담원",
+                "start": 0,
+                "end": 3
+              },
+              {
+                "wordId": "ko-6",
+                "text": "반품하",
+                "start": 9,
+                "end": 12
+              },
+              {
+                "wordId": "ko-5",
+                "text": "환불해",
+                "start": 17,
+                "end": 20
+              }
+            ]
+          },
+          {
+            "text": "상담원이 끝까지 친절하게 처리해 주었더니 화가 조금 풀렸어요.",
+            "zh": "客服人员自始至终亲切地帮我处理，所以我的气消了一些。",
+            "uses": [
+              {
+                "wordId": "ko-9",
+                "text": "상담원",
+                "start": 0,
+                "end": 3
+              },
+              {
+                "wordId": "ko-10",
+                "text": "처리해",
+                "start": 14,
+                "end": 17
+              }
+            ]
+          },
+          {
+            "text": "택배 기사님이 다음 주에 온다고 해서 기다릴 수밖에 없어요.",
+            "zh": "快递师傅说下周来，所以我只能等。",
+            "uses": []
+          }
+        ],
+        "grammar": {
+          "sentences": [
+            {
+              "sentence": 1,
+              "items": [
+                {
+                  "pattern": "구매했는데",
+                  "title": "-(으)ㄴ/는데（……，可是/然后……）",
+                  "explain": "连接前后句，先交代背景，再引出后面的内容。“구매했는데”＝买了，（可是……）。"
+                },
+                {
+                  "pattern": "받아 보니",
+                  "title": "-아/어 보니（……一看/一试才发现……）",
+                  "explain": "表示做了某个动作之后才发现的结果。“받아 보니 불량이었어요”＝收到一看是次品。"
+                }
+              ]
+            },
+            {
+              "sentence": 2,
+              "items": [
+                {
+                  "pattern": "소비자로서",
+                  "title": "-(으)로서（作为……）",
+                  "explain": "接在身份、资格名词后，表示“作为……”。“소비자로서”＝作为消费者。注意和 -(으)로써（用……方法）不同。"
+                },
+                {
+                  "pattern": "교환하거나",
+                  "title": "-거나（或者……）",
+                  "explain": "连接两个动作，表示二选一，相当于“或者”。“교환하거나 환불할”＝换货或者退款。"
+                }
+              ]
+            },
+            {
+              "sentence": 3,
+              "items": [
+                {
+                  "pattern": "챙겨서",
+                  "title": "-아/어서（……之后；因为……）",
+                  "explain": "这里表示先后顺序：先做前面的动作，再做后面的动作。“챙겨서 전화를 걸었어요”＝带好之后打了电话。"
+                }
+              ]
+            },
+            {
+              "sentence": 4,
+              "items": [
+                {
+                  "pattern": "반품하는 대로",
+                  "title": "-는 대로（一……就……）",
+                  "explain": "表示前面的动作一结束，马上做后面的事。“반품하는 대로”＝一退货就……。后面可以接命令或约定。"
+                },
+                {
+                  "pattern": "환불해 주겠다고",
+                  "title": "-아/어 주다 + -겠다고 하다（说会帮……）",
+                  "explain": "“-아/어 주다”表示为别人做某事；“-겠다고 하다”转述说话人的意志或约定。“환불해 주겠다고 했어요”＝说会给我退款。"
+                }
+              ]
+            },
+            {
+              "sentence": 5,
+              "items": [
+                {
+                  "pattern": "주었더니",
+                  "title": "-았/었더니（……之后，发现……）",
+                  "explain": "说话人做了某事，之后看到或感受到结果。主语多是“我”。“처리해 주었더니 화가 풀렸어요”＝（对方）处理了之后，我的气消了。"
+                }
+              ]
+            },
+            {
+              "sentence": 6,
+              "items": [
+                {
+                  "pattern": "온다고 해서",
+                  "title": "-다고 해서（听说……所以……）",
+                  "explain": "转述别人的话，并把它当作原因。“온다고 해서”＝说要来，所以……。"
+                },
+                {
+                  "pattern": "기다릴 수밖에 없어요",
+                  "title": "-(으)ㄹ 수밖에 없다（只能……）",
+                  "explain": "表示没有别的办法，只能这样。“기다릴 수밖에 없어요”＝只能等。前面接动词词干 + -(으)ㄹ。"
+                }
+              ]
+            }
+          ],
+          "summary": [
+            "连接句子：-는데（交代背景）、-아/어서（先后/原因）、-았/었더니（做了之后发现结果）。",
+            "表示条件和时间：-는 대로（一……就……）、-거나（或者）、-(으)로서（作为）。",
+            "转述与无奈：-다고 해서（听说所以）、-(으)ㄹ 수밖에 없다（只能……）。"
+          ]
+        }
+      }
+    }
+  }
+}

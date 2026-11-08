@@ -1,0 +1,1211 @@
+{
+  "schemaVersion": 2,
+  "date": "2026-11-09",
+  "status": "ready",
+  "generatedAt": "2026-11-09T08:48:31+09:00",
+  "sets": {
+    "yue": {
+      "lang": "yue",
+      "level": "완전 초급",
+      "words": [
+        {
+          "id": "yue-1",
+          "word": "唔舒服",
+          "reading": "m4 syu1 fuk6",
+          "meaning": "몸이 안 좋다",
+          "pos": "형용사"
+        },
+        {
+          "id": "yue-2",
+          "word": "头痛",
+          "reading": "tau4 tung3",
+          "meaning": "머리가 아프다",
+          "pos": "형용사"
+        },
+        {
+          "id": "yue-3",
+          "word": "医生",
+          "reading": "ji1 sang1",
+          "meaning": "의사",
+          "pos": "명사"
+        },
+        {
+          "id": "yue-4",
+          "word": "药",
+          "reading": "joek6",
+          "meaning": "약",
+          "pos": "명사"
+        },
+        {
+          "id": "yue-5",
+          "word": "休息",
+          "reading": "jau1 sik1",
+          "meaning": "쉬다",
+          "pos": "동사"
+        }
+      ],
+      "passage": {
+        "title": "睇医生",
+        "titleKo": "진료받기",
+        "situation": "몸이 안 좋아서 병원에 가는 상황",
+        "sentences": [
+          {
+            "text": "我今日唔舒服。",
+            "reading": "ngo5 gam1 jat6 m4 syu1 fuk6.",
+            "ko": "저는 오늘 몸이 안 좋아요.",
+            "uses": [
+              {
+                "wordId": "yue-1",
+                "text": "唔舒服",
+                "start": 3,
+                "end": 6
+              }
+            ]
+          },
+          {
+            "text": "我头痛，想睇医生。",
+            "reading": "ngo5 tau4 tung3, soeng2 tai2 ji1 sang1.",
+            "ko": "저는 머리가 아파서 의사를 보고 싶어요.",
+            "uses": [
+              {
+                "wordId": "yue-2",
+                "text": "头痛",
+                "start": 1,
+                "end": 3
+              },
+              {
+                "wordId": "yue-3",
+                "text": "医生",
+                "start": 6,
+                "end": 8
+              }
+            ]
+          },
+          {
+            "text": "医生话：「唔紧要。」",
+            "reading": "ji1 sang1 waa6: \"m4 gan2 jiu3.\"",
+            "ko": "의사가 \"괜찮아요\"라고 말해요.",
+            "uses": [
+              {
+                "wordId": "yue-3",
+                "text": "医生",
+                "start": 0,
+                "end": 2
+              }
+            ]
+          },
+          {
+            "text": "「你要食药，好好休息。」",
+            "reading": "\"nei5 jiu3 sik6 joek6, hou2 hou2 jau1 sik1.\"",
+            "ko": "\"약을 드시고 푹 쉬세요.\"",
+            "uses": [
+              {
+                "wordId": "yue-4",
+                "text": "药",
+                "start": 4,
+                "end": 5
+              },
+              {
+                "wordId": "yue-5",
+                "text": "休息",
+                "start": 8,
+                "end": 10
+              }
+            ]
+          },
+          {
+            "text": "我讲：「唔该，医生！」",
+            "reading": "ngo5 gong2: \"m4 goi1, ji1 sang1!\"",
+            "ko": "저는 \"감사합니다, 선생님!\"이라고 말해요.",
+            "uses": [
+              {
+                "wordId": "yue-3",
+                "text": "医生",
+                "start": 7,
+                "end": 9
+              }
+            ]
+          },
+          {
+            "text": "听日我会好啲。",
+            "reading": "ting1 jat6 ngo5 wui5 hou2 di1.",
+            "ko": "내일은 제가 좀 나아질 거예요.",
+            "uses": []
+          }
+        ],
+        "grammar": {
+          "sentences": [
+            {
+              "sentence": 1,
+              "items": [
+                {
+                  "pattern": "今日",
+                  "title": "今日 (오늘)",
+                  "explain": "今日(gam1 jat6)는 '오늘'이에요. 광둥어는 문장 맨 앞이나 주어 뒤에 시간말을 자연스럽게 넣어요."
+                },
+                {
+                  "pattern": "唔舒服",
+                  "title": "唔 + 형용사 (~하지 않다)",
+                  "explain": "唔(m4)은 '아니다/~하지 않다'예요. 唔舒服 = 몸이 편하지 않다, 즉 몸이 안 좋다는 뜻이에요. 형용사 앞에 係를 넣지 않아요."
+                }
+              ]
+            },
+            {
+              "sentence": 2,
+              "items": [
+                {
+                  "pattern": "头痛",
+                  "title": "头痛 (머리가 아프다)",
+                  "explain": "头(머리) + 痛(아프다)예요. 我头痛처럼 주어 뒤에 바로 쓰고, 係는 필요 없어요."
+                },
+                {
+                  "pattern": "想睇医生",
+                  "title": "想 + 동사 (~하고 싶다)",
+                  "explain": "想(soeng2) 뒤에 동사를 붙이면 '~하고 싶다'예요. 睇医生은 직역하면 '의사를 보다', 즉 진료받다예요."
+                }
+              ]
+            },
+            {
+              "sentence": 3,
+              "items": [
+                {
+                  "pattern": "医生话",
+                  "title": "话 (말하다)",
+                  "explain": "话(waa6)는 '말하다'예요. 누가 말했는지 쓰고 话 뒤에 말한 내용을 붙여요."
+                },
+                {
+                  "pattern": "唔紧要",
+                  "title": "唔紧要 (괜찮아요)",
+                  "explain": "唔紧要(m4 gan2 jiu3)는 '중요하지 않아요, 괜찮아요'라는 뜻이에요. 걱정하는 사람에게 자주 말해요."
+                }
+              ]
+            },
+            {
+              "sentence": 4,
+              "items": [
+                {
+                  "pattern": "要食药",
+                  "title": "要 + 동사 (~해야 한다)",
+                  "explain": "要(jiu3) 뒤에 동사를 쓰면 '~해야 한다'예요. 동사(食)가 목적어(药) 앞에 오는 어순은 한국어와 반대예요."
+                },
+                {
+                  "pattern": "好好休息",
+                  "title": "好好 + 동사 (잘 ~하다)",
+                  "explain": "好好를 동사 앞에 두면 '잘, 제대로 ~하다'예요. 好好休息 = 푹 쉬세요."
+                }
+              ]
+            },
+            {
+              "sentence": 5,
+              "items": [
+                {
+                  "pattern": "唔该",
+                  "title": "唔该 (감사합니다 / 부탁합니다)",
+                  "explain": "唔该(m4 goi1)는 서비스를 받을 때나 부탁할 때 하는 말이에요. 선물을 받았을 때는 多谢를 써요."
+                }
+              ]
+            },
+            {
+              "sentence": 6,
+              "items": [
+                {
+                  "pattern": "听日",
+                  "title": "听日 (내일)",
+                  "explain": "听日(ting1 jat6)는 '내일'이에요. 今日(오늘)처럼 시간말이라 주어 앞에도 올 수 있어요."
+                },
+                {
+                  "pattern": "会好啲",
+                  "title": "会 + 형용사 (~할 것이다)",
+                  "explain": "会(wui5)는 '~할 것이다'예요. 형용사 뒤의 啲(di1)는 '조금 더'라는 뜻이라 会好啲 = 좀 나아질 거예요."
+                }
+              ]
+            }
+          ],
+          "summary": [
+            "부정은 唔을 써요: 唔舒服, 唔紧要. 형용사 앞에는 係를 넣지 않아요.",
+            "想 + 동사는 '~하고 싶다', 要 + 동사는 '~해야 한다'예요.",
+            "동사는 목적어 앞에 와요: 睇医生, 食药."
+          ],
+          "compare": [
+            {
+              "this": "唔",
+              "other": "不"
+            },
+            {
+              "this": "话",
+              "other": "说"
+            },
+            {
+              "this": "今日",
+              "other": "今天"
+            },
+            {
+              "this": "睇",
+              "other": "看"
+            },
+            {
+              "this": "听日",
+              "other": "明天"
+            },
+            {
+              "this": "唔紧要",
+              "other": "没关系"
+            }
+          ]
+        }
+      }
+    },
+    "en": {
+      "lang": "en",
+      "level": "토익스피킹 대비",
+      "words": [
+        {
+          "id": "en-1",
+          "word": "effective",
+          "reading": "/ɪˈfektɪv/",
+          "meaning": "효과적인",
+          "pos": "형용사"
+        },
+        {
+          "id": "en-2",
+          "word": "opinion",
+          "reading": "/əˈpɪnjən/",
+          "meaning": "의견",
+          "pos": "명사"
+        },
+        {
+          "id": "en-3",
+          "word": "discuss",
+          "reading": "/dɪˈskʌs/",
+          "meaning": "논의하다",
+          "pos": "동사"
+        },
+        {
+          "id": "en-4",
+          "word": "cooperate",
+          "reading": "/koʊˈɑːpəreɪt/",
+          "meaning": "협력하다",
+          "pos": "동사"
+        },
+        {
+          "id": "en-5",
+          "word": "resolve",
+          "reading": "/rɪˈzɑːlv/",
+          "meaning": "해결하다",
+          "pos": "동사"
+        },
+        {
+          "id": "en-6",
+          "word": "reliable",
+          "reading": "/rɪˈlaɪəbəl/",
+          "meaning": "믿을 수 있는",
+          "pos": "형용사"
+        },
+        {
+          "id": "en-7",
+          "word": "contribute",
+          "reading": "/kənˈtrɪbjuːt/",
+          "meaning": "기여하다",
+          "pos": "동사"
+        },
+        {
+          "id": "en-8",
+          "word": "progress",
+          "reading": "/ˈprɑːɡres/",
+          "meaning": "진전, 발전",
+          "pos": "명사"
+        },
+        {
+          "id": "en-9",
+          "word": "achieve",
+          "reading": "/əˈtʃiːv/",
+          "meaning": "달성하다",
+          "pos": "동사"
+        },
+        {
+          "id": "en-10",
+          "word": "priority",
+          "reading": "/praɪˈɔːrəti/",
+          "meaning": "우선순위",
+          "pos": "명사"
+        }
+      ],
+      "passage": {
+        "title": "Teamwork or Working Alone",
+        "titleKo": "팀워크 vs 혼자 일하기",
+        "situation": "팀으로 일하는 것과 혼자 일하는 것 중 무엇을 선호하는지 의견 말하기",
+        "sentences": [
+          {
+            "text": "I think working in a team is more effective than working alone.",
+            "ko": "저는 팀으로 일하는 것이 혼자 일하는 것보다 더 효과적이라고 생각해요.",
+            "uses": [
+              {
+                "wordId": "en-1",
+                "text": "effective",
+                "start": 34,
+                "end": 43
+              }
+            ]
+          },
+          {
+            "text": "Everyone can share an opinion and discuss ideas before we decide.",
+            "ko": "결정하기 전에 모두가 의견을 나누고 아이디어를 논의할 수 있어요.",
+            "uses": [
+              {
+                "wordId": "en-2",
+                "text": "opinion",
+                "start": 22,
+                "end": 29
+              },
+              {
+                "wordId": "en-3",
+                "text": "discuss",
+                "start": 34,
+                "end": 41
+              }
+            ]
+          },
+          {
+            "text": "When we cooperate, we can resolve problems much faster.",
+            "ko": "우리가 협력하면 문제를 훨씬 더 빨리 해결할 수 있어요.",
+            "uses": [
+              {
+                "wordId": "en-4",
+                "text": "cooperate",
+                "start": 8,
+                "end": 17
+              },
+              {
+                "wordId": "en-5",
+                "text": "resolve",
+                "start": 26,
+                "end": 33
+              }
+            ]
+          },
+          {
+            "text": "I also like having reliable teammates who contribute to the project.",
+            "ko": "또한 프로젝트에 기여하는 믿을 수 있는 팀원이 있는 것이 좋아요.",
+            "uses": [
+              {
+                "wordId": "en-6",
+                "text": "reliable",
+                "start": 19,
+                "end": 27
+              },
+              {
+                "wordId": "en-7",
+                "text": "contribute",
+                "start": 42,
+                "end": 52
+              }
+            ]
+          },
+          {
+            "text": "Last month, our team made good progress and achieved our goal early.",
+            "ko": "지난달 우리 팀은 좋은 진전을 이뤄서 목표를 일찍 달성했어요.",
+            "uses": [
+              {
+                "wordId": "en-8",
+                "text": "progress",
+                "start": 31,
+                "end": 39
+              },
+              {
+                "wordId": "en-9",
+                "text": "achieved",
+                "start": 44,
+                "end": 52
+              }
+            ]
+          },
+          {
+            "text": "Of course, my first priority is always to finish my own tasks on time.",
+            "ko": "물론 제 첫 번째 우선순위는 언제나 제 일을 제시간에 끝내는 거예요.",
+            "uses": [
+              {
+                "wordId": "en-10",
+                "text": "priority",
+                "start": 20,
+                "end": 28
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "zh": {
+      "lang": "zh",
+      "level": "HSK 4~6급",
+      "hskStandard": "HSK 2.0 (6급제) 기준 4~6급 어휘",
+      "words": [
+        {
+          "id": "zh-1",
+          "word": "毕业",
+          "reading": "bìyè",
+          "meaning": "졸업하다",
+          "pos": "동사"
+        },
+        {
+          "id": "zh-2",
+          "word": "专业",
+          "reading": "zhuānyè",
+          "meaning": "전공",
+          "pos": "명사"
+        },
+        {
+          "id": "zh-3",
+          "word": "论文",
+          "reading": "lùnwén",
+          "meaning": "논문",
+          "pos": "명사"
+        },
+        {
+          "id": "zh-4",
+          "word": "教授",
+          "reading": "jiàoshòu",
+          "meaning": "교수",
+          "pos": "명사"
+        },
+        {
+          "id": "zh-5",
+          "word": "研究",
+          "reading": "yánjiū",
+          "meaning": "연구(하다)",
+          "pos": "명사/동사"
+        },
+        {
+          "id": "zh-6",
+          "word": "就业",
+          "reading": "jiùyè",
+          "meaning": "취업(하다)",
+          "pos": "동사"
+        },
+        {
+          "id": "zh-7",
+          "word": "竞争",
+          "reading": "jìngzhēng",
+          "meaning": "경쟁(하다)",
+          "pos": "명사/동사"
+        },
+        {
+          "id": "zh-8",
+          "word": "犹豫",
+          "reading": "yóuyù",
+          "meaning": "망설이다",
+          "pos": "동사"
+        },
+        {
+          "id": "zh-9",
+          "word": "申请",
+          "reading": "shēnqǐng",
+          "meaning": "신청하다",
+          "pos": "동사"
+        },
+        {
+          "id": "zh-10",
+          "word": "实习",
+          "reading": "shíxí",
+          "meaning": "인턴십, 실습(하다)",
+          "pos": "명사/동사"
+        }
+      ],
+      "passage": {
+        "title": "毕业以后做什么",
+        "titleKo": "졸업 후에 무엇을 할까",
+        "situation": "졸업을 앞둔 대학생이 진로를 고민하는 상황",
+        "sentences": [
+          {
+            "text": "明年我就要大学毕业了。",
+            "reading": "Míngnián wǒ jiù yào dàxué bìyè le.",
+            "ko": "내년이면 저는 대학을 졸업해요.",
+            "uses": [
+              {
+                "wordId": "zh-1",
+                "text": "毕业",
+                "start": 7,
+                "end": 9
+              }
+            ]
+          },
+          {
+            "text": "我的专业是经济学，这学期正在写论文。",
+            "reading": "Wǒ de zhuānyè shì jīngjìxué, zhè xuéqī zhèngzài xiě lùnwén.",
+            "ko": "제 전공은 경제학이고, 이번 학기에는 논문을 쓰고 있어요.",
+            "uses": [
+              {
+                "wordId": "zh-2",
+                "text": "专业",
+                "start": 2,
+                "end": 4
+              },
+              {
+                "wordId": "zh-3",
+                "text": "论文",
+                "start": 15,
+                "end": 17
+              }
+            ]
+          },
+          {
+            "text": "教授建议我继续做研究。",
+            "reading": "Jiàoshòu jiànyì wǒ jìxù zuò yánjiū.",
+            "ko": "교수님은 제게 계속 연구를 하라고 권하셨어요.",
+            "uses": [
+              {
+                "wordId": "zh-4",
+                "text": "教授",
+                "start": 0,
+                "end": 2
+              },
+              {
+                "wordId": "zh-5",
+                "text": "研究",
+                "start": 8,
+                "end": 10
+              }
+            ]
+          },
+          {
+            "text": "可是现在就业的竞争很大，我有点儿犹豫。",
+            "reading": "Kěshì xiànzài jiùyè de jìngzhēng hěn dà, wǒ yǒudiǎnr yóuyù.",
+            "ko": "하지만 요즘 취업 경쟁이 치열해서 저는 조금 망설여져요.",
+            "uses": [
+              {
+                "wordId": "zh-6",
+                "text": "就业",
+                "start": 4,
+                "end": 6
+              },
+              {
+                "wordId": "zh-7",
+                "text": "竞争",
+                "start": 7,
+                "end": 9
+              },
+              {
+                "wordId": "zh-8",
+                "text": "犹豫",
+                "start": 16,
+                "end": 18
+              }
+            ]
+          },
+          {
+            "text": "所以我决定先申请一份实习。",
+            "reading": "Suǒyǐ wǒ juédìng xiān shēnqǐng yí fèn shíxí.",
+            "ko": "그래서 저는 먼저 인턴십에 지원하기로 했어요.",
+            "uses": [
+              {
+                "wordId": "zh-9",
+                "text": "申请",
+                "start": 6,
+                "end": 8
+              },
+              {
+                "wordId": "zh-10",
+                "text": "实习",
+                "start": 10,
+                "end": 12
+              }
+            ]
+          },
+          {
+            "text": "不管怎么选择，我都会认真准备。",
+            "reading": "Bùguǎn zěnme xuǎnzé, wǒ dōu huì rènzhēn zhǔnbèi.",
+            "ko": "어떻게 선택하든 저는 성실하게 준비할 거예요.",
+            "uses": []
+          }
+        ]
+      }
+    },
+    "ja": {
+      "lang": "ja",
+      "level": "완전 초급 (JLPT N5 이하)",
+      "words": [
+        {
+          "id": "ja-1",
+          "word": "シャツ",
+          "reading": "シャツ",
+          "meaning": "셔츠",
+          "pos": "명사"
+        },
+        {
+          "id": "ja-2",
+          "word": "白い",
+          "reading": "しろい",
+          "meaning": "하얗다",
+          "pos": "형용사",
+          "ruby": [
+            {
+              "t": "白",
+              "r": "しろ"
+            },
+            {
+              "t": "い"
+            }
+          ]
+        },
+        {
+          "id": "ja-3",
+          "word": "高い",
+          "reading": "たかい",
+          "meaning": "비싸다, 높다",
+          "pos": "형용사",
+          "ruby": [
+            {
+              "t": "高",
+              "r": "たか"
+            },
+            {
+              "t": "い"
+            }
+          ]
+        },
+        {
+          "id": "ja-4",
+          "word": "小さい",
+          "reading": "ちいさい",
+          "meaning": "작다",
+          "pos": "형용사",
+          "ruby": [
+            {
+              "t": "小",
+              "r": "ちい"
+            },
+            {
+              "t": "さい"
+            }
+          ]
+        },
+        {
+          "id": "ja-5",
+          "word": "ほしい",
+          "reading": "ほしい",
+          "meaning": "갖고 싶다",
+          "pos": "형용사"
+        }
+      ],
+      "passage": {
+        "title": "シャツをかう",
+        "titleKo": "셔츠 사기",
+        "situation": "옷가게에서 셔츠를 고르는 상황",
+        "sentences": [
+          {
+            "text": "きょうはシャツがほしいです。",
+            "reading": "きょうはシャツがほしいです。",
+            "ko": "오늘은 셔츠가 갖고 싶어요.",
+            "uses": [
+              {
+                "wordId": "ja-1",
+                "text": "シャツ",
+                "start": 4,
+                "end": 7
+              },
+              {
+                "wordId": "ja-5",
+                "text": "ほしい",
+                "start": 8,
+                "end": 11
+              }
+            ]
+          },
+          {
+            "text": "白いシャツを見ます。",
+            "reading": "しろいシャツをみます。",
+            "ko": "하얀 셔츠를 봐요.",
+            "ruby": [
+              {
+                "t": "白",
+                "r": "しろ"
+              },
+              {
+                "t": "いシャツを"
+              },
+              {
+                "t": "見",
+                "r": "み"
+              },
+              {
+                "t": "ます。"
+              }
+            ],
+            "uses": [
+              {
+                "wordId": "ja-2",
+                "text": "白い",
+                "start": 0,
+                "end": 2
+              },
+              {
+                "wordId": "ja-1",
+                "text": "シャツ",
+                "start": 2,
+                "end": 5
+              }
+            ]
+          },
+          {
+            "text": "でも、高いです。",
+            "reading": "でも、たかいです。",
+            "ko": "하지만 비싸요.",
+            "ruby": [
+              {
+                "t": "でも、"
+              },
+              {
+                "t": "高",
+                "r": "たか"
+              },
+              {
+                "t": "いです。"
+              }
+            ],
+            "uses": [
+              {
+                "wordId": "ja-3",
+                "text": "高い",
+                "start": 3,
+                "end": 5
+              }
+            ]
+          },
+          {
+            "text": "小さいシャツはやすいです。",
+            "reading": "ちいさいシャツはやすいです。",
+            "ko": "작은 셔츠는 싸요.",
+            "ruby": [
+              {
+                "t": "小",
+                "r": "ちい"
+              },
+              {
+                "t": "さいシャツはやすいです。"
+              }
+            ],
+            "uses": [
+              {
+                "wordId": "ja-4",
+                "text": "小さい",
+                "start": 0,
+                "end": 3
+              },
+              {
+                "wordId": "ja-1",
+                "text": "シャツ",
+                "start": 3,
+                "end": 6
+              }
+            ]
+          },
+          {
+            "text": "小さいシャツをください。",
+            "reading": "ちいさいシャツをください。",
+            "ko": "작은 셔츠를 주세요.",
+            "ruby": [
+              {
+                "t": "小",
+                "r": "ちい"
+              },
+              {
+                "t": "さいシャツをください。"
+              }
+            ],
+            "uses": [
+              {
+                "wordId": "ja-4",
+                "text": "小さい",
+                "start": 0,
+                "end": 3
+              },
+              {
+                "wordId": "ja-1",
+                "text": "シャツ",
+                "start": 3,
+                "end": 6
+              }
+            ]
+          },
+          {
+            "text": "ありがとうございます。",
+            "reading": "ありがとうございます。",
+            "ko": "감사합니다.",
+            "uses": []
+          }
+        ],
+        "grammar": {
+          "sentences": [
+            {
+              "sentence": 1,
+              "items": [
+                {
+                  "pattern": "きょうは",
+                  "title": "は (〜은/는)",
+                  "explain": "「は」는 はなしの テーマ(주제)를 しめします。「きょうは」는「오늘은」という いみです。"
+                },
+                {
+                  "pattern": "シャツがほしいです",
+                  "title": "〜がほしいです (〜을 갖고 싶어요)",
+                  "explain": "ほしいもの(갖고 싶은 것) 뒤에「が」를 つけます。「シャツがほしいです」는「셔츠를 갖고 싶어요」です。"
+                }
+              ]
+            },
+            {
+              "sentence": 2,
+              "items": [
+                {
+                  "pattern": "白い",
+                  "title": "しろい (하얗다)",
+                  "explain": "「しろい」처럼「い」で おわる ことばは ものの ようす(모양, 상태)를 いいます。ものの まえに おいて「しろいシャツ」(하얀 셔츠)と いえます。"
+                },
+                {
+                  "pattern": "シャツを見ます",
+                  "title": "〜を〜ます (〜을 〜해요)",
+                  "explain": "「を」는 うごきの あいて(대상)를 しめします。「みます」는 ていねいな いいかたで「봐요」です。"
+                }
+              ]
+            },
+            {
+              "sentence": 3,
+              "items": [
+                {
+                  "pattern": "でも",
+                  "title": "でも (하지만)",
+                  "explain": "「でも」는 まえの はなしと ちがう ことを いうとき さいしょに つけます(하지만)."
+                },
+                {
+                  "pattern": "高いです",
+                  "title": "〜いです (〜아요/어요)",
+                  "explain": "「たかい」 뒤에「です」를 つけると ていねいな いいかたに なります。「たかいです」는「비싸요」です。"
+                }
+              ]
+            },
+            {
+              "sentence": 4,
+              "items": [
+                {
+                  "pattern": "小さいシャツ",
+                  "title": "い のことば + なまえ (작은 셔츠)",
+                  "explain": "「ちいさい」를 なまえの まえに おくと「작은 〜」に なります. かたちは かわりません。"
+                },
+                {
+                  "pattern": "やすいです",
+                  "title": "〜いです (싸요)",
+                  "explain": "「やすい」も「い」で おわる ことばです(싸다). 「です」를 붙이면 ていねいな いいかたに なります。"
+                }
+              ]
+            },
+            {
+              "sentence": 5,
+              "items": [
+                {
+                  "pattern": "をください",
+                  "title": "〜をください (〜을 주세요)",
+                  "explain": "ものを もらいたいとき(받고 싶을 때) ものの あとに「をください」를 つけます。おみせで よく つかいます。"
+                }
+              ]
+            },
+            {
+              "sentence": 6,
+              "items": [
+                {
+                  "pattern": "ありがとうございます",
+                  "title": "ありがとうございます (감사합니다)",
+                  "explain": "ていねいな おれいの ことば(감사 인사)です。おみせで ものを もらった あとにも よく いいます。"
+                }
+              ]
+            }
+          ],
+          "summary": [
+            "ほしいものは「〜がほしいです」(〜을 갖고 싶어요)と いいます。",
+            "「〜いです」는 ていねいな いいかたで、「〜を」「〜は」로 ことばを つなぎます。",
+            "おみせでは「〜をください」(〜을 주세요)와「ありがとうございます」가 べんりです。"
+          ]
+        }
+      }
+    },
+    "ko": {
+      "lang": "ko",
+      "level": "사회통합프로그램 4단계 이상",
+      "words": [
+        {
+          "id": "ko-1",
+          "word": "이사하다",
+          "meaning": "사는 집을 다른 곳으로 옮기다.",
+          "meaningZh": "搬家",
+          "pos": "동사"
+        },
+        {
+          "id": "ko-2",
+          "word": "전입신고",
+          "meaning": "새로 이사한 곳의 주소를 관청에 알리는 일",
+          "meaningZh": "迁入申报；户口迁入登记",
+          "pos": "명사"
+        },
+        {
+          "id": "ko-3",
+          "word": "주소",
+          "meaning": "사람이 사는 곳이나 건물의 위치를 나타내는 말",
+          "meaningZh": "地址",
+          "pos": "명사"
+        },
+        {
+          "id": "ko-4",
+          "word": "서류",
+          "meaning": "일을 하기 위해 글로 써서 만든 종이",
+          "meaningZh": "文件；材料",
+          "pos": "명사"
+        },
+        {
+          "id": "ko-5",
+          "word": "방문하다",
+          "meaning": "어떤 곳을 찾아가다.",
+          "meaningZh": "访问；前往",
+          "pos": "동사"
+        },
+        {
+          "id": "ko-6",
+          "word": "주민등록증",
+          "meaning": "우리나라 국민임을 증명하는 신분증",
+          "meaningZh": "居民登录证（身份证）",
+          "pos": "명사"
+        },
+        {
+          "id": "ko-7",
+          "word": "번거롭다",
+          "meaning": "일이 복잡해서 귀찮고 힘들다.",
+          "meaningZh": "繁琐；麻烦",
+          "pos": "형용사"
+        },
+        {
+          "id": "ko-8",
+          "word": "온라인",
+          "meaning": "인터넷으로 연결되어 있는 것",
+          "meaningZh": "线上；网上",
+          "pos": "명사"
+        },
+        {
+          "id": "ko-9",
+          "word": "편리하다",
+          "meaning": "쓰기 쉽고 편하다.",
+          "meaningZh": "方便",
+          "pos": "형용사"
+        },
+        {
+          "id": "ko-10",
+          "word": "챙기다",
+          "meaning": "필요한 물건을 빠뜨리지 않고 준비하다.",
+          "meaningZh": "准备好；带齐",
+          "pos": "동사"
+        }
+      ],
+      "passage": {
+        "title": "이사 후 전입신고",
+        "titleZh": "搬家后办理迁入申报",
+        "situation": "이사한 뒤 전입신고를 준비하는 상황",
+        "sentences": [
+          {
+            "text": "지난주에 새 집으로 이사했는데, 전입신고를 아직 못 했어요.",
+            "zh": "上周搬到了新家，但还没能办理迁入申报。",
+            "uses": [
+              {
+                "wordId": "ko-1",
+                "text": "이사",
+                "start": 11,
+                "end": 13
+              },
+              {
+                "wordId": "ko-2",
+                "text": "전입신고",
+                "start": 18,
+                "end": 22
+              }
+            ]
+          },
+          {
+            "text": "일이 갑자기 많아지는 바람에 주민센터를 방문할 시간이 없었어요.",
+            "zh": "由于工作突然变多，没有时间去居民中心。",
+            "uses": [
+              {
+                "wordId": "ko-5",
+                "text": "방문할",
+                "start": 22,
+                "end": 25
+              }
+            ]
+          },
+          {
+            "text": "전입신고를 하려면 주민등록증과 이사 갈 곳의 주소를 챙기고 가야 해요.",
+            "zh": "要办理迁入申报，就得带齐居民登录证和要搬去的地方的地址再去。",
+            "uses": [
+              {
+                "wordId": "ko-2",
+                "text": "전입신고",
+                "start": 0,
+                "end": 4
+              },
+              {
+                "wordId": "ko-6",
+                "text": "주민등록증",
+                "start": 10,
+                "end": 15
+              },
+              {
+                "wordId": "ko-1",
+                "text": "이사",
+                "start": 17,
+                "end": 19
+              },
+              {
+                "wordId": "ko-3",
+                "text": "주소",
+                "start": 25,
+                "end": 27
+              },
+              {
+                "wordId": "ko-10",
+                "text": "챙기고",
+                "start": 29,
+                "end": 32
+              }
+            ]
+          },
+          {
+            "text": "서류를 직접 내는 일은 번거로울 텐데, 온라인으로도 할 수 있어서 편리해요.",
+            "zh": "亲自递交材料想必很麻烦，不过也可以在网上办理，所以很方便。",
+            "uses": [
+              {
+                "wordId": "ko-4",
+                "text": "서류",
+                "start": 0,
+                "end": 2
+              },
+              {
+                "wordId": "ko-7",
+                "text": "번거로울",
+                "start": 13,
+                "end": 17
+              },
+              {
+                "wordId": "ko-8",
+                "text": "온라인",
+                "start": 22,
+                "end": 25
+              },
+              {
+                "wordId": "ko-9",
+                "text": "편리해",
+                "start": 37,
+                "end": 40
+              }
+            ]
+          },
+          {
+            "text": "그래서 오늘 밤에 집에서 온라인으로 서류를 제출할 거예요.",
+            "zh": "所以我打算今晚在家里通过网上提交材料。",
+            "uses": [
+              {
+                "wordId": "ko-8",
+                "text": "온라인",
+                "start": 14,
+                "end": 17
+              },
+              {
+                "wordId": "ko-4",
+                "text": "서류",
+                "start": 20,
+                "end": 22
+              }
+            ]
+          },
+          {
+            "text": "이번 주 안에 꼭 전입신고를 마치려고 해요.",
+            "zh": "我打算这周内一定办完迁入申报。",
+            "uses": [
+              {
+                "wordId": "ko-2",
+                "text": "전입신고",
+                "start": 10,
+                "end": 14
+              }
+            ]
+          }
+        ],
+        "grammar": {
+          "sentences": [
+            {
+              "sentence": 1,
+              "items": [
+                {
+                  "pattern": "이사했는데",
+                  "title": "-는데（……，可是/然而……）",
+                  "explain": "先说出背景或前提，再接着说相关的内容。这里前半句说“搬了家”，后半句说“还没办迁入申报”。过去用“-았/었는데”。"
+                },
+                {
+                  "pattern": "못 했어요",
+                  "title": "못 + 动词（没能……）",
+                  "explain": "“못”表示因为情况或能力的原因做不到，和“안”（不想做/没做）不同。“못 했어요”＝没能做。"
+                }
+              ]
+            },
+            {
+              "sentence": 2,
+              "items": [
+                {
+                  "pattern": "많아지는 바람에",
+                  "title": "-는 바람에（由于……，结果……）",
+                  "explain": "用于说明因为某个意料之外的原因，导致了不好的结果。后半句不能用命令句或劝诱句。"
+                }
+              ]
+            },
+            {
+              "sentence": 3,
+              "items": [
+                {
+                  "pattern": "하려면",
+                  "title": "-(으)려면（如果想要……就……）",
+                  "explain": "表示“如果打算做某事”，后面通常说必要的条件或方法。“전입신고를 하려면”＝如果想办理迁入申报。"
+                },
+                {
+                  "pattern": "가야 해요",
+                  "title": "-아/어야 하다（必须……）",
+                  "explain": "表示必须做某事。“가다”加“-아야 하다”变成“가야 해요”（必须去）。"
+                }
+              ]
+            },
+            {
+              "sentence": 4,
+              "items": [
+                {
+                  "pattern": "번거로울 텐데",
+                  "title": "-(으)ㄹ 텐데（想必……，但是……）",
+                  "explain": "表示推测，同时后半句常转折或补充。“번거롭다”是ㅂ不规则，所以是“번거로울”。"
+                },
+                {
+                  "pattern": "온라인으로도",
+                  "title": "(으)로도（也可以用……）",
+                  "explain": "“(으)로”表示方法、手段，“도”表示“也”。“온라인으로도”＝也可以用网络。"
+                }
+              ]
+            },
+            {
+              "sentence": 6,
+              "items": [
+                {
+                  "pattern": "마치려고 해요",
+                  "title": "-(으)려고 하다（打算……）",
+                  "explain": "表示心里有想做某事的计划或意图。比“-(으)ㄹ 거예요”更像是“正在打算”，语气较柔和。"
+                }
+              ]
+            }
+          ],
+          "summary": [
+            "“-는 바람에”说明意外原因造成的坏结果；“-(으)려면”说明想做某事所需的条件。",
+            "“-(으)ㄹ 텐데”表示推测并引出转折，“번거롭다”这类ㅂ不规则要变成“번거로울”。",
+            "“-(으)려고 하다”表示打算，“못”表示没能做到。"
+          ]
+        }
+      }
+    }
+  }
+}

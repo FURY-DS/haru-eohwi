@@ -1,0 +1,1120 @@
+{
+  "schemaVersion": 2,
+  "date": "2026-11-11",
+  "status": "ready",
+  "generatedAt": "2026-11-11T08:51:46+09:00",
+  "sets": {
+    "yue": {
+      "lang": "yue",
+      "level": "완전 초급",
+      "words": [
+        {
+          "id": "yue-1",
+          "word": "起身",
+          "reading": "hei2 san1",
+          "meaning": "일어나다",
+          "pos": "동사"
+        },
+        {
+          "id": "yue-2",
+          "word": "学校",
+          "reading": "hok6 haau6",
+          "meaning": "학교",
+          "pos": "명사"
+        },
+        {
+          "id": "yue-3",
+          "word": "老师",
+          "reading": "lou5 si1",
+          "meaning": "선생님",
+          "pos": "명사"
+        },
+        {
+          "id": "yue-4",
+          "word": "迟",
+          "reading": "ci4",
+          "meaning": "늦다",
+          "pos": "형용사"
+        },
+        {
+          "id": "yue-5",
+          "word": "快",
+          "reading": "faai3",
+          "meaning": "빠르다",
+          "pos": "형용사"
+        }
+      ],
+      "passage": {
+        "title": "返学",
+        "titleKo": "학교 가기",
+        "situation": "늦잠을 자서 서둘러 학교에 가는 상황",
+        "sentences": [
+          {
+            "text": "我今日七点半起身。",
+            "reading": "ngo5 gam1 jat6 cat1 dim2 bun3 hei2 san1.",
+            "ko": "저는 오늘 7시 반에 일어났어요.",
+            "uses": [
+              {
+                "wordId": "yue-1",
+                "text": "起身",
+                "start": 6,
+                "end": 8
+              }
+            ]
+          },
+          {
+            "text": "我迟咗！",
+            "reading": "ngo5 ci4 zo2!",
+            "ko": "저 늦었어요!",
+            "uses": [
+              {
+                "wordId": "yue-4",
+                "text": "迟",
+                "start": 1,
+                "end": 2
+              }
+            ]
+          },
+          {
+            "text": "我要快啲去学校。",
+            "reading": "ngo5 jiu3 faai3 di1 heoi3 hok6 haau6.",
+            "ko": "저는 서둘러 학교에 가야 해요.",
+            "uses": [
+              {
+                "wordId": "yue-5",
+                "text": "快",
+                "start": 2,
+                "end": 3
+              },
+              {
+                "wordId": "yue-2",
+                "text": "学校",
+                "start": 5,
+                "end": 7
+              }
+            ]
+          },
+          {
+            "text": "我行得好快。",
+            "reading": "ngo5 haang4 dak1 hou2 faai3.",
+            "ko": "저는 아주 빨리 걸어요.",
+            "uses": [
+              {
+                "wordId": "yue-5",
+                "text": "快",
+                "start": 4,
+                "end": 5
+              }
+            ]
+          },
+          {
+            "text": "老师喺门口。",
+            "reading": "lou5 si1 hai2 mun4 hau2.",
+            "ko": "선생님이 문 앞에 계세요.",
+            "uses": [
+              {
+                "wordId": "yue-3",
+                "text": "老师",
+                "start": 0,
+                "end": 2
+              }
+            ]
+          },
+          {
+            "text": "老师话：「唔紧要，入嚟啦。」",
+            "reading": "lou5 si1 waa6: \"m4 gan2 jiu3, jap6 lai4 laa1.\"",
+            "ko": "선생님이 \"괜찮아, 들어와.\" 하고 말해요.",
+            "uses": [
+              {
+                "wordId": "yue-3",
+                "text": "老师",
+                "start": 0,
+                "end": 2
+              }
+            ]
+          }
+        ],
+        "grammar": {
+          "sentences": [
+            {
+              "sentence": 1,
+              "items": [
+                {
+                  "pattern": "七点半",
+                  "title": "시각 말하기: 数字+点(+半)",
+                  "explain": "七点(cat1 dim2)은 7시, 七点半은 7시 반이에요. 点(dim2) 앞에 숫자를 붙이면 시각이 돼요."
+                },
+                {
+                  "pattern": "起身",
+                  "title": "起身 (일어나다)",
+                  "explain": "起身(hei2 san1)은 잠에서 깨어 일어난다는 뜻이에요. 我起身처럼 주어 뒤에 바로 써요."
+                }
+              ]
+            },
+            {
+              "sentence": 2,
+              "items": [
+                {
+                  "pattern": "迟咗",
+                  "title": "咗 (~했다, 완료)",
+                  "explain": "동사나 형용사 뒤에 咗(zo2)를 붙이면 \"~했다/~해졌다\"는 뜻이에요. 迟咗 = 늦었다. 표준 중국어의 了에 해당해요."
+                }
+              ]
+            },
+            {
+              "sentence": 3,
+              "items": [
+                {
+                  "pattern": "要快啲",
+                  "title": "要 + 형용사 + 啲 (좀 더 ~해야 한다)",
+                  "explain": "要(jiu3)는 \"~해야 한다\", 형용사 뒤의 啲(di1)는 \"좀 더\"예요. 快啲 = 좀 더 빨리."
+                },
+                {
+                  "pattern": "去学校",
+                  "title": "去 + 장소 (~에 가다)",
+                  "explain": "去(heoi3) 뒤에 장소를 바로 붙여요. 한국어와 달리 \"~에\"에 해당하는 말이 필요 없어요."
+                }
+              ]
+            },
+            {
+              "sentence": 4,
+              "items": [
+                {
+                  "pattern": "行得好快",
+                  "title": "동사 + 得 + 好 + 형용사 (~하는 게 아주 …하다)",
+                  "explain": "行(걷다) 뒤에 得(dak1)를 붙이고 好+형용사를 쓰면 동작의 정도를 말해요. 行得好快 = 아주 빨리 걷는다. 이때 好는 \"아주\"라는 뜻이고 係는 넣지 않아요."
+                }
+              ]
+            },
+            {
+              "sentence": 5,
+              "items": [
+                {
+                  "pattern": "喺门口",
+                  "title": "喺 (~에 있다)",
+                  "explain": "喺(hai2)는 \"~에 있다/~에서\"예요. 老师喺门口 = 선생님이 문 앞에 있다. 표준 중국어의 在예요."
+                }
+              ]
+            },
+            {
+              "sentence": 6,
+              "items": [
+                {
+                  "pattern": "老师话",
+                  "title": "话 (말하다)",
+                  "explain": "话(waa6)는 \"말하다\"예요. 话 뒤에 말한 내용을 붙여요."
+                },
+                {
+                  "pattern": "入嚟啦",
+                  "title": "嚟 (오다) + 啦 (끝말)",
+                  "explain": "嚟(lai4)는 \"오다\"예요. 入嚟 = 들어오다. 끝의 啦(laa1)는 \"~하렴, ~해요\" 하고 부드럽게 권하는 끝말이에요."
+                }
+              ]
+            }
+          ],
+          "summary": [
+            "시각은 数字+点: 七点半. 완료는 동사/형용사 뒤에 咗: 迟咗.",
+            "喺(~에 있다), 去(가다)+장소, 话(말하다)는 자주 쓰는 기본 말이에요.",
+            "行得好快처럼 동사+得+好+형용사로 동작의 정도를 말해요."
+          ],
+          "compare": [
+            {
+              "this": "咗",
+              "other": "了"
+            },
+            {
+              "this": "喺",
+              "other": "在"
+            },
+            {
+              "this": "话",
+              "other": "说"
+            },
+            {
+              "this": "嚟",
+              "other": "来"
+            },
+            {
+              "this": "唔紧要",
+              "other": "没关系"
+            },
+            {
+              "this": "啲",
+              "other": "一点"
+            }
+          ]
+        }
+      }
+    },
+    "en": {
+      "lang": "en",
+      "level": "토익스피킹 대비",
+      "words": [
+        {
+          "id": "en-1",
+          "word": "remote",
+          "reading": "/rɪˈmoʊt/",
+          "meaning": "원격의, 외진",
+          "pos": "형용사"
+        },
+        {
+          "id": "en-2",
+          "word": "manager",
+          "reading": "/ˈmænɪdʒər/",
+          "meaning": "관리자, 매니저",
+          "pos": "명사"
+        },
+        {
+          "id": "en-3",
+          "word": "workload",
+          "reading": "/ˈwɜːrkloʊd/",
+          "meaning": "업무량",
+          "pos": "명사"
+        },
+        {
+          "id": "en-4",
+          "word": "focus",
+          "reading": "/ˈfoʊkəs/",
+          "meaning": "집중하다",
+          "pos": "동사"
+        },
+        {
+          "id": "en-5",
+          "word": "interrupt",
+          "reading": "/ˌɪntəˈrʌpt/",
+          "meaning": "방해하다, 끼어들다",
+          "pos": "동사"
+        },
+        {
+          "id": "en-6",
+          "word": "reduce",
+          "reading": "/rɪˈduːs/",
+          "meaning": "줄이다",
+          "pos": "동사"
+        },
+        {
+          "id": "en-7",
+          "word": "prefer",
+          "reading": "/prɪˈfɜːr/",
+          "meaning": "더 좋아하다, 선호하다",
+          "pos": "동사"
+        },
+        {
+          "id": "en-8",
+          "word": "equipment",
+          "reading": "/ɪˈkwɪpmənt/",
+          "meaning": "장비",
+          "pos": "명사"
+        },
+        {
+          "id": "en-9",
+          "word": "stable",
+          "reading": "/ˈsteɪbl/",
+          "meaning": "안정적인",
+          "pos": "형용사"
+        },
+        {
+          "id": "en-10",
+          "word": "personally",
+          "reading": "/ˈpɜːrsənəli/",
+          "meaning": "개인적으로",
+          "pos": "부사"
+        }
+      ],
+      "passage": {
+        "title": "Working From Home",
+        "titleKo": "재택근무에 대한 의견",
+        "situation": "재택근무에 대한 의견 말하기 답변",
+        "sentences": [
+          {
+            "text": "Personally, I prefer remote work because it helps me focus.",
+            "ko": "개인적으로 저는 집중하는 데 도움이 되기 때문에 원격 근무를 더 좋아해요.",
+            "uses": [
+              {
+                "wordId": "en-10",
+                "text": "Personally",
+                "start": 0,
+                "end": 10
+              },
+              {
+                "wordId": "en-7",
+                "text": "prefer",
+                "start": 14,
+                "end": 20
+              },
+              {
+                "wordId": "en-1",
+                "text": "remote",
+                "start": 21,
+                "end": 27
+              },
+              {
+                "wordId": "en-4",
+                "text": "focus",
+                "start": 53,
+                "end": 58
+              }
+            ]
+          },
+          {
+            "text": "At the office, my coworkers often interrupt me while I am writing reports.",
+            "ko": "사무실에서는 제가 보고서를 쓰는 동안 동료들이 자주 말을 걸어 방해해요.",
+            "uses": [
+              {
+                "wordId": "en-5",
+                "text": "interrupt",
+                "start": 34,
+                "end": 43
+              }
+            ]
+          },
+          {
+            "text": "At home, I can reduce my stress and finish my workload faster.",
+            "ko": "집에서는 스트레스를 줄이고 업무량을 더 빨리 끝낼 수 있어요.",
+            "uses": [
+              {
+                "wordId": "en-6",
+                "text": "reduce",
+                "start": 15,
+                "end": 21
+              },
+              {
+                "wordId": "en-3",
+                "text": "workload",
+                "start": 46,
+                "end": 54
+              }
+            ]
+          },
+          {
+            "text": "Of course, I need a stable internet connection and good equipment.",
+            "ko": "물론 안정적인 인터넷 연결과 좋은 장비가 필요해요.",
+            "uses": [
+              {
+                "wordId": "en-9",
+                "text": "stable",
+                "start": 20,
+                "end": 26
+              },
+              {
+                "wordId": "en-8",
+                "text": "equipment",
+                "start": 56,
+                "end": 65
+              }
+            ]
+          },
+          {
+            "text": "My manager agrees, so the company provides a laptop and a headset.",
+            "ko": "매니저도 동의해서 회사가 노트북과 헤드셋을 제공해요.",
+            "uses": [
+              {
+                "wordId": "en-2",
+                "text": "manager",
+                "start": 3,
+                "end": 10
+              }
+            ]
+          },
+          {
+            "text": "In my opinion, remote work two days a week is the best choice.",
+            "ko": "제 의견으로는 일주일에 이틀 원격 근무하는 것이 가장 좋은 선택이에요.",
+            "uses": [
+              {
+                "wordId": "en-1",
+                "text": "remote",
+                "start": 15,
+                "end": 21
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "zh": {
+      "lang": "zh",
+      "level": "HSK 4~6급",
+      "hskStandard": "HSK 2.0 (6급제) 기준 4~6급 어휘",
+      "words": [
+        {
+          "id": "zh-1",
+          "word": "突然",
+          "reading": "tūrán",
+          "meaning": "갑자기",
+          "pos": "부사"
+        },
+        {
+          "id": "zh-2",
+          "word": "着急",
+          "reading": "zháojí",
+          "meaning": "조급해하다, 초조하다",
+          "pos": "형용사"
+        },
+        {
+          "id": "zh-3",
+          "word": "迷路",
+          "reading": "mílù",
+          "meaning": "길을 잃다",
+          "pos": "동사"
+        },
+        {
+          "id": "zh-4",
+          "word": "方向",
+          "reading": "fāngxiàng",
+          "meaning": "방향",
+          "pos": "명사"
+        },
+        {
+          "id": "zh-5",
+          "word": "询问",
+          "reading": "xúnwèn",
+          "meaning": "묻다, 문의하다",
+          "pos": "동사"
+        },
+        {
+          "id": "zh-6",
+          "word": "附近",
+          "reading": "fùjìn",
+          "meaning": "근처, 부근",
+          "pos": "명사"
+        },
+        {
+          "id": "zh-7",
+          "word": "热心",
+          "reading": "rèxīn",
+          "meaning": "친절하다, 열성적이다",
+          "pos": "형용사"
+        },
+        {
+          "id": "zh-8",
+          "word": "终于",
+          "reading": "zhōngyú",
+          "meaning": "마침내, 드디어",
+          "pos": "부사"
+        },
+        {
+          "id": "zh-9",
+          "word": "顺利",
+          "reading": "shùnlì",
+          "meaning": "순조롭다",
+          "pos": "형용사"
+        },
+        {
+          "id": "zh-10",
+          "word": "感谢",
+          "reading": "gǎnxiè",
+          "meaning": "감사하다",
+          "pos": "동사"
+        }
+      ],
+      "passage": {
+        "title": "迷路了",
+        "titleKo": "길을 잃었어요",
+        "situation": "낯선 곳에서 길을 잃고 도움을 받는 상황",
+        "sentences": [
+          {
+            "text": "周末我去城里玩，手机突然没电了。",
+            "reading": "Zhōumò wǒ qù chéngli wán, shǒujī tūrán méi diàn le.",
+            "ko": "주말에 시내에 놀러 갔는데 휴대폰이 갑자기 꺼졌어요.",
+            "uses": [
+              {
+                "wordId": "zh-1",
+                "text": "突然",
+                "start": 10,
+                "end": 12
+              }
+            ]
+          },
+          {
+            "text": "我在路上迷路了，心里很着急。",
+            "reading": "Wǒ zài lùshang mílù le, xīnli hěn zháojí.",
+            "ko": "길에서 길을 잃어서 마음이 조급했어요.",
+            "uses": [
+              {
+                "wordId": "zh-3",
+                "text": "迷路",
+                "start": 4,
+                "end": 6
+              },
+              {
+                "wordId": "zh-2",
+                "text": "着急",
+                "start": 11,
+                "end": 13
+              }
+            ]
+          },
+          {
+            "text": "我不知道应该往哪个方向走。",
+            "reading": "Wǒ bù zhīdao yīnggāi wǎng nǎge fāngxiàng zǒu.",
+            "ko": "어느 방향으로 가야 할지 몰랐어요.",
+            "uses": [
+              {
+                "wordId": "zh-4",
+                "text": "方向",
+                "start": 9,
+                "end": 11
+              }
+            ]
+          },
+          {
+            "text": "这时，我看见附近有一位老奶奶，就向她询问。",
+            "reading": "Zhè shí, wǒ kànjian fùjìn yǒu yí wèi lǎo nǎinai, jiù xiàng tā xúnwèn.",
+            "ko": "이때 근처에 할머니 한 분이 계신 것을 보고 그분께 여쭤봤어요.",
+            "uses": [
+              {
+                "wordId": "zh-6",
+                "text": "附近",
+                "start": 6,
+                "end": 8
+              },
+              {
+                "wordId": "zh-5",
+                "text": "询问",
+                "start": 18,
+                "end": 20
+              }
+            ]
+          },
+          {
+            "text": "她很热心，一边解释一边带我走了一段路。",
+            "reading": "Tā hěn rèxīn, yìbiān jiěshì yìbiān dài wǒ zǒu le yí duàn lù.",
+            "ko": "그분은 매우 친절해서 설명해 주면서 길을 한참 데려다주셨어요.",
+            "uses": [
+              {
+                "wordId": "zh-7",
+                "text": "热心",
+                "start": 2,
+                "end": 4
+              }
+            ]
+          },
+          {
+            "text": "我终于顺利找到了地铁站，非常感谢她。",
+            "reading": "Wǒ zhōngyú shùnlì zhǎodào le dìtiězhàn, fēicháng gǎnxiè tā.",
+            "ko": "저는 마침내 순조롭게 지하철역을 찾았고, 그분께 매우 감사했어요.",
+            "uses": [
+              {
+                "wordId": "zh-8",
+                "text": "终于",
+                "start": 1,
+                "end": 3
+              },
+              {
+                "wordId": "zh-9",
+                "text": "顺利",
+                "start": 3,
+                "end": 5
+              },
+              {
+                "wordId": "zh-10",
+                "text": "感谢",
+                "start": 14,
+                "end": 16
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "ja": {
+      "lang": "ja",
+      "level": "완전 초급 (JLPT N5 이하)",
+      "words": [
+        {
+          "id": "ja-1",
+          "word": "へや",
+          "reading": "へや",
+          "meaning": "방",
+          "pos": "명사"
+        },
+        {
+          "id": "ja-2",
+          "word": "まど",
+          "reading": "まど",
+          "meaning": "창문",
+          "pos": "명사"
+        },
+        {
+          "id": "ja-3",
+          "word": "あける",
+          "reading": "あける",
+          "meaning": "열다",
+          "pos": "동사"
+        },
+        {
+          "id": "ja-4",
+          "word": "電気",
+          "reading": "でんき",
+          "meaning": "전기, 전등",
+          "pos": "명사",
+          "ruby": [
+            {
+              "t": "電気",
+              "r": "でんき"
+            }
+          ]
+        },
+        {
+          "id": "ja-5",
+          "word": "つける",
+          "reading": "つける",
+          "meaning": "켜다",
+          "pos": "동사"
+        }
+      ],
+      "passage": {
+        "title": "へやのいちにち",
+        "titleKo": "방의 하루",
+        "situation": "아침부터 밤까지 방에서 하는 일",
+        "sentences": [
+          {
+            "text": "あさ、へやのまどをあけます。",
+            "reading": "あさ、へやのまどをあけます。",
+            "ko": "아침에 방의 창문을 열어요.",
+            "uses": [
+              {
+                "wordId": "ja-1",
+                "text": "へや",
+                "start": 3,
+                "end": 5
+              },
+              {
+                "wordId": "ja-2",
+                "text": "まど",
+                "start": 6,
+                "end": 8
+              },
+              {
+                "wordId": "ja-3",
+                "text": "あけ",
+                "start": 9,
+                "end": 11
+              }
+            ]
+          },
+          {
+            "text": "そとはいいてんきです。",
+            "reading": "そとはいいてんきです。",
+            "ko": "밖은 좋은 날씨예요.",
+            "uses": []
+          },
+          {
+            "text": "よる、電気をつけます。",
+            "reading": "よる、でんきをつけます。",
+            "ko": "밤에 전등을 켜요.",
+            "ruby": [
+              {
+                "t": "よる、"
+              },
+              {
+                "t": "電気",
+                "r": "でんき"
+              },
+              {
+                "t": "をつけます。"
+              }
+            ],
+            "uses": [
+              {
+                "wordId": "ja-4",
+                "text": "電気",
+                "start": 3,
+                "end": 5
+              },
+              {
+                "wordId": "ja-5",
+                "text": "つけ",
+                "start": 6,
+                "end": 8
+              }
+            ]
+          },
+          {
+            "text": "へやはあかるいです。",
+            "reading": "へやはあかるいです。",
+            "ko": "방은 밝아요.",
+            "uses": [
+              {
+                "wordId": "ja-1",
+                "text": "へや",
+                "start": 0,
+                "end": 2
+              }
+            ]
+          },
+          {
+            "text": "まどをしめます。",
+            "reading": "まどをしめます。",
+            "ko": "창문을 닫아요.",
+            "uses": [
+              {
+                "wordId": "ja-2",
+                "text": "まど",
+                "start": 0,
+                "end": 2
+              }
+            ]
+          },
+          {
+            "text": "おやすみなさい。",
+            "reading": "おやすみなさい。",
+            "ko": "안녕히 주무세요.",
+            "uses": []
+          }
+        ],
+        "grammar": {
+          "sentences": [
+            {
+              "sentence": 1,
+              "items": [
+                {
+                  "pattern": "へやのまど",
+                  "title": "の (〜의)",
+                  "explain": "「の」는 두 말을 이어서 「〜의」라는 뜻을 만들어요. 「へやのまど」는 「방의 창문」이에요."
+                },
+                {
+                  "pattern": "まどをあけます",
+                  "title": "〜を〜ます (〜을 〜해요)",
+                  "explain": "「を」는 동작의 대상 뒤에 붙어요. 「あけます」는 「あける」(열다)의 정중한 말로 「열어요」예요."
+                }
+              ]
+            },
+            {
+              "sentence": 2,
+              "items": [
+                {
+                  "pattern": "いいてんきです",
+                  "title": "いい (좋다) + 명사 + です",
+                  "explain": "「いい」는 「좋다」예요. 「てんき」 앞에 두면 「좋은 날씨」가 돼요. 끝에 「です」를 붙이면 정중한 말이에요."
+                }
+              ]
+            },
+            {
+              "sentence": 3,
+              "items": [
+                {
+                  "pattern": "電気をつけます",
+                  "title": "〜をつけます (〜을 켜요)",
+                  "explain": "불이나 전기제품을 켤 때는 「つける」를 써요. 「でんきをつけます」는 「불을 켜요」예요."
+                }
+              ]
+            },
+            {
+              "sentence": 4,
+              "items": [
+                {
+                  "pattern": "へやはあかるいです",
+                  "title": "は (〜은/는) + い형용사 + です",
+                  "explain": "「は」는 이야기의 주제를 나타내요. 「あかるい」(밝다)처럼 「い」로 끝나는 말 뒤에 「です」를 붙이면 정중한 말이 돼요."
+                }
+              ]
+            },
+            {
+              "sentence": 5,
+              "items": [
+                {
+                  "pattern": "まどをしめます",
+                  "title": "〜を〜ます (〜을 〜해요)",
+                  "explain": "「しめます」는 「しめる」(닫다)의 정중한 말이에요. 「まどをあけます」(창문을 열어요)와 반대예요."
+                }
+              ]
+            },
+            {
+              "sentence": 6,
+              "items": [
+                {
+                  "pattern": "おやすみなさい",
+                  "title": "おやすみなさい (안녕히 주무세요)",
+                  "explain": "자기 전에 하는 인사예요. 친구나 가족에게는 「おやすみ」라고만 해도 돼요."
+                }
+              ]
+            }
+          ],
+          "summary": [
+            "「を」는 동작의 대상 뒤에 붙어요: まどをあけます, でんきをつけます.",
+            "「あける」(열다)↔「しめる」(닫다), 「〜ます」로 정중하게 말해요.",
+            "「は」는 주제, 「い」로 끝나는 말 + 「です」: あかるいです."
+          ]
+        }
+      }
+    },
+    "ko": {
+      "lang": "ko",
+      "level": "사회통합프로그램 4단계 이상",
+      "words": [
+        {
+          "id": "ko-1",
+          "word": "통신사",
+          "meaning": "휴대전화나 인터넷 서비스를 제공하는 회사",
+          "meaningZh": "电信运营商；通信公司",
+          "pos": "명사"
+        },
+        {
+          "id": "ko-2",
+          "word": "가입하다",
+          "meaning": "어떤 서비스나 단체에 들어가 회원이 되다",
+          "meaningZh": "加入；注册；办理（服务）",
+          "pos": "동사"
+        },
+        {
+          "id": "ko-3",
+          "word": "요금제",
+          "meaning": "사용량에 따라 정해 놓은 요금의 종류",
+          "meaningZh": "资费套餐",
+          "pos": "명사"
+        },
+        {
+          "id": "ko-4",
+          "word": "약정",
+          "meaning": "일정한 기간 동안 계속 쓰기로 한 약속",
+          "meaningZh": "合约；约定期限",
+          "pos": "명사"
+        },
+        {
+          "id": "ko-5",
+          "word": "할인",
+          "meaning": "원래 값보다 싸게 해 주는 것",
+          "meaningZh": "折扣；优惠",
+          "pos": "명사"
+        },
+        {
+          "id": "ko-6",
+          "word": "해지하다",
+          "meaning": "계약을 끝내다",
+          "meaningZh": "解约；终止（合同／服务）",
+          "pos": "동사"
+        },
+        {
+          "id": "ko-7",
+          "word": "위약금",
+          "meaning": "계약을 지키지 않았을 때 내야 하는 돈",
+          "meaningZh": "违约金",
+          "pos": "명사"
+        },
+        {
+          "id": "ko-8",
+          "word": "설치하다",
+          "meaning": "기계나 장비를 필요한 곳에 놓고 연결하다",
+          "meaningZh": "安装",
+          "pos": "동사"
+        },
+        {
+          "id": "ko-9",
+          "word": "청구서",
+          "meaning": "내야 할 돈을 알려 주는 서류",
+          "meaningZh": "账单；缴费通知单",
+          "pos": "명사"
+        },
+        {
+          "id": "ko-10",
+          "word": "변경하다",
+          "meaning": "있던 것을 다른 것으로 바꾸다",
+          "meaningZh": "变更；更改",
+          "pos": "동사"
+        }
+      ],
+      "passage": {
+        "title": "휴대전화 요금제 바꾸기",
+        "titleZh": "更换手机资费套餐",
+        "situation": "통신사 대리점에서 요금제를 바꾸는 상황",
+        "sentences": [
+          {
+            "text": "저는 작년에 새 통신사에 가입했는데, 요금제가 너무 비싸서 고민이에요.",
+            "zh": "我去年加入了新的通信公司，但资费套餐太贵，让我很发愁。",
+            "uses": [
+              {
+                "wordId": "ko-1",
+                "text": "통신사",
+                "start": 9,
+                "end": 12
+              },
+              {
+                "wordId": "ko-2",
+                "text": "가입",
+                "start": 14,
+                "end": 16
+              },
+              {
+                "wordId": "ko-3",
+                "text": "요금제",
+                "start": 21,
+                "end": 24
+              }
+            ]
+          },
+          {
+            "text": "약정 기간이 아직 남아 있는 줄 알았는데, 확인해 보니 이미 끝났어요.",
+            "zh": "我以为合约期还没结束，可是一确认才发现已经到期了。",
+            "uses": [
+              {
+                "wordId": "ko-4",
+                "text": "약정",
+                "start": 0,
+                "end": 2
+              }
+            ]
+          },
+          {
+            "text": "약정이 끝난 뒤에 해지할 경우에는 위약금을 내지 않아도 된대요.",
+            "zh": "听说合约结束后解约的话，不用付违约金。",
+            "uses": [
+              {
+                "wordId": "ko-4",
+                "text": "약정",
+                "start": 0,
+                "end": 2
+              },
+              {
+                "wordId": "ko-6",
+                "text": "해지",
+                "start": 10,
+                "end": 12
+              },
+              {
+                "wordId": "ko-7",
+                "text": "위약금",
+                "start": 19,
+                "end": 22
+              }
+            ]
+          },
+          {
+            "text": "직원은 요금을 조금 더 내는 대신에 데이터를 많이 쓸 수 있는 요금제를 추천했어요.",
+            "zh": "店员推荐了多付一点钱、但可以多用流量的套餐。",
+            "uses": [
+              {
+                "wordId": "ko-3",
+                "text": "요금제",
+                "start": 35,
+                "end": 38
+              }
+            ]
+          },
+          {
+            "text": "하지만 저는 인터넷과 휴대전화를 묶어서 할인받을 수 있는 요금제로 변경하기로 했어요.",
+            "zh": "但是我决定把宽带和手机捆绑起来，改成可以享受优惠的套餐。",
+            "uses": [
+              {
+                "wordId": "ko-5",
+                "text": "할인",
+                "start": 22,
+                "end": 24
+              },
+              {
+                "wordId": "ko-3",
+                "text": "요금제",
+                "start": 32,
+                "end": 35
+              },
+              {
+                "wordId": "ko-10",
+                "text": "변경",
+                "start": 37,
+                "end": 39
+              }
+            ]
+          },
+          {
+            "text": "다음 주에 기사님이 집에 와서 인터넷을 설치해 줄 거예요.",
+            "zh": "下周师傅会来我家帮我安装宽带。",
+            "uses": [
+              {
+                "wordId": "ko-8",
+                "text": "설치",
+                "start": 22,
+                "end": 24
+              }
+            ]
+          },
+          {
+            "text": "다음 달부터는 청구서에 적힌 금액이 훨씬 줄어들 거예요.",
+            "zh": "从下个月开始，账单上的金额会少很多。",
+            "uses": [
+              {
+                "wordId": "ko-9",
+                "text": "청구서",
+                "start": 8,
+                "end": 11
+              }
+            ]
+          }
+        ],
+        "grammar": {
+          "sentences": [
+            {
+              "sentence": 1,
+              "items": [
+                {
+                  "pattern": "가입했는데",
+                  "title": "-는데（……，可是／然而……）",
+                  "explain": "先说出背景或前提，再接后面的内容。这里先说“加入了新通信公司”，再说“但是套餐太贵”。过去时用“-았/었는데”。"
+                }
+              ]
+            },
+            {
+              "sentence": 2,
+              "items": [
+                {
+                  "pattern": "있는 줄 알았는데",
+                  "title": "-(으)ㄴ/는 줄 알았는데（原以为……，可是……）",
+                  "explain": "表示原来以为是某种情况，结果与想的不同。“-는 줄 알았다”＝以为……（其实不是）。不要和“-는 줄 모르다”（不知道……）搞混。"
+                }
+              ]
+            },
+            {
+              "sentence": 3,
+              "items": [
+                {
+                  "pattern": "해지할 경우에는",
+                  "title": "-(으)ㄹ 경우（如果……的情况下）",
+                  "explain": "表示“万一／在……的情况下”，比“-(으)면”更正式，常用于规定、说明。“해지할 경우에는”＝解约的话。"
+                },
+                {
+                  "pattern": "된대요",
+                  "title": "-(ㄴ/는)대요（听说……）",
+                  "explain": "间接引用的缩略形式，“-다고 해요”→“-대요”。“된대요”＝“된다고 해요”，意思是“听说可以”。"
+                }
+              ]
+            },
+            {
+              "sentence": 4,
+              "items": [
+                {
+                  "pattern": "내는 대신에",
+                  "title": "-는 대신에（……作为交换，相应地……）",
+                  "explain": "表示一方面付出，另一方面得到补偿。这里＝多付一点钱，作为交换可以多用流量。也可表示“代替”，注意不要只理解为“代替”。"
+                }
+              ]
+            },
+            {
+              "sentence": 5,
+              "items": [
+                {
+                  "pattern": "변경하기로 했어요",
+                  "title": "-기로 하다（决定……）",
+                  "explain": "表示自己或和别人一起做出决定、约定。“변경하기로 했어요”＝决定更改了。注意是已经定下来的决定，而不是“想要”。"
+                }
+              ]
+            },
+            {
+              "sentence": 6,
+              "items": [
+                {
+                  "pattern": "설치해 줄 거예요",
+                  "title": "-아/어 주다（为别人做……）",
+                  "explain": "表示为他人做某事。“설치해 줄 거예요”＝（师傅）会帮我安装。“-(으)ㄹ 거예요”表示未来的打算或推测。"
+                }
+              ]
+            }
+          ],
+          "summary": [
+            "“-는 줄 알았는데”表示原以为……结果不同；“-는 대신에”表示以此换彼。",
+            "“-(으)ㄹ 경우”表示在……的情况下；“-(ㄴ/는)대요”表示听说……。",
+            "“-기로 하다”表示决定；“-아/어 주다”表示为别人做某事。"
+          ]
+        }
+      }
+    }
+  }
+}
